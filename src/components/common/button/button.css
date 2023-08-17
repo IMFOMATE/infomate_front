@@ -1,0 +1,34 @@
+.c-button-color-middle{
+    border-radius: 5px;
+    background: var(--color-middle);
+    color: white;
+    font-size: 18px;
+    padding: 8px 15px 8px 15px;    
+}
+
+.c-button-color-middle:hover{
+    color: white;
+    background: var(--color-hard);
+}
+
+.c-button-color-hard1{
+    border: 1px solid var(--color-hard);
+    border-radius: 5px;
+    color: var(--color-hard);
+    font-size: 18px;
+    padding: 8px 15px 8px 15px;    
+}
+
+.c-button-color-hard1:hover{
+    color: white;
+    background: var(--color-hard);
+}
+
+.c-button-cancel{
+    border-color: 1px solid var(--color-cancle-button) !important;
+    color: var(--color-cancle-button);
+}
+.c-button-cancel:hover{
+    background: var(--color-cancle-button);
+}
+

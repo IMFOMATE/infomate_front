@@ -1,0 +1,78 @@
+<style>
+    @media (width < 480px) {
+        .c-mycalendar-list-item-radio{
+            width: 25px !important;
+            height: 25px !important;   
+        }
+
+        .c-mycalendar-list-item-select{
+            width: 25px !important;
+            height: 25px !important;   
+        }
+        .c-mycalendar-list-item-select{
+            height: 35px !important;
+        }
+
+        .c-mycalendar-list-item-font{
+            font-size: 23 !important;
+        }
+
+        .c-mycalendar-list-item-button{
+            width: 23px !important;
+            height: 23px !important;
+        }
+    }
+
+    .c-mycalendar-list-item{
+        /* border:  1px solid red; */
+        width: 100%;
+        height: 35px;
+        min-width: 100%;
+        display: grid;
+        grid-template-columns: 30px auto 100px 100px;
+        align-self: center;
+        align-items: center;
+    }
+
+    .c-mycalendar-list-item-radio{
+        width: 15px;
+        height: 15px; 
+    }
+
+    .c-mycalendar-list-item-select{
+        min-width: 100%;
+        height: 25px;
+    }
+
+    .c-mycalendar-list-item-font{
+        font-size: 15;
+    }
+    .c-mycalendar-list-item-button{
+        margin-left: 5px ;
+        height: 15px; 
+        width: 15px; 
+        background-color: red; 
+        border: 0; 
+        border-radius: 10vw;
+    }
+
+</style>
+<div class="c-mycalendar-list-item">
+    <div style="text-align: center;">
+        <input id="" type="checkbox">
+    </div>
+    <div>
+        <label for="" class="c-mycalendar-list-item-font">캘린더 이름</label>
+        <button class="c-mycalendar-list-item-button" onclick=""></button>
+    </div>
+    <div style="text-align: center; align-self: center; ">
+        <input class="c-mycalendar-list-item-radio" type="radio" />
+    </div>
+    <div style="text-align: center;">
+        <select class="c-mycalendar-list-item-select">
+            <option>공개</option>
+            <option selected>비공개</option>
+        </select>
+    </div>
+    
+</div>

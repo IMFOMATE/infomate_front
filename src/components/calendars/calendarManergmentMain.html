@@ -1,0 +1,39 @@
+<link rel="stylesheet" type="text/css" href="/common/ele-component/common.css">
+
+<style>
+
+    @media (width < 480px) {
+        .c-calendar-manager-main-container > div {
+            width: 50% !important;
+            text-align: center !important;
+        }
+    }
+    .c-calendar-manager-main-container{
+        display: flex;
+        width: 100%;
+        height: 40px;
+        align-items: center;
+    }
+    .c-calendar-manager-main-container > div {
+        width: 30%;
+        min-width: 240px;
+        text-align: left;
+        color: gray;
+    }
+
+    .c-calendar-manager-main-select {
+        font-weight: 600;
+        padding: 10px 15px 10px 15px;
+        color: black;
+        border-bottom: 3px solid var(--color-middle);
+    }
+</style>
+
+<div class="c-calendar-manager-main-container">
+    <div>
+        <span class="c-calendar-manager-main-select">내 캘린더</span>
+    </div>
+    <div>
+        <span> 관심 캘린더 </span>
+    </div>
+</div>

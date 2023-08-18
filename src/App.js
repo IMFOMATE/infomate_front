@@ -1,20 +1,18 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from "./layouts/Layout";
+import Board from "./pages/board/Board";
+import BoardMain from "./pages/board/BoardMain";
 
-function Main() {
-    return null;
-}
+
 
 function App() {
   return (
       <>
         <BrowserRouter>
           <Routes>
-            {/* 루트 요청 시 Main으로 이동하도록 설정 */}
-            {/* <Route path="/" element={ <Main />}/> */}
-
-            {/* 인덱스로 설정해두면 위의 설정(루트 요청)과 동일하다. */}
-            <Route index element={ <Main />}/>
-
+              <Route path="/" element={<Layout/>}>
+                  <Route path="/board" element={<BoardMain/>}></Route>
+              </Route>
           </Routes>
         </BrowserRouter>
       </>

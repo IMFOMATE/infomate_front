@@ -1,0 +1,47 @@
+
+.c-attenduesr-background-white{
+    background: white;        
+}
+
+.c-attenduesr-border-1px-7758FA{
+    border: 1px solid #7758FA;
+}
+.c-attenduesr-border-radius-10px{
+    border-radius: 5vw
+}
+.c-attenduesr-background-7758FA{
+    background: #7758FA;
+}
+.c-attenduesr-border-1px-7758FA{
+    border: 1px solid #7758FA;
+}
+.c-attenduesr-font-color-7758FA{
+    color: #7758FA;
+}
+.c-attenduesr-font-color-white{
+    color: white;
+}
+.btn-padding{
+    padding: 7px 20px 7px 20px;
+}
+.letter-space{
+    letter-spacing: 0.1vh;
+}
+
+
+.c-attenduesr-button{
+    letter-spacing: 0.1vh;
+    padding: 7px 20px 7px 20px;
+    color: var(--color-middle);
+    /* background: #7758FA; */
+    border: 1px solid var(--color-middle);
+    border-radius: 5vw;
+    margin: 5px 5px 5px 5px;
+    height: 35px;
+}
+
+.c-attenduesr-button:hover{
+    color: white;
+    background-color: var(--color-middle);
+}
+

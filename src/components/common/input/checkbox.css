@@ -1,5 +1,11 @@
 .c-checkbox {
     width: 20px;
     height: 20px;
-    border: 1px solid var(--color-middle);
+    margin: 0;
+    border: 0.3px solid var(--color-text-content);
+
+    
+}
+.c-checkbox-background{
+    accent-color: rgb(159, 138, 200);
 }

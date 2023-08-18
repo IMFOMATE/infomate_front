@@ -11,6 +11,8 @@ const InputEle = (props) => {
             onChange={props?.onChange} 
             placeholder={props?.placeholder} 
             disabled={props?.isDisabled}
+            onKeyPress={props?.onKeyPress}
+            style={props.style}
             />
 }
 

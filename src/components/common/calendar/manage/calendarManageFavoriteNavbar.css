@@ -1,7 +1,7 @@
 .c-calendar-manager-submenu{
     display: flex;
-    
     border-bottom: 1px solid rgba(125, 125, 125, 0.5);
+    color: gray;
 }
 .c-calendar-manager-submenu > div{
     margin-right: 20px;
@@ -21,6 +21,7 @@
     
 }
 .c-calendar-manager-submenu-select{
-
+    color: black;
+    font-weight: 500;
     border-bottom: 5px solid var(--color-middle);
 }

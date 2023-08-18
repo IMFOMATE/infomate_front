@@ -6,11 +6,11 @@
     width: 100%;
     min-height: 30px;
     max-height: 35px;
-    font-size: 14px;
+    font-size: 1.1rem;
     border: 0.3px solid var(--color-text-content);
+    border-radius: 3px;
     padding: 10px 10px 10px 10px;
     display: block;
-
 }
 
 .c-input[type=datetime-local]{
@@ -21,8 +21,8 @@
     outline-color: var(--color-hard);
 }
 .c-input-radio{
-    width: 30px;
-    height: 30px;
+    width: 23px;
+    height: 23px;
 }
 .c-input-radio:checked{
     border-radius: 30px ;
@@ -32,8 +32,8 @@
 }
 
 .c-input-color{
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -43,8 +43,6 @@
 
 }
 .c-input-color::-webkit-color-swatch{
-    border-radius: 44px;
+    border-radius: 40px;
     border: 0;
-    position: relative;
-    top: 1px;
 }

@@ -8,16 +8,16 @@ const MyCalendarItem = (props) => {
     return (
         <div class="c-mycalendar-list-item">
             <div style={{textAlign: 'center'}}>
-                <CheckBox isChangeColor={true} value={props.checkValue}style={{height:25, width:25, position:'relative', top:'3px'}}/>
+                <CheckBox isChangeColor={true} value={props.checkValue}style={{height:20, width:20, position:'relative', top:'3px'}}/>
             </div>
             <div>
                 <div className='c-mycalendar-list-item-font'>
-                    <label style={{marginRight:10}}>{props.text}</label>
+                    <label style={{marginRight:10, fontSize:'1rem'}}>{props.text}</label>
                     <ColorInput value={props.colorValue} style={{height:30, width:30, position:'relative', top:'2px'}}/>
                 </div>
             </div>
             <div>
-               <RadioInput name={props.name} checked={props.defaultValue} />
+               <RadioInput name={props.name} checked={props.defaultValue} style={{verticalAlign: 'middle', alignSelf: 'center', display: 'block'}} />
             </div>
             <div style={{textAlign: 'center'}}>
                 <SelectEle class="c-mycalendar-list-item-select" data={[

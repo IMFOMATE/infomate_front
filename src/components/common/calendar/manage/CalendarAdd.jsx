@@ -8,12 +8,12 @@ const CalendarAdd = () => {
     return (
         <>
             <div className='c-Calendar-add'>
-                <label style={{fontSize:20, fontWeight:500}}>캘린더 명</label>
-                <InputEle type="text"  />
+                <label style={{fontSize:'1rem', fontWeight:500}}>캘린더 명</label>
+                <InputEle type="text" style={{height:16}} />
                 <div>
                     <ColorInput style={{textAlign:'center'}}/>
                 </div>
-                <ButtonInline value={'추가'} style={{height: 40, width:60}} />
+                <ButtonInline value={'추가'} style={{height: 30, width:60}} />
             </div>
         </>
     )

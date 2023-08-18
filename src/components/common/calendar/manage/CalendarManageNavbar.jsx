@@ -2,7 +2,7 @@ import './CalendarManageNavbar.css';
 
 const CalendarManageNavbar = () => {
 
-    const select = 'favoritecal' // useParam()
+    const select = 'mycal' // useParam()
 
     const selectMenu = 'c-calendar-manager-main-select'
     

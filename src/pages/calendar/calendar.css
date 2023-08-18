@@ -108,7 +108,7 @@
 }
 
 .c-create-schedule-containor {
-    font-size: 18px;
+    font-size: 1.2rem;
     width: 90%;
     margin: 20px;
 }
@@ -190,7 +190,7 @@
 }
 .c-create-schedule-title {
     display: block !important;
-    font-size: 25px;
+    font-size: 2rem;
     font-weight: 600;
     color: gray;
     padding: 0 !important;

@@ -19,7 +19,7 @@ const MyCalendar = (props) => {
                     <MyCalendarItem name='1' defaultValue={true} text='회사 캘린더'/> {/* 예제 */}
                 </div>
                 <div style={{textAlign: 'center', marginTop:70}}>
-                    <ButtonInline isCancel={true} value='캘린더로 돌아가기' style={{width:'15%', minWidth:150, height:50}} />
+                    <ButtonInline isCancel={true} value='캘린더로 돌아가기' style={{width:'15%', minWidth:150, height:40}} />
                 </div>
             </div>
         </>

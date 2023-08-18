@@ -12,10 +12,6 @@
         height: 35px !important;
     }
 
-    .c-mycalendar-list-item-font{
-        font-size: 23 !important;
-    }
-
     .c-mycalendar-list-item-button{
         width: 23px !important;
         height: 23px !important;
@@ -33,7 +29,7 @@
     align-self: center;
     align-items: center;
     padding-top: 15px;
-    padding-bottom: 55px;
+    padding-bottom: 50px;
     border-bottom: 1px solid rgba(125, 125, 125, 0.5);
 }
 
@@ -49,7 +45,7 @@
 
 .c-mycalendar-list-item-font{
     display: inline-block;
-    font-size: 20px;
+    font-size: 1.2rem;
     height: 35px;
     vertical-align: middle;
     align-self: center;

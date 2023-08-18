@@ -1,7 +1,7 @@
 import './components/common/nav.css';
 import './components/common/main.css';
 import './components/common/default.css';
-import './components/common/component.css';
+// import './components/common/component.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from "./layouts/Layout";
 import Board from "./pages/board/Board";

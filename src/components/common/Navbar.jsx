@@ -42,7 +42,7 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Schedule")}>
-                    <NavLink to="" >
+                    <NavLink to="/calendar" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             calendar_today
                         </span>

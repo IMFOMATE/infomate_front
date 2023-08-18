@@ -1,7 +1,7 @@
 .c-my-calendar {
-    row-gap: 20px;
+    
 }
 
 .c-my-calendar > div:first-child{
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }

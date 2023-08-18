@@ -3,14 +3,11 @@ import CalendarManageNavbar from '../components/common/calendar/manage/CalendarM
 import CalendarManageHeader from '../components/common/calendar/manage/CalendarManageHeader'
 
 const CalendarManegeLayout = () => {
-    const containerStyle = {
-        margin: 30,
-
-    }
+    
 
     return (
-        <div style={containerStyle}>
-            <CalendarManageHeader value={'테스트'} style={{marginBottom:40}} />
+        <div style={{margin: '10px 30px 10px 30px'}}>
+            <CalendarManageHeader value={'스케쥴 관리'} style={{marginBottom:10}} />
             <CalendarManageNavbar />
             <br/>
             <br/>

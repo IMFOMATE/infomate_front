@@ -1,0 +1,43 @@
+.c-create-schedule{
+    padding: 15px 10px 15px 10px;
+    border-radius: 5px;
+    display: inline-block;
+    max-width: 550px;
+    width: 550px;
+    min-width: 480px;
+    box-shadow: 0 0 40px rgba(200, 200, 200, 0.4);
+}
+
+.c-create-schedule-title{
+    display: grid;
+    font-weight: 700;
+    grid-template-columns: 50% 50%;
+    padding: 0 3% 30px 3% ;
+    font-size: 25px;
+
+}
+
+.c-create-schedule-close{
+    text-align: end;
+    justify-content: end;
+    color:rgba(125, 125, 125, 0.8);
+}
+
+.c-create-schedule-content{
+    text-align: center;
+}
+.c-create-schedule-col{
+    /* border: 1px solid black; */
+    
+    display: grid;
+    grid-template-columns: 20% 70%;
+    grid-row-gap: 1vh;   
+    row-gap: 1vh;
+}
+
+.c-create-schedule-bottom{
+    margin-top: 30px;
+}
+.c-create-schedule-date{
+    text-align: left;
+}

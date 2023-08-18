@@ -1,0 +1,76 @@
+<link rel="stylesheet" type="text/css" href="./common.css">
+<style>
+    @media (width > 480px) and (width < 1280px) {
+
+    }
+    
+    @media (width <= 480px) {
+        .c-schedule-detail-container,
+         .c-schedule-detail-container label,
+          .c-schedule-detail-container input{ 
+            display: block !important;
+        }
+        .c-schedule-detail-sub-item {
+        display: block !important;
+    }
+    }
+
+    .c-schedule-detail-sub-item {
+        display: inline;
+    }
+    .c-schedule-detail-container{
+        display: grid;
+        grid-template-columns: 130px 70vw;
+    }
+
+
+</style>
+
+<div>
+    <div>
+        <h3>title</h3>
+    </div>
+    <form>
+            <div>
+                <input type="text">
+                <div class="c-schedule-detail-sub-item">
+                <input id="private" type="checkbox"><label for="private">비공개</label>
+                <input id="importent" type="checkbox"><label for="importent">중요</label>
+                </div>
+            </div>
+            <div>
+                <div class="c-schedule-detail-sub-item">
+                    <input type="datetime-local">
+                </div>
+                <div class="c-schedule-detail-sub-item">
+                    <input type="datetime-local">
+                </div>
+                <div class="c-schedule-detail-sub-item">
+                    <input id="all-day" type="checkbox"><label for="all-day">종일</label>
+                    <input id="circle" type="checkbox"><label for="circle">반복</label>
+                </div>
+            </div>
+            <div class="c-schedule-detail-container">
+                <label for="corp-schedule">전사일정</label>
+                <input id="corp-schedule" type="checkbox">
+
+                <label>참석자</label>
+                <div>참석자 컴포넌트</div>
+                
+                <label for="address">장소</label>
+                <div>
+                    <input id="address" type="text">
+                    <button onclick="">주소 검색</button>
+                </div>
+
+                <label>내용</label>
+                <textarea name="" id="" cols="30" rows="10"></textarea><!-- TEXT WEB EDITOR -->
+
+            </div>
+        <div>
+            <input type="button" value="등록" onclick="">
+            <input type="button" value="닫기" onclick="">
+        </div>
+    </form>
+
+</div>

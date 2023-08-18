@@ -67,7 +67,7 @@
     box-shadow: 0 0 40px rgba(200, 200, 200, 0.4);
 }
 
-.c-create-schedule-title{
+.c-create-schedule-summery-title{
     display: grid;
     font-weight: 600;
     grid-template-columns: 1fr 1fr;

@@ -14,11 +14,10 @@ const SecheduleSummaryCreate = () => {
     return (
         <>
             <div className="c-create-schedule c-transition03">
-                <div className="c-create-schedule-title">
+                <div className="c-create-schedule-summery-title">
                     <span style={{fontSize: 25}}>
                      일정 등록
                     </span>
-                    
                     <span className="c-create-schedule-close">
                         <ButtonInline value={'X'} />    
                     </span>

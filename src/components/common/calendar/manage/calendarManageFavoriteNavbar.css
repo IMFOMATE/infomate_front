@@ -1,0 +1,26 @@
+.c-calendar-manager-submenu{
+    display: flex;
+    
+    border-bottom: 1px solid rgba(125, 125, 125, 0.5);
+}
+.c-calendar-manager-submenu > div{
+    margin-right: 20px;
+
+    
+    /* padding: 1vh 0.5vw 0 0.5vw; */
+    
+    /* border: 1px solid black; */
+    
+}
+
+.c-calendar-manager-submenu > div > div{
+    text-align: center;
+    /* max-width: 170px; */
+    min-width: 170px;
+    padding-bottom: 10px ;
+    
+}
+.c-calendar-manager-submenu-select{
+
+    border-bottom: 5px solid var(--color-middle);
+}

@@ -5,7 +5,7 @@ import InputEle from '../../components/common/input/Input';
 import SelectEle from '../../components/common/select/SelectEle';
 
 
-import './calendar.css';
+import styles from './scheduleSummary.module.css';
 
 
 const SecheduleSummaryCreate = () => {
@@ -13,12 +13,12 @@ const SecheduleSummaryCreate = () => {
 
     return (
         <>
-            <div className="c-create-schedule c-transition03">
-                <div className="c-create-schedule-summery-title">
+            <div className={styles.container}>
+                <div className={styles.title}>
                     <span style={{fontSize: 25}}>
                      일정 등록
                     </span>
-                    <span className="c-create-schedule-close">
+                    <span className={styles.close}>
                         <ButtonInline value={'X'} />    
                     </span>
                </div>
@@ -51,7 +51,7 @@ const SecheduleSummaryCreate = () => {
                             <CheckBox id="corp-schedule" type="checkbox" isChangeColor={true} style={{position: 'relative', top:'2px'}} />
                         </div>
                     </div>
-                    <div className="c-create-schedule-bottom">
+                    <div className={styles.footer}>
                         <ButtonOutline value={'상세일정등록'} style={{margin:'5px'}} />
                         <ButtonOutline value={'등록'} style={{margin:'5px'}}  />
                         <ButtonOutline value={'닫기'} isCancel={true} style={{margin:'5px'}} />

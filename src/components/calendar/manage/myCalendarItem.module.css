@@ -1,24 +1,24 @@
 @media (width < 480px) {
-    .c-mycalendar-list-item-radio{
+    .itemRadio{
         width: 25px !important;
         height: 25px !important;   
     }
 
-    .c-mycalendar-list-item-select{
+    .itemSelect{
         width: 25px !important;
         height: 25px !important;   
     }
-    .c-mycalendar-list-item-select{
+    .itemSelect{
         height: 35px !important;
     }
 
-    .c-mycalendar-list-item-button{
+    .itemButton{
         width: 23px !important;
         height: 23px !important;
     }
 }
 
-.c-mycalendar-list-item{
+.item{
     /* border:  1px solid red; */
     width: 100%;
     height: 40px;
@@ -33,17 +33,17 @@
     border-bottom: 1px solid rgba(125, 125, 125, 0.5);
 }
 
-.c-mycalendar-list-item-radio{
+.itemRadio{
     width: 15px;
     height: 15px; 
 }
 
-.c-mycalendar-list-item-select{
+.itemSelect{
     min-width: 100%;
     height: 25px;
 }
 
-.c-mycalendar-list-item-font{
+.itemFont{
     display: inline-block;
     font-size: 1.2rem;
     height: 35px;
@@ -52,7 +52,7 @@
 
 }
 
-.c-mycalendar-list-item-button{
+.itemButton{
     margin-left: 5px ;
     height: 15px; 
     width: 15px; 

@@ -1,4 +1,4 @@
-import './favoriteCalendarFollowing.css'
+import styles from './favoriteCalendar.module.css'
 
 
 const FavoriteCalendarFollowing = () => {

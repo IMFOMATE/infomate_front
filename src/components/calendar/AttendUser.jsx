@@ -1,7 +1,8 @@
-import './attendUser.css'
+import styles from './attendUser.module.css';
 
 const AttendUser = (props) => {
-    const className  = 'c-attenduesr-button';
+
+    const className  = [styles.btn,''].join(' ');
 
     return <button
             className={className}

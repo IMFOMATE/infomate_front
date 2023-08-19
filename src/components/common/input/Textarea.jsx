@@ -1,10 +1,10 @@
-import './textarea.css';
+import styles from './input.module.css';
 
 const TextareaEl = (props) => {
-    const className = `c-textarea`;
+
     return (
         <textarea
-            className={className}
+            className={styles.textarea}
             name={props?.name? props.name : null}
             value={props?.value? props.value : null}
             placeholder={props?.placeholder? props.placeholder : null}

@@ -1,10 +1,13 @@
-import './calendarManageFavoriteNavbar.css'
+import styles from './calendarManageFavoriteNavbar.module.css'
 
 const CalendarManageFavoriteNavbar = () => {
+    
+    // useParams()
+
     return (
-         <div class="c-calendar-manager-submenu">
+         <div className={styles.submenu}>
             <div>
-                <div class="c-calendar-manager-submenu-select"> 
+                <div className={styles.select}> 
                     내가 관심 등록한 캘린더
                 </div>
             </div>

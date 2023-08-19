@@ -1,7 +1,6 @@
-.calendar-manage-header{
+.header{
     font-size: 2rem;
     font-weight: 700;
     letter-spacing: 2px;
     padding: 30px 0 12px 0 !important;
-    border-bottom: 0;
 }

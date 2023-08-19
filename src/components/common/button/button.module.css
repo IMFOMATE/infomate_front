@@ -1,45 +1,44 @@
-.c-button {
+.btn {
     font-size: 0.9rem;
     padding: 5px 12px 5px 12px;
     border-radius: 5px;
 }
 
-.c-button-color-middle{
+.colorMiddle{
     background: var(--color-middle);
     color: white;
 }
 
-.c-button-color-middle:hover{
+.colorMiddle:hover{
     color: white;
     background: var(--color-hard);
 }
 
-.c-button-color-hard{
+.colorHard{
     border: 1px solid var(--color-hard);
     color: var(--color-hard);    
 }
 
-.c-button-color-hard:hover{
+.colorHard:hover{
     color: white;
     background: var(--color-hard);
 }
 
-.c-button-cancel-inline{
+.cancelInline{
     background-color: var(--color-cancle-button);
     color: white;
 }
 
-.c-button-cancel-inline:hover{
+.cancelInline:hover{
     background-color: var(--color-cancle-button-hard);
 }
 
-.c-button-cancel-outline{
+.cancelOutline{
     border-color: 1px solid var(--color-cancle-button);
     color: var(--color-cancle-button);
 }
 
-.c-button-cancel-outline:hover{
+.cancelOutline:hover{
     background: var(--color-cancle-button);
-    
 }
 

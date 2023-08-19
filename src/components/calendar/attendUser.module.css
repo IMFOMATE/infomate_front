@@ -1,4 +1,4 @@
-
+/* 
 .c-attenduesr-background-white{
     background: white;        
 }
@@ -26,10 +26,10 @@
 }
 .letter-space{
     letter-spacing: 0.1vh;
-}
+} */
 
 
-.c-attenduesr-button{
+.btn{
     letter-spacing: 0.1vh;
     padding: 7px 20px 7px 20px;
     color: var(--color-middle);
@@ -40,7 +40,7 @@
     height: 35px;
 }
 
-.c-attenduesr-button:hover{
+.btn:hover{
     color: white;
     background-color: var(--color-middle);
 }

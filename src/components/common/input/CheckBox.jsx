@@ -1,8 +1,8 @@
-import './checkbox.css'
+import styles from './checkbox.module.css';
 
 const CheckBox  = (props) => {
 
-    const className = `c-checkbox ${props.isChangeColor? 'c-checkbox-background' : ''}`
+    const className = [styles.chk, props.isChangeColor? styles.chkBg : ''].join(' ');
     
     return (
         <input 

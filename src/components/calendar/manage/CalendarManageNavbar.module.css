@@ -1,25 +1,25 @@
 
 @media (width < 480px) {
-    .c-calendar-manager-main-container > div {
+    .container > div {
         width: 50% !important;
         text-align: center !important;
     }
 }
-.c-calendar-manager-main-container{
+.container{
     display: flex;
     width: 100%;
     height: 40px;
     align-items: center;
     border-bottom: 1px solid rgba(125, 125, 125, 0.5) ;
 }
-.c-calendar-manager-main-container > div {
+.container > div {
     width: 30%;
     min-width: 240px;
     text-align: left;
     color: gray;
 }
 
-.c-calendar-manager-main-select {
+.select {
     font-weight: 600;
     padding: 9px 15px 9px 15px;
     color: black;

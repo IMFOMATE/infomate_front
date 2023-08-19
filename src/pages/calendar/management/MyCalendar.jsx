@@ -1,15 +1,15 @@
 import ButtonInline from '../../../components/common/button/ButtonInline';
-import CalendarAdd from '../../../components/common/calendar/manage/CalendarAdd';
-import MyCalendarItem from '../../../components/common/calendar/manage/MyCalendarItem'
+import CalendarAdd from '../../../components/calendar/manage/CalendarAdd';
+import MyCalendarItem from '../../../components/calendar/manage/MyCalendarItem'
 
-import './myCalendar.css';
+import styles from './myCalendar.module.css';
 
 const MyCalendar = (props) => {
 
 
     return (
         <>  
-            <div className='c-my-calendar'>
+            <div className={styles.calendar}>
                 <div>
                     <CalendarAdd />
                 </div>

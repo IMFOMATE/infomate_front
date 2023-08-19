@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import CalendarManageNavbar from '../components/common/calendar/manage/CalendarManageNavbar'
-import CalendarManageHeader from '../components/common/calendar/manage/CalendarManageHeader'
+import CalendarManageNavbar from '../components/calendar/manage/CalendarManageNavbar'
+import CalendarManageHeader from '../components/calendar/manage/CalendarManageHeader'
 
 const CalendarManegeLayout = () => {
     

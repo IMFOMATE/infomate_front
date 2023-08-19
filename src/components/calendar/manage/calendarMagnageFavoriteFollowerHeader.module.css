@@ -1,11 +1,11 @@
 @media (width <= 480px) {
-    .c-cal-manage-fav-fow-hd-grid {
+    .fowHdGrid {
         display: table !important;
         border-collapse: collapse !important;
         border: 1px solid var(--color-text-content) !important;
    }
 
-    .c-cal-manage-fav-fow-hd-grid > div:first-child {
+    .fowHdGrid > div:first-child {
         display: table-cell !important;
         vertical-align: middle !important;
         width: 100% !important;
@@ -14,7 +14,7 @@
         padding: 15px !important;
     }
 
-    .c-cal-manage-fav-fow-hd-grid > div:last-child {
+    .fowHdGrid > div:last-child {
         display: table-cell !important;
         vertical-align: middle !important;
         text-align: center !important;
@@ -25,43 +25,42 @@
         border: 1px solid var(--color-text-content) !important;
     }
 
-    .c-cal-manage-fav-fow-hd-grid > div:first-child > div {
+    .fowHdGrid > div:first-child > div {
         display: block !important;
         width: 100% !important;
         /* border: 1px solid black; */
     }
 
-    .c-cal-manage-fav-fow-hd-grid > div {
+    .fowHd-grid > div {
     padding-bottom: 0px;
 }
         
 }
 
-.c-cal-manage-fav-fow-hd-grid{
+.fowHdGrid{
    display: table;
    border-collapse: collapse;
    border-bottom: 1px solid rgba(125, 125, 125, 0.4);
    height: 40px;
 }
 
-.c-cal-manage-fav-fow-hd-grid > div {
+.fowHdGrid > div {
     padding-bottom: 7px;
 }
 
-.c-cal-manage-fav-fow-hd-grid > div:first-child {
-    
+.fowHdGrid > div:first-child {
     vertical-align: middle;
     display: table-cell;
     width: 100%;
 }
 
-.c-cal-manage-fav-fow-hd-grid > div:first-child > div {
+.fowHdGrid > div:first-child > div {
     display: inline-flex;
     width: 30%;
     /* border: 1px solid black; */
 }
 
-.c-cal-manage-fav-fow-hd-grid > div:last-child {
+.fowHdGrid > div:last-child {
     display: table-cell;
     min-width: 100px;
     vertical-align: middle;

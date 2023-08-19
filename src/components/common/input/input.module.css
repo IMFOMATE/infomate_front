@@ -1,4 +1,4 @@
-.c-input {
+.input{
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box; 
@@ -13,25 +13,25 @@
     display: block;
 }
 
-.c-input[type=datetime-local]{
+.input[type='datetime-local']{
     color: var(--color-text-content);
 }
 
-.c-input:focus{
+.input:focus{
     outline-color: var(--color-hard);
 }
-.c-input-radio{
+.input[type=radio]{
     width: 23px;
     height: 23px;
 }
-.c-input-radio:checked{
+.input[type=radio]:checked{
     border-radius: 30px ;
     /* border: 1px solid var(--color-middle) !important; */
     /* background: var(--color-middle) !important ; */
     accent-color: rgb(159, 138, 200);
 }
 
-.c-input-color{
+.color{
     width: 40px;
     height: 40px;
     appearance: none;
@@ -42,7 +42,22 @@
     border: 0;
 
 }
-.c-input-color::-webkit-color-swatch{
+.color::-webkit-color-swatch{
     border-radius: 40px;
     border: 0;
+}
+
+.textarea {
+    width: 100%;
+    padding: 10px;
+    resize: none;
+    border: 0.3px solid var(--color-text-content);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+.textarea:focus{
+    outline-color: var(--color-middle);
 }

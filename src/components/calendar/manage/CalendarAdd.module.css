@@ -1,4 +1,4 @@
-.c-Calendar-add {
+.add {
     width: 50%;
     min-width: 450px;
     height: 50px;
@@ -9,7 +9,7 @@
     text-align: center;
 }
 
-.c-Calendar-add label, input, button{
+.add label, input, button{
     align-self: center;
     
 }

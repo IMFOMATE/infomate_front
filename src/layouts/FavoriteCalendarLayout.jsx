@@ -1,5 +1,5 @@
-import CalendarManageFavoriteNavbar from '../components/common/calendar/manage/CalendarManageFavoriteNavbar'
-import CalendarMagnageFavoriteFollowerHeader from '../components/common/calendar/manage/CalendarMagnageFavoriteFollowerHeader';
+import CalendarManageFavoriteNavbar from '../components/calendar/manage/CalendarManageFavoriteNavbar'
+import CalendarMagnageFavoriteFollowerHeader from '../components/calendar/manage/CalendarMagnageFavoriteFollowerHeader';
 import { Outlet } from 'react-router-dom';
 
 const FavoriteCalendarLayout = () => {

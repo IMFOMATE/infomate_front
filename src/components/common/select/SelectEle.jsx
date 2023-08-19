@@ -1,9 +1,9 @@
-import './select.css';
+import styles from './select.module.css';
 
 const SelectEle = (props) => {
     return (
         <select
-            className='c-select-ele'
+            className={styles.select}
             name={props.name} 
             value={props.value} 
             disabled={props.disabled}

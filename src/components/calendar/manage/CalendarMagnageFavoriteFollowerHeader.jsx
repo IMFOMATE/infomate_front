@@ -1,9 +1,10 @@
-import './calendarMagnageFavoriteFollowerHeader.css'
+import styles from './calendarMagnageFavoriteFollowerHeader.module.css'
 
 const CalendarMagnageFavoriteFollowerHeader = () => {
+    const className  = [styles.fowHdGrid].join(' ');
 
     return(
-        <div className='c-cal-manage-fav-fow-hd-grid'>
+        <div className={className}>
             <div>
                 <div>직원 이름(직함)</div>
                 <div>캘린더 이름</div>

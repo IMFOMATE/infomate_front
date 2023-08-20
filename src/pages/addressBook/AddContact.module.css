@@ -1,0 +1,113 @@
+.full-address-book {
+    color: #535353;
+font-family: Inter;
+font-size: 27px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+padding: 20px;
+margin-top: -50px;
+}
+
+.sidemenu {
+text-align: left;
+
+}
+
+.list {
+
+padding: 20px;
+color: gray;
+font-family: Inter;
+font-size: 17px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+margin-left: 20px;
+line-height: 10px;
+}
+
+#preview {
+    margin-left: 147px;
+
+}
+
+.contactInformation {
+
+    display: flex;
+    font-size: 15px;
+    color: var(--color-text-content);
+    padding: 20px;
+    line-height: 35px;
+    margin-left: 20px;
+    width: 500px;
+
+    
+    
+}
+
+.contactText {
+    width: 100px;
+    display: inline-block;
+    margin-right: 40px;
+    
+}
+
+.contactInformation>ul>li {
+    margin-top: 25px;
+}
+
+.contactInformation>ul>li>input {
+
+    border: 1px solid rgba(155 , 155,155 ,0.5);
+    width: 200px;
+    height: 20px;
+}
+
+.contactSave {
+    display: flex;
+    
+    position: absolute;
+    top: 90%;
+    left: 75%;
+    background-color: var(--color-hard);
+    width: 79px;
+    height: 33px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 600;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+   
+}
+
+.customFileInput {
+    display: inline-block;
+    text-align: center;
+    padding: 8px 15px;
+    background-color: rgba(155, 155, 155, 0.5);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transform: translate(-110px, -7px);
+    height: 30px;
+    line-height: 1.5;
+   
+    margin-left: 10px;
+    
+  
+    width: 100px;
+    font-size: 14px;
+  }
+  
+  /* .custom-file-input:hover {
+    background-color: #2980b9;
+  } */
+
+
+
+
+
+

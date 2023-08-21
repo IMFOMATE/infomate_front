@@ -55,10 +55,11 @@ th:last-child, td:last-child{
     font-weight: bold;
     font-size: 15px;
     color: var(--color-text-title);
+    cursor: pointer;
 }
 
 .active{
-    color: var(--color-hard);
+    color: var(--color-hard) !important;
     font-weight: bold;
     border-bottom: 2px solid var(--color-hard);
 }

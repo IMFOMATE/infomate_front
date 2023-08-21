@@ -8,6 +8,8 @@ import {NavLink} from "react-router-dom";
 
 function ToolbarApprovalTable() {
 
+  /*effect이용하긴해야되는데*/
+
   const [filter, setFilter] = useState('');
 
   const filterState = [
@@ -23,20 +25,25 @@ function ToolbarApprovalTable() {
     setFilter(selectedFilter === filter ? '' : selectedFilter);
   };
 
-  const filterdData = filter === '' ? testinit.docList : testinit.docList.filter((f) => f.status === filter);
+  const filteredData = filter === '' ? testinit.docList : testinit.docList.filter((f) => f.status === filter);
 
   return (
     <div>
       <ul className={ApprovalTableCss.toolbar}>
         {
           filterState.map((value, index) =>
-            <li onClick={handleFilterChange} data-type={value.url}>
+            <li
+              key={index}
+              onClick={handleFilterChange}
+              data-type={value.url}
+              className={filter === value.url ? ApprovalTableCss.active : ''}
+            >
               {value.text}
             </li>
           )
         }
       </ul>
-      <ApprovalTable data={filterdData}/>
+      <ApprovalTable data={filteredData}/>
     </div>
   );
 }

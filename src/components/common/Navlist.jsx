@@ -10,7 +10,7 @@ function Navlist({title, data}) {
         {
           data.map((d, index) =>
             <li key={index}>
-              <Link to={d.list}>
+              <Link to={d.link}>
                 {d.text}
               </Link>
             </li>

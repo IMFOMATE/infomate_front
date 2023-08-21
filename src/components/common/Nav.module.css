@@ -1,0 +1,205 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
+
+
+
+
+.flex{
+    display: flex;
+    height: 100%;
+}
+
+.close {
+    flex: 0 0 80px;
+}
+
+header{
+    display: flex;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    flex: 1 0 480px;
+	overflow-x: hidden;
+    transition: all 0.5s ease;
+}
+
+main{
+    width: 100%;
+}
+
+.menuBtn{
+    z-index: 100;
+    display: block;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    padding: 24px;
+}
+
+.menuBtn div > span:first-child{
+    font-size: 2rem;
+    cursor: pointer;
+    color: #fff;
+}
+
+.menuBtn div > span:nth-child(2){
+    font-size: 1.5rem;
+    color: var(--color-text-title);
+    display: none;
+}
+
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 80px;
+}
+
+
+.profileImg{
+    border-radius: 100%;
+    width: 100px;
+}
+
+.profileInfo{
+    color: #fff;
+    padding-top: 8px;
+}
+
+.profileInfo p:first-child{
+    font-weight: bold;
+    padding-bottom: 8px;
+}
+
+.nav{
+    background: var(--color-middle);
+    flex: 1 0 240px;
+    height: 100vh;
+    padding: 0px 15px;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;  
+}
+
+
+.nav ul{
+    overflow-x: hidden;   
+    flex: 1 1 auto; 
+    margin: 15px 0px;
+}
+
+.nav ul li{
+    overflow-x: hidden;   
+    position: relative;
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+.nav ul li:hover{
+    background-color: var(--color-hard);
+}
+
+.nav ul li a{
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.close .nav ul li a span:last-child{
+    display: none;
+}
+
+.nav ul li a .icon{
+    padding: 10px;
+}
+
+.logout a {
+    display: block;
+    color: var(--color-hard);
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    background-color: var(--color-bg-button);
+    margin-bottom: 15px;
+    border: 3px solid var(--color-hard);
+}
+
+.close .profile {
+    visibility: hidden;
+}
+
+.close .nav{
+    flex: 1 0 80px;
+}
+
+.close .sidemenu{
+    display: none;
+}
+
+
+/* 사이드 2 */
+.sidemenu{
+    
+    flex: 1 0 240px;
+    background-color: #fff;
+    border-right: 1px solid var(--color-border);
+}
+
+.sideTop{
+    padding: 20px;
+}
+
+.sideTop h1 {
+    color: var(--color-text-title);
+    margin-bottom: 24px;
+}
+
+.sideTop a {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--color-middle);
+    color: var(--color-middle);
+    transition: all 150ms ease-in-out;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.sideTop a:hover{
+    background-color: var(--color-hard);
+    color: #fff;
+}
+.sideList{
+
+}
+
+@media (max-width: 480px){
+    body{
+        min-width: 100%;
+        overflow: hidden;
+    }
+    .close {
+        display: none;
+    }
+    .menuBtn div > span:first-child{
+        font-size: 2rem;
+        cursor: pointer;
+        color: var(--color-middle);
+    }
+
+}
+
+@media (max-width: 1280px){
+
+}
+
+
+
+
+
+

@@ -6,7 +6,7 @@ function AddressBook() {
 
     return (
         <>
-                  <div className={ style.wrapper }>
+                  <div className= 'wrapper' >
                 <h1 style={{color:'var(--color-text-title)'}}>전체 주소록</h1>
                 <div className={ style.addressSearch }>
                     <div className={style.addressText}>이름</div>

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+
 import React from 'react';
 import '../../components/common/header/default.css';
 import style from './Mail.module.css';

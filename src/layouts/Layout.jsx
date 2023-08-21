@@ -25,4 +25,5 @@ export default function Layout() {
             </MenuContextProvider>
         </>
     );
+
 }

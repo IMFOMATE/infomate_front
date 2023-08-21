@@ -20,9 +20,8 @@ import Common from "./pages/board/Common";
 import BrdDept from "./pages/board/BrdDept";
 import BrdAdmin from "./pages/board/BrdAdmin";
 import Anony from "./pages/board/Anony";
-
-
-
+import ApprovalMain from "./pages/approval/ApprovalMain";
+import MyDocList from "./pages/approval/MyDocList";
 function App() {
   return (
       <>
@@ -46,6 +45,18 @@ function App() {
                   <Route path="/board/brddept" element={ <BrdDept />}/>
                   <Route path="/board/brdadmin" element={ <BrdAdmin />}/>
                   <Route path="/board/anony" element={ <Anony />}/>
+                  <Route path="/board" element={<BoardMain/>}></Route>
+                  <Route path="calendar">
+                      <Route index element={<SecheduleCreate/>}/>
+                  </Route>
+                  <Route path="approval">
+                    <Route index element={<ApprovalMain/>}/>
+                    <Route path="mylist" element={<MyDocList/>}/> {/*내 기안 리스트*/}
+                    <Route path="reflist"/> {/*참조문서리스트*/}
+                    <Route path="temp"/> {/*임시저장문서리스트*/}
+                    <Route path="approving"/> {/*결재 대기문서리스트*/}
+                    <Route path="approved"/> {/*결재 대기완료 리스트*/}
+                  </Route>
               </Route>
           </Routes>
         </BrowserRouter>

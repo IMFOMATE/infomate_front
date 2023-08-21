@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import { NavLink } from "react-router-dom";
 import NavStyle from './Nav.module.css';
 import {useContext} from "react";
 import {CurrentTitleContext} from "../../context/CurrentTitleContext";

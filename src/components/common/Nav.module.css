@@ -13,7 +13,6 @@
 }
 
 header{
-    display: flex;
     position: sticky;
     top: 0;
     left: 0;
@@ -21,8 +20,9 @@ header{
     bottom: 0;
     height: 100vh;
     flex: 1 0 480px;
-	overflow-x: hidden;
+    overflow-x: hidden;
     transition: all 0.5s ease;
+    display: flex;
 }
 
 main{
@@ -76,8 +76,8 @@ main{
 }
 
 .nav{
-    background: var(--color-middle);
     flex: 1 0 240px;
+    background: var(--color-middle);
     height: 100vh;
     padding: 0px 15px;
     display: flex;
@@ -143,7 +143,6 @@ main{
 
 /* 사이드 2 */
 .sidemenu{
-    
     flex: 1 0 240px;
     background-color: #fff;
     border-right: 1px solid var(--color-border);

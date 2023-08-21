@@ -58,6 +58,10 @@ a {
     text-decoration: none;
 }
 
+main{
+	overflow-y: auto;
+}
+
 
 /* 색상 기본 */
 :root{
@@ -73,7 +77,8 @@ a {
 	--color-border: #e8e8e8;
 	--color-bg-button : #e3ddfe;
 	--color-background : #F8F8F8;
-
+	--color-alert: #FF6767;
+	--color-success : #36D99E;
 }
 
 ::-webkit-scrollbar{

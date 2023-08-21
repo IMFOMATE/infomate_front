@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import Default from "../../layouts/Default.css"
 import NavStyle from './Nav.module.css';
 import Board from "../../pages/board/Board";
-import ApprovalNav from "../../pages/approval/ApprovalNav";
+import ApprovalNav from "../approval/ApprovalNav";
 import {CurrentTitleContext} from "../../context/CurrentTitleContext";
 import HomeNav from "../../pages/home/HomeNav";
 import {MenuContext} from "../../context/MenuContext";
@@ -12,7 +12,7 @@ function Header() {
     const {currentTitle, toggleTitle } = useContext(CurrentTitleContext);
     const {menuState, toggleMenu} = useContext(MenuContext);
     return (
-        <header className={menuState ? '' : NavStyle.close}>
+        <header className={menuState === false ? NavStyle.close : ''}>
             <Navbar/>
 
             {

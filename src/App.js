@@ -5,15 +5,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from "./layouts/Layout";
 import Board from "./pages/board/Board";
 import BoardMain from "./pages/board/BoardMain";
-import CalendarManegeLayout from "./layouts/CalendarManageLayout";
-import MyCalendar from './pages/calendar/management/MyCalendar';
-import FavoriteCalendarLayout from "./layouts/FavoriteCalendarLayout";
-import FavoriteCalendarFollowing from './pages/calendar/management/FavoriteCalendarFollowing'
-import FavoriteCalendarFollower from "./pages/calendar/management/FavoriteCalendarFollower";
-
-import ScheduleDetailCreate from "./pages/calendar/ScheduleDetailCreate";
-import ReminderList from './components/calendar/dashboard/ReminderList';
-import Calendar from './pages/calendar/Calendar';
+import './components/common/nav.css';
+import './components/common/main.css';
+import './components/common/default.css';
+import './components/common/component.css';
 
 
 function App() {
@@ -37,7 +32,6 @@ function App() {
                        </Route>
                       </Route>          
                   </Route>
-
               </Route>
           </Routes>
         </BrowserRouter>

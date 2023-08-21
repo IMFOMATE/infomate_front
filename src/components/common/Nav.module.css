@@ -1,8 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
 
-
-
-
 .flex{
     display: flex;
     height: 100%;
@@ -82,18 +79,18 @@ main{
     padding: 0px 15px;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;  
+    overflow-x: hidden;
 }
 
 
 .nav ul{
-    overflow-x: hidden;   
-    flex: 1 1 auto; 
+    overflow-x: hidden;
+    flex: 1 1 auto;
     margin: 15px 0px;
 }
 
 .nav ul li{
-    overflow-x: hidden;   
+    overflow-x: hidden;
     position: relative;
     width: 100%;
     transition: all 0.3s ease-in-out;
@@ -197,9 +194,3 @@ main{
 @media (max-width: 1280px){
 
 }
-
-
-
-
-
-

@@ -30,7 +30,7 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 }
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+article, aside, details, figcaption, figure, footer, hgroup, menu, nav, section {
 	display: block;
 }
 div, span, article, section, header, footer, aside, p, ul, li, fieldset, legend, label, a, nav, form {

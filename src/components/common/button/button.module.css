@@ -1,0 +1,44 @@
+.btn {
+    font-size: 0.9rem;
+    padding: 5px 12px 5px 12px;
+    border-radius: 5px;
+}
+
+.colorMiddle{
+    background: var(--color-middle);
+    color: white;
+}
+
+.colorMiddle:hover{
+    color: white;
+    background: var(--color-hard);
+}
+
+.colorHard{
+    border: 1px solid var(--color-hard);
+    color: var(--color-hard);    
+}
+
+.colorHard:hover{
+    color: white;
+    background: var(--color-hard);
+}
+
+.cancelInline{
+    background-color: var(--color-cancle-button);
+    color: white;
+}
+
+.cancelInline:hover{
+    background-color: var(--color-cancle-button-hard);
+}
+
+.cancelOutline{
+    border-color: 1px solid var(--color-cancle-button);
+    color: var(--color-cancle-button);
+}
+
+.cancelOutline:hover{
+    background: var(--color-cancle-button);
+}
+

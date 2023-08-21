@@ -72,11 +72,17 @@ main{
 	--color-admin-middle : #333333;
 	--color-admin-hard : #717171;
 	--color-cancle-button : #A2A3A3; 
+	--color-cancle-button-hard : #8e8e8e; 
 	--color-text-title: #535353;
 	--color-text-content: #757575;
 	--color-border: #e8e8e8;
 	--color-bg-button : #e3ddfe;
 	--color-background : #F8F8F8;
+	--fc-button-bg-color: #9F8AFB;
+	--fc-button-border-color: #9F8AFB;
+	--fc-button-active-bg-color: #7758FA;
+	--fc-button-active-border-color: #7758FA;
+
 
 }
 

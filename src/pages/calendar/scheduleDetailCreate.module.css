@@ -1,0 +1,199 @@
+@media (width <= 480px) {
+    
+    .title{
+        margin-left: 15%;
+    }
+
+    .subject{
+        display: block;
+        text-align: center;
+    }
+
+    .container,
+     .container label,
+      .container input{ 
+        display: block !important;
+        text-align: center !important;
+
+    }
+    .subItem {
+        display: block !important;
+        text-align: center;
+    }
+
+    .subCol2 > input:first-child{
+        margin-bottom: 20px;
+    }
+
+    .extendEle {
+        display: block;
+        max-width: 100% !important;
+    }
+
+    .extendEle > input {
+        width: 100% !important;
+        display: block !important;
+        text-align: center !important;
+    }
+
+    .containerCol{
+        width: 100% !important;
+        display: block !important;
+        text-align: center !important;
+    }
+
+
+    .containerCol > button{
+        width: 100% !important;
+        height: 40px !important;
+        display: block !important;
+        margin-top: 10px;
+        padding: 5px 10px 5px 10px !important;
+    }
+
+    .subCol2{
+        grid-template-columns: 1fr;
+        row-gap: 20px;
+    }
+
+    .optionItem, .subCol2, .subCol3, .subCol3 > input{
+        display: block !important;
+        margin-top: 20px !important;
+    }
+
+    .post{
+        max-width: 473px !important;        
+    }
+    
+}
+
+.mainContainer {
+    z-index: 999;
+    font-size: 1.2rem;
+    width: 90%;
+    margin: 20px;
+}
+
+
+.mainContainer label{
+    font-family: 700 !important;
+}
+
+.chkLabel{
+    font-size: 0.9rem;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+.subCol3{
+    vertical-align: middle;
+    align-self: center;
+    position: relative;
+    top: 2px;
+}
+
+
+.subItem {
+    margin: 20px 0 20px 0;
+}
+
+.subCol3{
+    vertical-align: middle;
+    align-self: center;
+    width: 100%;
+    display: flex;
+    /* grid-template-columns: 5fr 5fr 3fr; */
+    column-gap: 20px;
+}
+
+.subCol2{
+    width: 100%; 
+    /* display: flex; */
+    display: grid;
+    grid-template-columns: 7fr 2fr;
+    column-gap: 20px;
+    vertical-align: middle;
+    align-self: center;
+}
+
+.subItem > div {
+    display: inline;    
+}
+
+.subItem > div > div {
+    display: inline;
+    margin: 5px 0 20px 0;
+}
+
+.container{
+    margin-top: 30px !important;
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+    row-gap: 10px;
+}
+
+
+.container > label{
+    min-width: 80px;
+}
+
+
+.container label{    
+    align-self: center;
+    margin: 10px 0 10px 0;
+}
+
+
+.containerCol{
+    width: 95%;
+    display: grid;
+    grid-template-columns: 8fr 1fr;
+    column-gap: 5%;
+    align-self: center;
+    vertical-align: middle;
+}
+
+.footer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.footer > div {
+    display: inline;
+    margin: 0 10px 0 10px;
+}
+
+.title {
+    display: block !important;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: gray;
+    padding: 0 !important;
+    margin-bottom: 70px;
+
+}
+
+.extendEle {
+    max-width: 40%;
+    min-width: 200px;
+}
+
+.modalPost{
+    background-color: rgba(80, 80, 80, 0.5);
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 100;
+}
+
+.post{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 120;
+    width: 500px;
+    transition: 1s;
+    transform: translate(-50%, -50%);
+}

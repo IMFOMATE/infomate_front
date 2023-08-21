@@ -1,0 +1,21 @@
+.submenu{
+    display: flex;
+    border-bottom: 1px solid rgba(125, 125, 125, 0.5);
+    color: gray;
+}
+.submenu > div{
+    margin-right: 20px;
+}
+
+.submenu > div > div{
+    text-align: center;
+    /* max-width: 170px; */
+    min-width: 170px;
+    padding-bottom: 10px ;
+    
+}
+.select{
+    color: black;
+    font-weight: 500;
+    border-bottom: 5px solid var(--color-middle);
+}

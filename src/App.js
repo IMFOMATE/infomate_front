@@ -5,16 +5,17 @@ import './components/common/nav.css';
 import './components/common/main.css';
 import './components/common/default.css';
 import './components/common/component.css';
+
 import Mail from "./pages/mail/Mail";
 import AddressBook from "./pages/addressBook/AddressBook";
 import AddContact from "./pages/addressBook/AddContact";
 import MailWrite from "./pages/addressBook/MailWrite";
 
+import ApprovalMain from "./pages/approval/ApprovalMain";
+import MyDocList from "./pages/approval/MyDocList";
 
 
-function Main() {
-  return null;
-}
+
 
 function App() {
   return (
@@ -32,14 +33,32 @@ function App() {
             <Route path="/mail" element={<Mail />} />
 
             {/* 인덱스로 설정해두면 위의 설정(루트 요청)과 동일하다. */}
-            <Route index element={<Main />} />
+            {/* <Route index element={<Main />} /> */}
             <Route path="calendar">
               <Route index element={<SecheduleCreate />} />
             </Route>
           </Route>
+
+          <Route path="/" element={<Layout/>}>
+                  {/* <Route path="/board" element={<BoardMain />}></Route> */}
+                  <Route path="calendar">
+                      <Route index element={<SecheduleCreate/>}/>
+                  </Route>
+                  <Route path="approval">
+                    <Route index element={<ApprovalMain/>}/>
+                    <Route path="mylist" element={<MyDocList/>}/> {/*내 기안 리스트*/}
+                    <Route path="reflist"/> {/*참조문서리스트*/}
+                    <Route path="temp"/> {/*임시저장문서리스트*/}
+                    <Route path="approving"/> {/*결재 대기문서리스트*/}
+                    <Route path="approved"/> {/*결재 대기완료 리스트*/}
+                  </Route>
+              </Route>
         </Routes>
       </BrowserRouter>
     </>
+
+
+
   );
 }
 

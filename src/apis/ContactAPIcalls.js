@@ -2,6 +2,7 @@
 
 import {
     POST_REGISTER
+    ,GET_ADDRESSBOOK
 } from '../modules/ContactModule';
 
 export const callRegistAPI = ({form}) => {
@@ -26,7 +27,7 @@ export const callRegistAPI = ({form}) => {
                 companyAddress: form.companyAddress,
                 memo: form.memo,
             })
-        }).then(response => response.text());
+        }).then(response => response.text(alert("성공")));
 
         console.log("[ContactAPICalls] callRegisterAPI RESULT : ", result);
 
@@ -38,3 +39,25 @@ export const callRegistAPI = ({form}) => {
         
     };
 }
+export const callSelectAPI = ({from}) => {
+    const requestURL = "http://localhost8989/addressBook";
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*",
+                "Access-Control-Allow-Origin": "*"
+            },
+        
+        })
+        .then(response => response.json());
+
+        console.log('[ContactAPICalls] callLoginAPI RESULT : ', result);
+
+        dispatch( {type: GET_ADDRESSBOOK, payload: result})
+    }
+};
+

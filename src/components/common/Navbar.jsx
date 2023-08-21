@@ -50,7 +50,7 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Approval")}>
-                    <NavLink to="" >
+                    <NavLink to="/approval" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             approval
                         </span>

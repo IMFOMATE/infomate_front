@@ -2,10 +2,11 @@
 import '../../components/common/header/default.css';
 import style from './AddContact.module.css'
 import img from './images/images.png'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from "react-router-dom";
+
 
 import {
     callRegistAPI
@@ -57,8 +58,10 @@ function AddContact() {
 
 
     const onClickRegisterHandler = () => {
+        navigate("/");
         dispatch(callRegistAPI({
-            form: form
+            form: form,
+        
         }))
     }
 
@@ -81,6 +84,7 @@ function AddContact() {
             }
         }
     }
+    
 
 
    
@@ -136,7 +140,7 @@ function AddContact() {
                             </li>
                         </ul>
 
-                        <button class={style.contactSave} onClick={ onClickRegisterHandler }>저장</button>
+                        <button class={style.contactSave} onClick={ onClickRegisterHandler } >저장</button>
                     </div>
                 </div>
         </>  

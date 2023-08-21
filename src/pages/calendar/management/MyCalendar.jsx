@@ -3,9 +3,17 @@ import CalendarAdd from '../../../components/calendar/manage/CalendarAdd';
 import MyCalendarItem from '../../../components/calendar/manage/MyCalendarItem'
 
 import styles from './myCalendar.module.css';
+import { NavLink } from 'react-router-dom';
+// import { useParams, useSearchParams } from 'react-router-dom';
+
 
 const MyCalendar = (props) => {
 
+    // props.data= [
+        // {id: '1',radioName: '1',isDafualtRadio:true,text:'test' },
+    // ]
+
+    const data =[{},{},{},{},{},{},{},] // 테스트
 
     return (
         <>  
@@ -14,12 +22,15 @@ const MyCalendar = (props) => {
                     <CalendarAdd />
                 </div>
                 <div>
-                    {props?.data?.map(item => <MyCalendarItem name={item.memberId} defaultValue={item.defaulCalendar} text={item.text}/>)}
+                    {data?.map(item => <MyCalendarItem id={item?.id} radioName={item?.radioName} isDefualtRadio={item.isDefaultRadio} text={item.text} colorValue={item?.colorValue} isCheck={item?.isCheck}/>)}
                     
-                    <MyCalendarItem name='1' defaultValue={true} text='회사 캘린더'/> {/* 예제 */}
+                    <MyCalendarItem id={1} radioName='1' isDafualtRadio={true} text='회사 캘린더' colorValue={'#FF0000'} isCheck={true}/> {/* 예제 */}
+                    
                 </div>
                 <div style={{textAlign: 'center', marginTop:70}}>
-                    <ButtonInline isCancel={true} value='캘린더로 돌아가기' style={{width:'15%', minWidth:150, height:40}} />
+                    <NavLink to='/calendar'>
+                        <ButtonInline value='캘린더로 돌아가기' style={{width:'15%', minWidth:150, height:40}} />
+                    </NavLink>
                 </div>
             </div>
         </>

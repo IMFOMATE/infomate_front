@@ -54,6 +54,13 @@
     width: 100%;
 }
 
+.fowHdGrid > div:first-child > div:first-child {
+    display: inline-flex;
+    width: 10%;
+    vertical-align: middle;
+    /* border: 1px solid black; */
+}
+
 .fowHdGrid > div:first-child > div {
     display: inline-flex;
     width: 30%;

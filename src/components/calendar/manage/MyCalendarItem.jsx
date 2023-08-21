@@ -4,20 +4,20 @@ import RadioInput from '../../common/input/RadioInput';
 import SelectEle from '../../common/select/SelectEle'
 import styles from './myCalendarItem.module.css'
 
-const MyCalendarItem = (props) => {
+const MyCalendarItem = ({id, isCheck, text, radioName, isDefualtRadio, colorValue, isPubilc}) => {
     return (
         <div className={styles.item}>
             <div style={{textAlign: 'center'}}>
-                <CheckBox isChangeColor={true} value={props.checkValue}style={{height:20, width:20, position:'relative', top:'3px'}}/>
+                <CheckBox isChangeColor={true} checked={isCheck} onChange={()=>{}} style={{height:20, width:20, position:'relative', top:'3px'}}/>
             </div>
             <div>
                 <div className={styles.itemFont}>
-                    <label style={{marginRight:10, fontSize:'1rem'}}>{props.text}</label>
-                    <ColorInput value={props.colorValue} style={{height:30, width:30, position:'relative', top:'2px'}}/>
+                    <label style={{marginRight:10, fontSize:'1rem'}}>{text}</label>
+                    <ColorInput value={colorValue} style={{height:30, width:30, position:'relative', top:'2px'}}/>
                 </div>
             </div>
             <div>
-               <RadioInput name={props.name} checked={props.defaultValue} style={{verticalAlign: 'middle', alignSelf: 'center', display: 'block'}} />
+               <RadioInput name={radioName} checked={isDefualtRadio} style={{verticalAlign: 'middle', alignSelf: 'center', display: 'block'}} />
             </div>
             <div style={{textAlign: 'center'}}>
                 <SelectEle className={styles.itemSelect} data={[

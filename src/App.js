@@ -10,10 +10,11 @@ import MyCalendar from './pages/calendar/management/MyCalendar';
 import FavoriteCalendarLayout from "./layouts/FavoriteCalendarLayout";
 import FavoriteCalendarFollowing from './pages/calendar/management/FavoriteCalendarFollowing'
 import FavoriteCalendarFollower from "./pages/calendar/management/FavoriteCalendarFollower";
-import ScheduleSummaryCreate from './pages/calendar/ScheduleSummaryCreate';
+
 import ScheduleDetailCreate from "./pages/calendar/ScheduleDetailCreate";
 import ReminderList from './components/calendar/dashboard/ReminderList';
 import Calendar from './pages/calendar/Calendar';
+
 
 function App() {
   return (
@@ -24,11 +25,10 @@ function App() {
                   <Route path="/board" element={<BoardMain/>}></Route>
                   <Route path="calendar">
                     <Route index element={<Calendar/>}/>
-                    <Route path="test1" element={<ScheduleSummaryCreate/>} />
+                    <Route path="reminder" element={<ReminderList />} />  
                     <Route path="regist" element={<ScheduleDetailCreate/>} />
-                    <Route path="test3" element={<ReminderList />} />  
                      <Route path="management" element={<CalendarManegeLayout/>}>
-                      <Route index element={<MyCalendar />}/> 
+                      <Route index element={<MyCalendar />}/>
                       <Route path="myPage" element={<MyCalendar />}/> 
                       <Route path="favorite" element={<FavoriteCalendarLayout />}>
                         <Route index element={<FavoriteCalendarFollowing />} />

@@ -60,6 +60,10 @@
         display: block !important;
         margin-top: 20px !important;
     }
+
+    .post{
+        max-width: 473px !important;        
+    }
     
 }
 
@@ -186,8 +190,10 @@
 
 .post{
     position: fixed;
-    top: 30%;
-    left: 30%;
+    top: 50%;
+    left: 50%;
     z-index: 120;
     width: 500px;
+    transition: 1s;
+    transform: translate(-50%, -50%);
 }

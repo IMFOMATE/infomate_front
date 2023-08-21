@@ -1,11 +1,19 @@
-main h1 {
-    padding: 30px;
-    border-bottom: 1px solid var(--color-border);
+.maintitle, .subtitle{
+	border-bottom: 1px solid var(--color-border);
+	padding: 30px;
 }
 
-
 @media (max-width: 480px){
+	.maintitle{
+		position: fixed;
+		width: 100vw;
+		height: 85px;
+		border-bottom: 1px solid var(--color-border);
+		background-color: var(--color-background);
+	}
 	main h1{
-		padding: 22px 60px;
+		position: absolute;
+		left: 70px;
+		top: 20px;
 	}
 }

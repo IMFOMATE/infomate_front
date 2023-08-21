@@ -62,3 +62,12 @@ th:last-child, td:last-child{
     font-weight: bold;
     border-bottom: 2px solid var(--color-hard);
 }
+
+.nolist{
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 20px;
+    color: var(--color-text-content);
+}

@@ -75,6 +75,11 @@ a {
 	--color-border: #e8e8e8;
 	--color-bg-button : #e3ddfe;
 	--color-background : #F8F8F8;
+	--fc-button-bg-color: #9F8AFB;
+	--fc-button-border-color: #9F8AFB;
+	--fc-button-active-bg-color: #7758FA;
+	--fc-button-active-border-color: #7758FA;
+
 
 }
 

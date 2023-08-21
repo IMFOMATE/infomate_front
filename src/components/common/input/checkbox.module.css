@@ -3,6 +3,8 @@
     height: 20px;
     margin: 0;
     border: 0.3px solid var(--color-text-content);   
+    margin: 0;
+    vertical-align:middle;
 }
 
 .chkBg{

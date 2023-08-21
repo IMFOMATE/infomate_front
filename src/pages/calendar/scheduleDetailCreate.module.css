@@ -24,16 +24,14 @@
     .subCol2 > input:first-child{
         margin-bottom: 20px;
     }
-    .container label{
-        margin: 20px 0 20px 0;
-    }
-    
+
     .extendEle {
         display: block;
+        max-width: 100% !important;
     }
 
     .extendEle > input {
-        width: 100%;
+        width: 100% !important;
         display: block !important;
         text-align: center !important;
     }
@@ -66,6 +64,7 @@
 }
 
 .mainContainer {
+    z-index: 999;
     font-size: 1.2rem;
     width: 90%;
     margin: 20px;
@@ -77,12 +76,13 @@
 }
 
 .chkLabel{
-    position: relative;
-    bottom: 2.5px;
+    font-size: 0.9rem;
+    vertical-align: middle;
     margin-left: 5px;
 }
 
 .subCol3{
+    vertical-align: middle;
     align-self: center;
     position: relative;
     top: 2px;
@@ -94,17 +94,22 @@
 }
 
 .subCol3{
+    vertical-align: middle;
+    align-self: center;
     width: 100%;
-    display: grid;
-    grid-template-columns: 5fr 5fr 3fr;
-    column-gap: 5%;
+    display: flex;
+    /* grid-template-columns: 5fr 5fr 3fr; */
+    column-gap: 20px;
 }
 
 .subCol2{
     width: 100%; 
+    /* display: flex; */
     display: grid;
     grid-template-columns: 7fr 2fr;
-    column-gap: 5%;
+    column-gap: 20px;
+    vertical-align: middle;
+    align-self: center;
 }
 
 .subItem > div {
@@ -131,8 +136,9 @@
 
 .container label{    
     align-self: center;
-
+    margin: 10px 0 10px 0;
 }
+
 
 .containerCol{
     width: 95%;
@@ -155,9 +161,33 @@
 
 .title {
     display: block !important;
-    font-size: 2rem;
+    font-size: 1.7rem;
     font-weight: 600;
     color: gray;
     padding: 0 !important;
-    margin-bottom: 25px;
+    margin-bottom: 70px;
+
+}
+
+.extendEle {
+    max-width: 40%;
+    min-width: 200px;
+}
+
+.modalPost{
+    background-color: rgba(80, 80, 80, 0.5);
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 100;
+}
+
+.post{
+    position: fixed;
+    top: 30%;
+    left: 30%;
+    z-index: 120;
+    width: 500px;
 }

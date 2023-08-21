@@ -7,6 +7,7 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    border: 0.3px solid rgba(125, 125, 125, 0.5);
 }
 .select:focus{
     outline-color: var(--color-hard);

@@ -6,10 +6,24 @@ import SelectEle from '../../components/common/select/SelectEle';
 
 
 import styles from './scheduleSummary.module.css';
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 
-const SecheduleSummaryCreate = () => {
+const SecheduleSummaryCreate = ({modal, setModal}) => {
 
+    const dataChangeHanlder = e => {
+        console.log(e.target.value);
+        setModal({
+            ...modal,
+            data: {
+                [e.target.name] : e.target.value
+            }
+        })
+        console.log(modal);
+        
+    }
+    
 
     return (
         <>
@@ -19,19 +33,19 @@ const SecheduleSummaryCreate = () => {
                      일정 등록
                     </span>
                     <span className={styles.close}>
-                        <ButtonInline value={'X'} />    
+                        <ButtonInline value={'X'} onClick={()=>setModal({isModal:false})} />    
                     </span>
                </div>
-                <div className="c-create-schedule-content c-transition03">
-                    <div className="c-create-schedule-col c-transition03">
+                <div className={styles.content}>
+                    <div className={styles.col2}>
                         
                         <label>일정명</label>
                         <InputEle type={'text'} value={''} />
                     
                         <label>일시</label>    
                         <div>
-                            <InputEle type={'datetime-local'} style={{margin:'0 0 1vh 0'}} />
-                            <InputEle type={'datetime-local'} />
+                            <InputEle type={'datetime-local'} style={{margin:'0 0 1vh 0'}} name='startEvent' value={modal.data.start?.toISOString().slice(0,19)} onChange={dataChangeHanlder}/>
+                            <InputEle type={'datetime-local'} name='endEvent' value={modal.data.end?.toISOString().slice(0,19)} onChange={dataChangeHanlder}/>
                             <div style={{height:30, alignSelf: 'center'}}>
                                 <CheckBox id="all-day" type="checkbox" name="" isChangeColor={true} style={{display:'inline',position: 'relative', top:'7px'}}/>
                                 <label for="all-day" style={{display:'inline',position: 'relative', top: '3px',margin: '5px'}}>종일</label>
@@ -52,9 +66,11 @@ const SecheduleSummaryCreate = () => {
                         </div>
                     </div>
                     <div className={styles.footer}>
-                        <ButtonOutline value={'상세일정등록'} style={{margin:'5px'}} />
+                        <NavLink to='./regist'>
+                            <ButtonOutline value={'상세일정등록'} style={{margin:'5px'}} />
+                        </NavLink>
                         <ButtonOutline value={'등록'} style={{margin:'5px'}}  />
-                        <ButtonOutline value={'닫기'} isCancel={true} style={{margin:'5px'}} />
+                        <ButtonOutline value={'닫기'} isCancel={true} style={{margin:'5px'}} onClick={()=>setModal({isModal:false})} />
                     </div>
                 </div>
             </div>

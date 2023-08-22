@@ -79,6 +79,11 @@ main{
 	--color-background : #F8F8F8;
 	--color-alert: #FF6767;
 	--color-success : #36D99E;
+
+
+}
+:root {
+
 }
 
 ::-webkit-scrollbar{

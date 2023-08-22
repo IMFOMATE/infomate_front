@@ -154,19 +154,21 @@ main{
     margin-bottom: 24px;
 }
 
-.sideTop a {
+.new {
     display: block;
+    width: 100%;
     text-align: center;
-    padding: 10px;
+    padding: 15px;
     border-radius: 6px;
     border: 1px solid var(--color-middle);
     color: var(--color-middle);
     transition: all 150ms ease-in-out;
     font-weight: bold;
+    font-size: 14px;
     margin-bottom: 30px;
 }
 
-.sideTop a:hover{
+.new:hover{
     background-color: var(--color-hard);
     color: #fff;
 }

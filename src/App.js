@@ -15,6 +15,7 @@ import FavoriteCalendarFollower from "./pages/calendar/management/FavoriteCalend
 import ScheduleDetailCreate from "./pages/calendar/ScheduleDetailCreate";
 import ReminderList from './components/calendar/dashboard/ReminderList';
 import Calendar from './pages/calendar/Calendar';
+import TreeView from "./components/approval/TreeView";
 
 
 function App() {
@@ -31,7 +32,8 @@ function App() {
                     <Route path="temp" element={<MyDocList title='임시저장문서'/>} /> {/*임시저장문서리스트*/}
                     <Route path="approving" element={<MyDocList title='결재대기문서'/>}/> {/*결재 대기문서리스트*/}
                     <Route path="approved" element={<MyDocList title='결재완료문서'/>}/> {/*결재 완료 리스트*/}
-                  </Route>
+                    {/*<Route path="test" element={<TreeView />}/> /!*결재 완료 리스트*!/*/}
+                </Route>
                 <Route path="calendar">
                   <Route index element={<Calendar/>}/>
                   <Route path="reminder" element={<ReminderList />} />  

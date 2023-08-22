@@ -1,9 +1,11 @@
+
 import './components/common/nav.css';
 import './components/common/main.module.css';
 import './components/common/default.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from "./layouts/Layout";
 import BoardMain from "./pages/board/BoardMain";
+<<<<<<< HEAD
 import './components/common/main.css';
 import './components/common/component.css';
 import Work from "./pages/work/Work";
@@ -19,6 +21,15 @@ import Common from "./pages/board/Common";
 import BrdDept from "./pages/board/BrdDept";
 import BrdAdmin from "./pages/board/BrdAdmin";
 import Anony from "./pages/board/Anony";
+
+import './components/common/nav.css';
+
+import './components/common/default.css';
+
+import Mail from "./pages/mail/Mail";
+import AddressBook from "./pages/addressBook/AddressBook";
+import AddContact from "./pages/addressBook/AddContact";
+import MailWrite from "./pages/mail/MailWrite";
 import ApprovalMain from "./pages/approval/ApprovalMain";
 import MyDocList from "./pages/approval/MyDocList";
 import CalendarManegeLayout from "./layouts/CalendarManageLayout";
@@ -32,9 +43,13 @@ import Calendar from './pages/calendar/Calendar';
 
 import Group from './pages/manage/Group';
 import SearchDept from './pages/admin/manage/SearchDept';
+import SecheduleSummaryCreate from './pages/calendar/ScheduleSummaryCreate';
+
+
 
 function App() {
   return (
+<<<<<<< HEAD
       <>
         <BrowserRouter>
           <Routes>
@@ -60,6 +75,41 @@ function App() {
                       {/* <Route index element={<SecheduleCreate/>}/> */}
                   </Route>
                   <Route path="approval">
+=======
+
+              
+
+
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Layout />}>
+
+                <Route path="/board" element={<BoardMain/>}></Route>
+                <Route path="approval"/>
+            {/* 루트 요청 시 Main으로 이동하도록 설정 */}
+            {/* <Route path="/" element={ <Main />}/> */}
+
+            <Route path="/addressBook" element={<AddressBook />} />
+            <Route path="/addContact" element={<AddContact />} />
+            <Route path="/mailWrite" element={<MailWrite />} />
+            <Route path="/mail" element={<Mail />} />
+
+            {/* 인덱스로 설정해두면 위의 설정(루트 요청)과 동일하다. */}
+            {/* <Route index element={<Main />} /> */}
+            <Route path="calendar">
+              <Route index element={<SecheduleSummaryCreate />} />
+            </Route>
+          </Route>
+
+          <Route path="/" element={<Layout/>}>
+                  {/* <Route path="/board" element={<BoardMain />}></Route> */}
+                  <Route path="calendar">
+                      <Route index element={<SecheduleSummaryCreate/>}/>
+                  </Route>
+                  <Route path="approval">
+
+>>>>>>> b35cc3ef02be0e98a8e4e1dfd6e8cb350370c6c2
                     <Route index element={<ApprovalMain/>}/>
                     <Route path="mylist" element={<MyDocList title='기안문서'/>}/> {/*내 기안 리스트*/}
                     <Route path="reflist" element={<MyDocList title='참조문서'/>}/> {/*참조문서리스트*/}
@@ -87,9 +137,12 @@ function App() {
                   <Route path='/searchDept' element={<SearchDept/>}/>
 
               </Route>
-          </Routes>
-        </BrowserRouter>
-      </>
+        </Routes>
+      </BrowserRouter>
+    </>
+
+
+
   );
 }
 

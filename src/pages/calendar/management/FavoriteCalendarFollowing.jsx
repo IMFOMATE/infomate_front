@@ -5,7 +5,7 @@ import styles from './favoriteCalendar.module.css';
 const FavoriteCalendarFollowing = () => {
 
     const data = [
-        {},
+        {calendarName:'df'},
         {},
         {},
         {},

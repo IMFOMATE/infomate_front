@@ -22,15 +22,15 @@ const CalendarNav = () => {
         {className: '캘린더이름3', color: '#FFFF00', id:3},
         {className: '캘린더이름4', color: '#0000FF', id:4},
         {className: '캘린더이름5', color: '#00FFFF', id:5},
-        {className: '캘린더이름5', color: '#00FFFF', id:5},
-        {className: '캘린더이름5', color: '#00FFFF', id:5},
-        {className: '캘린더이름5', color: '#00FFFF', id:5},
-        {className: '캘린더이름5', color: '#00FFFF', id:5},
-        {className: '캘린더이름5', color: '#00FFFF', id:5},
-        {className: '캘린더이름5', color: '#00FFFF', id:5},
-        {className: '캘린더이름5', color: '#00FFFF', id:5},
-        {className: '캘린더이름5', color: '#00FFFF', id:5},
-        {className: '캘린더이름5', color: '#00FFFF', id:5},
+        {className: '캘린더이름5', color: '#00FFFF', id:6},
+        {className: '캘린더이름5', color: '#00FFFF', id:7},
+        {className: '캘린더이름5', color: '#00FFFF', id:8},
+        {className: '캘린더이름5', color: '#00FFFF', id:9},
+        {className: '캘린더이름5', color: '#00FFFF', id:10},
+        {className: '캘린더이름5', color: '#00FFFF', id:11},
+        {className: '캘린더이름5', color: '#00FFFF', id:12},
+        {className: '캘린더이름5', color: '#00FFFF', id:13},
+        {className: '캘린더이름5', color: '#00FFFF', id:14},
     ]
 
     const moreClickHandler = (e) => {
@@ -54,7 +54,7 @@ const CalendarNav = () => {
                     sampleData.filter((item, index)=> (
                         moreToggle.my ? item : index < 3 
                     )).map(item => (
-                         <CalendarNavItem calendarName={item.className} color={item.color} id={item.id} />
+                         <CalendarNavItem calendarName={item.className} color={item.color} id={`my${item.id}`} />
                     ))
                 }
             </div>
@@ -69,7 +69,7 @@ const CalendarNav = () => {
                     sampleData.filter((item, index)=> (
                         moreToggle.corp ? item : index < 3 
                     )).map(item =>(
-                        <CalendarNavItem calendarName={item.className} color={item.color} id={item.id} />
+                        <CalendarNavItem calendarName={item.className} color={item.color} id={`corp${item.id}`} />
                     ))
                 }
             </div>
@@ -84,7 +84,7 @@ const CalendarNav = () => {
                     sampleData.filter((item, index)=> (
                         moreToggle.fav ? item : index < 3 
                     )).map(item =>(
-                        <CalendarNavItem calendarName={item.className} color={item.color} id={item.id} />
+                        <CalendarNavItem calendarName={item.className} color={item.color} id={`fav${item.id}`} />
                     ))
                 }
             </div>

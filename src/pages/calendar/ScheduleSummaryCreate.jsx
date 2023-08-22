@@ -55,7 +55,7 @@ const SecheduleSummaryCreate = ({modal, setModal}) => {
 
                         <label>캘린더</label>
                         <div>
-                            <SelectEle style={{width:'100%'}} data={[{text:'1',value:1},{text:'2',value:2}]} />
+                            <SelectEle style={{width:'100%'}} options={[{text:'1',value:1},{text:'2',value:2}]} />
                         </div>
 
                         <label for="address">장소</label>

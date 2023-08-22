@@ -9,7 +9,7 @@ const CalendarNavItem = ({id, color, calendarName}) => {
         <div className={styles.item}>
             <div>
                 <CheckBox id={id} style={{marginRight:10}}/> 
-                <label for="1">{calendarName}</label>
+                <label for={id}>{calendarName}</label>
             </div>
             <div className={styles.color}>
                 <InputColor value={color} style={{height:30, width:30}} isDisabled={true}/>

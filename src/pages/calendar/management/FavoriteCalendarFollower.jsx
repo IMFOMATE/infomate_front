@@ -3,7 +3,7 @@ import CalendarMagnageFavoriteItem from '../../../components/calendar/manage/Cal
 
 const FavoriteCalendarFollower = () => {
     const data = [
-        {},
+        {calendarName:'테스트'},
         {},
     ];
     return (

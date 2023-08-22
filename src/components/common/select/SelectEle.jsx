@@ -4,11 +4,13 @@ const SelectEle = (props) => {
     return (
         <select
             className={styles.select}
-            name={props.name} 
-            value={props.value} 
-            disabled={props.disabled}
-            style={props.style}>
-            {props.data.map(item => <option key={item.id} value={item.value}>{item.text}</option>)}
+            name={props?.name} 
+            value={props?.value} 
+            disabled={props?.disabled}
+            style={props?.style}
+            defaultValue={props?.defaultValue}
+            >
+            {props?.options?.map(item => <option key={item.id} value={item.value}>{item.text}</option>)}
         </select>
     )
 }

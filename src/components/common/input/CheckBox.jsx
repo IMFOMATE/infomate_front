@@ -6,6 +6,7 @@ const CheckBox  = (props) => {
     
     return (
         <input 
+            key={props.id}
             type='checkBox'
             className={className}
             id={props?.id}
@@ -15,7 +16,7 @@ const CheckBox  = (props) => {
             onClick={props?.onClick}
             onChange={props?.onChange}
             style={props?.style}
-            checked={props.checked}
+            defaultChecked={props.defaultChecked}
         />
     )
 }

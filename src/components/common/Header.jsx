@@ -6,7 +6,12 @@ import ApprovalNav from "../approval/ApprovalNav";
 import {CurrentTitleContext} from "../../context/CurrentTitleContext";
 import HomeNav from "../../pages/home/HomeNav";
 import {MenuContext} from "../../context/MenuContext";
+<<<<<<< HEAD
 import GroupNav from '../../pages/manage/GroupNav';
+=======
+import  ContactNav from "../contact/ContactNav"
+
+>>>>>>> giwon
 
 function Header() {
     const {currentTitle, toggleTitle } = useContext(CurrentTitleContext);
@@ -19,7 +24,11 @@ function Header() {
                 currentTitle === 'Home' && <HomeNav/> ||
                 currentTitle === 'Board' && <Board/> ||
                 currentTitle === 'Approval' && <ApprovalNav/> ||
+<<<<<<< HEAD
                 currentTitle === 'Group' && <GroupNav/>
+=======
+                currentTitle === 'Contact' && <ContactNav /> 
+>>>>>>> giwon
             }
 
         </header>

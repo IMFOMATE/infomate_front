@@ -5,7 +5,7 @@ import './components/common/nav.css';
 import './components/common/main.css';
 import './components/common/default.css';
 import './components/common/component.css';
-
+import LoginForm from './pages/login/LoginForm';
 
 
 function Main() {
@@ -23,6 +23,9 @@ function App() {
 
               {/* 인덱스로 설정해두면 위의 설정(루트 요청)과 동일하다. */}
               <Route index element={ <Main />} />
+              <Route path="login">
+                <Route index element={<LoginForm/>}/>
+              </Route>
               <Route path="calendar">
                 <Route index element={<SecheduleCreate/>}/>
               </Route>

@@ -21,8 +21,6 @@ import BrdAdmin from "./pages/board/BrdAdmin";
 import Anony from "./pages/board/Anony";
 import ApprovalMain from "./pages/approval/ApprovalMain";
 import MyDocList from "./pages/approval/MyDocList";
-import ApprovalMain from "./pages/approval/ApprovalMain";
-import MyDocList from "./pages/approval/MyDocList";
 import CalendarManegeLayout from "./layouts/CalendarManageLayout";
 import MyCalendar from './pages/calendar/management/MyCalendar';
 import FavoriteCalendarLayout from "./layouts/FavoriteCalendarLayout";
@@ -42,7 +40,6 @@ function App() {
           <Routes>
               <Route path="/" element={<Layout/>}>
                   <Route path="calendar">
-                      <Route index element={<SecheduleCreate/>}/>
                   </Route>
                   <Route path="/work" element={ <Work /> }/>
                   <Route path="/work/admin" element={ <WkAdmin /> }/>
@@ -60,7 +57,7 @@ function App() {
                   <Route path="/board/anony" element={ <Anony />}/>
                   <Route path="/board" element={<BoardMain/>}></Route>
                   <Route path="calendar">
-                      <Route index element={<SecheduleCreate/>}/>
+                      {/* <Route index element={<SecheduleCreate/>}/> */}
                   </Route>
                   <Route path="approval">
                     <Route index element={<ApprovalMain/>}/>

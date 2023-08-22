@@ -9,7 +9,21 @@
     flex: 0 0 80px;
 }
 
-header{
+header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    flex: 1 0 480px;
+    overflow-x: hidden;
+    transition: all 0.5s ease;
+    display: flex;
+}
+
+
+.header{
     position: sticky;
     top: 0;
     left: 0;

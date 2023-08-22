@@ -80,7 +80,7 @@ const Calendar = () =>{
         
                 footerToolbar={{
                     left: 'today',
-                    center: 'scheduleRegist',
+                    center: isMobile && 'scheduleRegist',
                     right: isMobile?'dayGridMonth,timeGridWeek,timeGridDay' :  'scheduleRegist'
                 }}
                 

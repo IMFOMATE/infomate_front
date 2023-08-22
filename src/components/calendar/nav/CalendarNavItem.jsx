@@ -1,15 +1,18 @@
-import Styles from './calendarNavItem.module.css'
+import styles from './calendarNavItem.module.css'
+import CheckBox from '../../common/input/CheckBox';
+import InputColor from '../../common/input/InputColor';
 
-const CalendarNavItem = () => {
+
+const CalendarNavItem = ({id, color, calendarName}) => {
 
    return (
-        <div class="c-sidebar-calendar-item">
+        <div className={styles.item}>
             <div>
-                <input id="1" type="checkbox"/> 
-                <label for="1">내 일정</label>
+                <CheckBox id={id} style={{marginRight:10}}/> 
+                <label for="1">{calendarName}</label>
             </div>
-            <div class="c-sidebar-calendar-color">
-                <button style="height: 15px; width: 15px; background-color: red; border-radius: 30px; border: 0;"/>
+            <div className={styles.color}>
+                <InputColor value={color} style={{height:30, width:30}} isDisabled={true}/>
             </div>
         </div>
    ) 

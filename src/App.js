@@ -14,6 +14,7 @@ import FavoriteCalendarFollower from "./pages/calendar/management/FavoriteCalend
 import ScheduleDetailCreate from "./pages/calendar/ScheduleDetailCreate";
 import ReminderList from './components/calendar/dashboard/ReminderList';
 import Calendar from './pages/calendar/Calendar';
+import CalendarNav from './pages/calendar/CalendarNav';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
                 </Route>
               <Route path="calendar">
                 <Route index element={<Calendar/>}/>
+                <Route path="test1" element={<CalendarNav />} />  
                 <Route path="reminder" element={<ReminderList />} />  
                 <Route path="regist" element={<ScheduleDetailCreate/>} />
                   <Route path="management" element={<CalendarManegeLayout/>}>

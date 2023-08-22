@@ -1,4 +1,19 @@
 .container{
     min-width: 240px;
     max-width: 240px;
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+.listContainer{
+    max-height: 110px;
+    min-height: 110px;
+    overflow-y: hidden;
+    transition: 0.5s;
+}
+.listContainerActive{
+    max-height: 30vh !important;
+    min-height: 30vh;
+    overflow-y: scroll;
+    transition: 0.5s;
 }

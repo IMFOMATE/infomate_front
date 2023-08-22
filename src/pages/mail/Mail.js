@@ -2,10 +2,32 @@
 import React from 'react';
 import '../../components/common/header/default.css';
 import style from './Mail.module.css';
- 
+
+import { useEffect, useState, useRef } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { Navigate } from "react-router-dom";
+import { useNavigate, useParams } from 'react-router-dom';
+import {
+    callMailSelectAPI
+} from '../../apis/MailAPICalls'
 
 
 function Mail() {
+
+    const dispatch = useDispatch();
+    const mail = useSelector(state => state.mailReducer);
+    const mailList = mail.data;
+    const params = useParams();
+
+    useEffect(
+        () => {
+            dispatch(callMailSelectAPI({	// 상품 상세 정보 조회
+                memberCode: params.memberCode
+            }));            
+        }
+        ,[]
+    );
+
 
 
     return (

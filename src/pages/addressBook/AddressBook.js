@@ -1,16 +1,33 @@
-import React from 'react';
 import '../../components/common/header/default.css';
-import style from './AddressBook.module.css'
-import { useNavigate } from 'react-router-dom';
+import style from './AddressBook.module.css';
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from "react-router-dom";
+import { useNavigate, useParams } from 'react-router-dom';
+import {
+    callSelectAPI
+} from '../../apis/ContactAPICalls'
+
 
 function AddressBook() {
 
     const dispatch = useDispatch();
     const contact = useSelector(state => state.contactReducer);
     const contactList = contact.data;
+    const params = useParams();
+
+    useEffect(
+        () => {
+            dispatch(callSelectAPI({	// 상품 상세 정보 조회
+                memberCode: params.memberCode
+            }));            
+        }
+        ,[]
+    );
+
+
+
+    
 
     return (
         <>
@@ -49,11 +66,19 @@ function AddressBook() {
 
                 <div className={style.addressContent}>
                     { contactList && contactList.map(
+                        (contact) => (
+                           
+                            <div key={ contact.contactCode} >
+                            <div className={style.addressName} >{ contact.contactName } </div>
+                            <div className={style.addressPhone}>{ contact.contactPhone } </div>
+                            <div className={style.addressEmail}>{ contact.contactEmail } </div>
+                            <div  className={style.addressMemo}>{ contact.memo } </div>
+                            </div>
+                            
+                            )
+                      
                         )}
-                    <div className={style.addressName}>이기원</div>
-                    <div className={style.addressPhone}>010-1234-5678</div>
-                    <div className={style.addressEmail}>giwon@naver.com</div>
-                    <div className={style.addressMemo}>ㅁㄴㅇㅁㄶ</div>
+    
                 </div>
 
                 </div>

@@ -9,7 +9,7 @@ import './components/common/component.css';
 import Mail from "./pages/mail/Mail";
 import AddressBook from "./pages/addressBook/AddressBook";
 import AddContact from "./pages/addressBook/AddContact";
-import MailWrite from "./pages/addressBook/MailWrite";
+import MailWrite from "./pages/mail/MailWrite";
 
 import ApprovalMain from "./pages/approval/ApprovalMain";
 import MyDocList from "./pages/approval/MyDocList";

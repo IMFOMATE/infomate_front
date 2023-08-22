@@ -9,6 +9,7 @@ export const GET_ADDRESSBOOK = 'contact/GET_ADDRESSBOOK';
 
 const actions = createActions({
     [POST_REGISTER]: () => {},
+    [GET_ADDRESSBOOK]: () => {},
 })
 
 
@@ -24,7 +25,7 @@ const contactReducer = handleActions (
         [GET_ADDRESSBOOK]: (state, { payload }) => {
 
             return payload;
-        }
+        },
     },
     initialState
 

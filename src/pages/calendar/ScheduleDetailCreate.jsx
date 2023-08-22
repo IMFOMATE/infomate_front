@@ -34,7 +34,7 @@ const ScheduleDetilaCreate = (props) => {
         addressRef.current.focus();
     }
 
-    const [attendUsers,setAttendUsers] = useState([
+    const [attendUsers, setAttendUsers] = useState([
         {name: '홍길동', id:1},
         {name: '홍길동', id:1},
         {name: '홍길동', id:1},

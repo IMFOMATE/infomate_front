@@ -93,7 +93,7 @@ const CalendarNav = () => {
             <br/>
             <br/>
             <div style={{margin: '20px 0'}}>
-                <ButtonSimple name='fav' text={'캘린더 설정'} onClick={()=> document.location.href='./calendar/management'} />
+                <ButtonSimple name='fav' text={'캘린더 설정'} onClick={()=> document.location.href='./calendar/management/mypage'} />
             </div>
         </div>
     )

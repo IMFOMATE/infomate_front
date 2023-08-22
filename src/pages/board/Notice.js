@@ -1,130 +1,132 @@
-import React from "react";
-import BoardCSS from "./Board.module.css";
+import BoardCSS from './Board.module.css';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState, useRef } from "react";
+
+import{
+    BoardAPI
+} from '../../apis/BoardAPICalls'
 
 function Notice() {
     
-    return(
+    // const navigate = useNavigate();
+    // const dispatch = useDispatch();
+    // const products  = useSelector(state => state.productReducer);      
+    // const productList = products.data;
+    // console.log('productManagement', productList);
 
-<body>
-    <div className={ BoardCSS.header }>공지사항</div>
-    <div className={ BoardCSS.bd_contain }>
-    <div className={ `${BoardCSS.table} ${BoardCSS.td} ${BoardCSS.th}`}>
-        <table>
-          <tr>
-            <th></th>
-            <th>제목</th>
-            <th></th>
-            <th></th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <th>조회수</th>
-          </tr>
-          <tr>
-            <td></td>
-            <td>제목</td>
-            <td></td>
-            <td></td>
-            <td>작성자</td>
-            <td>작성일</td>
-            <td>조회수</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>제목</td>
-            <td></td>
-            <td></td>
-            <td>작성자</td>
-            <td>작성일</td>
-            <td>조회수</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>제목</td>
-            <td></td>
-            <td></td>
-            <td>작성자</td>
-            <td>작성일</td>
-            <td>조회수</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>제목</td>
-            <td></td>
-            <td></td>
-            <td>작성자</td>
-            <td>작성일</td>
-            <td>조회수</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>제목</td>
-            <td></td>
-            <td></td>
-            <td>작성자</td>
-            <td>작성일</td>
-            <td>조회수</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>제목</td>
-            <td></td>
-            <td></td>
-            <td>작성자</td>
-            <td>작성일</td>
-            <td>조회수</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>제목</td>
-            <td></td>
-            <td></td>
-            <td>작성자</td>
-            <td>작성일</td>
-            <td>조회수</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>제목</td>
-            <td></td>
-            <td></td>
-            <td>작성자</td>
-            <td>작성일</td>
-            <td>조회수</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>제목</td>
-            <td></td>
-            <td></td>
-            <td>작성자</td>
-            <td>작성일</td>
-            <td>조회수</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>제목</td>
-            <td></td>
-            <td></td>
-            <td>작성자</td>
-            <td>작성일</td>
-            <td>조회수</td>
-          </tr>
-        </table>    
-    </div> 
-    
-    <div className={ BoardCSS.pagination }>
-        <a href="#">&laquo;</a>
-        <a href="#" class="active">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
-        <a href="#">&raquo;</a>
-      </div>
-    </div>    
-</body>
+    // const pageInfo = products.pageInfo;
 
-    );
+    // const [start, setStart] = useState(0);
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [pageEnd, setPageEnd] = useState(1);
+
+    // const pageNumber = [];
+    // if(pageInfo){
+    //     for(let i = 1; i <= pageInfo.pageEnd ; i++){
+    //         pageNumber.push(i);
+    //     }
+    // }
+
+    // useEffect(
+    //     () => {
+    //         setStart((currentPage - 1) * 5);            
+    //         dispatch(BoardAPI({
+    //             currentPage: currentPage
+    //         }));            
+    //     }
+    //     ,[currentPage]
+    // );
+
+    // const onClickProductInsert = () => {
+    //     console.log('[ProductManagement] onClickProductInsert');
+    //     navigate("/product-registration", { replace: false })
+    // }
+
+    // const onClickTableTr = (productCode) => {
+    //     navigate(`/product-update/${productCode}`, { replace: false });
+    // }
+
+    // return (
+    //     <>
+    //     <div className={ BoardCSS.bodyDiv }>
+    //         <div className={ BoardCSS.buttonDiv }>
+    //             <button
+    //                 onClick={ onClickProductInsert }
+    //             >
+    //                 상품 등록
+    //             </button>
+    //         </div>            
+    //         <table className={ BoardCSS.productTable }>
+    //             <colgroup>
+    //                 <col width="5%" />
+    //                 <col width="50%" />
+    //                 <col width="10%" />
+    //                 <col width="10%" />
+    //                 <col width="15%" />
+    //                 <col width="10%" />
+    //             </colgroup>
+    //             <thead>
+    //                 <tr>
+    //                     <th>번호</th>
+    //                     <th>상품이름</th>
+    //                     <th>상품가격</th>
+    //                     <th>활성화여부</th>
+    //                     <th>상품 카테고리</th>
+    //                     <th>재고</th>
+    //                 </tr>
+    //             </thead>
+    //             <tbody>
+    //                 { Array.isArray(productList) && productList.map((p) => (
+    //                     <tr
+    //                         key={ p.productCode }
+    //                         onClick={ () => onClickTableTr(p.productCode) }
+    //                     >
+    //                         <td>{ p.productCode }</td>
+    //                         <td>{ p.productName }</td>
+    //                         <td>{ p.productPrice }</td>
+    //                         <td>{ p.productOrderable }</td>
+    //                         <td>{ p.categoryName }</td>
+    //                         <td>{ p.productStock }</td>
+    //                     </tr>
+    //                 )) 
+    //                 }
+    //             </tbody>                    
+    //         </table>         
+            
+    //     </div>
+    //     <div style={{ listStyleType: "none", display: "flex", justifyContent: "center" }}>
+    //         { Array.isArray(productList) &&
+    //         <button 
+    //             onClick={() => setCurrentPage(currentPage - 1)} 
+    //             disabled={currentPage === 1}
+    //             className={ BoardCSS.pagingBtn }
+    //         >
+    //             &lt;
+    //         </button>
+    //         }
+    //         {pageNumber.map((num) => (
+    //         <li key={num} onClick={() => setCurrentPage(num)}>
+    //             <button
+    //                 style={ currentPage === num ? {backgroundColor : 'orange' } : null}
+    //                 className={ BoardCSS.pagingBtn }
+    //             >
+    //                 {num}
+    //             </button>
+    //         </li>
+    //         ))}
+    //         { Array.isArray(productList) &&
+    //         <button 
+    //             className={ BoardCSS.pagingBtn }
+    //             onClick={() => setCurrentPage(currentPage + 1)} 
+    //             disabled={currentPage === pageInfo.pageEnd || pageInfo.total === 0}
+    //         >
+    //             &gt;
+    //         </button>
+    //         }
+    //     </div>
+    //     </>
+    // );
 }
 
 export default Notice;

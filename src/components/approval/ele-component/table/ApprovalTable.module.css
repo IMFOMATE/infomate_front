@@ -2,27 +2,27 @@
     width: 100%;
     table-layout: fixed;
 }
-th{
+.list_th{
     padding: 10px;
     background-color: var(--color-border);
     text-align: left;
     table-layout: fixed;
 }
 
-tr{
+.list_tr{
     border-bottom: 1px solid var(--color-border);
     transition: 0.3s;
 }
 
-tr:hover{
+.list_tr:hover{
     background-color: var(--color-border);
 }
 
-tbody td {
+.list_td {
     padding: 10px;
 }
 
-th:last-child, td:last-child{
+.list_th:last-child, td:last-child{
     text-align: right;
 }
 
@@ -55,10 +55,25 @@ th:last-child, td:last-child{
     font-weight: bold;
     font-size: 15px;
     color: var(--color-text-title);
+    cursor: pointer;
 }
 
 .active{
-    color: var(--color-hard);
+    color: var(--color-hard) !important;
     font-weight: bold;
     border-bottom: 2px solid var(--color-hard);
+}
+
+.nolist{
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 20px;
+    color: var(--color-text-content);
+}
+
+.subtitle{
+    border-bottom: 1px solid var(--color-border);
+    padding: 30px;
 }

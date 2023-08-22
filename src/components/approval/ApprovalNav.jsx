@@ -8,7 +8,7 @@ function ApprovalNav() {
     const {menuState, toggleMenu} = useContext(MenuContext);
 
     return (
-        <div className={`${menuState ? 'sidemenu': 'close sidemenu'}`}>
+        <div className={`${NavStyle.sidemenu} ${menuState ? '': NavStyle.close}`}>
             <div className={NavStyle.sideTop}>
                 <h1>전자결재</h1>
                 <a href="/">새 결재 작성</a>

@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
+
+
+
+/* 타이틀 부분 */
+.main{
+    width: 100%;
+}
+
+.main > h1 {
+    padding: 30px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+
+/* 내용부분 */
+
+.firstWrap {
+    width : 100%;
+    height: 100vh;
+    display: flex;
+}
+
+.deptList{
+    width: 40%;
+    height: 100vh;
+    /* background-color: aqua; */
+}
+
+.deptInfo {
+    width: 50%;
+    height: 100vh;
+    /* background-color: rgb(133, 133, 133); */
+}
+
+
+
+/* 조직도 부분 */
+.list {
+    padding: 30px;
+}
+
+.infoBox {
+    width: 340px;
+    height: 400px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    margin: 30px 0 0 30px;
+    border: 1px solid #d4d4d4;
+}
+
+
+
+/* icon */
+
+.infoIcon {
+    text-align: right;
+    padding: 12px;
+}
+
+.infoIcon > a > span {
+    color: #d4d4d4;
+}
+
+/* info 이미지 */
+.empInfo{
+    text-align: center;
+}
+
+.empImage{
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    
+}
+
+
+/* info */
+.empSign {
+    margin: 40px;
+}
+.empSign > p {
+    margin: 10px;
+}
+
+/* .close 상태 */
+
+
+
+
+
+
+
+
+@media (max-width : 480px){
+
+    .deptList{
+        width: 100%
+    }
+
+
+    .deptInfo{
+        display: none;
+    }
+
+}

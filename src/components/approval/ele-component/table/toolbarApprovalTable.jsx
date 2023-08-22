@@ -1,17 +1,18 @@
 import React, {useState} from 'react';
 import ApprovalTableCss from "./ApprovalTable.module.css";
 import ApprovalTable from "./ApprovalTable";
-import {NavLink} from "react-router-dom";
 
 // import ToolBarCss from './Toolbar.module.css';
 
 
 function ToolbarApprovalTable() {
 
-  const [filter, setFilter] = useState('all');
+  /*effect이용하긴해야되는데*/
+
+  const [filter, setFilter] = useState('');
 
   const filterState = [
-    {text: '전체', url:'ALL'},
+    {text: '전체', url:''},
     {text: '완료', url:'APPROVAL'},
     {text: '진행', url:'WAITING'},
     {text: '반려', url:'REJECT'},
@@ -19,27 +20,29 @@ function ToolbarApprovalTable() {
   ];
 
   const handleFilterChange = (event) => {
-    setFilter(event.target.dataset.type);
-    // console.log(event.target.dataset.type);
+    const selectedFilter = event.target.dataset.type;
+    setFilter(selectedFilter === filter ? '' : selectedFilter);
   };
 
-  const filterdData = testinit.docList.filter(f =>
-    f.status === filter ? f : '')
-
-  console.log(filter);
+  const filteredData = filter === '' ? testinit.docList : testinit.docList.filter((f) => f.status === filter);
 
   return (
     <div>
       <ul className={ApprovalTableCss.toolbar}>
         {
           filterState.map((value, index) =>
-            <li onClick={handleFilterChange} data-type={value.url}>
+            <li
+              key={index}
+              onClick={handleFilterChange}
+              data-type={value.url}
+              className={filter === value.url ? ApprovalTableCss.active : ''}
+            >
               {value.text}
             </li>
           )
         }
       </ul>
-      <ApprovalTable data={filterdData}/>
+      <ApprovalTable data={filteredData}/>
     </div>
   );
 }
@@ -57,5 +60,14 @@ const testinit = {
       createDate: '2023-08-08',
       writer: '주진선'
     },
+    {
+      no: '112',
+      isAlert: false,
+      status: 'WAITING',
+      docTitle: '테스트 문서입니다.',
+      createDate: '2023-08-08',
+      writer: '주진선'
+    },
+
   ],
 };

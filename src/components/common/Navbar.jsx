@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import { NavLink } from "react-router-dom";
 import NavStyle from './Nav.module.css';
 import {useContext} from "react";
 import {CurrentTitleContext} from "../../context/CurrentTitleContext";
@@ -74,7 +73,7 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Group")}>
-                    <NavLink to="" >
+                    <NavLink to="/manage" >
                        <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             group
                         </span>

@@ -31,6 +31,7 @@ export const callRegistAPI = ({form}) => {
         
         if(result.status === 201) {
             alert('연락처 추가 성공')
+
             dispatch({ type: POST_REGISTER,  payload: result });
         }
 
@@ -40,7 +41,7 @@ export const callRegistAPI = ({form}) => {
 };
 
 export const callSelectAPI = () => {
-    const requestURL = "http://localhost:8989/addressBook/contact/2";
+    const requestURL = "http://localhost:8989/addressBook/contact";
 
     return async (dispatch, getState) => {
 

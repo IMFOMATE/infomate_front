@@ -21,7 +21,7 @@ function Mail() {
 
     useEffect(
         () => {
-            dispatch(callMailSelectAPI({	// 상품 상세 정보 조회
+            dispatch(callMailSelectAPI({	
                 memberCode: params.memberCode
             }));            
         }

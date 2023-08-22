@@ -3,6 +3,7 @@ import contactReducer from "./ContactModule";
 
 const rootReducer = combineReducers({
     contactReducer
+    
 });
 
 export default rootReducer;

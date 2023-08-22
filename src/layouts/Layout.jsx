@@ -11,11 +11,13 @@ import Main from '../pages/home/Main';
 export default function Layout() {
     return (
         <>
+
             <MenuContextProvider>
                 <CurrentTitleProvider>
                     <div className='wrapper'>
                         <MenuBtn/>
                         <div className={NavStyle.flex}>
+                        
                             <Header/>
                             <main>
                                 <Outlet/>
@@ -25,6 +27,7 @@ export default function Layout() {
                     </div>
                 </CurrentTitleProvider>
             </MenuContextProvider>
+
         </>
     );
 }

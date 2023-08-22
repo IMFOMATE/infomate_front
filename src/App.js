@@ -15,6 +15,8 @@ import ScheduleDetailCreate from "./pages/calendar/ScheduleDetailCreate";
 import ReminderList from './components/calendar/dashboard/ReminderList';
 import Calendar from './pages/calendar/Calendar';
 
+import Group from './pages/manage/Group';
+import SearchDept from './pages/admin/manage/SearchDept';
 
 function App() {
   return (
@@ -45,6 +47,11 @@ function App() {
                       </Route>
                     </Route>          
                 </Route>
+                  <Route path='/manage'>
+                    <Route index element={<Group/>}/>
+                  </Route>
+                  <Route path='/searchDept' element={<SearchDept/>}/>
+
               </Route>
           </Routes>
         </BrowserRouter>

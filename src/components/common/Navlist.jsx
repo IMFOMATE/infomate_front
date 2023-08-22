@@ -9,8 +9,8 @@ function Navlist({title, data}) {
       <ol>
         {
           data.map((d, index) =>
-            <li key={index}>
-              <Link to={d.link}>
+            <li key={index} className={NavListCss.list}>
+              <Link to={d.link} className={NavListCss.list_link}>
                 {d.text}
               </Link>
             </li>

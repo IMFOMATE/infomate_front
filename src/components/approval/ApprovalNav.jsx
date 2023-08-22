@@ -11,7 +11,7 @@ function ApprovalNav() {
     const {modalOpen , toggleModal } = useModal();
 
     return (
-        <div className={`${menuState ? 'sidemenu': 'close sidemenu'}`}>
+        <div className={`${NavStyle.sidemenu} ${menuState ? '': NavStyle.close}`}>
             <div className={NavStyle.sideTop}>
                 <h1>전자결재</h1>
                 <button className={NavStyle.new} onClick={toggleModal}>새 결재 작성</button>

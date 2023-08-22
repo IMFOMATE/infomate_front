@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    width: auto;
+    height: 800px;
+}
+
+.header {
+    background: #FFF;
+    height: 84px;
+    padding: 30px 0 0 30px;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    color: #535353;
+}
+
+
+.securityWrapper {
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+}
+
+
+
+.device {
+    color: #535353;
+    position: absolute;
+    margin-left: 15px;
+}
+
+.deviceName {
+    font-size: 14px;
+    color: #535353;
+    position: absolute;
+    margin-left: 15px;
+}
+
+.lastConnetion {
+    position: relative;
+    left: 350px;
+}
+
+.deletion {
+    position: relative;
+    left: 615px;
+}
+
+/* 추가될 기기명, 접속시간, 삭제버튼 */
+.recordWrapper {
+    display: flex;
+    position: relative;
+    height: 50px;
+    /* border-bottom: 2px solid #e8e8e8; */
+    align-items: center;
+}
+
+.conneted {
+    position: relative;
+    left: 350px;
+}
+
+.delete {
+    position: relative;
+    left: 650px;
+}

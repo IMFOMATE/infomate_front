@@ -6,6 +6,7 @@ import NavStyle from '../components/common/Nav.module.css';
 import MenuBtn from "../components/common/MenuBtn";
 import {CurrentTitleProvider} from "../context/CurrentTitleContext";
 import {MenuContextProvider} from "../context/MenuContext";
+import Main from '../pages/home/Main';
 
 export default function Layout() {
     return (
@@ -18,6 +19,7 @@ export default function Layout() {
                             <Header/>
                             <main>
                                 <Outlet/>
+                                <Main />
                             </main>
                         </div>
                     </div>

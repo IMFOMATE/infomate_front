@@ -5,7 +5,6 @@ import './components/common/default.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from "./layouts/Layout";
 import BoardMain from "./pages/board/BoardMain";
-<<<<<<< HEAD
 import './components/common/main.css';
 import './components/common/component.css';
 import Work from "./pages/work/Work";
@@ -49,37 +48,7 @@ import SecheduleSummaryCreate from './pages/calendar/ScheduleSummaryCreate';
 
 function App() {
   return (
-<<<<<<< HEAD
-      <>
-        <BrowserRouter>
-          <Routes>
-              <Route path="/" element={<Layout/>}>
-                  <Route path="calendar">
-                  </Route>
-                  <Route path="/work" element={ <Work /> }/>
-                  <Route path="/work/admin" element={ <WkAdmin /> }/>
-                  <Route path="/work/workside" element={ <WorkSide /> }/>
-                  <Route path="/work/mywork" element={ <MyWork /> }/>
-                  <Route path="/work/mydept" element={ <MyDept />}/>
-                  <Route path="/work/dept" element={ <Dept />}/>
-                  <Route path="/board" element={<BoardMain/>}/>
-                  <Route path="/board/notice" element={ <Notice />}/>
-                  <Route path="/board/report" element={ <Report />}/>
-                  <Route path="/board/menu" element={ <Menu />}/>
-                  <Route path="/board/common" element={ <Common />}/>
-                  <Route path="/board/brddept" element={ <BrdDept />}/>
-                  <Route path="/board/brdadmin" element={ <BrdAdmin />}/>
-                  <Route path="/board/anony" element={ <Anony />}/>
-                  <Route path="/board" element={<BoardMain/>}></Route>
-                  <Route path="calendar">
-                      {/* <Route index element={<SecheduleCreate/>}/> */}
-                  </Route>
-                  <Route path="approval">
-=======
-
-              
-
-
+          
     <>
       <BrowserRouter>
         <Routes>
@@ -103,13 +72,11 @@ function App() {
           </Route>
 
           <Route path="/" element={<Layout/>}>
-                  {/* <Route path="/board" element={<BoardMain />}></Route> */}
                   <Route path="calendar">
                       <Route index element={<SecheduleSummaryCreate/>}/>
                   </Route>
                   <Route path="approval">
 
->>>>>>> b35cc3ef02be0e98a8e4e1dfd6e8cb350370c6c2
                     <Route index element={<ApprovalMain/>}/>
                     <Route path="mylist" element={<MyDocList title='기안문서'/>}/> {/*내 기안 리스트*/}
                     <Route path="reflist" element={<MyDocList title='참조문서'/>}/> {/*참조문서리스트*/}
@@ -135,6 +102,22 @@ function App() {
                     <Route index element={<Group/>}/>
                   </Route>
                   <Route path='/searchDept' element={<SearchDept/>}/>
+
+                  <Route path="/work" element={ <Work /> }/>
+                  <Route path="/work/admin" element={ <WkAdmin /> }/>
+                  <Route path="/work/workside" element={ <WorkSide /> }/>
+                  <Route path="/work/mywork" element={ <MyWork /> }/>
+                  <Route path="/work/mydept" element={ <MyDept />}/>
+                  <Route path="/work/dept" element={ <Dept />}/>
+                  <Route path="/board" element={<BoardMain/>}/>
+                  <Route path="/board/notice" element={ <Notice />}/>
+                  <Route path="/board/report" element={ <Report />}/>
+                  <Route path="/board/menu" element={ <Menu />}/>
+                  <Route path="/board/common" element={ <Common />}/>
+                  <Route path="/board/brddept" element={ <BrdDept />}/>
+                  <Route path="/board/brdadmin" element={ <BrdAdmin />}/>
+                  <Route path="/board/anony" element={ <Anony />}/>
+                  <Route path="/board" element={<BoardMain/>}></Route>
 
               </Route>
         </Routes>

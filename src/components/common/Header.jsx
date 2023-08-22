@@ -7,6 +7,7 @@ import ApprovalNav from "../approval/ApprovalNav";
 import {CurrentTitleContext} from "../../context/CurrentTitleContext";
 import HomeNav from "../../pages/home/HomeNav";
 import {MenuContext} from "../../context/MenuContext";
+import CalendarNav from '../../pages/calendar/CalendarNav';
 
 function Header() {
     const {currentTitle, toggleTitle } = useContext(CurrentTitleContext);
@@ -18,7 +19,8 @@ function Header() {
             {
                 currentTitle === 'Home' && <HomeNav/> ||
                 currentTitle === 'Board' && <Board/> ||
-                currentTitle === 'Approval' && <ApprovalNav/>
+                currentTitle === 'Approval' && <ApprovalNav/> ||
+                currentTitle === 'Schedule' && <CalendarNav/>
             }
 
         </header>

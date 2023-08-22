@@ -1,0 +1,14 @@
+.item{
+    width: 100%;
+    border: 1px solid;
+    display: grid;
+    grid-template-columns: auto auto;
+    height: 30px;
+    align-items: center;
+}
+
+.color{
+    text-align: end;
+    padding-right: 5%;
+}
+

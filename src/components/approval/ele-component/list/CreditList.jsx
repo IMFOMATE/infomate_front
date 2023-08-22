@@ -23,7 +23,7 @@ function CreditList({data}) {
           <p>{`기안자 ${d.writer}`}</p>
         </div>
       </div>
-      <a href="" className={CreditListCss.go}>결재하기</a>
+      <a href="infomate_front/src/components/approval" className={CreditListCss.go}>결재하기</a>
     </div>)
   );
 }

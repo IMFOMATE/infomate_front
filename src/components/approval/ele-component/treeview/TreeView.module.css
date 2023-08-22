@@ -1,0 +1,21 @@
+
+.doc_wrap{
+  overflow-y: scroll;
+  height: 100%;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--color-hard);
+  flex-grow: 1;
+}
+
+.doc_wrap::-webkit-scrollbar{
+  width:5px !important;
+}
+
+.doc_wrap::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.doc_wrap::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background-color: var(--color-hard) !important;
+}

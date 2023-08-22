@@ -1,9 +1,7 @@
 import React, {useContext, useState} from 'react';
 import NavStyle from "../common/Nav.module.css";
 import {MenuContext} from "../../context/MenuContext";
-import {Link} from "react-router-dom";
 import Navlist from "../common/Navlist";
-import Modal from "./ele-component/common/Modal";
 import {useModal} from "../../context/ModalContext";
 function ApprovalNav() {
 
@@ -13,7 +11,7 @@ function ApprovalNav() {
     return (
         <div className={`${NavStyle.sidemenu} ${menuState ? '': NavStyle.close}`}>
             <div className={NavStyle.sideTop}>
-                <h1>전자결재</h1>
+                <h2 className={NavStyle.title}>전자결재</h2>
                 <button className={NavStyle.new} onClick={toggleModal}>새 결재 작성</button>
             </div>
             <div className={NavStyle.sideList}>

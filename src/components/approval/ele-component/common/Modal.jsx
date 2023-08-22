@@ -12,16 +12,16 @@ function Modal({title,content}) {
     return(
         <>
             <div className={styles.container}>
-            </div>
-            <div className={styles.modal}>
-                <span className={`material-symbols-outlined ${styles.close}`} onClick={toggleModal}>close</span>
-                <div className={styles.content_wrapper}>
-                    <h2 className={styles.title}>{title}</h2>
-                    <div className={styles.content}>
+                <div className={styles.modal}>
+                    <span className={`material-symbols-outlined ${styles.close}`} onClick={toggleModal}>close</span>
+                    <div className={styles.content_wrapper}>
+                        <h2 className={styles.title}>{title}</h2>
+                        <div className={styles.content}>
                             {content}
-                    </div>
-                    <div className={styles.button}>
-                        <ButtonOutline style={style} value="취소" onClick={toggleModal}/>
+                        </div>
+                        <div className={styles.button}>
+                            <ButtonOutline style={style} value="취소" onClick={toggleModal}/>
+                        </div>
                     </div>
                 </div>
             </div>

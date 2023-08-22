@@ -8,7 +8,7 @@ import {CurrentTitleProvider} from "../context/CurrentTitleContext";
 import {MenuContextProvider} from "../context/MenuContext";
 import {ModalContextProvider, useModal} from "../context/ModalContext";
 import Modal from "../components/approval/ele-component/common/Modal";
-import TreeView from "../components/approval/TreeView";
+import TreeView from "../components/approval/ele-component/treeview/TreeView";
 
 export default function Layout() {
 

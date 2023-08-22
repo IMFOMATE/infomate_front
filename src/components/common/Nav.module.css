@@ -149,7 +149,7 @@ main{
     padding: 20px;
 }
 
-.sideTop h1 {
+.title {
     color: var(--color-text-title);
     margin-bottom: 24px;
 }
@@ -164,7 +164,7 @@ main{
     color: var(--color-middle);
     transition: all 150ms ease-in-out;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
     margin-bottom: 30px;
 }
 

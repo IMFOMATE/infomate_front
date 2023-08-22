@@ -16,6 +16,8 @@ import ReminderList from './components/calendar/dashboard/ReminderList';
 import Calendar from './pages/calendar/Calendar';
 import CalendarNav from './pages/calendar/CalendarNav';
 
+import Group from './pages/manage/Group';
+import SearchDept from './pages/admin/manage/SearchDept';
 
 function App() {
   return (
@@ -46,6 +48,10 @@ function App() {
                     <Route path="follower" element={<FavoriteCalendarFollower />} />
                     </Route>
                   </Route>          
+                  <Route path='/manage'>
+                    <Route index element={<Group/>}/>
+                  </Route>
+                  <Route path='/searchDept' element={<SearchDept/>}/>
               </Route>
             </Route>
           </Routes>

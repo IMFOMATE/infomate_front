@@ -1,0 +1,20 @@
+.title{
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color-text-title);
+    padding: 10px 0px;
+}
+
+.list{
+    list-style: inside;
+    color: var(--color-text-content);
+    margin-left: 8px;
+
+}
+
+.list_link{
+    color: var(--color-text-content);
+    padding: 8px 0px;
+    font-size: 16px;
+    font-weight: 500;
+}

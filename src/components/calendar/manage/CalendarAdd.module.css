@@ -1,0 +1,15 @@
+.add {
+    width: 50%;
+    min-width: 450px;
+    height: 50px;
+    display: grid;
+    grid-template-columns: 70px 3fr 1fr 1fr;
+    column-gap: 10px;
+    align-self: center;
+    text-align: center;
+}
+
+.add label, input, button{
+    align-self: center;
+    
+}

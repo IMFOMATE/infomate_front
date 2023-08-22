@@ -1,15 +1,14 @@
 import React from 'react';
-import ApprovalMainCss from './Approvalmain.module.css';
-import mainCss from '../../components/common/main.css';
+import mainCss from '../../components/common/main.module.css';
 import ApprovalTop from "../../components/approval/ApprovalTop";
 import ApprovalTable from "../../components/approval/ele-component/table/ApprovalTable";
 function ApprovalMain() {
   return (
     <>
-      <div className='maintitle'>
-        <h1>제목</h1>
+      <div className={mainCss.maintitle}>
+        <h1>전자결재 홈</h1>
       </div>
-      <ApprovalTop data={testInit.creditList}/>
+        <ApprovalTop data={testInit.creditList}/>
         <ApprovalTable title='기안문서' data={testInit.approvalList}/>
         <ApprovalTable title='참조문서' data={testInit.refList}/>
     </>

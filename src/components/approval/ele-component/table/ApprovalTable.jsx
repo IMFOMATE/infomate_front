@@ -1,5 +1,4 @@
 import React from 'react';
-import mainCss from '../../../common/main.css'
 import ApprovalTableCss from './ApprovalTable.module.css';
 import TrData from "./TrData";
 
@@ -14,12 +13,12 @@ function TableHeader(){
         <col width="15%"/>
       </colgroup>
       <thead>
-      <tr>
-        <th className={ApprovalTableCss.list_no}>문서번호</th>
-        <th>긴급여부</th>
-        <th>결재상태</th>
-        <th className={ApprovalTableCss.t_title}>제목</th>
-        <th>기안날짜</th>
+      <tr className={ApprovalTableCss.list_tr}>
+        <th className={`${ApprovalTableCss.list_th} ${ApprovalTableCss.list_no}`}>문서번호</th>
+        <th className={`${ApprovalTableCss.list_th}`}>긴급여부</th>
+        <th className={`${ApprovalTableCss.list_th}`}>결재상태</th>
+        <th className={`${ApprovalTableCss.list_th} ${ApprovalTableCss.t_title}`}>제목</th>
+        <th className={`${ApprovalTableCss.list_th}`}>기안날짜</th>
       </tr>
       </thead>
     </>
@@ -41,9 +40,9 @@ function ApprovalTable({title, data}) {
   }
 
   return (
-    <div>
+    <section>
       {
-        title && <h2 className='subtitle'>{title}</h2>
+        title && <h2 className={ApprovalTableCss.subtitle}>{title}</h2>
       }
       <div>
         <table className={ApprovalTableCss.list_approval}>
@@ -55,7 +54,7 @@ function ApprovalTable({title, data}) {
           </tbody>
         </table>
       </div>
-    </div>
+    </section>
   );
 }
 

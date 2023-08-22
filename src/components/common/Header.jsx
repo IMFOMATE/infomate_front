@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
 import Navbar from "./Navbar";
-import Default from "../../layouts/Default.css"
 import NavStyle from './Nav.module.css';
 import Board from "../../pages/board/Board";
 import ApprovalNav from "../approval/ApprovalNav";
@@ -13,7 +12,7 @@ function Header() {
     const {currentTitle, toggleTitle } = useContext(CurrentTitleContext);
     const {menuState, toggleMenu} = useContext(MenuContext);
     return (
-        <header className={menuState === false ? NavStyle.close : ''}>
+        <header className={`${menuState === false ? NavStyle.close : ''}`}>
             <Navbar/>
 
             {

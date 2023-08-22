@@ -19,7 +19,7 @@ function AddressBook() {
     useEffect(
         () => {
             dispatch(callSelectAPI({	// 상품 상세 정보 조회
-                memberCode: params.memberCode
+                // memberCode: params.memberCode
             }));            
         }
         ,[]

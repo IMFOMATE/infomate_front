@@ -1,17 +1,24 @@
 import '../../components/common/header/default.css';
-import style from './MailWrite.module.css'
-// import { summerNote } from 'summernote' 
+import style from './MailWrite.module.css';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 
 function MailWrite() {
 
-    
+    const quillstyle = {
+      width: "90%",
+
+      
+    }
 
 
 
     return (
         <>
-            <div className= 'wrapper'>
+          
+            <div className= {style.wrapper}>
+              <div className={style.container}>
                 <h1 style={{ color: 'var(--color-text-title)' }}>메일쓰기</h1>
                 <button className={style.sendButton}>보내기</button>
                 <div className={style.writeContent}>
@@ -32,7 +39,13 @@ function MailWrite() {
                         <button className={style.uploadBox}></button>
                     </div>
                 </div>
+
+                <ReactQuill theme="snow" />
+
+              </div>
             </div>
+
+            
         </>    
     )
 }

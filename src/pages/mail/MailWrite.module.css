@@ -29,7 +29,7 @@ margin-top: 30px;
 
 
 .uploadBox{
-    width:500px;
+    
     height: 50px;
     border:1px solid gray;
     box-shadow: 2px 3px 9px hsl(0, 0%, 47%);
@@ -62,4 +62,12 @@ input[type="text"] {
     margin-right: 40px;
 
 }
+
+.container>input {
+
+    width: 90%;
+
+}
+
+
 

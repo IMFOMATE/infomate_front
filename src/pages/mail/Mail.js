@@ -32,7 +32,7 @@ function Mail() {
 
     return (
         <>
-                   <div className={ style.wrapper }>
+                    <div className={ style.wrapper }>
                     <h1 style={{color: 'var(--color-text-title)', display: 'flex' }}>
                         받은 메일함
                         <p>전체 메일 0 / 안읽은 메일 0</p>

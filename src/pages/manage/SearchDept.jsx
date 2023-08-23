@@ -1,6 +1,7 @@
 import React from "react";
 // import DeptCss from "./SearchDept.module.css";
 import SdeptCss from "./SearchDept.module.css";
+import DeptList from "./DeptList"
 
 
 
@@ -22,28 +23,17 @@ function SearchDept(){
                         </div>
                     </div>
                     <div className={`deptList ${SdeptCss.deptList}`}>
-                        <table>
-                            <thead>
+                        <table className={`listTable ${SdeptCss.listTable}`}>
+                            <thead className={`th ${SdeptCss.th}`}>
                                 <tr>
-                                    <th scope="col">이름</th>
-                                    <th scope="col">사원번호</th>
-                                    <th scope="col">부서명</th>
-                                    <th scope="col">정보</th>
+                                    <th>이름</th>
+                                    <th>사원번호</th>
+                                    <th>부서명</th>
+                                    <th>정보</th>
                                 </tr>
-                            </thead>    
-                            <tbody>
-                                <tr>
-                                    <td>홍길동</td>
-                                    <td>j123455</td>
-                                    <td>인사관리 2팀</td>
-                                    <td><button>보기</button></td>
-                                </tr>
-                                <tr>
-                                    <td>홍길동</td>
-                                    <td>j123455</td>
-                                    <td>인사관리 3팀</td>
-                                    <td><button>보기</button></td>
-                                </tr>
+                            </thead>   
+                            <tbody className={`tb ${SdeptCss.tb}`}>
+                                    <DeptList data={memberList}/>
                             </tbody>
                         </table>
                     </div>
@@ -55,6 +45,68 @@ function SearchDept(){
 }
 
 
+const memberList = [
+    {
+        name: "윤팀장",
+        num: 'j123456',
+        dept: "인사관리 3팀",
+        link: './GroupInfoAlet'
+    },
+    {
+        name: "김과장",
+        num: 'g324216',
+        dept: "리스크관리 1팀",
+        link: './GroupInfoAlet'
+    },
+    {
+        name: "이대리",
+        num: 'j34566',
+        dept: "온라인 영업 1팀",
+        link: './GroupInfoAlet'
+    },
+    {
+        name: "팽사원",
+        num: 'j123456',
+        dept: "자금운영 3팀",
+        link: './GroupInfoAlet'
+    },
+    {
+        name: "윤팀장",
+        num: 'j123456',
+        dept: "회계관리 3팀",
+        link: './GroupInfoAlet'
+    },
+    {
+        name: "윤팀장",
+        num: 'j123456',
+        dept: "인사관리 3팀",
+        link: './GroupInfoAlet'
+    },
+    {
+        name: "김과장",
+        num: 'g324216',
+        dept: "온라인 영업 3팀",
+        link: './GroupInfoAlet'
+    },
+    {
+        name: "이대리",
+        num: 'j34566',
+        dept: "인사관리 3팀",
+        link: './GroupInfoAlet'
+    },
+    {
+        name: "팽사원",
+        num: 'j123456',
+        dept: "회계관리 3팀",
+        link: './GroupInfoAlet'
+    },
+    {
+        name: "윤팀장",
+        num: 'j123456',
+        dept: "인사관리 3팀",
+        link: './GroupInfoAlet'
+    }
+]
 
 
 export default SearchDept;

@@ -20,6 +20,8 @@ import DocumentMain from "./pages/approval/DocumentMain";
 import Group from './pages/manage/Group';
 import SearchDept from './pages/manage/SearchDept';
 import './layouts/Default.css';
+import MemberInfo from './pages/manage/MemberInfo';
+import ChartModal from './pages/manage/ChartModal';
 import SecheduleSummaryCreate from "./pages/calendar/ScheduleSummaryCreate";
 
 
@@ -29,8 +31,6 @@ function Test() {
 
 function App() {
   return (
-
-              
 
 
     <>
@@ -98,9 +98,6 @@ function App() {
         </Routes>
       </BrowserRouter>
     </>
-
-
-
   );
 }
 

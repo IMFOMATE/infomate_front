@@ -1,7 +1,7 @@
 import * as React from 'react';
 import GroupCss from './Group.module.css';
-
-import { useState } from 'react';
+import {Link} from "react-router-dom";
+// import { useState } from 'react';
 
 function GroupInfoAlet () {
 
@@ -15,11 +15,11 @@ function GroupInfoAlet () {
                     <div className={`deptInfo ${GroupCss.deptInfo}`}>
                         <div className={`infoBox ${GroupCss.infoBox}`}>
                             <div className={`infoIcon ${GroupCss.infoIcon}`}>
-                                <a href='/'>
+                                <Link to='/'>
                                     <span className='material-symbols-outlined'>
                                         close
                                     </span>
-                                </a>
+                                </Link>
                             </div>
                             <div className={`empInfo ${GroupCss.empInfo}`}>
                                 <img className={`empImage ${GroupCss.empImage}`} alt='empImage' src='img/user.jpg'/>                               

@@ -16,7 +16,7 @@ import ReminderList from './components/calendar/dashboard/ReminderList';
 import Calendar from './pages/calendar/Calendar';
 
 import Group from './pages/manage/Group';
-import SearchDept from './pages/admin/manage/SearchDept';
+import SearchDept from './pages/manage/SearchDept';
 
 function App() {
   return (

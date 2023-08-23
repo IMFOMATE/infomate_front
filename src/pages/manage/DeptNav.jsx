@@ -1,9 +1,10 @@
 import React, {useContext} from 'react';
 import NavStyle from "../../components/common/Nav.module.css";
 import {MenuContext} from "../../context/MenuContext";
-import { Link } from "react-router-dom";
+// import {Link} from "react-router-dom";
 import Navlist from "../../components/common/Navlist";
-function GroupNav() {
+
+function DeptNav() {
 
     const {menuState, toggleMenu} = useContext(MenuContext);
 
@@ -20,10 +21,13 @@ function GroupNav() {
     );
 }
 
-export default GroupNav;
+export default DeptNav;
 
 const GroupLink = [
     {text:'전체조직도', link:'/manage'},
     {text:'부서조회', link:'/searchDept'},
     {text:'직원조회', link:'/manage'},
+
+
+
 ]

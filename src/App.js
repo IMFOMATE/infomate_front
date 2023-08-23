@@ -18,8 +18,9 @@ import ReminderList from './components/calendar/dashboard/ReminderList';
 import Calendar from './pages/calendar/Calendar';
 import DocumentMain from "./pages/approval/DocumentMain";
 import Group from './pages/manage/Group';
-import SearchDept from './pages/admin/manage/SearchDept';
+import SearchDept from './pages/manage/SearchDept';
 import './layouts/Default.css';
+
 
 function App() {
   return (

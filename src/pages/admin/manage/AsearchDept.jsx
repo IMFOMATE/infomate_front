@@ -6,7 +6,7 @@ import SdeptCss from "./SearchDept.module.css";
 
 
 
-function SearchDept(){
+function AsearchDept(){
 
     return(
 
@@ -51,4 +51,4 @@ function SearchDept(){
 
 
 
-export default SearchDept;
+export default AsearchDept;

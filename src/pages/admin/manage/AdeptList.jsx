@@ -1,14 +1,7 @@
 import React from "react";
 import SdeptCss from "./SearchDept.module.css";
-import { useState } from "react";
 
-function DeptList({data}) {
-
-    const [depts, setDepts] = useState([
-        {name: '홍길동', number: 'k123456', dept:'인사관리 3팀'},
-        {name: '홍길동', number: 'k123456', dept:'인사관리 3팀'}
-
-    ]);
+function AdeptList({data}) {
 
     return(
         data.map(e =>
@@ -32,4 +25,4 @@ function DeptList({data}) {
 }
 
 
-export default DeptList;
+export default AdeptList;

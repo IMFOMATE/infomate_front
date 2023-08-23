@@ -57,6 +57,98 @@
   text-align: center;
 }
 
+.inline{
+  display: inline-flex;
+}
+
+.inline::before{
+  content: "승인";
+  background-color: var(--color-border);
+  padding: 2px;
+  writing-mode: vertical-lr;
+  vertical-align: middle;
+  text-align: center;
+  border: 1px solid #000;
+}
+
+.stamp{
+  width: 40px;
+}
+
+.credit{
+  flex-grow: 1;
+  width: 100px;
+  height: 100%;
+  border-top: 1px solid #000;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.credit p {
+  width: 100%;
+  padding: 5px 0px;
+}
+
+.credit p:first-child, .credit p:nth-child(2){
+  border-bottom: 1px solid #000;
+}
+.credit p:nth-child(2){
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.credit_name{
+  padding: 2px 0px;
+}
+
+
+.doc_content{
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.dept{
+  width: 100%;
+  padding: 5px;
+}
+
+.files{
+  padding: 20px;
+  border: 2px solid var(--color-border);
+}
+
+.files label {
+  font-weight: bold;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.files input::file-selector-button{
+  padding: 8px 10px;
+  background-color: transparent;
+  border-radius: 6px;
+  color: var(--color-hard);
+  border: 1px solid var(--color-hard);
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.fileBtn{
+
+}
+
+.files input::file-selector-button:hover{
+  background-color: var(--color-hard);
+  color: #fff;
+}
+
+
 
 
 @media screen and (max-width: 1280px){

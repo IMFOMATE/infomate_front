@@ -50,3 +50,10 @@
     text-align: right;
 }
 
+.none{
+    display: none;
+}
+
+.open{
+    display: block;
+}

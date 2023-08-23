@@ -22,7 +22,6 @@ function DocumentMain() {
               (type === 'vacation' && <Vacation/>)
           }
         </div>
-
       </>
   );
 }

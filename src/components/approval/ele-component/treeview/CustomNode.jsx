@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 import {useModal} from "../../../../context/ModalContext";
 
 export const CustomNode = (props) => {
-  const { toggleModal } = useModal();
+  const { toggleModal } = useModal('documentKind');
   const { droppable, data } = props.node;
   const indent = props.depth * 24;
 

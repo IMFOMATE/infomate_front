@@ -1,0 +1,52 @@
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal{
+    flex-basis: 500px;
+    height: 500px;
+    position: relative;
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.title{
+    padding: 20px;
+}
+
+.content_wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.content{
+    flex-grow: 1;
+    padding: 10px;
+    display: flex;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.button{
+    padding: 10px;
+    text-align: right;
+}
+

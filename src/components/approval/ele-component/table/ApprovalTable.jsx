@@ -44,7 +44,7 @@ function ApprovalTable({title, data}) {
       {
         title && <h2 className={ApprovalTableCss.subtitle}>{title}</h2>
       }
-      <div>
+      <div className={ApprovalTableCss.container}>
         <table className={ApprovalTableCss.list_approval}>
           <TableHeader/>
           <tbody>

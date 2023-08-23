@@ -81,9 +81,10 @@ main{
 	--color-success : #36D99E;
 }
 
+
 ::-webkit-scrollbar{
 	right: 0;
-    width: 6px; 
+	width: 6px;
 }
 
 ::-webkit-scrollbar-thumb {

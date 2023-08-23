@@ -1,0 +1,73 @@
+
+
+.sendButton {
+
+    display: inline;
+margin-right: 20px;
+
+width: 79px;
+height: 33px;
+justify-content: center;
+align-items: center;
+color: bl;
+font-weight: 600;
+/* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
+border-radius: 5px;
+border: 1px solid rgba(0, 0, 0, 0.1);
+margin-left: 80%;
+margin-top: 30px;
+}
+
+.sendButton:hover {
+
+    background-color: var(--color-middle);
+    color: aliceblue;
+    
+}
+
+
+
+
+.uploadBox{
+    
+    height: 50px;
+    border:1px solid gray;
+    box-shadow: 2px 3px 9px hsl(0, 0%, 47%);
+    padding:10px;
+    margin-left: 40px;
+    width: 80%;
+    
+}
+
+.writeContent {
+
+        display: inline;
+        width: 20%;
+
+
+        color: #535353;
+        font-family: Inter;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        padding: 20px;
+        margin-top: -50px;
+        
+}
+
+input[type="text"] {
+    width: 100px;
+    display: inline-block;
+    margin-right: 40px;
+
+}
+
+.container>input {
+
+    width: 90%;
+
+}
+
+
+

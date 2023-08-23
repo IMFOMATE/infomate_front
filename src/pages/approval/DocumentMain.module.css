@@ -27,6 +27,35 @@
   background-color: #fff;
 }
 
+.doc_title{
+  padding: 30px;
+  text-align: center;
+}
+
+.doc_top{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.top_table{
+  width: 100%;
+  flex-basis: 250px;
+  border: 1px solid black;
+}
+
+.td{
+  padding: 5px;
+}
+
+.tr, .td{
+  border: 1px solid #000;
+}
+
+.tr .td:first-child, .tds{
+  background-color: var(--color-border);
+  text-align: center;
+}
 
 
 

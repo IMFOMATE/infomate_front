@@ -20,6 +20,8 @@ import DocumentMain from "./pages/approval/DocumentMain";
 import Group from './pages/manage/Group';
 import SearchDept from './pages/manage/SearchDept';
 import './layouts/Default.css';
+import MemberInfo from './pages/manage/MemberInfo';
+import ChartModal from './pages/manage/ChartModal';
 
 
 function App() {
@@ -74,6 +76,8 @@ function App() {
               <Route index element={<Group/>}/>
             </Route>
             <Route path='/searchDept' element={<SearchDept/>}/>
+            <Route path='memberInfo' element={<MemberInfo/>}/>
+            <Route path='test' element={<ChartModal/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

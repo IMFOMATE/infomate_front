@@ -32,8 +32,8 @@
     }
 
     .fowHd-grid > div {
-    padding-bottom: 0px;
-}
+        padding-bottom: 0px;
+    }
         
 }
 
@@ -42,6 +42,7 @@
    border-collapse: collapse;
    border-bottom: 1px solid rgba(125, 125, 125, 0.4);
    height: 40px;
+   font-size: 0.9rem;
 }
 
 .fowHdGrid > div {
@@ -58,13 +59,11 @@
     display: inline-flex;
     width: 10%;
     vertical-align: middle;
-    /* border: 1px solid black; */
 }
 
 .fowHdGrid > div:first-child > div {
     display: inline-flex;
     width: 30%;
-    /* border: 1px solid black; */
 }
 
 .fowHdGrid > div:last-child {

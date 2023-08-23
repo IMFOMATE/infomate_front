@@ -1,9 +1,9 @@
 import styles from './button.module.css'
 
-const ButtonOutline = ({style, value, onClick, isCancel}) => {
+const ButtonOutline = ({style, value, onClick, isCancel, className}) => {
 
     // const className = `c-button c-button-color-hard c-transition03 "  + ${isCancel? 'c-button-cancel-outline' : ''}`
-    const className = [styles.btn, styles.colorHard,isCancel? styles.cancelOutline : ''].join(' ');
+    className = !className && [styles.btn, styles.colorHard,isCancel? styles.cancelOutline : ''].join(' ');
 
     return (
         <button className={className} onClick={onClick} style={style}>{value}</button>

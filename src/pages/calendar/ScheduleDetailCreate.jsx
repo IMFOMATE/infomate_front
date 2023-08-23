@@ -1,12 +1,14 @@
 import styles from './scheduleDetailCreate.module.css'
 import InputEle from '../../components/common/input/Input'
 import ButtonInline from '../../components/common/button/ButtonInline';
+import ButtonOutline from '../../components/common/button/ButtonOutline';
 import AttendUser from '../../components/calendar/AttendUser';
 import CheckBox from '../../components/common/input/CheckBox';
 import TextareaEl from '../../components/common/input/Textarea';
 import SelectEle from '../../components/common/select/SelectEle';
 import DaumPostcode from 'react-daum-postcode';
-import { useRef, useState } from 'react';
+import {useRef, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 
 const ScheduleDetilaCreate = (props) => {
@@ -16,7 +18,7 @@ const ScheduleDetilaCreate = (props) => {
         address: ''
     });
 
-    const modalRef = useRef(null);
+    const modalRef = useRef();
     const addressRef = useRef();
 
     const postOutArea = e =>{
@@ -32,6 +34,20 @@ const ScheduleDetilaCreate = (props) => {
         addressRef.current.focus();
     }
 
+    const [attendUsers, setAttendUsers] = useState([
+        {name: '홍길동', id:1},
+        {name: '홍길동', id:1},
+        {name: '홍길동', id:1},
+    ]);
+
+    const calendarList = [
+        {id: 1, value:'1', text: '1'},
+        {id: 2, value:'2', text: '2'},
+        {id: 3, value:'3', text: '3'},
+        {id: 4, value:'4', text: '4'},
+    ]
+    
+
     return (
         <>
             <div className={styles.mainContainer}>
@@ -39,11 +55,8 @@ const ScheduleDetilaCreate = (props) => {
                     <h3>일정 등록</h3>
                 </div>
                 <div>
-                    {/* <div>
-                        <labe className={styles.subject}>일정 제목</labe>
-                    </div> */}
                     <div className={[styles.subItem, styles.subCol2].join(' ')}>
-                        <InputEle type="text" />
+                        <InputEle type="text" placeholder='제목을 입력하세요'/>
                         <div className={styles.optionItem}>
                             <div style={{'margin-right': 10, verticalAlign:'middle'}}>
                                 <CheckBox id="private" isChangeColor={true}/>
@@ -59,7 +72,6 @@ const ScheduleDetilaCreate = (props) => {
                 <div>
                     <div>
                         <div>
-                            {/* <label className={styles.subject}>일정</label> */}
                         </div>
                         <div className={[styles.subItem, styles.subCol3].join(' ')}>
                             <InputEle type="datetime-local" />
@@ -85,29 +97,29 @@ const ScheduleDetilaCreate = (props) => {
                     </div>
                     <label for="corp-schedule">캘린더</label>
                     <div className={styles.extendEle}>
-                        <SelectEle data={[]} />
+                        <SelectEle options={calendarList} />
                     </div>
                     <label>참석자</label>
                     <div style={{margin:'10px 0 10px 0'}}>
-                        <AttendUser value={'홍길동'}/>  
-                        <AttendUser value={'홍길동'}/>  
-                        <AttendUser value={'홍길동'}/>  
-                        <AttendUser value={'홍길동'}/>  
-                        <AttendUser value={'홍길동'}/>  
-                        <AttendUser value={'홍길동'}/>  
-                        <AttendUser value={'홍길동'}/>                          
+                        {
+                            attendUsers.map(item=>(<AttendUser value={item.name}/>))
+                        }
+                        
+                        <ButtonOutline value='+' onClick={()=>{}} style={{borderRadius:'50px'}}/>
                     </div>
                     
                     <label for="address">장소</label>
                     <div className={styles.containerCol}>
-                        <InputEle ref={addressRef} id="address" name='address' type="text" value={schedule.address} onChange={(e)=>setSchedule({...schedule,[e.target.name]: e.target.value })}/>
+                        <InputEle ref={addressRef} name='address' type="text" value={schedule.address} onChange={(e)=>setSchedule({...schedule,[e.target.name]: e.target.value })}/>
                         <ButtonInline value={'주소검색'} onClick={()=>setPostToggle(true)} style={{height:30, width:80, display:'inline'}} />
-                        {postToggle && 
-                        <div ref={modalRef} className={styles.modalPost} onClick={postOutArea}>
-                            <div className={styles.post}>
-                                <DaumPostcode onComplete={daumPostHandler} />
+                        {
+                            postToggle && 
+                            <div ref={modalRef} className={styles.modalPost} onClick={postOutArea}>
+                                <div className={styles.post}>
+                                    <DaumPostcode onComplete={daumPostHandler} />
+                                </div>
                             </div>
-                        </div>}
+                        }
                     </div>
 
                     <label>내용</label>
@@ -120,7 +132,9 @@ const ScheduleDetilaCreate = (props) => {
                         <ButtonInline value="등록" onclick="" style={{width:80, height: 40}}/>
                     </div>
                     <div>
-                        <ButtonInline isCancel={true} value="닫기" onclick="" style={{width:80, height: 40}}/>
+                        <NavLink to='../'>
+                            <ButtonInline isCancel={true} value="닫기" onclick="" style={{width:80, height: 40}}/>
+                        </NavLink>
                     </div>
                 </div>
             </div>

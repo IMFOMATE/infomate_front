@@ -7,18 +7,6 @@
     flex: 0 0 80px;
 }
 
-/*header{*/
-/*    display: flex;*/
-/*    position: sticky;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    right: 0;*/
-/*    bottom: 0;*/
-/*    height: 100%;*/
-/*    flex: 1 0 480px;*/
-/*	overflow-x: hidden;*/
-/*    transition: all 0.5s ease;*/
-/*}*/
 
 main{
     width: 100%;
@@ -77,18 +65,18 @@ main{
     padding: 0px 15px;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;  
+    overflow-x: hidden;
 }
 
 
 .nav ul{
-    overflow-x: hidden;   
-    flex: 1 1 auto; 
+    overflow-x: hidden;
+    flex: 1 1 auto;
     margin: 15px 0px;
 }
 
 .nav ul li{
-    overflow-x: hidden;   
+    overflow-x: hidden;
     position: relative;
     width: 100%;
     transition: all 0.3s ease-in-out;

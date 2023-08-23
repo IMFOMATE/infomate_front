@@ -18,13 +18,9 @@ import ReminderList from './components/calendar/dashboard/ReminderList';
 import Calendar from './pages/calendar/Calendar';
 import DocumentMain from "./pages/approval/DocumentMain";
 import Group from './pages/manage/Group';
-import SearchDept from './pages/admin/manage/SearchDept';
-import SecheduleSummaryCreate from './pages/calendar/ScheduleSummaryCreate';
+import SearchDept from './pages/manage/SearchDept';
+import './layouts/Default.css';
 
-
-function Test() {
-  return <div>테스트ㅡㅡ</div>;
-}
 
 function App() {
   return (
@@ -76,17 +72,17 @@ function App() {
                 </Route>
                 <Route path="calendar">
                   <Route index element={<Calendar/>}/>
-                  <Route path="reminder" element={<ReminderList />} />  
+                  <Route path="reminder" element={<ReminderList />} />
                   <Route path="regist" element={<ScheduleDetailCreate/>} />
                     <Route path="management" element={<CalendarManegeLayout/>}>
                     <Route index element={<MyCalendar />}/>
-                    <Route path="myPage" element={<MyCalendar />}/> 
+                    <Route path="myPage" element={<MyCalendar />}/>
                     <Route path="favorite" element={<FavoriteCalendarLayout />}>
                       <Route index element={<FavoriteCalendarFollowing />} />
                       <Route path="following" element={<FavoriteCalendarFollowing />} />
                       <Route path="follower" element={<FavoriteCalendarFollower />} />
                       </Route>
-                    </Route>          
+                    </Route>
                 </Route>
                   <Route path='/manage'>
                     <Route index element={<Group/>}/>

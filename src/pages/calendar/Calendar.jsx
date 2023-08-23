@@ -80,7 +80,7 @@ const Calendar = () =>{
         
                 footerToolbar={{
                     left: 'today',
-                    center: 'scheduleRegist',
+                    center: isMobile && 'scheduleRegist',
                     right: isMobile?'dayGridMonth,timeGridWeek,timeGridDay' :  'scheduleRegist'
                 }}
                 
@@ -109,12 +109,13 @@ const Calendar = () =>{
                 eventClick={eventClickHandler}
             />
             {/* 480px 이하 비활성 클릭시 디테일 등록 페이지로 이동 */}
-            {modal.isModal && 
-            <div ref={modalRef} className={styles.modalBg} onClick={modalOutClickHandler}>
-                <div className={className}>
-                    <SecheduleSummaryCreate modal={modal} setModal={setModal} />
+            {
+            modal.isModal && 
+                <div ref={modalRef} className={styles.modalBg} onClick={modalOutClickHandler}>
+                    <div className={className}>
+                        <SecheduleSummaryCreate modal={modal} setModal={setModal} />
+                    </div>
                 </div>
-            </div>
             }
         </div>
     )

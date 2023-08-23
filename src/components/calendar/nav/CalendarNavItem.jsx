@@ -3,12 +3,12 @@ import CheckBox from '../../common/input/CheckBox';
 import InputColor from '../../common/input/InputColor';
 
 
-const CalendarNavItem = ({id, color, calendarName}) => {
+const CalendarNavItem = ({id, color, calendarName, isCheck, onChange}) => {
 
    return (
         <div className={styles.item}>
             <div>
-                <CheckBox id={id} style={{marginRight:10}}/> 
+                <CheckBox id={id} style={{marginRight:10}} checked={isCheck} onChange={onChange}/> 
                 <label for={id}>{calendarName}</label>
             </div>
             <div className={styles.color}>

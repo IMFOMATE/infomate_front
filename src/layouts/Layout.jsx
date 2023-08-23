@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from "../components/common/Header";
 import {Outlet} from "react-router-dom";
-import Default from './Default.css';
+// import Default from './Default.css'; // app.js에 import 
 import NavStyle from '../components/common/Nav.module.css';
 import MenuBtn from "../components/common/MenuBtn";
 import {CurrentTitleProvider} from "../context/CurrentTitleContext";
@@ -9,6 +9,7 @@ import {MenuContextProvider} from "../context/MenuContext";
 import {ModalContextProvider, useModal} from "../context/ModalContext";
 import Modal from "../components/approval/ele-component/common/Modal";
 import TreeView from "../components/approval/ele-component/treeview/TreeView";
+import { CalendarListProvider } from '../context/CalendarContext';
 
 export default function Layout() {
 
@@ -17,6 +18,7 @@ export default function Layout() {
             <ModalContextProvider>
                 <MenuContextProvider>
                     <CurrentTitleProvider>
+                        <CalendarListProvider>
                             {/*<div className='wrapper'>*/}
                             {/*    <MenuBtn/>*/}
                             {/*    <div className={NavStyle.flex}>*/}
@@ -28,6 +30,7 @@ export default function Layout() {
                             {/*    <Modal/>*/}
                             {/*</div>*/}
                         <LayoutContent/>
+                        </CalendarListProvider>
                     </CurrentTitleProvider>
                 </MenuContextProvider>
             </ModalContextProvider>

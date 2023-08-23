@@ -20,6 +20,8 @@ import DocumentMain from "./pages/approval/DocumentMain";
 import Group from './pages/manage/Group';
 import SearchDept from './pages/manage/SearchDept';
 import './layouts/Default.css';
+import CalendarLayout from './layouts/CalendarLayout';
+import CalendarNav from './pages/calendar/CalendarNav';
 
 
 function App() {
@@ -56,8 +58,9 @@ function App() {
               <Route path="approved" element={<MyDocList title='결재완료문서'/>}/> {/*결재 완료 리스트*/}
               <Route path="document" element={<DocumentMain/>}/>
             </Route>
-            <Route path="calendar">
-              <Route index element={<Calendar/>}/>  
+            <Route path="calendar" element={<CalendarLayout />}>
+              <Route index element={<Calendar/>}/>
+              <Route path="test" element={<CalendarNav />} />  
               <Route path="reminder" element={<ReminderList />} />  
               <Route path="regist" element={<ScheduleDetailCreate/>} />
                 <Route path="management" element={<CalendarManegeLayout/>}>

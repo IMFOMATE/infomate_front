@@ -14,7 +14,7 @@ const InputEle = (props,ref) => {
             value={props?.value}  
             onChange={props?.onChange} 
             placeholder={props?.placeholder} 
-            disabled={props?.isDisabled}
+            disabled={props?.disabled}
             onKeyPress={props?.onKeyPress}
             style={props?.style}
             defaultValue={props?.desfaultValue}

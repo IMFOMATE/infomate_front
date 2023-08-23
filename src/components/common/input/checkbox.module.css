@@ -6,6 +6,10 @@
     margin: 0;
     vertical-align:middle;
 }
+.chk:disabled{
+    border: none;
+    background-color: var(--color-background);
+}
 
 .chkBg{
     accent-color: rgb(159, 138, 200);

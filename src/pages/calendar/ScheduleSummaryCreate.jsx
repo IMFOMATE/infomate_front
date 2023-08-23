@@ -5,26 +5,43 @@ import InputEle from '../../components/common/input/Input';
 import SelectEle from '../../components/common/select/SelectEle';
 import styles from './scheduleSummary.module.css';
 import { NavLink } from 'react-router-dom';
+import { useContext } from 'react';
+import { ScheduleProvider } from '../../layouts/CalendarLayout';
 
-const SecheduleSummaryCreate = ({modal, setModal}) => {
+const SecheduleSummaryCreate = ({setModal}) => {
 
-    const dataChangeHanlder = e => {
-        console.log(e.target.value);
-        setModal({
-            ...modal,
-            data: {
-                [e.target.name] : e.target.value
-            }
-        })
-        console.log(modal);   
+    const {schedule, setSchedule} = useContext(ScheduleProvider);
+
+    console.log(schedule);
+    const scheduleChangeHanlder = e => {
+        const eleName = e.target.name;
+
+        if(e.target.type === 'checkbox'){
+                setSchedule({...schedule, [eleName]: e.target.checked})         
+        }else if(eleName === 'calendar') {
+            setSchedule({...schedule, [eleName]: parseInt(e.target.value)})
+        }else{
+            setSchedule({...schedule, [eleName]: e.target.value})
+        }
     }
 
 
     const scheduleResitClickHandler = (e) => {
-        setModal({})
+        setModal(false)
         // api 호출
+        setSchedule({})
     }
+
+    const calendarList = [
+        {id: 1, value:1, text: '1'},
+        {id: 2, value:2, text: '2'},
+        {id: 3, value:3, text: '3'},
+        {id: 4, value:4, text: '4'},
+    ]
     
+    const closeHanlder = e => {
+        setModal(false);
+    }
 
     return (
         <>
@@ -41,30 +58,33 @@ const SecheduleSummaryCreate = ({modal, setModal}) => {
                     <div className={styles.col2}>
                         
                         <label>일정명</label>
-                        <InputEle type={'text'} value={''} />
+                        <InputEle type={'text'} name='title' value={schedule.title} onChange={scheduleChangeHanlder} />
                     
                         <label>일시</label>    
                         <div>
-                            <InputEle
-                                type={'datetime-local'} 
-                                style={{margin:'0 0 1vh 0'}}
-                                name='startEvent'
-                                value={modal.data?.start?.toISOString().slice(0,19)}
-                                onChange={dataChangeHanlder}
-                            />
+                            {
+                                schedule.allDay || <InputEle
+                                    type={'datetime-local'} 
+                                    style={{margin:'0 0 1vh 0'}}
+                                    name='startDate'
+                                    value={schedule.startDate}
+                                    onChange={scheduleChangeHanlder}
+                                />
+                            }
                             <InputEle 
                                 type={'datetime-local'}
-                                name='endEvent'
-                                value={modal.data?.end?.toISOString().slice(0,19)}
-                                onChange={dataChangeHanlder}
+                                name='endDate'
+                                value={schedule.endDate}
+                                onChange={scheduleChangeHanlder}
                             />
                             <div style={{height:30, alignSelf: 'center'}}>
                                 <CheckBox 
-                                    id="all-day"
                                     type="checkbox"
-                                    name=""
+                                    name="allDay"
                                     isChangeColor={true}
                                     style={{display:'inline',position: 'relative', top:'7px'}}
+                                    checked={schedule.allDay}
+                                    onChange={scheduleChangeHanlder}
                                 />
                                 <label for="all-day" style={{display:'inline',position: 'relative', top: '3px',margin: '5px'}}>종일</label>
                             </div>
@@ -72,16 +92,16 @@ const SecheduleSummaryCreate = ({modal, setModal}) => {
 
                         <label>캘린더</label>
                         <div>
-                            <SelectEle style={{width:'100%'}} options={[{text:'1',value:1},{text:'2',value:2}]} />
+                            <SelectEle name='calendar' value={schedule.calendar} options={calendarList} onChange={scheduleChangeHanlder} style={{width:'100%'}} />
                         </div>
 
                         <label for="address">장소</label>
-                        <InputEle type={'text'}/>
+                        <InputEle name='address' type={'text'} value={schedule.address} onChange={scheduleChangeHanlder}/>
                         
                         <label for="corp-schedule">전사일정</label>
                         <div style={{textAlign: 'left'}}>
                             <CheckBox
-                                id="corp-schedule"
+                                name='corpSchdl'
                                 type="checkbox"
                                 isChangeColor={true}
                                 style={{position: 'relative', top:'2px'}}
@@ -93,7 +113,7 @@ const SecheduleSummaryCreate = ({modal, setModal}) => {
                             <ButtonOutline value={'상세일정등록'} style={{margin:'5px'}} />
                         </NavLink>
                         <ButtonOutline value={'등록'} style={{margin:'5px'}} onClick={scheduleResitClickHandler}  />
-                        <ButtonOutline value={'닫기'} isCancel={true} style={{margin:'5px'}} onClick={()=>setModal({isModal:false})} />
+                        <ButtonOutline value={'닫기'} isCancel={true} style={{margin:'5px'}} onClick={closeHanlder} />
                     </div>
                 </div>
             </div>

@@ -5,50 +5,76 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import multiMonthPlugin from '@fullcalendar/multimonth'
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 import styles from './Calendar.module.css';
-import { useEffect, useRef, useState } from "react";
+import { createRef, useContext, useEffect, useRef, useState } from "react";
 import SecheduleSummaryCreate from "./ScheduleSummaryCreate";
 import './calendar.css'
+import { ScheduleProvider } from "../../layouts/CalendarLayout";
+import { MenuContext } from '../../context/MenuContext';
 
 const Calendar = () =>{
 
+
+    const containerRef = createRef();
+
     const [modal, setModal] = useState({
-        isModal : false,
-        data: {}
+        isModal : false
     });
 
     const [isMobile, setIsMobile] = useState(false);
-
+    const [innerSize, setInnerSize] = useState(window.innerWidth);
+    
+    const {schedule, setSchedule} = useContext(ScheduleProvider);
+    
     const modalRef = useRef(null);
 
     const className = [styles.modal, styles.modalActive].join(' ')
 
     useEffect(()=>{
-        if(window.innerWidth <= 480){
+        setSchedule({})
+        if(innerSize <= 480){
             setIsMobile(true);
         }else{
             setIsMobile(false);
         }
-    }, [])
 
-    const calenderClickHandler = arg => {
+        const sizeObserver = new ResizeObserver((entires)=>{
+        
+            const { width } = entires[0].contentRect;
+            setInnerSize(width)
+            if(width <= 480){
+                setIsMobile(true);
+            }else{
+                setIsMobile(false);
+            }
+            
+        }) 
+        sizeObserver.observe(containerRef.current);
+    },[])
+
+    const calenderClickHandler = data => {
+        setSchedule({}) // 커스텀 등록에서 데이터 삭제 안됨
+
         if(isMobile) {
             document.location.href='./calendar/regist';
         }else{
-            setModal({isModal: true, data: arg });
+            setModal({isModal: true});
         }
+
+        setSchedule({...schedule, startDate: data?.start.toISOString().slice(0,19), endDate: data?.end.toISOString().slice(0,19) })
     };
 
     const modalOutClickHandler = e => {
         if(modalRef.current === e.target){
             setModal({isModal:false})
         }
+        
     }
     const eventClickHandler = e => {
         console.log(e.event._def);
     }
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container} ref={containerRef}>
             <FullCalendar
                 locale={koLocale}
                 timeZone={'Asia/Seoul'}
@@ -61,13 +87,6 @@ const Calendar = () =>{
                 editable={true}
                 selectable={true}
                 dayMaxEvents={true}
-                windowResize={e => {
-                    if(window.innerWidth <= 480){
-                        setIsMobile(true);
-                    }else{
-                        setIsMobile(false);
-                    }                    
-                }}
                 expandRows={true}
                 plugins={[ multiMonthPlugin, dayGridPlugin, timeGridPlugin, interactionPlugin ]}
                 initialView={'dayGridMonth'}
@@ -86,15 +105,14 @@ const Calendar = () =>{
                 
                 stickyFooterScrollbar={true}
                 
-                aspectRatio={isMobile ? 0.7 : 1.1}
+                aspectRatio={isMobile ? 0.7 : 1.2}
 
                 customButtons={{
                     scheduleRegist: {
                         text: '등록',
                         click: ()=>{
                             calenderClickHandler();
-                        }
-                        
+                        }   
                     }
                 }}
                 
@@ -104,13 +122,13 @@ const Calendar = () =>{
                     {title: 'test121', start: '2023-08-21T00:00', end:'2023-08-21T24:00', color:'red'},
                 ]}
                 
-                // dateClick={calenderClickHandler}
+                
                 select={calenderClickHandler} // dateClick과 중복 클럭 이벤트 발생
                 eventClick={eventClickHandler}
             />
-            {/* 480px 이하 비활성 클릭시 디테일 등록 페이지로 이동 */}
+        
             {
-            modal.isModal && 
+                modal.isModal && 
                 <div ref={modalRef} className={styles.modalBg} onClick={modalOutClickHandler}>
                     <div className={className}>
                         <SecheduleSummaryCreate modal={modal} setModal={setModal} />

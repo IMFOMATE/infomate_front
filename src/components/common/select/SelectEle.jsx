@@ -9,6 +9,8 @@ const SelectEle = (props) => {
             disabled={props?.disabled}
             style={props?.style}
             defaultValue={props?.defaultValue}
+            onSelect={props?.onSelect}
+            onChange={props?.onChange}
             >
             {props?.options?.map(item => <option key={item.id} value={item.value}>{item.text}</option>)}
         </select>

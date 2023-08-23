@@ -11,7 +11,7 @@ const FavoriteCalendarFollowing = () => {
     const {chk, setChk} = useContext(ManageChkList);
 
     useEffect(()=>{
-        setChk({favoriteAllChk:false})
+        setChk({itemAll:false})
     },[])
 
     const data = [

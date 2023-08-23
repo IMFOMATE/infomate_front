@@ -9,7 +9,7 @@ const FavoriteCalendarFollower = () => {
 
     useEffect(()=>{
         console.log(chk);
-        setChk({favoriteAllChk:false})
+        setChk({itemAll:false})
     },[])
     
     const data = [

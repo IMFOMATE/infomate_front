@@ -8,10 +8,10 @@ export const ManageChkList = createContext(null);
 const FavoriteCalendarLayout = () => {
 
     const [chk ,setChk] = useState({
-        follwerAllChk: false,
-        follwiingAllChk: false,
+        itemAll: false,
+        selectList: [],
     })
-
+     let df=[1,2]
     return (
         <>
             <ManageChkList.Provider value={{chk, setChk}} >

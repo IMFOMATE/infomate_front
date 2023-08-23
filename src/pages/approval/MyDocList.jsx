@@ -1,5 +1,6 @@
 import React from 'react';
 import ToolbarApprovalTable from "../../components/approval/ele-component/table/toolbarApprovalTable";
+import style from '../../components/common/main.module.css'
 
 function MyDocList({title}) {
 
@@ -9,10 +10,10 @@ function MyDocList({title}) {
 
   return (
     <>
-      <div className='maintitle'>
-        <h1>
+      <div className={style.maintitle}>
+        <h2>
           {title}
-        </h1>
+        </h2>
       </div>
       <ToolbarApprovalTable />
     </>

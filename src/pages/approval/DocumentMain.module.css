@@ -1,0 +1,51 @@
+
+.doc_wrapper{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  /* height: 100%; */
+}
+
+.doc_wrap, .container{
+  display: flex;
+}
+
+.docs{
+  padding: 12px;
+  width: 80%;
+}
+
+.doc_side{
+  width: 20%;
+  padding: 10px;
+}
+
+.doc{
+  border: 5px solid var(--color-border);
+  padding: 10px;
+  width: 100%;
+  background-color: #fff;
+}
+
+
+
+
+@media screen and (max-width: 1280px){
+
+  .container{
+    flex-direction: column;
+  }
+  .docs, .doc_side{
+    width: 100%;
+  }
+
+
+}
+
+@media screen and (max-width: 760px){
+
+  .doc_top{
+    flex-direction: column;
+  }
+
+}

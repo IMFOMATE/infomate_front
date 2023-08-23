@@ -1,18 +1,28 @@
 import React from 'react';
 import mainCss from "../../components/common/main.module.css";
-import {Outlet, useLocation} from "react-router-dom";
-
+import {useLocation} from "react-router-dom";
+import Payment from "../../components/approval/ele-component/document/Payment";
+import Vacation from "../../components/approval/ele-component/document/Vacation";
+import Draft from "../../components/approval/ele-component/document/Draft";
+import styles from './DocumentMain.module.css';
 
 function DocumentMain() {
   const location = useLocation();
-  const type = location.state;
-
+  const {name, type} = location.state;
+  console.log(type);
   return (
       <>
         <div className={mainCss.maintitle}>
-          <h2>{type}</h2>
+          <h2>{name}</h2>
         </div>
-        <Outlet/>
+        <div className={styles.doc_wrapper}>
+          {
+              (type === 'payment' && <Payment/>) ||
+              (type === 'draft' && <Draft/>) ||
+              (type === 'vacation' && <Vacation/>)
+          }
+        </div>
+
       </>
   );
 }

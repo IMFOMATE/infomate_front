@@ -17,8 +17,6 @@ const CalendarMagnageFavoriteFollowerHeader = ({id, memberName, calendarName, ap
         // console.log(chk); 추가 안됨 수정예정
     }
 
-    
-
     return(
         <div className={className} style={{borderBottom:0, padding:'5px 0 5px 0'}} >
             <div>
@@ -33,7 +31,6 @@ const CalendarMagnageFavoriteFollowerHeader = ({id, memberName, calendarName, ap
                 <div>{state}</div>
             </div>
         </div>
-
     )
 }
 

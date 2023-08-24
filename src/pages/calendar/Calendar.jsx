@@ -9,16 +9,18 @@ import { createRef, useContext, useEffect, useRef, useState } from "react";
 import SecheduleSummaryCreate from "./ScheduleSummaryCreate";
 import './calendar.css'
 import { ScheduleProvider } from "../../layouts/CalendarLayout";
-import { MenuContext } from '../../context/MenuContext';
+
 
 const Calendar = () =>{
 
-
+    // [예정] read mode 경우 데이터 없는 라벨은 미표시
     const containerRef = createRef();
 
     const [modal, setModal] = useState({
         isModal : false
     });
+
+    const [mode, setMode] = useState('create');
 
     const [isMobile, setIsMobile] = useState(false);
     const [innerSize, setInnerSize] = useState(window.innerWidth);
@@ -49,6 +51,7 @@ const Calendar = () =>{
             
         }) 
         sizeObserver.observe(containerRef.current);
+
     },[])
 
     const calenderClickHandler = data => {
@@ -60,18 +63,37 @@ const Calendar = () =>{
             setModal({isModal: true});
         }
 
-        setSchedule({...schedule, startDate: data?.start.toISOString().slice(0,19), endDate: data?.end.toISOString().slice(0,19) })
+        setSchedule({
+            ...schedule, 
+            startDate: data?.start?.toISOString().slice(0,19),
+            endDate: data?.end?.toISOString().slice(0,19)
+        })
     };
 
     const modalOutClickHandler = e => {
         if(modalRef.current === e.target){
-            setModal({isModal:false})
+            setModal({isModal:false});
+            setMode('create')
         }
         
     }
     const eventClickHandler = e => {
-        console.log(e.event._def);
+        setModal({isModal:true})
+        setMode('read')
+
+        setSchedule({...schedule, 
+            // id: e.event._ef  id 값 추가
+            title: e.event._def?.title,
+            startDate: e.event._instance.range.start?.toISOString().slice(0,19),
+            endDate: e.event._instance.range.end?.toISOString().slice(0,19),
+            allDay: e.event._def?.allDay})
     }
+
+    const eventList = [
+        {title: 'test1', date: '2023-08-21', color:'red', id:1212, extendedProps:{}},
+        {title: 'test121', start: '2023-08-21T12:00', end:'2023-08-22T23:00', color:'blue'},
+        {title: 'test121', start: '2023-08-21T00:00', end:'2023-08-21T24:00', color:'red'},
+    ]
 
     return (
         <div className={styles.container} ref={containerRef}>
@@ -115,14 +137,7 @@ const Calendar = () =>{
                         }   
                     }
                 }}
-                
-                events={[
-                    {title: 'test1', date: '2023-08-21', color:'red', id:1212, extendedProps:{}},
-                    {title: 'test121', start: '2023-08-21T12:00', end:'2023-08-22T23:00', color:'blue'},
-                    {title: 'test121', start: '2023-08-21T00:00', end:'2023-08-21T24:00', color:'red'},
-                ]}
-                
-                
+                events={eventList}
                 select={calenderClickHandler} // dateClick과 중복 클럭 이벤트 발생
                 eventClick={eventClickHandler}
             />
@@ -131,7 +146,7 @@ const Calendar = () =>{
                 modal.isModal && 
                 <div ref={modalRef} className={styles.modalBg} onClick={modalOutClickHandler}>
                     <div className={className}>
-                        <SecheduleSummaryCreate modal={modal} setModal={setModal} />
+                        <SecheduleSummaryCreate modal={modal} setModal={setModal} mode={mode} setMode={setMode} />
                     </div>
                 </div>
             }

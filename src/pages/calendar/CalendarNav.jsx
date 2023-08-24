@@ -15,15 +15,18 @@ const CalendarNav = () => {
 
     const [moreToggle, setMoreToggle] = useState({
         my:false,
-        corp:false,
         fav:false,
     });
+
+    const myClassName = [NavStyle.sideList, styles.listContainer, moreToggle?.my && styles.listContainerActive].join(' ');
+    const corpClassName = [NavStyle.sideList, styles.listContaine].join(' ');
+    const favClassName = [NavStyle.sideList, styles.listContainer, moreToggle?.fav && styles.listContainerActive].join(' ');
 
     const {calendarList, setCalendarList} = useContext(CalendarProvider);
 
     useEffect(()=>{
         //캘린더 리스트 api 호출
-        setCalendarList([1,2,3,4,5, 11, 12, 13])
+        // setCalendarList([1,2,3,4,5, 11, 12, 13])
     },[])
 
     const calendatListChangehandler = e => {
@@ -69,15 +72,15 @@ const CalendarNav = () => {
 
             <SideSubLabel text={'내 일정'} />
             
-            <div className={[NavStyle.sideList, styles.listContainer, moreToggle?.my && styles.listContainerActive].join(' ')}>
+            <div className={myClassName}>
                 {
                     sampleData.filter(item => (
                         item.departmentCode === null && item.memberCode === 1
-                    )).filter((item, index)=> (
-                        moreToggle.my ? item : index < 3 
                     )).sort((prev , next) =>
                         prev.indexNo - next.indexNo
-                    ).map(item => (
+                    ).filter((item, index)=> (
+                        moreToggle.my ? item : index < 3 
+                    )).map(item => (
                          <CalendarNavItem calendarName={item.name} color={item.labelColor} id={item.id} isCheck={[...calendarList].includes(parseInt(item.id))} onChange={calendatListChangehandler} />
                     ))
                 }
@@ -89,15 +92,15 @@ const CalendarNav = () => {
             <br/>
 
             <SideSubLabel text={'회사 일정'} />
-            <div className={[NavStyle.sideList, styles.listContainer, moreToggle?.corp && styles.listContainerActive].join(' ')}>
+            <div className={corpClassName}>
                 {
                     sampleData.filter(item => (
                         item.departmentCode === 1 || item.departmentCode  === 0 // 조건 수정 예정
-                    )).filter((item, index) => (
-                        moreToggle.corp ? item : index < 3 
                     )).sort((prev , next) =>
                         prev.indexNo - next.indexNo
-                    ).map(item => (
+                    ).filter((item, index) => (
+                        moreToggle.corp ? item : index < 3 
+                    )).map(item => (
                         <CalendarNavItem calendarName={item.name} color={item.labelColor} id={item.id} isCheck={[...calendarList].includes(parseInt(item.id))} onChange={calendatListChangehandler}/>
                     ))
                 }
@@ -108,15 +111,15 @@ const CalendarNav = () => {
             <br />
 
             <SideSubLabel text={'관심 일정'} />
-            <div className={[NavStyle.sideList, styles.listContainer, moreToggle?.fav && styles.listContainerActive].join(' ')}>
+            <div className={favClassName}>
                 {
                     sampleData.filter(item => (
                         item.memberCode !== 1 // 조건 수정 예정
-                    )).filter((item, index)=> (
-                        moreToggle.fav ? item : index < 3 
                     )).sort((prev , next) =>
                         prev.indexNo - next.indexNo
-                    ).map(item =>(
+                    ).filter((item, index)=> (
+                        moreToggle.fav ? item : index < 3 
+                    )).map(item =>(
                         <CalendarNavItem calendarName={item.name} color={item.labelColor} id={item.id} isCheck={[...calendarList].includes(parseInt(item.id))} onChange={calendatListChangehandler} />
                     ))
                 }

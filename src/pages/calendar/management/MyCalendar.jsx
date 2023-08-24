@@ -1,23 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CalendarAdd from '../../../components/calendar/manage/CalendarAdd';
 import MyCalendarItem from '../../../components/calendar/manage/MyCalendarItem'
 
 import styles from './myCalendar.module.css';
 
-const MyCalendar = (props) => {
+const MyCalendar = () => {
 
 
     const [selectItem, setSelectItem] = useState([]);
 
+    let data = [];
 
-    const data =[
-        {id:1,text:'캘린더',color: '#FF0000',isDefaultRadio:true, memberCode: 1},        
-        {id:2,text:'캘린더',color: '#FF0000',isDefaultRadio:false, memberCode: 1},        
-        {id:3,text:'캘린더',color: '#FF0000',isDefaultRadio:false, memberCode: 1},        
-        {id:4,text:'캘린더',color: '#FF0000',isDefaultRadio:false, memberCode: 1},        
-        {id:5,text:'캘린더',color: '#FF0000',isDefaultRadio:false, memberCode: 1},        
-        {id:6,text:'캘린더',color: '#FF0000',isDefaultRadio:false, memberCode: 1},        
-    ] // 테스트
+    useEffect(()=> {
+        
+
+    },[])
+    
 
     const checkSelectHandler = e => {
         if(selectItem.includes(e.target.id)){
@@ -32,7 +30,14 @@ const MyCalendar = (props) => {
         console.log(e.target.id);
     }
 
-
+    data = [...data,
+        {id:1,name:'캘린더1',labelColor: '#FF0000', defaultCalendar:true, memberCode: 1, openStatus: false, indexNo: 1},
+        {id:2,name:'캘린더2',labelColor: '#FF0000', defaultCalendar:true, memberCode: 1, openStatus: false, indexNo: 2},
+        {id:3,name:'캘린더3',labelColor: '#FF0000', defaultCalendar:true, memberCode: 1, openStatus: false, indexNo: 10},
+        {id:4,name:'캘린더4',labelColor: '#FF0000', defaultCalendar:true, memberCode: 1, openStatus: false, indexNo: 11},
+        {id:5,name:'캘린더5',labelColor: '#FF0000', defaultCalendar:true, memberCode: 1, openStatus: false, indexNo: 5},
+        {id:6,name:'캘린더6',labelColor: '#FF0000', defaultCalendar:true, memberCode: 1, openStatus: false, indexNo: 6},
+    ] // 테스트
 
     return (
         <>  
@@ -42,15 +47,17 @@ const MyCalendar = (props) => {
                 </div>
                 <div>
                     {
-                        data?.map((item,index) => <MyCalendarItem 
+                        data?.sort((prev, next) => (
+                            prev.indexNo - next.indexNo
+                        )).map((item,index) => <MyCalendarItem 
                                                 key={index}
                                                 id={item?.id}
-                                                radioName={item?.memberCode}
-                                                isDefualtRadio={item.isDefaultRadio}
-                                                text={item.text}
-                                                defaultColorValue={item?.colorValue}
+                                                memberCode={item?.memberCode}
+                                                defaultCalendar={item?.defaultCalendar}
+                                                name={item.name}
+                                                defaultColorValue={item?.labelColor}
                                                 isDefaultCheck={item?.isDefaultCheck}
-                                                isPubilc={false}
+                                                openStatus={item?.openStatus}
                                                 onChange={checkSelectHandler}
                                                 radioOnChange={radioOnChangeHandler}
                                                 selectOnChange={()=>{}}
@@ -58,8 +65,6 @@ const MyCalendar = (props) => {
                                                 />
                         )
                     }
-                    
-                    <MyCalendarItem id={1} memberCode='1' isDafualtRadio={true} text='회사 캘린더' colorValue={'#FF0000'} isCheck={true}/> {/* 예제 */}
                 </div>
             </div>
         </>

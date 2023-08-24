@@ -8,7 +8,7 @@ const CalendarNavItem = ({id, color, calendarName, isCheck, onChange}) => {
    return (
         <div className={styles.item}>
             <div>
-                <CheckBox id={id} style={{marginRight:10}} checked={isCheck} onChange={onChange}/> 
+                <CheckBox id={id} style={{marginRight:10}} checked={isCheck} onChange={onChange} isChangeColor={true} /> 
                 <label for={id}>{calendarName}</label>
             </div>
             <div className={styles.color}>

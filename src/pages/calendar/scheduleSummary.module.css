@@ -4,7 +4,7 @@
     width: 550px;
     max-width: 550px;
     box-shadow: 0 0 40px rgba(200, 200, 200, 0.4);
-    background-color: white !important;
+    background-color: var(--color-background) !important;
 }
 
 .title{

@@ -17,5 +17,12 @@
 .select:disabled{
     border: 0;
     background-color: var(--color-background);
+    color: black;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    text-align: left;
+    /* top: 10px; */
+    padding: 0;
 }
 

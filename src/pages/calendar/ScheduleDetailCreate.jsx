@@ -27,8 +27,9 @@ const ScheduleDetilaCreate = () => {
     const addressRef = useRef(); // 주소 input
 
     useEffect(()=>{
-        if(scheduleId === null) return;
+        if(scheduleId === null || scheduleId === undefined) return;
         // api 호출 성공시 setMode('read')
+        setMode('read')
     },[])
 
     const isEleDisabled = () => {
@@ -104,8 +105,8 @@ const ScheduleDetilaCreate = () => {
                         <div>
                         </div>
                         <div className={[styles.subItem, styles.subCol3].join(' ')}>
-                            {!schedule.allDay && <InputEle type="datetime-local" name='startDate' value={schedule.startDate} onChange={scheduleChangeHanlder} disabled={isEleDisabled()}/>}
-                            <InputEle type="datetime-local" name='endDate' value={schedule.endDate} onChange={scheduleChangeHanlder} disabled={isEleDisabled()}/>
+                            <InputEle type="datetime-local" name='startDate' value={schedule.startDate} onChange={scheduleChangeHanlder} disabled={isEleDisabled()}/>
+                            {schedule.allDay || <InputEle type="datetime-local" name='endDate' value={schedule.endDate} onChange={scheduleChangeHanlder} disabled={isEleDisabled()}/>}
                             <div className={styles.subCol2}>
                                 <div style={{'margin-right': 10}}>
                                     <CheckBox name='allDay' isChangeColor={true} checked={schedule.allDay} onChange={scheduleChangeHanlder} disabled={isEleDisabled()} />

@@ -12,11 +12,14 @@ const CalendarAdd = () => {
     return (
         <>
             <div className={className}>
-                <label style={{fontSize:'1rem', fontWeight:500}}>캘린더 명</label>
+                <label style={{fontSize: '1rem', fontWeight: 500}}>캘린더 명</label>
+                
                 <InputEle type="text" style={{height:16}} />
-                <div>
-                    <ColorInput style={{textAlign:'center'}}/>
+                
+                <div style={{alignSelf: 'center'}}>
+                    <ColorInput style={{textAlign:'center', width:35, height:35}}/>
                 </div>
+                
                 <ButtonInline value={'추가'} style={{height: 30, width:60}} />
             </div>
         </>

@@ -11,17 +11,17 @@ import MyDocList from "./pages/approval/MyDocList";
 import CalendarManegeLayout from "./layouts/CalendarManageLayout";
 import MyCalendar from './pages/calendar/management/MyCalendar';
 import FavoriteCalendarLayout from "./layouts/FavoriteCalendarLayout";
-import FavoriteCalendarFollowing from './pages/calendar/management/FavoriteCalendarFollowing'
-import FavoriteCalendarFollower from "./pages/calendar/management/FavoriteCalendarFollower";
 import ScheduleDetailCreate from "./pages/calendar/ScheduleDetailCreate";
 import ReminderList from './components/calendar/dashboard/ReminderList';
 import Calendar from './pages/calendar/Calendar';
 import DocumentMain from "./pages/approval/DocumentMain";
 import Group from './pages/manage/Group';
-import SearchDept from './pages/manage/SearchDept';
+// import SearchDept from './pages/manage/SearchDept';
 import './layouts/Default.css';
 import CalendarLayout from './layouts/CalendarLayout';
 import CalendarNav from './pages/calendar/CalendarNav';
+import FavoriteCalendarBody from './pages/calendar/management/FavoriteCalendarBody';
+
 
 
 function App() {
@@ -67,16 +67,16 @@ function App() {
                 <Route index element={<MyCalendar />}/>
                 <Route path="myPage" element={<MyCalendar />}/> 
                 <Route path="favorite" element={<FavoriteCalendarLayout />}>
-                  <Route index element={<FavoriteCalendarFollowing />} />
-                  <Route path="following" element={<FavoriteCalendarFollowing />} />
-                  <Route path="follower" element={<FavoriteCalendarFollower />} />
+                  <Route index element={<FavoriteCalendarLayout />} />
+                  <Route path="following" element={<FavoriteCalendarBody />} />
+                  <Route path="follower" element={<FavoriteCalendarBody />} />
                 </Route>
               </Route>          
             </Route>
             <Route path='/manage'>
               <Route index element={<Group/>}/>
             </Route>
-            <Route path='/searchDept' element={<SearchDept/>}/>
+            {/* <Route path='/searchDept' element={<SearchDept/>}/> */}
           </Route>
         </Routes>
       </BrowserRouter>

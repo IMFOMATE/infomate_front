@@ -8,13 +8,13 @@ import icon from '../../common/meterialIcon.module.css'
 import { useState } from 'react';
 
 
-const MyCalendarItem = ({id, isDefaultCheck, text,
-                         radioName, defualtRadio, defaultColorValue,
-                         isPubilc, chkOnChange, radioOnChange,
+const MyCalendarItem = ({memberCode, isDefaultCheck, name,
+                         defaultCalendar, defaultColorValue,
+                         openStatus, chkOnChange, radioOnChange,
                          selectValue, selectOnChange, colorOnChange}) => {
 
     const [textModify, setTextModify] = useState(false);
-    const [textValue, setTextValue] = useState(text);
+    const [textValue, setTextValue] = useState(name);
 
     const textModifyHandler = () => {
 
@@ -30,37 +30,59 @@ const MyCalendarItem = ({id, isDefaultCheck, text,
     return (
         <div className={styles.item}>
             <div style={{textAlign: 'center'}}>
-                <CheckBox isChangeColor={true} defaultChecked={isDefaultCheck}
-                    onChange={chkOnChange} style={{height:20, width:20, position:'relative', top:'3px'}} />
+                <CheckBox
+                    id={memberCode}
+                    isChangeColor={true}
+                    defaultChecked={isDefaultCheck}
+                    onChange={chkOnChange}
+                    style={{height:20, width:20}}
+                />
             </div>
             <div>
                 <div className={styles.itemFont}>
-                    {
-                        textModify? <InputEle value={textValue} onChange={valuesChangeHandler}style={{display:'inline-block', width:'80%'}} /> :  <label style={{marginRight:10, fontSize:'1rem'}}>{textValue}</label>
-                    }
 
-                    <ColorInput defaultValue={defaultColorValue} onChange={colorOnChange} style={{height:30, width:30, position:'relative', top:'2px', display:'inline-block'}}/>
+                    <InputEle
+                        value={textValue}
+                        onChange={valuesChangeHandler}
+                        style={{display:'inline-block', marginRight:10, minWidth:100}}
+                        disabled={!textModify}
+                    />
 
-                    {
-                        <button
-                            className={icon.meterialIcon}
-                            style={{color:'var(--color-middle)', marginLeft:10, display:'inline'}}
-                            onClick={textModifyHandler}>
-                            {textModify? 'save': 'edit'}
-                            </button>
-                    }
-                    
+                    <ColorInput 
+                        defaultValue={defaultColorValue}
+                        onChange={colorOnChange}
+                        style={{height:27, width:27, position:'relative',
+                                 top:'3px', display:'inline-block'}}
+                    />
+
+                    <button
+                        className={icon.meterialIcon}
+                        style={{color:'var(--color-middle)', display:'inline'}}
+                        onClick={textModifyHandler}>
+                        {textModify? 'save': 'edit'}
+                    </button>
                 </div>
             </div>
             <div>
-               <RadioInput name={radioName} defaultChecked={defualtRadio} onChange={radioOnChange}
-                    style={{verticalAlign: 'middle', alignSelf: 'center', display: 'block'}} />
+               <RadioInput 
+                    name={memberCode}
+                    defaultChecked={defaultCalendar}
+                    onChange={radioOnChange}
+                    style={{verticalAlign: 'middle', alignSelf: 'center', display: 'block'}}
+                />
             </div>
             <div style={{textAlign: 'center'}}>
-                <SelectEle className={styles.itemSelect} defaultValue={isPubilc} value={selectValue} onChange={selectOnChange} options={[
-                    {id:1, value:true, text:'공개'},
-                    {id:2, value:false, text:'비공개'},
-                ]} style={{height:35, padding: 0}}/>
+                <SelectEle
+                    className={styles.itemSelect}
+                    defaultValue={openStatus}
+                    value={selectValue}
+                    onChange={selectOnChange}
+                    options={[
+                        {id:1, value:true, text:'공개'},
+                        {id:2, value:false, text:'비공개'},
+                    ]}
+                    style={{height:'2rem', padding: 0}}
+                />
             </div>
         </div>        
     )

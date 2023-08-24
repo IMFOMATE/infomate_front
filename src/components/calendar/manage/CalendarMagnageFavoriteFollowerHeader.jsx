@@ -2,20 +2,9 @@ import { useContext, useEffect } from 'react';
 import CheckBox from '../../common/input/CheckBox';
 import CalendarManagefavoriteModifyMenu from './CalendarManagefavoriteModifyMenu';
 import styles from './calendarMagnageFavoriteFollowerHeader.module.css'
-import { ManageChkList } from '../../../layouts/FavoriteCalendarLayout';
 
-const CalendarMagnageFavoriteFollowerHeader = ({checked}) => {
+const CalendarMagnageFavoriteFollowerHeader = ({chk, setchk}) => {
     const className  = [styles.fowHdGrid].join(' ');
-
-    const {chk, setChk} = useContext(ManageChkList);
-    
-    useEffect(()=>{
-        setChk({favoriteAllChk:false});
-    },[])
-
-    const checkChangeHandler = e => {
-        setChk({favoriteAllChk:!chk.favoriteAllChk});
-    }
 
     return(
         <>
@@ -25,7 +14,7 @@ const CalendarMagnageFavoriteFollowerHeader = ({checked}) => {
             <div className={className}>
                 <div>
                     <div>
-                        <CheckBox isChangeColor={true} checked={chk?.favoriteAllChk}  onClick={checkChangeHandler} />
+                        <CheckBox isChangeColor={true} checked={chk}  onChange={setchk} />
                     </div>
                     <div>직원 이름(직함)</div>
                     <div>캘린더 이름</div>

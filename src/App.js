@@ -5,8 +5,8 @@ import './components/common/default.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from "./layouts/Layout";
 import BoardMain from "./pages/board/BoardMain";
-import './components/common/main.css';
-import './components/common/component.css';
+// import './components/common/main.css';
+// import './components/common/component.css';
 import Work from "./pages/work/Work";
 import WkAdmin from "./pages/work/WkAdmin";
 import WorkSide from "./pages/work/WorkSide";
@@ -117,7 +117,7 @@ function App() {
                   <Route path="/board/brddept" element={ <BrdDept />}/>
                   <Route path="/board/brdadmin" element={ <BrdAdmin />}/>
                   <Route path="/board/anony" element={ <Anony />}/>
-                  <Route path="/board" element={<BoardMain/>}></Route>
+                  {/* <Route path="/board" element={<BoardMain/>}></Route> */}
 
               </Route>
         </Routes>

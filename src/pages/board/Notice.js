@@ -4,22 +4,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState, useRef } from "react";
 
 import{
-    BoardAPI
+    callhBoardViewAPI
 } from '../../apis/BoardAPICalls'
 
 function Notice() {
     
-    // const navigate = useNavigate();
-    // const dispatch = useDispatch();
-    // const products  = useSelector(state => state.productReducer);      
-    // const productList = products.data;
-    // console.log('productManagement', productList);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const boards  = useSelector(state => state.boardReducer);      
+    const boardList = boards?.data; 
+    console.log('boardManagement', boardList);
 
-    // const pageInfo = products.pageInfo;
+    //const pageInfo = boards.pageInfo;
 
-    // const [start, setStart] = useState(0);
-    // const [currentPage, setCurrentPage] = useState(1);
-    // const [pageEnd, setPageEnd] = useState(1);
+    const [start, setStart] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageEnd, setPageEnd] = useState(1);
 
     // const pageNumber = [];
     // if(pageInfo){
@@ -28,105 +28,69 @@ function Notice() {
     //     }
     // }
 
-    // useEffect(
-    //     () => {
-    //         setStart((currentPage - 1) * 5);            
-    //         dispatch(BoardAPI({
-    //             currentPage: currentPage
-    //         }));            
-    //     }
-    //     ,[currentPage]
-    // );
+    useEffect(
+        () => {
+            // setStart((currentPage - 1) * 5);            
+            dispatch(callhBoardViewAPI());            
+        }
+        ,[]
+    );
 
-    // const onClickProductInsert = () => {
-    //     console.log('[ProductManagement] onClickProductInsert');
-    //     navigate("/product-registration", { replace: false })
-    // }
+    const onClickBoardInsert = () => {
+        console.log('[BoardManagement] onClickBoardInsert');
+        navigate("/board-registration", { replace: false })
+    }
 
-    // const onClickTableTr = (productCode) => {
-    //     navigate(`/product-update/${productCode}`, { replace: false });
-    // }
+    const onClickTableTr = (boardCode) => {
+        navigate(`/board-update/${boardCode}`, { replace: false });
+    }
 
-    // return (
-    //     <>
-    //     <div className={ BoardCSS.bodyDiv }>
-    //         <div className={ BoardCSS.buttonDiv }>
-    //             <button
-    //                 onClick={ onClickProductInsert }
-    //             >
-    //                 상품 등록
-    //             </button>
-    //         </div>            
-    //         <table className={ BoardCSS.productTable }>
-    //             <colgroup>
-    //                 <col width="5%" />
-    //                 <col width="50%" />
-    //                 <col width="10%" />
-    //                 <col width="10%" />
-    //                 <col width="15%" />
-    //                 <col width="10%" />
-    //             </colgroup>
-    //             <thead>
-    //                 <tr>
-    //                     <th>번호</th>
-    //                     <th>상품이름</th>
-    //                     <th>상품가격</th>
-    //                     <th>활성화여부</th>
-    //                     <th>상품 카테고리</th>
-    //                     <th>재고</th>
-    //                 </tr>
-    //             </thead>
-    //             <tbody>
-    //                 { Array.isArray(productList) && productList.map((p) => (
-    //                     <tr
-    //                         key={ p.productCode }
-    //                         onClick={ () => onClickTableTr(p.productCode) }
-    //                     >
-    //                         <td>{ p.productCode }</td>
-    //                         <td>{ p.productName }</td>
-    //                         <td>{ p.productPrice }</td>
-    //                         <td>{ p.productOrderable }</td>
-    //                         <td>{ p.categoryName }</td>
-    //                         <td>{ p.productStock }</td>
-    //                     </tr>
-    //                 )) 
-    //                 }
-    //             </tbody>                    
-    //         </table>         
+    return (
+        <>
+        <div className={ BoardCSS.bodyDiv }>
+            <div className={ BoardCSS.buttonDiv }>
+                <button
+                    onClick={ onClickBoardInsert }
+                >
+                    글쓰기
+                </button>
+            </div>            
+            <table className={ BoardCSS.boardTable }>
+                <colgroup>
+                    <col width="15%" />
+                    <col width="50%" />
+                    <col width="15%" />
+                    <col width="15%" />
+                    <col width="15%" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>글번호</th>
+                        <th>제목</th>
+                        <th>작성자</th> {/* 직원코드로 불러오기? 가능? */}
+                        <th>작성일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    { Array.isArray(boardList) && boardList.map((p) => (
+                        <tr
+                            key={ p.boardCode }
+                            onClick={ () => onClickTableTr(p.boardCode) }
+                        >
+                            <td>{ p.postCode }</td>
+                            <td>{ p.postTitle }</td>
+                            <td>{ p.memberCode }</td>
+                            <td>{ p.postDate }</td>
+                        </tr>
+                    )) 
+                    }
+                </tbody>                    
+            </table>         
             
-    //     </div>
-    //     <div style={{ listStyleType: "none", display: "flex", justifyContent: "center" }}>
-    //         { Array.isArray(productList) &&
-    //         <button 
-    //             onClick={() => setCurrentPage(currentPage - 1)} 
-    //             disabled={currentPage === 1}
-    //             className={ BoardCSS.pagingBtn }
-    //         >
-    //             &lt;
-    //         </button>
-    //         }
-    //         {pageNumber.map((num) => (
-    //         <li key={num} onClick={() => setCurrentPage(num)}>
-    //             <button
-    //                 style={ currentPage === num ? {backgroundColor : 'orange' } : null}
-    //                 className={ BoardCSS.pagingBtn }
-    //             >
-    //                 {num}
-    //             </button>
-    //         </li>
-    //         ))}
-    //         { Array.isArray(productList) &&
-    //         <button 
-    //             className={ BoardCSS.pagingBtn }
-    //             onClick={() => setCurrentPage(currentPage + 1)} 
-    //             disabled={currentPage === pageInfo.pageEnd || pageInfo.total === 0}
-    //         >
-    //             &gt;
-    //         </button>
-    //         }
-    //     </div>
-    //     </>
-    // );
+        </div>
+       
+        </>
+    );
 }
 
 export default Notice;

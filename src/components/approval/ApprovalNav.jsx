@@ -1,17 +1,18 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import NavStyle from "../common/Nav.module.css";
 import {MenuContext} from "../../context/MenuContext";
-import {Link} from "react-router-dom";
 import Navlist from "../common/Navlist";
+import {useModal} from "../../context/ModalContext";
 function ApprovalNav() {
 
     const {menuState, toggleMenu} = useContext(MenuContext);
+    const {modalOpen , toggleModal } = useModal();
 
     return (
         <div className={`${NavStyle.sidemenu} ${menuState ? '': NavStyle.close}`}>
             <div className={NavStyle.sideTop}>
-                <h1>전자결재</h1>
-                <a href="/">새 결재 작성</a>
+                <h2 className={NavStyle.title}>전자결재</h2>
+                <button className={NavStyle.new} onClick={toggleModal}>새 결재 작성</button>
             </div>
             <div className={NavStyle.sideList}>
               <Navlist title="내 결재함" data={approvalLink}/>

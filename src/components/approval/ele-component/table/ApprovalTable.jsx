@@ -18,7 +18,7 @@ function TableHeader(){
         <th className={`${ApprovalTableCss.list_th}`}>긴급여부</th>
         <th className={`${ApprovalTableCss.list_th}`}>결재상태</th>
         <th className={`${ApprovalTableCss.list_th} ${ApprovalTableCss.t_title}`}>제목</th>
-        <th className={`${ApprovalTableCss.list_th}`}>기안날짜</th>
+        <th className={`${ApprovalTableCss.list_th} ${ApprovalTableCss.last}`}>기안날짜</th>
       </tr>
       </thead>
     </>
@@ -44,7 +44,7 @@ function ApprovalTable({title, data}) {
       {
         title && <h2 className={ApprovalTableCss.subtitle}>{title}</h2>
       }
-      <div>
+      <div className={ApprovalTableCss.container}>
         <table className={ApprovalTableCss.list_approval}>
           <TableHeader/>
           <tbody>

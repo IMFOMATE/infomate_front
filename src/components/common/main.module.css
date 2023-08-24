@@ -1,6 +1,6 @@
 .maintitle{
 	border-bottom: 1px solid var(--color-border);
-	padding: 30px;
+	padding: 20px 30px;
 }
 
 @media (max-width: 480px){

@@ -1,16 +1,14 @@
 
-import '../../components/common/header/default.css';
 import style from './AddContact.module.css'
 import img from './images/images.png'
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { Navigate } from "react-router-dom";
 
 
 import {
     callRegistAPI
-} from '../../apis/ContactAPICalls'
+} from '../../apis/ContactAPIcalls'
 import { POST_REGISTER } from '../../modules/ContactModule';
 
 

@@ -45,17 +45,34 @@ const SecheduleSummaryCreate = ({modal, setModal}) => {
                     
                         <label>일시</label>    
                         <div>
-                            <InputEle type={'datetime-local'} style={{margin:'0 0 1vh 0'}} name='startEvent' value={modal.data?.start?.toISOString().slice(0,19)} onChange={dataChangeHanlder}/>
-                            <InputEle type={'datetime-local'} name='endEvent' value={modal.data?.end?.toISOString().slice(0,19)} onChange={dataChangeHanlder}/>
+                            <InputEle
+                                type={'datetime-local'} 
+                                style={{margin:'0 0 1vh 0'}}
+                                name='startEvent'
+                                value={modal.data?.start?.toISOString().slice(0,19)}
+                                onChange={dataChangeHanlder}
+                            />
+                            <InputEle 
+                                type={'datetime-local'}
+                                name='endEvent'
+                                value={modal.data?.end?.toISOString().slice(0,19)}
+                                onChange={dataChangeHanlder}
+                            />
                             <div style={{height:30, alignSelf: 'center'}}>
-                                <CheckBox id="all-day" type="checkbox" name="" isChangeColor={true} style={{display:'inline',position: 'relative', top:'7px'}}/>
+                                <CheckBox 
+                                    id="all-day"
+                                    type="checkbox"
+                                    name=""
+                                    isChangeColor={true}
+                                    style={{display:'inline',position: 'relative', top:'7px'}}
+                                />
                                 <label for="all-day" style={{display:'inline',position: 'relative', top: '3px',margin: '5px'}}>종일</label>
                             </div>
                         </div>
 
                         <label>캘린더</label>
                         <div>
-                            <SelectEle style={{width:'100%'}} data={[{text:'1',value:1},{text:'2',value:2}]} />
+                            <SelectEle style={{width:'100%'}} options={[{text:'1',value:1},{text:'2',value:2}]} />
                         </div>
 
                         <label for="address">장소</label>
@@ -63,7 +80,12 @@ const SecheduleSummaryCreate = ({modal, setModal}) => {
                         
                         <label for="corp-schedule">전사일정</label>
                         <div style={{textAlign: 'left'}}>
-                            <CheckBox id="corp-schedule" type="checkbox" isChangeColor={true} style={{position: 'relative', top:'2px'}} />
+                            <CheckBox
+                                id="corp-schedule"
+                                type="checkbox"
+                                isChangeColor={true}
+                                style={{position: 'relative', top:'2px'}}
+                            />
                         </div>
                     </div>
                     <div className={styles.footer}>

@@ -9,8 +9,7 @@
     flex: 0 0 80px;
 }
 
-header{
-    display: flex;
+header {
     position: sticky;
     top: 0;
     left: 0;
@@ -18,7 +17,7 @@ header{
     bottom: 0;
     height: 100%;
     flex: 1 0 480px;
-	overflow-x: hidden;
+    overflow-x: hidden;
     transition: all 0.5s ease;
     display: flex;
 }
@@ -151,24 +150,26 @@ main{
     padding: 20px;
 }
 
-.sideTop h1 {
+.title {
     color: var(--color-text-title);
     margin-bottom: 24px;
 }
 
-.sideTop a {
+.new {
     display: block;
+    width: 100%;
     text-align: center;
-    padding: 10px;
+    padding: 15px;
     border-radius: 6px;
     border: 1px solid var(--color-middle);
     color: var(--color-middle);
     transition: all 150ms ease-in-out;
     font-weight: bold;
+    font-size: 16px;
     margin-bottom: 30px;
 }
 
-.sideTop a:hover{
+.new:hover{
     background-color: var(--color-hard);
     color: #fff;
 }

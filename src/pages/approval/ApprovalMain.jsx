@@ -6,7 +6,7 @@ function ApprovalMain() {
   return (
     <>
       <div className={mainCss.maintitle}>
-        <h1>전자결재 홈</h1>
+        <h2>전자결재 홈</h2>
       </div>
         <ApprovalTop data={testInit.creditList}/>
         <ApprovalTable title='기안문서' data={testInit.approvalList}/>

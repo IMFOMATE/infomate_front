@@ -27,7 +27,7 @@ function ToolbarApprovalTable() {
   const filteredData = filter === '' ? testinit.docList : testinit.docList.filter((f) => f.status === filter);
 
   return (
-    <div>
+    <div className={ApprovalTableCss.container}>
       <ul className={ApprovalTableCss.toolbar}>
         {
           filterState.map((value, index) =>

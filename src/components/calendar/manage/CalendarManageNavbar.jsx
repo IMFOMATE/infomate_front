@@ -12,12 +12,12 @@ const CalendarManageNavbar = () => {
         <div className={styles.container}>
             <div>
                 <NavLink to='./mypage' style={{color:'gray'}}>
-                    <span className={currentMenu === 'mypage'? styles.select : ''}>내 캘린더</span>
+                    <span className={currentMenu === 'mypage' ||currentMenu === 'management' ? styles.select : ''}>내 캘린더</span>
                 </NavLink>
             </div>
             <div>
-                <NavLink to="./favorite" style={{color:'gray'}}>
-                    <span className={currentMenu === 'favorite'? styles.select : ''}> 관심 캘린더 </span>
+                <NavLink to="./favorite/following" style={{color:'gray'}}>
+                    <span className={currentMenu === 'favorite' || currentMenu === 'following'  || currentMenu === 'follower' ? styles.select : ''}> 관심 캘린더 </span>
                 </NavLink>
             </div>
         </div>

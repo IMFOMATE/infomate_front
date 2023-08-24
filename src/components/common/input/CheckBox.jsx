@@ -15,9 +15,11 @@ const CheckBox  = (props) => {
             onClick={props?.onClick}
             onChange={props?.onChange}
             style={props?.style}
-            checked={props.checked}
+            defaultChecked={props?.defaultChecked}
+            checked={props?.checked}
         />
     )
 }
 
 export default CheckBox;
+

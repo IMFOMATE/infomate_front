@@ -25,7 +25,7 @@ const data = [
     "text": "업무기안",
     "data": {
       "fileType": "doc",
-      "url": 'draft'
+      "fileName": 'draft'
     }
   },
   {
@@ -35,7 +35,7 @@ const data = [
     "text": "업무협조",
     "data": {
       "fileType": "doc",
-      "url": 'draft'
+      "fileName": 'draft'
     }
   },
   {
@@ -51,7 +51,7 @@ const data = [
     "text": "지출결의서",
     "data": {
       "fileType": "doc",
-      "url": 'payment'
+      "fileName": 'payment'
     }
   },
   {
@@ -67,7 +67,7 @@ const data = [
     "text": "휴가신청서",
     "data": {
       "fileType": "doc",
-      "url": 'vacation'
+      "fileName": 'vacation'
     }
   },
 ];

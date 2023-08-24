@@ -38,7 +38,7 @@ export const CustomNode = (props) => {
         <div className={styles.labelGridItem}>
           {
               data?.fileType === 'doc' ?
-                  <Link to={'/approval/document'} onClick={toggleModal} state={props.node.text} className={styles.labelName}>
+                  <Link to={'/approval/document/new'} onClick={toggleModal} state={{name:`${props.node.text}`, type:`${data.fileName}`}} className={styles.labelName}>
                     <Typography variant="body1">{props.node.text}</Typography>
                   </Link>
                   :

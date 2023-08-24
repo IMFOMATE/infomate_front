@@ -1,0 +1,62 @@
+.tap{
+  display: flex;
+  width: 100%;
+}
+
+.tap li {
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.wrapper{
+
+}
+
+
+.list{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--color-border);
+  padding: 10px;
+  background-color: #ffffff;
+}
+
+.list li{
+  /*display: flex;*/
+  /*gap: 15px;*/
+  width: 100%;
+  display: inline;
+}
+
+.photo{
+  width: 50px;
+  height: 50px;
+}
+
+.photo img{
+  border-radius: 100%;
+  width: 100%;
+}
+
+.content{
+
+}
+.content span, .content p{
+  display: block;
+  font-size: 13px;
+  /*padding: ;*/
+}
+
+.content p{
+  background-color: var(--color-border);
+  padding: 5px;
+}
+
+.active{
+  display: block;
+}
+.none{
+  display: none;
+}

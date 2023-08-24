@@ -46,7 +46,6 @@ export const useModal = (modalId) => {
     }
 
     const { toggleModal, isModalOpen } = modalContext;
-    console.log(isModalOpen)
     return {
         isModalOpen: isModalOpen(modalId),
         toggleModal: () => toggleModal(modalId),

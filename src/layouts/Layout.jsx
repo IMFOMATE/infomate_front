@@ -1,14 +1,14 @@
 import React from 'react';
 import Header from "../components/common/Header";
 import {Outlet} from "react-router-dom";
-import Default from './Default.css';
+// import Default from './Default.css';
 import NavStyle from '../components/common/Nav.module.css';
 import MenuBtn from "../components/common/MenuBtn";
 import {CurrentTitleProvider} from "../context/CurrentTitleContext";
 import {MenuContextProvider} from "../context/MenuContext";
 import {ModalContextProvider, useModal} from "../context/ModalContext";
 import Modal from "../components/approval/ele-component/common/Modal";
-import TreeView from "../components/approval/ele-component/treeview/TreeView";
+import DragAndDropWrapper from "../components/approval/ele-component/treeview/DragAndDropWrapper";
 
 export default function Layout() {
 
@@ -17,7 +17,9 @@ export default function Layout() {
             <ModalContextProvider>
                 <MenuContextProvider>
                     <CurrentTitleProvider>
+                      <DragAndDropWrapper>
                         <LayoutContent/>
+                      </DragAndDropWrapper>
                     </CurrentTitleProvider>
                 </MenuContextProvider>
             </ModalContextProvider>
@@ -38,7 +40,6 @@ function LayoutContent() {
                 </main>
             </div>
             <Modal modalId="documentKind" title="결재양식 선택" />
-            {/*{isModalOpen && <Modal title="결재양식 선택" content={<TreeView/>}/>}*/}
         </div>
     );
 }

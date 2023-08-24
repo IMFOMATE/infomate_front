@@ -9,7 +9,6 @@ import styles from './DocumentMain.module.css';
 function DocumentMain() {
   const location = useLocation();
   const {name, type} = location.state;
-  console.log(type);
   return (
       <>
         <div className={mainCss.maintitle}>

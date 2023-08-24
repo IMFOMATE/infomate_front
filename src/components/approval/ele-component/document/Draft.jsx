@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import DocButtons from "../common/DocButtons";
 import InsertButton from "../buttons/InsertButton";
 import {useLocation, useNavigate} from "react-router-dom";
@@ -6,25 +6,46 @@ import style from '../../../../pages/approval/DocumentMain.module.css';
 import DocumentSide from "./DocumentSide";
 import ReactQuill from "react-quill";
 import WriterInfo from "./WriterInfo";
+import ApprovalModal from "../modal/ApprovalModal";
 
 
 function Draft() {
   const navigate = useNavigate();
   const location = useLocation();
   const {name, type} = location.state;
-  console.log(type);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalData, setModalData] = useState(null);
+
+  //아마 모달이 열릴때....... 조직도를 가져오도록해야할껄
+  useEffect(()=>{
+    if (isModalOpen){
+
+    }
+  },[isModalOpen]);
+
+
+  const toggleModal = () => setIsModalOpen(prev => !prev);
 
   const handleRequest = () => {}; // 결제 완료 api 요청
   const handleTemp = () => {}; // 임시저장 api
-  const handleChoice =() => {};  //결재선 지정
+  
+  const handleChoice = toggleModal;  //결재선 지정 모달
   const handleCancel = () => navigate("/approval"); // 결제 취소
 
-  //현재 문서작성자 -> 로컬스토리지로 가져오기
+  //현재 문서작성자 -> 로컬스토리지에서 가져오기
   const writer= {
     name : '주진선',
     dept : '개발부서',
     date : `${new Date().toISOString().substring(0,10)}`
   }
+
+  const data = {
+    writer,
+    refList:[],
+    approvalList:[],
+    fileList:[],
+  };
 
   //버튼에 함수 넘겨주기
   const url = {
@@ -36,6 +57,9 @@ function Draft() {
 
   return (
       <>
+        {
+          isModalOpen && <ApprovalModal data={modalData} toggleModal={toggleModal}/>
+        }
         <DocButtons button={<InsertButton url={url}/>}/>
         <div className={style.container}>
           <div className={style.docs}>

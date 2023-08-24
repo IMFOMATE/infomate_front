@@ -19,3 +19,47 @@
   border-radius: 3px;
   background-color: var(--color-hard) !important;
 }
+
+.app {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+}
+
+.app > ul{
+  overflow-y: scroll;
+}
+
+.current {
+  background-color: #f3f3f3;
+  margin: 8px;
+  padding: 8px;
+}
+
+.currentLabel {
+  font-weight: bold;
+  margin-inline-start: 0.5em;
+}
+
+.draggingSource {
+  opacity: 0.3;
+}
+
+.dropTarget {
+  background-color: #e8f0fe;
+}
+
+
+@media (max-width: 480px){
+
+  .app{  grid-template-columns: 1fr;
+
+
+  }
+
+}
+
+
+

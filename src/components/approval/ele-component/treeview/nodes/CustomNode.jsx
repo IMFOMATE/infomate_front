@@ -1,10 +1,10 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import { TypeIcon } from "./TypeIcon";
+import { TypeIcon } from "../TypeIcon";
 import styles from "./CustomNode.module.css";
 import {Link} from "react-router-dom";
-import {useModal} from "../../../../context/ModalContext";
+import {useModal} from "../../../../../context/ModalContext";
 
 export const CustomNode = (props) => {
   const { toggleModal } = useModal('documentKind');

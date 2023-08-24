@@ -56,6 +56,7 @@ function Test() {
 
 function App() {
   return (
+
     <>
       <BrowserRouter>
         <Routes>
@@ -123,7 +124,6 @@ function App() {
                     <Route index element={<Group/>}/>
                   </Route>
                   <Route path='/searchDept' element={<SearchDept/>}/>
-
                   <Route path="/work" element={ <Work /> }/>
                   <Route path="/work/admin" element={ <WkAdmin /> }/>
                   <Route path="/work/workside" element={ <WorkSide /> }/>
@@ -138,9 +138,6 @@ function App() {
                   <Route path="/board/brddept" element={ <BrdDept />}/>
                   <Route path="/board/brdadmin" element={ <BrdAdmin />}/>
                   <Route path="/board/anony" element={ <Anony />}/>
-                  {/* <Route path="/board" element={<BoardMain/>}></Route> */}
-
-              </Route>
         </Routes>
       </BrowserRouter>
     </>

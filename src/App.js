@@ -2,26 +2,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from "./layouts/Layout";
 import BoardMain from "./pages/board/BoardMain";
-// import './components/common/main.css';
-// import './components/common/component.css';
-import Work from "./pages/work/Work";
-import WkAdmin from "./pages/work/WkAdmin";
-import WorkSide from "./pages/work/WorkSide";
-import MyWork from "./pages/work/MyWork";
-import MyDept from "./pages/work/MyDept";
-import Dept from "./pages/work/Dept";
-import Notice from "./pages/board/Notice";
-import Report from "./pages/board/Report";
-import Menu from "./pages/board/Menu";
-import Common from "./pages/board/Common";
-import BrdDept from "./pages/board/BrdDept";
-import BrdAdmin from "./pages/board/BrdAdmin";
-import Anony from "./pages/board/Anony";
-
-import './components/common/nav.css';
-
-import './components/common/default.css';
-
 import Mail from "./pages/mail/Mail";
 import AddressBook from "./pages/addressBook/AddressBook";
 import AddContact from "./pages/addressBook/AddContact";
@@ -38,17 +18,24 @@ import ReminderList from './components/calendar/dashboard/ReminderList';
 import Calendar from './pages/calendar/Calendar';
 import DocumentMain from "./pages/approval/DocumentMain";
 import Group from './pages/manage/Group';
-
 import SearchDept from './pages/manage/SearchDept';
 import './layouts/Default.css';
 import MemberInfo from './pages/manage/MemberInfo';
 import ChartModal from './pages/manage/ChartModal';
-import UpdateMember from './pages/manage/UpdateMember';
 import SecheduleSummaryCreate from "./pages/calendar/ScheduleSummaryCreate";
-
-import ReadMail from './pages/mail/ReadMail';
-
-
+import Work from "./pages/work/Work";
+import WkAdmin from "./pages/work/WkAdmin";
+import WorkSide from "./pages/work/WorkSide";
+import MyWork from "./pages/work/MyWork";
+import MyDept from "./pages/work/MyDept";
+import Dept from "./pages/work/Dept";
+import Notice from "./pages/board/Notice";
+import Report from "./pages/board/Report";
+import Menu from "./pages/board/Menu";
+import Common from "./pages/board/Common";
+import BrdDept from "./pages/board/BrdDept";
+import BrdAdmin from "./pages/board/BrdAdmin";
+import Anony from "./pages/board/Anony";
 
 function Test() {
     return null;
@@ -56,6 +43,7 @@ function Test() {
 
 function App() {
   return (
+
 
     <>
       <BrowserRouter>
@@ -71,7 +59,6 @@ function App() {
             <Route path="/addContact" element={<AddContact />} />
             <Route path="/mailWrite" element={<MailWrite />} />
             <Route path="/mail" element={<Mail />} />
-            <Route path="/readMail" element={<ReadMail />} />
 
             {/* 인덱스로 설정해두면 위의 설정(루트 요청)과 동일하다. */}
             {/* <Route index element={<Main />} /> */}
@@ -81,6 +68,7 @@ function App() {
           </Route>
 
           <Route path="/" element={<Layout/>}>
+                  {/* <Route path="/board" element={<BoardMain />}></Route> */}
                   <Route path="calendar">
                       <Route index element={<SecheduleSummaryCreate/>}/>
                   </Route>
@@ -96,16 +84,9 @@ function App() {
                       <Route path="new" element={<DocumentMain/>}/>
                       <Route path=":documentId" element={<Test/>}/> {/* 문서 조회 */}
                     </Route> {/* 문서작성 */}
-                </Route>
-              </Route>          
-            <Route path='/manage'>
-              <Route index element={<Group/>}/>
-            </Route>
-            <Route path='/searchDept' element={<SearchDept/>}/>
-            <Route path='memberInfo' element={<MemberInfo/>}/>
-            <Route path='memberupdate' element={<UpdateMember/>}/>
 
-            <Route path='test' element={<ChartModal/>}/>
+
+                </Route>
                 <Route path="calendar">
                   <Route index element={<Calendar/>}/>
                   <Route path="reminder" element={<ReminderList />} />
@@ -120,24 +101,26 @@ function App() {
                       </Route>
                     </Route>
                 </Route>
-                  <Route path='/manage'>
+                  <Route path='group'>
                     <Route index element={<Group/>}/>
                   </Route>
                   <Route path='/searchDept' element={<SearchDept/>}/>
-                  <Route path="/work" element={ <Work /> }/>
-                  <Route path="/work/admin" element={ <WkAdmin /> }/>
-                  <Route path="/work/workside" element={ <WorkSide /> }/>
-                  <Route path="/work/mywork" element={ <MyWork /> }/>
-                  <Route path="/work/mydept" element={ <MyDept />}/>
-                  <Route path="/work/dept" element={ <Dept />}/>
-                  <Route path="/board" element={<BoardMain/>}/>
-                  <Route path="/board/notice" element={ <Notice />}/>
-                  <Route path="/board/report" element={ <Report />}/>
-                  <Route path="/board/menu" element={ <Menu />}/>
-                  <Route path="/board/common" element={ <Common />}/>
-                  <Route path="/board/brddept" element={ <BrdDept />}/>
-                  <Route path="/board/brdadmin" element={ <BrdAdmin />}/>
-                  <Route path="/board/anony" element={ <Anony />}/>
+              </Route>
+              <Route path="/work" element={ <Work /> }/>
+              <Route path="/work/admin" element={ <WkAdmin /> }/>
+              <Route path="/work/workside" element={ <WorkSide /> }/>
+              <Route path="/work/mywork" element={ <MyWork /> }/>
+              <Route path="/work/mydept" element={ <MyDept />}/>
+              <Route path="/work/dept" element={ <Dept />}/>
+              <Route path="/board" element={<BoardMain/>}/>
+              <Route path="/board/notice" element={ <Notice />}/>
+              <Route path="/board/report" element={ <Report />}/>
+              <Route path="/board/menu" element={ <Menu />}/>
+              <Route path="/board/common" element={ <Common />}/>
+              <Route path="/board/brddept" element={ <BrdDept />}/>
+              <Route path="/board/brdadmin" element={ <BrdAdmin />}/>
+              <Route path="/board/anony" element={ <Anony />}/>
+              {/* <Route path="/board" element={<BoardMain/>}></Route> */}
         </Routes>
       </BrowserRouter>
     </>

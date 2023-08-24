@@ -38,24 +38,20 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
-
                 <Route path="/board" element={<BoardMain/>}></Route>
                 <Route path="approval"/>
             {/* 루트 요청 시 Main으로 이동하도록 설정 */}
             {/* <Route path="/" element={ <Main />}/> */}
-
             <Route path="/addressBook" element={<AddressBook />} />
             <Route path="/addContact" element={<AddContact />} />
             <Route path="/mailWrite" element={<MailWrite />} />
             <Route path="/mail" element={<Mail />} />
-
             {/* 인덱스로 설정해두면 위의 설정(루트 요청)과 동일하다. */}
             {/* <Route index element={<Main />} /> */}
             <Route path="calendar">
               <Route index element={<SecheduleSummaryCreate />} />
             </Route>
           </Route>
-
           <Route path="/" element={<Layout/>}>
                   {/* <Route path="/board" element={<BoardMain />}></Route> */}
                   <Route path="calendar">
@@ -74,14 +70,17 @@ function App() {
                       <Route path=":documentId" element={<Test/>}/> {/* 문서 조회 */}
                     </Route> {/* 문서작성 */}
                 </Route>
-              </Route>          
-            <Route path='group'>
-              <Route index element={<Group/>}/>
-            </Route>
-            <Route path='searchDept' element={<SearchDept/>}/>
-            <Route path='memberInfo' element={<MemberInfo/>}/>
-            <Route path='memberupdate' element={<UpdateMember/>}/>
 
+
+                <Route path='group'>
+                <Route index element={<Group/>}/>
+                </Route>
+                <Route path='searchDept' element={<SearchDept/>}/>
+                <Route path='memberInfo' element={<MemberInfo/>}/>
+                <Route path='memberupdate' element={<UpdateMember/>}/>
+
+                
+            </Route>          
             <Route path='test' element={<ChartModal/>}/>
                 <Route path="calendar">
                   <Route index element={<Calendar/>}/>
@@ -97,7 +96,6 @@ function App() {
                       </Route>
                     </Route>
                 </Route>
-                  
         </Routes>
       </BrowserRouter>
     </>

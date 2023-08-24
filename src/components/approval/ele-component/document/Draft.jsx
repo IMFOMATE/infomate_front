@@ -58,7 +58,7 @@ function Draft() {
   return (
       <>
         {
-          isModalOpen && <ApprovalModal data={modalData} toggleModal={toggleModal}/>
+          isModalOpen && <ApprovalModal modalData={modalData} toggleModal={toggleModal}/>
         }
         <DocButtons button={<InsertButton url={url}/>}/>
         <div className={style.container}>

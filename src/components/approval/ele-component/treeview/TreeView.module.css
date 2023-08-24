@@ -29,13 +29,13 @@
 }
 
 .app > ul{
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .current {
-  background-color: #f3f3f3;
   margin: 8px;
-  padding: 8px;
+  border: 1px solid var(--color-border);
+  overflow-y: auto ;
 }
 
 .currentLabel {
@@ -51,6 +51,9 @@
   background-color: #e8f0fe;
 }
 
+.center{
+  text-align: center;
+}
 
 @media (max-width: 480px){
 

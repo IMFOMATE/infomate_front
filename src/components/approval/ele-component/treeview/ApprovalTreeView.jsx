@@ -1,110 +1,28 @@
-import React, { useState } from "react";
-import styles from "./TreeView.module.css"
-
-
+import React, { useState, useEffect } from "react";
+import styles from "./TreeView.module.css";
+import tableStyle from '../table/ApprovalTable.module.css';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import {
   Tree,
 } from "@minoru/react-dnd-treeview";
 import {SelectCustomNode} from "./nodes/SelectCustomNode";
 import {CustomDragPreview} from "./CustomDragPreview";
+import Swal from 'sweetalert2';
 
 
-const SampleData = [
-  {
-    "id": 1,
-    "parent": 0,
-    "droppable": true,
-    "text": "Folder 1"
-  },
-  {
-    "id": 2,
-    "parent": 1,
-    "droppable": false,
-    "text": "File 1-1",
-    "data": {
-      "fileType": "csv",
-      "fileSize": "0.5MB"
-    }
-  },
-  {
-    "id": 3,
-    "parent": 1,
-    "droppable": false,
-    "text": "File 1-2",
-    "data": {
-      "fileType": "text",
-      "fileSize": "4.8MB"
-    }
-  },
-  {
-    "id": 4,
-    "parent": 0,
-    "droppable": true,
-    "text": "Folder 2"
-  },
-  {
-    "id": 5,
-    "parent": 0,
-    "droppable": true,
-    "text": "Folder 2-1"
-  },
-  {
-    "id": 6,
-    "parent": 5,
-    "droppable": false,
-    "text": "File 2-1-1",
-    "data": {
-      "fileType": "image",
-      "fileSize": "2.1MB"
-    }
-  },
-  {
-    "id": 7,
-    "parent": 5,
-    "droppable": false,
-    "text": "File 2-1-1",
-    "data": {
-      "fileType": "image",
-      "fileSize": "2.1MB"
-    }
-  },
-  {
-    "id": 8,
-    "parent": 5,
-    "droppable": false,
-    "text": "File 2-1-1",
-    "data": {
-      "fileType": "image",
-      "fileSize": "2.1MB"
-    }
-  },
-  {
-    "id": 9,
-    "parent": 5,
-    "droppable": false,
-    "text": "File 2-1-1",
-    "data": {
-      "fileType": "image",
-      "fileSize": "2.1MB"
-    }
-  }
-  ,
-  {
-    "id": 10,
-    "parent": 5,
-    "droppable": false,
-    "text": "File 2-1-1",
-    "data": {
-      "fileType": "image",
-      "fileSize": "2.1MB"
-    }
-  }
-];
-
-function ApprovalTreeView() {
-  const [treeData, setTreeData] = useState(SampleData);
-  const handleDrop = (newTree) => setTreeData(newTree);
+function ApprovalTreeView({data}) {
   const [selectedNodes, setSelectedNodes] = useState([]);
+
+  useEffect(() => {
+    if (selectedNodes.length > 4) {
+      Swal.fire(
+          'The Internet?',
+          'That thing is still around?',
+          'question'
+      )
+      setSelectedNodes([...selectedNodes.slice(0, selectedNodes.length - 1)])
+    }
+  }, [selectedNodes]);
 
   const handleSelect = (node) => {
     const item = selectedNodes.find((n) => n.id === node.id);
@@ -116,11 +34,15 @@ function ApprovalTreeView() {
     }
   };
 
+  const clear = ()=>{
+    setSelectedNodes([]);
+  }
+
   return (
         <div className={styles.app}>
 
           <Tree
-              tree={treeData}
+              tree={data}
               rootId={0}
               render={(node, { depth, isOpen, onToggle }) => (
                   <SelectCustomNode
@@ -136,20 +58,32 @@ function ApprovalTreeView() {
               dragPreviewRender={(monitorProps) => (
                   <CustomDragPreview monitorProps={monitorProps} />
               )}
-              onDrop={handleDrop}
               classes={{
                 draggingSource: styles.draggingSource,
                 dropTarget: styles.dropTarget
               }}
           />
           <div className={styles.current}>
-            <p>
-              <span className={styles.currentLabel}>
-                {selectedNodes.length === 0
-                    ? "결재자를 선택해주세요"
-                    : selectedNodes.map((n) => n.text).join(", ")}
-              </span>
-            </p>
+            <table className={tableStyle.list_approval}>
+              <thead className={tableStyle.list_thead}>
+                <tr className={tableStyle.list_tr1}>
+                  <td className={tableStyle.list_td2}>이름</td>
+                  <td>부서</td>
+                  <td>결재 순서</td>
+                  <td><RemoveCircleOutlineIcon/></td>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  selectedNodes.map((value, index) => <tr key={index} className={`${styles.center} ${tableStyle.list_tr}`}>
+                    <td className={tableStyle.list_td2}>{value.text}</td>
+                    <td>{value.data.rank}</td>
+                    <td>{index+1}</td>
+                  </tr>)
+                }
+              </tbody>
+            </table>
+            { selectedNodes.length === 0 ? <div className={styles.center}>결재선을 추가해주세요</div> : ''}
           </div>
         </div>
   );

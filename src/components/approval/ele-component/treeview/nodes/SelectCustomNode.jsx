@@ -34,19 +34,24 @@ export const SelectCustomNode = (props) => {
               </div>
           )}
         </div>
-        <div>
-          <Checkbox
-              color="primary"
-              size="small"
-              checked={props.isSelected}
-              onClick={handleSelect}
-          />
-        </div>
+        {
+          data?.fileType === 'person' ?
+              <div>
+                <Checkbox
+                    color="primary"
+                    size="small"
+                    checked={props.isSelected}
+                    onClick={handleSelect}
+                />
+              </div>
+              :
+              ''
+        }
         <div>
           <TypeIcon droppable={droppable} fileType={data?.fileType} />
         </div>
         <div className={styles.labelGridItem}>
-          <Typography variant="body2">{props.node.text}</Typography>
+          <Typography variant="body2">{`${props.node.text} ${ props.node.data !== undefined ? props.node.data.rank : '' }`}</Typography>
         </div>
       </div>
   );

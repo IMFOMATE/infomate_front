@@ -40,7 +40,7 @@
 
 .top_table{
   width: 100%;
-  flex-basis: 250px;
+  /*flex-basis: 250px;*/
   border: 1px solid black;
 }
 
@@ -167,6 +167,16 @@
 
   .doc_top{
     flex-direction: column;
+  }
+
+
+}
+
+@media screen and (min-width: 760px) {
+  .top_table{
+    flex-basis: 250px;
+    width: 100%;
+    border: 1px solid black;
   }
 
 }

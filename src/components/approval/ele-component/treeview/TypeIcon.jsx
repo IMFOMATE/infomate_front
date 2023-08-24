@@ -4,6 +4,7 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import DescriptionIcon from "@mui/icons-material/Description";
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 export const TypeIcon = (props) => {
   if (props.droppable) {
     return <FolderIcon sx={{ color: 'var(--color-hard)'}} />;
@@ -16,6 +17,8 @@ export const TypeIcon = (props) => {
       return <ListAltIcon />;
     case "text":
       return <DescriptionIcon />;
+    case "person":
+      return <PersonOutlineOutlinedIcon />;
     default:
       return null;
   }

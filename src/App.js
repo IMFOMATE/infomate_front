@@ -41,27 +41,26 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Layout />}>
 
-                <Route path="/board" element={<BoardMain/>}></Route>
-                <Route path="approval"/>
-            {/* 루트 요청 시 Main으로 이동하도록 설정 */}
-            {/* <Route path="/" element={ <Main />}/> */}
+        <Route path="/" element={<Layout/>}>
+                  <Route path="addressBook">
 
-            <Route path="/addressBook" element={<AddressBook />} />
-            <Route path="/addContact" element={<AddContact />} />
-            <Route path="/mailWrite" element={<MailWrite />} />
-            <Route path="/mail" element={<Mail />} />
-            <Route path="/readMail" element={<ReadMail />} />
+                    <Route index element={<AddressBook title={"전체연락처"}/>}/>
+                    <Route path="" element={<AddressBook/>}/>
+                    <Route path="like" element={<AddressBook title={"즐겨찾기"}/>}/>
+                    <Route path="client" element={<AddressBook title={"거래처 연락처"}/>}/>
+                    <Route path="addContact" element={<AddContact title={"연락처 추가"} />}/>
+                    
+                
+                  
+                </Route>
+              </Route>  
 
-            {/* 인덱스로 설정해두면 위의 설정(루트 요청)과 동일하다. */}
-            {/* <Route index element={<Main />} /> */}
             <Route path="calendar">
               <Route index element={<SecheduleSummaryCreate />} />
             </Route>
-          </Route>
-
           <Route path="/" element={<Layout/>}>
+             <Route path="/board" element={<BoardMain/>}></Route>
                   {/* <Route path="/board" element={<BoardMain />}></Route> */}
                   <Route path="calendar">
                       <Route index element={<SecheduleSummaryCreate/>}/>

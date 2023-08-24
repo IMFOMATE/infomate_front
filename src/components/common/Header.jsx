@@ -24,7 +24,7 @@ function Header() {
                 currentTitle === 'Board' && <Board/> ||
                 currentTitle === 'Approval' && <ApprovalNav/> ||
                 currentTitle === 'Group' && <GroupNav/> ||
-                currentTitle === 'Contact' && <ContactNav /> ||
+                currentTitle === 'Address' && <ContactNav /> ||
                 currentTitle === 'Schedule' && <CalendarNav/>
             }
 

@@ -81,7 +81,7 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Address")}>
-                    <NavLink to="" >
+                    <NavLink to="/addressBook" >
                        <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             library_books
                         </span>

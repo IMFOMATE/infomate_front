@@ -13,7 +13,7 @@ import { POST_REGISTER } from '../../modules/ContactModule';
 
 
 
-function AddContact() {
+function AddContact({title}) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -56,7 +56,7 @@ function AddContact() {
 
 
     const onClickRegisterHandler = () => {
-        navigate("/");
+        navigate("/addressBook");
         dispatch(callRegistAPI({
             form: form,
         
@@ -91,7 +91,7 @@ function AddContact() {
 
         
              <div class="wrapper">
-                    <h1 style={{ color: 'var(--color-text-title)'}}>연락처 추가</h1>
+                    <h1 style={{ color: 'var(--color-text-title)'}}>{title}</h1>
                     <div class={style.contactInformation}>
                         <ul>
                             <li class={style.contactFile}>

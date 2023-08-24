@@ -25,7 +25,7 @@ function Navbar() {
             </div>
             <ul className=''>
                 <li className='' onClick={()=>toggleTitle("Group")}>
-                    <NavLink to="/manage" >
+                    <NavLink to="/" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             home
                         </span>

@@ -1,20 +1,32 @@
-
+import { MenuContext } from "../../context/MenuContext";
+import NavStyle from "../common/Nav.module.css";
+import Navlist from "../common/Navlist";
+import React, {useContext} from 'react';
 
 function ContactNav() {
-        <nav>
-        <div class="sidemenu">
-            <div class="side-top">
-                <h1>주소록</h1>
-                <a href="">연락처 추가</a>
+
+    const {menuState, toggleMenu} = useContext(MenuContext);
+
+    return (
+        <div className={`${NavStyle.sidemenu} ${menuState ? '': NavStyle.close}`}>
+            <div className={NavStyle.sideTop}>
+                <h1>전체주소록</h1>
+                <a href="/">연락처 추가</a>
             </div>
-        <div class="side-list">
-            <h1 class="full-address-book">전체 주소록 &nbsp;   </h1>
-            <p class="list"> • 즐겨찾기</p>
-            <p class="list"> • 가족 연락처</p>
-            <p class="list"> • 거래처 연락처</p>
+            <div className={NavStyle.sideList}>
+              <Navlist title="전체주소록" data={ContactLink}/>
+            </div>
         </div>
-        </div>
-        </nav>  
+    );
 }
 
+
 export default ContactNav;
+
+const ContactLink = [
+    {text:'전체주소록', link:'/addressBook'},
+    {text:'참조문서', link:'/approval/reflist'},
+    {text:'임시저장문서', link:'/approval/temp'},
+    {text:'결재대기문서', link:'/approval/approving'},
+    {text:'결재완료문서', link:'/approval/approved'},
+  ]

@@ -1,0 +1,72 @@
+/* 헤더 */
+.header{
+    display: flex;
+    width: 1212px;
+    /* height: 84px; */
+    padding: 20px;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-bottom: 1px solid #E8E8E8;
+    color: #535353;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    }
+
+/* 배경 */
+.wk_contain{
+    width: 1200px;
+    height: 823px;
+    flex-shrink: 0;
+    margin-left: 20px;
+    }
+
+/* 식단표 */
+table { 
+border-bottom: 1px solid #ddd;
+border-top: 1px solid #ddd;
+text-align: left;
+width: 60px;
+height: 3px;
+border-collapse: collapse;
+width: 99%;
+border: 1px solid #ddd;
+margin-top: 12px;
+}
+
+td {
+color: #000;
+font-family: Inter;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+padding-left: 7px;
+border-left: 1px solid #ddd;
+border-bottom: 1px solid #ddd;
+border-top: 1px solid #ddd;
+text-align: left;
+width: 60px;
+height: 3px;
+}
+
+th { 
+border-bottom: 1px solid #ddd;
+border-top: 1px solid #ddd;
+/* text-align: left; */
+width: 33px;
+height: 20px;
+color: #000;
+/* font-family: Inter; */
+font-size: 12px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+text-align: right;
+border-bottom: 1px solid #ffffff;
+border-left: 1px solid #ddd;
+padding-right: 7px;
+}

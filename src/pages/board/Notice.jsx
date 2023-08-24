@@ -1,7 +1,9 @@
+import mainCss from '../../components/common/main.module.css';
 import BoardCSS from './Board.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState, useRef } from "react";
+
 
 import{
     callhBoardViewAPI
@@ -47,6 +49,11 @@ function Notice() {
 
     return (
         <>
+
+        <div className={mainCss.maintitle}>
+        <h2>공지사항</h2>
+        </div>
+
         <div className={ BoardCSS.bodyDiv }>
             <div className={ BoardCSS.buttonDiv }>
                 <button
@@ -58,7 +65,7 @@ function Notice() {
             <table className={ BoardCSS.boardTable }>
                 <colgroup>
                     <col width="15%" />
-                    <col width="50%" />
+                    <col width="60%" />
                     <col width="15%" />
                     <col width="15%" />
                     <col width="15%" />

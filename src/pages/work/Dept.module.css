@@ -44,20 +44,20 @@ justify-content: center; /* 가로 가운데 정렬 */
 align-items: center; 
 }
 
-table {
+.table {
 /* border-collapse: collapse; */
 width: 100%;
 border-bottom: 1px solid #ddd;
 }
   
-th {
+.th {
 padding: 8px;
 text-align: center;
 border-bottom: 1px solid #ddd;
 border-top: 1px solid #ddd;
 }
 
-td {
+.td {
 padding: 8px;
 text-align: center;
 border-top: 1px solid #ffffff;
@@ -218,20 +218,20 @@ border-radius: 100px;
     align-items: center; 
     }
     
-    table {
+    .table {
     /* border-collapse: collapse; */
     width: 100%;
     border-bottom: 1px solid #ddd;
     }
       
-    th {
+    .th {
     padding: 8px;
     text-align: center;
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #ddd;
     }
     
-    td {
+    .td {
     padding: 8px;
     text-align: center;
     border-top: 1px solid #ffffff;

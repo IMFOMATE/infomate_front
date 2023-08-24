@@ -1,0 +1,133 @@
+/* 헤더 */
+.header{
+    display: flex;
+    width: 1212px;
+    /* height: 84px; */
+    padding: 20px;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-bottom: 1px solid #E8E8E8;
+    color: #535353;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    }
+
+/* 배경 */
+.wk_contain{
+    width: 1200px;
+    height: 823px;
+    flex-shrink: 0;
+    margin-left: 30px;
+    }    
+
+/* 연차사용내역조회 폰트 */
+.minift {
+width: 300px;
+height: 20px;
+flex-shrink: 0;
+color: #535353;
+text-align: Inter;
+font-family: Inter;
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+/* padding: 20px; */
+margin-top: 20px;
+margin-bottom: 4px;
+margin-left: 10px;
+}
+
+/* 년도선택 드롭다운 */
+.dropyear {
+    color: #7758FA;
+    font-weight: 600;
+    background: none;
+    display: flex;
+    width: 90px;
+    height: 23px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 6px;
+    border: 1px solid #7758FA;
+    transition: 0.4s;  /* 버튼 위에 마우스 올릴 시 깜빡이는거 */
+    cursor: pointer;    /* 마우스 올리면 커서모양 바뀜 */
+    padding-bottom: 3px;
+  }
+  
+  .dropyears {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropyearscontent {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 88px;
+    height: 50px;
+    box-shadow: 0px 4px 8px 0px #7658fa34;
+    z-index: 1;
+    border-radius: 6px;
+    text-align: center;
+    
+  }
+  
+  .dropyears-content a {
+    color: black;
+    padding: 4px 10px;
+    text-decoration: none;
+    display: block;
+    font-size: 13px;
+    font-weight : 600;
+  }
+  
+  .dropyears-content a:hover {
+    background-color: #7758FA;
+    color: white;
+    font-weight : 400;
+  }
+
+  .dropyear:hover {
+    background-color: #7758FA;
+    color: white;
+  }
+  
+  .dropyears:hover .dropyears-content {
+    display: block;
+  }
+  
+  .dropyears:hover .dropyears {
+    background-color: #7758FA;
+    color: white;
+    font-weight : 400;
+  }
+
+  .wk_side {
+    display: flex;
+    gap: 3px
+    }
+
+table {
+border-collapse: collapse;
+width: 100%;
+}
+  
+th {
+padding: 8px;
+text-align: center;
+border-bottom: 1px solid #ddd;
+border-top: 1px solid #ddd;
+}
+
+td {
+padding: 14px;
+text-align: center;
+border-top: 1px solid #dddddd6d;
+border-bottom: 1px solid #dddddd6d;
+}

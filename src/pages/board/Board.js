@@ -9,7 +9,6 @@ function Board() {
                 <a href="/">글쓰기</a>
             </div>
             <div className={NavStyle.sideList}>
-
             </div>
         </div>
     );

@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import Navbar from "./Navbar";
 import NavStyle from './Nav.module.css';
 import Board from "../../pages/board/Board";
-import ApprovalNav from "../approval/ApprovalNav";
+import ApprovalNav from "../../pages/approval/ApprovalNav";
 import {CurrentTitleContext} from "../../context/CurrentTitleContext";
 import HomeNav from "../../pages/home/HomeNav";
 import {MenuContext} from "../../context/MenuContext";

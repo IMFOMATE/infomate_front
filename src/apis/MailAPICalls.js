@@ -3,9 +3,9 @@ import {
     GET_MAIL,
 } from '../modules/MailModule';
 
-export const callMailSelectAPI = ({mail}) => {
+export const callMailSelectAPI = () => {
 
-    const requestURL = "http://localhost:8989/addressBook/contact/2";
+    const requestURL = "http://localhost:8989/mail/mailList/2";
 
     return async (dispatch, getState) => {
 
@@ -14,8 +14,26 @@ export const callMailSelectAPI = ({mail}) => {
         })
         .then(response => response.json());
 
-        dispatch({type: GET_MAIL , payload: result});
+
+
+            dispatch({type: GET_MAIL , payload: result});
+
+        console.log("========================== " + result.data);
+
+       
 
     } 
 
 }
+
+// export const callMailSendAPI = ({memberCode}) => {
+
+//     const requestURL = "http://localhost:8989/mail/mailList";
+
+//     return async (dispatch, getState) => {
+        
+//         const result = await fetch(requestURL, {
+//             method: 'GET'
+//         })
+//     }
+// }

@@ -31,6 +31,7 @@ import Calendar from './pages/calendar/Calendar';
 import Group from './pages/manage/Group';
 import SearchDept from './pages/admin/manage/SearchDept';
 import SecheduleSummaryCreate from './pages/calendar/ScheduleSummaryCreate';
+import ReadMail from './pages/mail/ReadMail';
 
 
 
@@ -54,6 +55,7 @@ function App() {
             <Route path="/addContact" element={<AddContact />} />
             <Route path="/mailWrite" element={<MailWrite />} />
             <Route path="/mail" element={<Mail />} />
+            <Route path="/readMail" element={<ReadMail />} />
 
             {/* 인덱스로 설정해두면 위의 설정(루트 요청)과 동일하다. */}
             {/* <Route index element={<Main />} /> */}

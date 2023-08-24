@@ -41,7 +41,7 @@ export const callRegistAPI = ({form}) => {
 };
 
 export const callSelectAPI = () => {
-    const requestURL = "http://localhost:8989/addressBook/contact";
+    const requestURL = "http://localhost:8989/addressBook/contact/2";
 
     return async (dispatch, getState) => {
 

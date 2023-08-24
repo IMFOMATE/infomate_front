@@ -19,7 +19,7 @@ function AddressBook() {
     useEffect(
         () => {
             dispatch(callSelectAPI({	
-                // memberCode: params.memberCode
+                memberCode: params.memberCode
             }));            
         }
         ,[]
@@ -31,8 +31,8 @@ function AddressBook() {
 
     return (
         <>
-                <div className= 'wrapper' >
-                    <h1 style={{color:'var(--color-text-title)'}}>전체 주소록</h1>
+                <div className= {style.wrapper} >
+                    <h1 style={{color:'var(--color-text-title)'}} className={style.title}>전체 주소록</h1>
                     <div className={ style.addressSearch }>
                         <div className={style.addressText}>이름</div>
                         <div className={style.addressText}>전화번호</div>
@@ -55,6 +55,7 @@ function AddressBook() {
                     <button>ㅌ</button>
                     <button>ㅍ</button>
                     <button>ㅎ</button>
+                    
                 </div>
 
                 <div className={style.addressSubtitle}>

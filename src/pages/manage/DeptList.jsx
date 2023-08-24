@@ -15,7 +15,7 @@ function DeptList({data}) {
                         <td>{m.name}</td>
                         <td>{m.num}</td>
                         <td>{m.dept}</td>
-                        <td><Link to={m.groupalet} className={SdeptCss.board_link}>
+                        <td><Link to={m.link} className={SdeptCss.board_link}>
                             <button className={SdeptCss.bnt}>정보 </button>
                             </Link></td>
                     </tr>

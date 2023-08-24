@@ -25,5 +25,7 @@ export default GroupNav;
 const GroupLink = [
     {text:'전체조직도', link:'/manage'},
     {text:'부서조회', link:'/searchDept'},
-    {text:'직원조회', link:'memberInfo'},
+    {text:'직원정보확인', link:'memberInfo'},
+    {text:'직원입력', link:'memberupdate'},
+
 ]

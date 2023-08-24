@@ -22,6 +22,7 @@ import SearchDept from './pages/manage/SearchDept';
 import './layouts/Default.css';
 import MemberInfo from './pages/manage/MemberInfo';
 import ChartModal from './pages/manage/ChartModal';
+import UpdateMember from './pages/manage/UpdateMember';
 
 
 function App() {
@@ -77,6 +78,8 @@ function App() {
             </Route>
             <Route path='/searchDept' element={<SearchDept/>}/>
             <Route path='memberInfo' element={<MemberInfo/>}/>
+            <Route path='memberupdate' element={<UpdateMember/>}/>
+
             <Route path='test' element={<ChartModal/>}/>
           </Route>
         </Routes>

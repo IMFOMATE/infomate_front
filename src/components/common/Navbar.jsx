@@ -73,8 +73,8 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Group")}>
-                    <NavLink to="/manage" >
-                       <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
+                    <NavLink to="/group" >
+                        <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             group
                         </span>
                         <span>조직도</span>
@@ -82,7 +82,7 @@ function Navbar() {
                 </li>
                 <li onClick={()=>toggleTitle("Address")}>
                     <NavLink to="" >
-                       <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
+                        <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             library_books
                         </span>
                         <span>주소록</span>

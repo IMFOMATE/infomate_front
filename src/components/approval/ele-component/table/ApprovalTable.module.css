@@ -22,7 +22,7 @@
     padding: 10px;
 }
 
-.list_th:last-child, td:last-child{
+.last {
     text-align: right;
 }
 

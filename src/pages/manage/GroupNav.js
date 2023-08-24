@@ -11,7 +11,7 @@ function GroupNav() {
         <div className={`${NavStyle.sidemenu} ${menuState ? '': NavStyle.close}`}>
             <div className={NavStyle.sideTop}>
                 <h1>조직도</h1>
-                <a href="/">내 부서조회</a>
+                <a href="/" className={NavStyle.new}>내 부서조회</a>
             </div>
             <div className={NavStyle.sideList}>
                 <Navlist title="조직도조회" data={GroupLink}/>
@@ -23,7 +23,9 @@ function GroupNav() {
 export default GroupNav;
 
 const GroupLink = [
-    {text:'전체조직도', link:'/manage'},
+    {text:'전체조직도', link:'/group'},
     {text:'부서조회', link:'/searchDept'},
-    {text:'직원조회', link:'/manage'},
+    {text:'직원정보확인', link:'memberInfo'},
+    {text:'직원입력', link:'memberupdate'},
+
 ]

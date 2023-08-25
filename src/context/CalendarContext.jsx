@@ -3,10 +3,13 @@ import {createContext, useState} from "react";
 export const CalendarProvider = createContext();
 
 export const CalendarListProvider = ({children}) => {
-    const [calendarList, setCalendarList] = useState([1,2,3,4]);
+    const [events, setEvents] = useState({
+        events: {},
+        filter: []
+    });
 
     return(
-        <CalendarProvider.Provider value={{calendarList, setCalendarList}}>
+        <CalendarProvider.Provider value={{events, setEvents}}>
             {children}
         </CalendarProvider.Provider>
     )

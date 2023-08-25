@@ -12,7 +12,7 @@ const SelectEle = (props) => {
             onSelect={props?.onSelect}
             onChange={props?.onChange}
             >
-            {props?.options?.map(item => <option key={item.id} value={item.value}>{item.text}</option>)}
+            {props?.options?.map((item, index) => <option key={index} value={item.value}>{item.text}</option>)}
         </select>
     )
 }

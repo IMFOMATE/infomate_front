@@ -6,7 +6,7 @@ const TextareaEl = (props) => {
         <textarea
             className={styles.textarea}
             name={props?.name}
-            value={props?.value}
+            value={props?.value || ''}
             placeholder={props?.placeholder}
             onChange={props?.onChange}
             onKeyPress={props?.onKeyPress}

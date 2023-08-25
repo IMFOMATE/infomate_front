@@ -1,14 +1,19 @@
+import { createRef, useContext, useEffect, useRef, useState } from "react";
+import './calendar.css'
+import styles from './Calendar.module.css';
 import FullCalendar from "@fullcalendar/react";
 import koLocale from '@fullcalendar/core/locales/ko';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid'
 import multiMonthPlugin from '@fullcalendar/multimonth'
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
-import styles from './Calendar.module.css';
-import { createRef, useContext, useEffect, useRef, useState } from "react";
 import SecheduleSummaryCreate from "./ScheduleSummaryCreate";
-import './calendar.css'
+import { CalendarProvider } from "../../context/CalendarContext";
 import { ScheduleProvider } from "../../layouts/CalendarLayout";
+import { useDispatch, useSelector } from "react-redux";
+import { getCalendarFindAllAPI } from '../../apis/CalendarAPICalls';
+
+
 
 
 const Calendar = () =>{
@@ -23,40 +28,50 @@ const Calendar = () =>{
     const [mode, setMode] = useState('create');
 
     const [isMobile, setIsMobile] = useState(false);
-    const [innerSize, setInnerSize] = useState(window.innerWidth);
+    const [innerSize, setInnerSize] = useState();
+
+
+    const {events, setEvents} = useContext(CalendarProvider);
     
     const {schedule, setSchedule} = useContext(ScheduleProvider);
-    
+    const data = useSelector(state => state.calendarReducer);
+    const dispatch = useDispatch();
+
+    const memberCode = 2; // 삭제 예정
+
     const modalRef = useRef(null);
 
     const className = [styles.modal, styles.modalActive].join(' ')
 
-    useEffect(()=>{
+    const sizeObserver = new ResizeObserver((entires)=>{
+        const { width } = entires[0].contentRect;
+        setInnerSize(width)
+        if(width <= 480){
+            setIsMobile(true);
+        }else{
+            setIsMobile(false);
+        }
+    }) 
+
+    useEffect(()=>{        
+        
         setSchedule({})
         if(innerSize <= 480){
             setIsMobile(true);
         }else{
             setIsMobile(false);
         }
-
-        const sizeObserver = new ResizeObserver((entires)=>{
         
-            const { width } = entires[0].contentRect;
-            setInnerSize(width)
-            if(width <= 480){
-                setIsMobile(true);
-            }else{
-                setIsMobile(false);
-            }
-            
-        }) 
         sizeObserver.observe(containerRef.current);
 
-    },[])
+        dispatch(getCalendarFindAllAPI({memberCode:memberCode}))
+
+        return () => {
+            sizeObserver.disconnect();
+        }
+    },[modal])
 
     const calenderClickHandler = data => {
-        setSchedule({}) // 커스텀 등록에서 데이터 삭제 안됨
-
         if(isMobile) {
             document.location.href='./calendar/regist';
         }else{
@@ -68,6 +83,10 @@ const Calendar = () =>{
             startDate: data?.start?.toISOString().slice(0,19),
             endDate: data?.end?.toISOString().slice(0,19)
         })
+        
+        // api post 처리 성공시 events 데이터에 삽입
+        // post 성공 후 schedule 값 events로 입력
+
     };
 
     const modalOutClickHandler = e => {
@@ -80,23 +99,23 @@ const Calendar = () =>{
     const eventClickHandler = e => {
         setModal({isModal:true})
         setMode('read')
-
-        setSchedule({...schedule, 
-            // id: e.event._ef  id 값 추가
-            title: e.event._def?.title,
-            startDate: e.event._instance.range.start?.toISOString().slice(0,19),
-            endDate: e.event._instance.range.end?.toISOString().slice(0,19),
-            allDay: e.event._def?.allDay})
     }
 
-    const eventList = [
-        {title: 'test1', date: '2023-08-21', color:'red', id:1212, extendedProps:{}},
-        {title: 'test121', start: '2023-08-21T12:00', end:'2023-08-22T23:00', color:'blue'},
-        {title: 'test121', start: '2023-08-21T00:00', end:'2023-08-21T24:00', color:'red'},
-    ]
+    const event = () =>{
+        const event = [];
+        data && data.data && data.data
+            .filter(item => events && events.filter && !events?.filter.includes(item.id))
+            .forEach(item1 => {
+                item1 && item1.scheduleList && item1.scheduleList.forEach(item => 
+                        event.push({title: item.title, start:item.startDate, end:item.endDate, allDay: item.allDay, color: item1.labelColor, textColor: 'black'})
+                )
+            })
+        return event;
+    }
 
     return (
         <div className={styles.container} ref={containerRef}>
+
             <FullCalendar
                 locale={koLocale}
                 timeZone={'Asia/Seoul'}
@@ -137,7 +156,7 @@ const Calendar = () =>{
                         }   
                     }
                 }}
-                events={eventList}
+                events={event()}
                 select={calenderClickHandler} // dateClick과 중복 클럭 이벤트 발생
                 eventClick={eventClickHandler}
             />
@@ -150,6 +169,11 @@ const Calendar = () =>{
                     </div>
                 </div>
             }
+            {
+                
+                
+            }
+            
         </div>
     )
 }

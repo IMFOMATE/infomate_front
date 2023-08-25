@@ -16,7 +16,7 @@ import ReminderList from './components/calendar/dashboard/ReminderList';
 import Calendar from './pages/calendar/Calendar';
 import DocumentMain from "./pages/approval/DocumentMain";
 import Group from './pages/manage/Group';
-// import SearchDept from './pages/manage/SearchDept';
+import SearchDept from './pages/manage/SearchDept';
 import './layouts/Default.css';
 import CalendarLayout from './layouts/CalendarLayout';
 import CalendarNav from './pages/calendar/CalendarNav';
@@ -26,8 +26,6 @@ import FavoriteCalendarBody from './pages/calendar/management/FavoriteCalendarBo
 
 function App() {
   return (
-
-
     <>
       <BrowserRouter>
         <Routes>
@@ -73,10 +71,10 @@ function App() {
                 </Route>
               </Route>          
             </Route>
-            <Route path='/manage'>
+            <Route path='/group'>
               <Route index element={<Group/>}/>
             </Route>
-            {/* <Route path='/searchDept' element={<SearchDept/>}/> */}
+            <Route path='/searchDept' element={<SearchDept/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

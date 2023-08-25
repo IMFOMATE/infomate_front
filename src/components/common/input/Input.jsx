@@ -2,8 +2,6 @@ import { forwardRef } from 'react';
 import styles from './input.module.css'
 
 const InputEle = (props,ref) => {
-
-
     
     return <input
             id={props?.id}
@@ -11,7 +9,7 @@ const InputEle = (props,ref) => {
             className={styles.input}
             name={props?.name}
             type={props?.type} 
-            value={props?.value}  
+            value={props?.value || ''}  
             onChange={props?.onChange} 
             placeholder={props?.placeholder} 
             disabled={props?.disabled}

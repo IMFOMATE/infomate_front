@@ -5,18 +5,39 @@ import InputEle from '../../components/common/input/Input';
 import SelectEle from '../../components/common/select/SelectEle';
 import styles from './scheduleSummary.module.css';
 import { NavLink } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { ScheduleProvider } from '../../layouts/CalendarLayout';
+import { CalendarProvider } from '../../context/CalendarContext';
+import { MenuContext } from '../../context/MenuContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCalendarListAPI } from '../../apis/CalendarAPICalls';
+import { postScheduleRegist } from '../../apis/ScheduleAPICalls';
 
-const SecheduleSummaryCreate = ({setModal, mode, setMode}) => {
+const SecheduleSummaryCreate = ({modal, setModal, mode, setMode}) => {
 
     const {schedule, setSchedule} = useContext(ScheduleProvider);
+    // const {events, setEvents} = useContext(CalendarProvider);
+    const {toggleMenu} = useContext(MenuContext);
+    const dispatch = useDispatch();
+    const data = useSelector(state => state.calendarReducer);
+    // const scheduleReducer = useSelector(state => state.scheduleReducer)
+    const memberCode = 2; // 수정예정
+
+    useEffect(()=>{
+        dispatch(getCalendarListAPI({memberCode: memberCode}))
+        setSchedule({
+            ...schedule,
+            refCalendar: data && data.data && data.data
+                            .filter(item=> item.indexNo === 1)
+                            .map(item=>item.id)[0]})
+    },[])
 
     const scheduleChangeHanlder = e => {
         const eleName = e.target.name;
 
+        // 수정 예정
         if(e.target.type === 'checkbox'){
-                setSchedule({...schedule, [eleName]: e.target.checked})         
+            setSchedule({...schedule, [eleName]: e.target.checked})         
         }else if(eleName === 'calendar') {
             setSchedule({...schedule, [eleName]: parseInt(e.target.value)})
         }else{
@@ -26,21 +47,16 @@ const SecheduleSummaryCreate = ({setModal, mode, setMode}) => {
 
 
     const scheduleResitClickHandler = (e) => {
-        setModal(false)
+        
         // api 호출
-        setSchedule({})
+        dispatch(postScheduleRegist({data: schedule}))
+        
     }
 
+    
     const isEleDisabled = () => {
         return mode === 'read'? true : false; 
     }
-
-    const calendarList = [
-        {id: 1, value:1, text: '1'},
-        {id: 2, value:2, text: '2'},
-        {id: 3, value:3, text: '3'},
-        {id: 4, value:4, text: '4'},
-    ]
     
     const closeHanlder = e => {
         setModal(false);
@@ -49,7 +65,7 @@ const SecheduleSummaryCreate = ({setModal, mode, setMode}) => {
 
     return (
         <>
-            <div className={styles.container}>
+            <div className={[styles.container, modal && styles.active].join(' ')}>
                 <div className={styles.title}>
                     <span style={{fontSize: '1.3rem'}}>
                      일정 등록
@@ -68,7 +84,7 @@ const SecheduleSummaryCreate = ({setModal, mode, setMode}) => {
                         <InputEle 
                             type={'text'}
                             name='title'
-                            value={schedule.title} 
+                            value={schedule?.title} 
                             onChange={scheduleChangeHanlder}
                             disabled={isEleDisabled()}
                         />
@@ -79,15 +95,15 @@ const SecheduleSummaryCreate = ({setModal, mode, setMode}) => {
                                     type={'datetime-local'} 
                                     style={{margin:'0 0 1vh 0'}}
                                     name='startDate'
-                                    value={schedule.startDate}
+                                    value={schedule?.startDate}
                                     onChange={scheduleChangeHanlder}
                                     disabled={isEleDisabled()}
                                 />
                             {
-                                schedule.allDay || <InputEle 
+                                schedule?.allDay || <InputEle 
                                     type={'datetime-local'}
                                     name='endDate'
-                                    value={schedule.endDate}
+                                    value={schedule?.endDate}
                                     onChange={scheduleChangeHanlder}
                                     disabled={isEleDisabled()}
                                 />    
@@ -99,42 +115,47 @@ const SecheduleSummaryCreate = ({setModal, mode, setMode}) => {
                                     name="allDay"
                                     isChangeColor={true}
                                     style={{display:'inline',position: 'relative', top:'10px'}}
-                                    checked={schedule.allDay}
+                                    checked={schedule?.allDay}
                                     onChange={scheduleChangeHanlder}
                                     disabled={isEleDisabled()}
                                 />
-                                <label for="all-day" style={{display:'inline',position: 'relative', top: '11px',margin: '5px'}}>종일</label>
+                                <label style={{display:'inline',position: 'relative', top: '11px',margin: '5px'}}>종일</label>
                             </div>
                         </div>
 
                         <label>캘린더</label>
                         <div>
                             <SelectEle 
-                                name='calendar'
-                                value={schedule.calendar}
-                                options={calendarList}
+                                name='refCalendar'
+                                value={schedule?.calendar}
+                                options={data && data.data && data?.data?.filter(item => (
+                                                            item.departmentCode !== 0 && item.memberCode === 2 //'로그인계정MemberCode'
+                                                        )).map(item => (
+                                                            {value:item.id, text:item.name})
+                                                        )}
                                 onChange={scheduleChangeHanlder}
                                 disabled={isEleDisabled()}
-                                style={{width:'100%'}}
+                                style={{width:'100%',padding: 0, color:'gray'}}
                             />
                         </div>
 
-                        <label for="address">장소</label>
+                        <label>장소</label>
                         <InputEle 
                             name='address'
                             type={'text'}
-                            value={schedule.address}
+                            value={schedule?.address}
                             onChange={scheduleChangeHanlder}
                             disabled={isEleDisabled()}
                         />
                         
-                        <label for="corp-schedule">전사일정</label>
+                        <label>전사일정</label>
                         <div style={{textAlign: 'left'}}>
                             <CheckBox
                                 name='corpSchdl'
                                 type="checkbox"
                                 isChangeColor={true}
                                 style={{position: 'relative', top:'2px'}}
+                                onChange={scheduleChangeHanlder}
                                 disabled={isEleDisabled()}
                             />
                         </div>
@@ -143,13 +164,13 @@ const SecheduleSummaryCreate = ({setModal, mode, setMode}) => {
                         {
                             mode === 'read' ||
                             <NavLink to='./regist'>
-                                <ButtonOutline value={'상세일정등록'} style={{margin:'5px'}} />
+                                <ButtonOutline value={'상세일정등록'} onClick={toggleMenu} style={{margin:'5px'}} />
                             </NavLink>    
                         }
                         {
                             mode === 'read' ?
-                            <NavLink to={`./regist?scheduleId=${schedule.id}`}>
-                                <ButtonOutline value={'자세히보기'} style={{margin:'5px'}} onClick={schedule.id}  />
+                            <NavLink to={`./regist?scheduleId=${schedule?.id}`}>
+                                <ButtonOutline value={'자세히보기'} style={{margin:'5px'}} onClick={schedule?.id}  />
                             </NavLink> :
                             <ButtonOutline value={'등록'} style={{margin:'5px'}} onClick={scheduleResitClickHandler}  />
 

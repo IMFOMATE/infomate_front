@@ -8,19 +8,30 @@ import TextareaEl from '../../components/common/input/Textarea';
 import SelectEle from '../../components/common/select/SelectEle';
 import DaumPostcode from 'react-daum-postcode';
 import {useContext, useEffect, useRef, useState } from 'react';
-import { NavLink, useSearchParams } from 'react-router-dom';
+import { NavLink, useNavigate, useSearchParams } from 'react-router-dom';
 import { ScheduleProvider } from '../../layouts/CalendarLayout';
-
+import { CalendarProvider } from '../../context/CalendarContext';
+import { MenuContext } from '../../context/MenuContext';
+import { useDispatch, useSelector } from 'react-redux';
+import calendarReducer from '../../modules/CalendarMoudule';
+import { getCalendarListAPI } from '../../apis/CalendarAPICalls';
+import { postScheduleRegist } from '../../apis/ScheduleAPICalls';
 
 const ScheduleDetilaCreate = () => {
 
     const [postToggle, setPostToggle] = useState(false);
     const [mode, setMode] = useState('create')
+    const {toggleMenu} = useContext(MenuContext);
+
+    const calendar = useSelector(state => state.calendarReducer);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const memberCode = 2; // 삭제 예정
 
     const {schedule, setSchedule} = useContext(ScheduleProvider);
 
-    const [search] = useSearchParams();
 
+    const [search] = useSearchParams();
     const scheduleId = search.get('scheduleId');
 
     const modalRef = useRef(); // 다음 우편번호 검색 
@@ -28,7 +39,14 @@ const ScheduleDetilaCreate = () => {
 
     useEffect(()=>{
         if(scheduleId === null || scheduleId === undefined) return;
-        // api 호출 성공시 setMode('read')
+        dispatch(getCalendarListAPI({memberCode: memberCode}));
+        setSchedule({
+            ...schedule,
+            refCalendar: schedule.refCalendar || 
+            calendar.data.filter(item=> item.indexNo === 1)
+                            .map(item=>item.id)[0],
+            memberCode: memberCode,
+        })
         setMode('read')
     },[])
 
@@ -61,6 +79,10 @@ const ScheduleDetilaCreate = () => {
         }
     }
 
+    const registScheduleHandler = () => {
+        dispatch(postScheduleRegist({data:schedule}))
+    }
+
     const removeParticipant = e => {
         setSchedule({...schedule, participantList:  
             schedule.participantList.filter(item => 
@@ -68,13 +90,6 @@ const ScheduleDetilaCreate = () => {
         })
         
     }
-    
-    const calendarList = [
-        {id: 1, value:1, text: '1'},
-        {id: 2, value:2, text: '2'},
-        {id: 3, value:3, text: '3'},
-        {id: 4, value:4, text: '4'},
-    ]
     
 
     return (
@@ -85,17 +100,30 @@ const ScheduleDetilaCreate = () => {
                 </div>
                 <div>
                     <div className={[styles.subItem, styles.subCol2].join(' ')}>
-                        <InputEle name='title' type="text" placeholder='제목을 입력하세요' value={schedule.title} onChange={scheduleChangeHanlder} disabled={isEleDisabled()}/>
+                        <InputEle
+                            name='title'
+                            type="text"
+                            placeholder='제목을 입력하세요'
+                            value={schedule?.title}
+                            onChange={scheduleChangeHanlder}
+                            disabled={isEleDisabled()}
+                        />
                         <div className={styles.optionItem}>
-                            <div style={{'margin-right': 10, verticalAlign:'middle'}}>
+                            <div style={{marginRight: 10, verticalAlign:'middle'}}>
                                 {/* 사용여부 재 결정
                                  <CheckBox id="private" name={schedule.} isChangeColor={true}/>
                                 <label className={styles.chkLabel} for="private">비공개</label> 
                                 */}
                             </div>
                             <div>
-                                <CheckBox name="important" isChangeColor={true} checked={schedule.important} onChange={scheduleChangeHanlder} disabled={isEleDisabled()}/>
-                                <label className={styles.chkLabel} for="importent">중요</label>
+                                <CheckBox 
+                                    name="important"
+                                    isChangeColor={true}
+                                    checked={schedule?.important}
+                                    onChange={scheduleChangeHanlder}
+                                    disabled={isEleDisabled()}
+                                />
+                                <label className={styles.chkLabel}>중요</label>
                             </div>
                         </div>
                     </div>
@@ -105,16 +133,43 @@ const ScheduleDetilaCreate = () => {
                         <div>
                         </div>
                         <div className={[styles.subItem, styles.subCol3].join(' ')}>
-                            <InputEle type="datetime-local" name='startDate' value={schedule.startDate} onChange={scheduleChangeHanlder} disabled={isEleDisabled()}/>
-                            {schedule.allDay || <InputEle type="datetime-local" name='endDate' value={schedule.endDate} onChange={scheduleChangeHanlder} disabled={isEleDisabled()}/>}
+                            <InputEle
+                                type="datetime-local"
+                                name='startDate'
+                                value={schedule?.startDate}
+                                onChange={scheduleChangeHanlder}
+                                disabled={isEleDisabled()}
+                            />
+                            {
+                                schedule?.allDay || 
+                                <InputEle
+                                    type="datetime-local"
+                                    name='endDate'
+                                    value={schedule?.endDate} 
+                                    onChange={scheduleChangeHanlder} 
+                                    disabled={isEleDisabled()}
+                                />
+                            }
                             <div className={styles.subCol2}>
-                                <div style={{'margin-right': 10}}>
-                                    <CheckBox name='allDay' isChangeColor={true} checked={schedule.allDay} onChange={scheduleChangeHanlder} disabled={isEleDisabled()} />
-                                    <label className={styles.chkLabel} for="all-day">종일</label>
+                                <div style={{marginRight: 10}}>
+                                    <CheckBox
+                                        name='allDay'
+                                        isChangeColor={true}
+                                        checked={schedule?.allDay} 
+                                        onChange={scheduleChangeHanlder} 
+                                        disabled={isEleDisabled()}
+                                    />
+                                    <label className={styles.chkLabel}>종일</label>
                                 </div>
                                 <div>
-                                    <CheckBox name="repeat" isChangeColor={true} checked={schedule.repeat} onChange={scheduleChangeHanlder} disabled={isEleDisabled()} />
-                                    <label className={styles.chkLabel} for="circle">반복</label>
+                                    <CheckBox 
+                                        name="repeat" 
+                                        isChangeColor={true} 
+                                        checked={schedule?.repeat} 
+                                        onChange={scheduleChangeHanlder} 
+                                        disabled={isEleDisabled()}
+                                    />
+                                    <label className={styles.chkLabel}>반복</label>
                                 </div>
                             </div>
                         </div>
@@ -122,31 +177,65 @@ const ScheduleDetilaCreate = () => {
                     
                 </div>
                 <div className={styles.container}>
-                    <label for="corp-schedule">전사일정</label>
+                    <label>전사일정</label>
                     <div className={styles.extendEle}>
-                        <CheckBox name="corpSchdl" isChangeColor={true} checked={schedule.corpSchdl} onChange={scheduleChangeHanlder} disabled={isEleDisabled()}/>
+                        <CheckBox 
+                            name="corpSchdl" 
+                            isChangeColor={true} 
+                            checked={schedule?.corpSchdl} 
+                            onChange={scheduleChangeHanlder} 
+                            disabled={isEleDisabled()}
+                        />
                     </div>
-                    <label for="corp-schedule">캘린더</label>
+                    <label>캘린더</label>
                     <div className={styles.extendEle}>
-                        <SelectEle name='calendar' options={calendarList} value={schedule.calendar}  onChange={scheduleChangeHanlder} disabled={isEleDisabled()}/>
+                        <SelectEle 
+                            name='refCalendar' 
+                            options={calendar.data?.filter(item => (
+                                                                item.departmentCode !== 0 && item.memberCode === 2 //수정 예정
+                                                            )).map(item => (
+                                                                {value:item.id, text:item.name})
+                                                            )} 
+                            value={schedule?.refCalendar}
+                            onChange={scheduleChangeHanlder} 
+                            disabled={isEleDisabled()}
+                        />
                     </div>
                     <label>참석자</label>
                     <div style={{margin:'10px 0 10px 0'}}>
                         {
-                            schedule.participantList?.map((item, index)=>(
-                                <AttendUser key={index} id={item.memberCode} value={item.memberName} onClick={removeParticipant} disabled={isEleDisabled()}/>))
+                            schedule?.participantList?.map((item, index)=>(
+                                <AttendUser 
+                                    key={index} 
+                                    id={item.memberCode} 
+                                    value={item?.memberName} 
+                                    onClick={removeParticipant} 
+                                    disabled={isEleDisabled()}
+                                />
+                            ))
                         }
                         
                         <ButtonOutline value='+' onClick={()=>{}} style={{borderRadius:'50px'}}/>
                     </div>
                     
-                    <label for="address">장소</label>
+                    <label>장소</label>
                     <div className={styles.containerCol}>
-                        <InputEle ref={addressRef} name='address' type="text" value={schedule.address} onChange={scheduleChangeHanlder} disabled={isEleDisabled()}/>
+                        <InputEle 
+                            ref={addressRef} 
+                            name='address' 
+                            type="text" 
+                            value={schedule?.address} 
+                            onChange={scheduleChangeHanlder} 
+                            disabled={isEleDisabled()}
+                        />
                         
                         {
                             mode === 'read' ||
-                            <ButtonInline value={'주소검색'} onClick={()=>setPostToggle(true)} style={{height:30, width:80, display:'inline'}} />
+                            <ButtonInline 
+                                value={'주소검색'} 
+                                onClick={()=>setPostToggle(true)} 
+                                style={{height:30, width:80, display:'inline'}} 
+                            />
                         }
                         {
                             postToggle && 
@@ -160,16 +249,27 @@ const ScheduleDetilaCreate = () => {
 
                     <label>내용</label>
                     <div>
-                        <TextareaEl rows="15" maxLength={2000} style={{width:'95%'}} name='content' value={schedule.content} onChange={scheduleChangeHanlder} disabled={isEleDisabled()}/>
+                        <TextareaEl 
+                            rows="15" 
+                            maxLength={2000} 
+                            style={{width:'95%'}} 
+                            name='content' 
+                            value={schedule?.content} 
+                            onChange={scheduleChangeHanlder} 
+                            disabled={isEleDisabled()}
+                        />
                     </div>
                 </div>
                 <div className={styles.footer}>
                     <div>
-                        <ButtonInline value={isEleDisabled()? '수정': '등록'} onclick={()=>{}} style={{width:80, height: 40}}/>
+                        <ButtonInline 
+                            value={isEleDisabled()? '수정': '등록'} 
+                            onClick={registScheduleHandler} 
+                            style={{width:80, height: 40}}/>
                     </div>
                     <div>
                         <NavLink to='../'>
-                            <ButtonInline isCancel={true} value='취소' onClick={()=>{}} style={{width:80, height: 40}}/>
+                            <ButtonInline isCancel={true} value='취소' onClick={toggleMenu} style={{width:80, height: 40}}/>
                         </NavLink>
                     </div>
                 </div>

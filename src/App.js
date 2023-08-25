@@ -23,7 +23,19 @@ import './layouts/Default.css';
 import MemberInfo from './pages/manage/MemberInfo';
 import ChartModal from './pages/manage/ChartModal';
 import SecheduleSummaryCreate from "./pages/calendar/ScheduleSummaryCreate";
-
+import Work from "./pages/work/Work";
+import WkAdmin from "./pages/work/WkAdmin";
+import WorkSide from "./pages/work/WorkSide";
+import MyWork from "./pages/work/MyWork";
+import MyDept from "./pages/work/MyDept";
+import Dept from "./pages/work/Dept";
+import Notice from "./pages/board/Notice";
+import Report from "./pages/board/Report";
+import Menu from "./pages/board/Menu";
+import Common from "./pages/board/Common";
+import BrdDept from "./pages/board/BrdDept";
+import BrdAdmin from "./pages/board/BrdAdmin";
+import Anony from "./pages/board/Anony";
 
 function Test() {
     return null;
@@ -88,12 +100,26 @@ function App() {
                       </Route>
                     </Route>
                 </Route>
-                  <Route path='/manage'>
+                  <Route path='group'>
                     <Route index element={<Group/>}/>
                   </Route>
                   <Route path='/searchDept' element={<SearchDept/>}/>
-
               </Route>
+              <Route path="/work" element={ <Work /> }/>
+              <Route path="/work/admin" element={ <WkAdmin /> }/>
+              <Route path="/work/workside" element={ <WorkSide /> }/>
+              <Route path="/work/mywork" element={ <MyWork /> }/>
+              <Route path="/work/mydept" element={ <MyDept />}/>
+              <Route path="/work/dept" element={ <Dept />}/>
+              <Route path="/board" element={<BoardMain/>}/>
+              <Route path="/board/notice" element={ <Notice />}/>
+              <Route path="/board/report" element={ <Report />}/>
+              <Route path="/board/menu" element={ <Menu />}/>
+              <Route path="/board/common" element={ <Common />}/>
+              <Route path="/board/brddept" element={ <BrdDept />}/>
+              <Route path="/board/brdadmin" element={ <BrdAdmin />}/>
+              <Route path="/board/anony" element={ <Anony />}/>
+              {/* <Route path="/board" element={<BoardMain/>}></Route> */}
         </Routes>
       </BrowserRouter>
     </>

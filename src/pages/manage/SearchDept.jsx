@@ -50,61 +50,70 @@ const memberList = [
         name: "윤팀장",
         num: 'j123456',
         dept: "인사관리 3팀",
-        link: './GroupInfoAlet'
+        link: '../memberInfo'
     },
     {
         name: "김과장",
         num: 'g324216',
         dept: "리스크관리 1팀",
-        link: './GroupInfoAlet'
+        link: '../memberInfo'
+
     },
     {
         name: "이대리",
         num: 'j34566',
         dept: "온라인 영업 1팀",
-        link: './GroupInfoAlet'
+        link: '../memberInfo'
+
     },
     {
         name: "팽사원",
         num: 'j123456',
         dept: "자금운영 3팀",
-        link: './GroupInfoAlet'
+        link: '../memberInfo'
+
     },
     {
         name: "윤팀장",
         num: 'j123456',
         dept: "회계관리 3팀",
-        link: './GroupInfoAlet'
+        link: '../memberInfo'
+
     },
     {
         name: "윤팀장",
         num: 'j123456',
         dept: "인사관리 3팀",
-        link: './GroupInfoAlet'
+        link: '../memberInfo'
+
     },
     {
         name: "김과장",
         num: 'g324216',
         dept: "온라인 영업 3팀",
-        link: './GroupInfoAlet'
+        link: '../memberInfo'
+
     },
     {
         name: "이대리",
         num: 'j34566',
         dept: "인사관리 3팀",
-        link: './GroupInfoAlet'
+        link: '../memberInfo'
+
     },
     {
         name: "팽사원",
         num: 'j123456',
         dept: "회계관리 3팀",
-        link: './GroupInfoAlet'
+        link: '../memberInfo'
+
     },
     {
         name: "윤팀장",
         num: 'j123456',
         dept: "인사관리 3팀",
-        link: './GroupInfoAlet'
+        link: '../memberInfo'
+
     }
 ]
 

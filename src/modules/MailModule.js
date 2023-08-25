@@ -4,7 +4,7 @@ import { createActions, handleActions } from 'redux-actions';
 const initialState = [];
 
 /* 액션 */
-export const GET_MAIL = 'contact/POST_SELECTMAIL';
+export const GET_MAIL = 'contact/GET_SELECTMAIL';
 
 
 const actions = createActions({

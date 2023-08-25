@@ -25,6 +25,7 @@ export default function Layout() {
             </ModalContextProvider>
         </>
     );
+
 }
 
 function LayoutContent() {

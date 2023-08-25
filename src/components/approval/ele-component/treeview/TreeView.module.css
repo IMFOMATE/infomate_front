@@ -24,17 +24,18 @@
   width: 100%;
   display: grid;
   grid-template-rows: 1fr;
+  gap: 10px;
   grid-template-columns: 1fr 1fr;
   height: 100%;
 }
 
 .app > ul{
   overflow-y: auto;
+  border: 2px solid var(--color-border);
 }
 
 .current {
-  margin: 8px;
-  border: 1px solid var(--color-border);
+  border: 2px solid var(--color-border);
   overflow-y: auto ;
 }
 

@@ -5,6 +5,7 @@ import Payment from "../../components/approval/ele-component/document/Payment";
 import Vacation from "../../components/approval/ele-component/document/Vacation";
 import Draft from "../../components/approval/ele-component/document/Draft";
 import styles from './DocumentMain.module.css';
+import {DraftDataProvider} from "../../context/approval/DraftDataContext";
 
 function DocumentMain() {
   const location = useLocation();
@@ -17,7 +18,7 @@ function DocumentMain() {
         <div className={styles.doc_wrapper}>
           {
               (type === 'payment' && <Payment/>) ||
-              (type === 'draft' && <Draft/>) ||
+              (type === 'draft' && <DraftDataProvider><Draft/></DraftDataProvider>) ||
               (type === 'vacation' && <Vacation/>)
           }
         </div>

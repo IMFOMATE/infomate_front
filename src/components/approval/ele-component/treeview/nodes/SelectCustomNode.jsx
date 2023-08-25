@@ -51,7 +51,7 @@ export const SelectCustomNode = (props) => {
           <TypeIcon droppable={droppable} fileType={data?.fileType} />
         </div>
         <div className={styles.labelGridItem}>
-          <Typography variant="body2">{`${props.node.text} ${ props.node.data !== undefined ? props.node.data.rank : '' }`}</Typography>
+          <Typography variant="body2">{`${props.node.text} ${ props.node.data !== null ? props.node.data.rank : '' }`}</Typography>
         </div>
       </div>
   );

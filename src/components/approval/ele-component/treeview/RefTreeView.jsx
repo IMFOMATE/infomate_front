@@ -11,20 +11,21 @@ import Swal from 'sweetalert2';
 import {useDraftDataContext} from "../../../../context/approval/DraftDataContext";
 
 
-function ApprovalTreeView({modalData}) {
+function RefTreeView({modalData}) {
 
   const {data, setData} = useDraftDataContext();
-  const { approvalList } = data;
+
+  const { refList } = data;
+
 
 
   const handleSelect = (node) => {
-    const item = approvalList.find((n) => n.id === node.id);
+    const item = refList.find((n) => n.id === node.id);
 
     if (!item) {
-      setData(prev => ({...prev, approvalList:([...prev.approvalList, node])}))
-      console.log(approvalList)
+      setData(prev => ({...prev, refList:([...prev.refList, node])}))
     } else {
-      setData(prev=> ({...prev, approvalList:approvalList.filter((n) => n.id !== node.id)}))
+      setData(prev=> ({...prev, refList:refList.filter((n) => n.id !== node.id)}))
     }
   };
 
@@ -40,7 +41,7 @@ function ApprovalTreeView({modalData}) {
                       node={node}
                       depth={depth}
                       isOpen={isOpen}
-                      isSelected={!!approvalList.find((n) => n.id === node.id)}
+                      isSelected={!!refList.find((n) => n.id === node.id)}
                       canDrop={()=> false}
                       onToggle={onToggle}
                       onSelect={handleSelect}
@@ -66,8 +67,8 @@ function ApprovalTreeView({modalData}) {
               </thead>
               <tbody>
                 {
-                    (approvalList.length !== 0) &&
-                    approvalList.map((value, index) => <tr key={index} className={`${styles.center} ${tableStyle.list_tr}`}>
+                    (refList.length !== 0) &&
+                    refList.map((value, index) => <tr key={index} className={`${styles.center} ${tableStyle.list_tr}`}>
                     <td className={tableStyle.list_td2}>{value.text}</td>
                     <td>{value.data.rank}</td>
                     <td>{index+1}</td>
@@ -76,11 +77,11 @@ function ApprovalTreeView({modalData}) {
                 }
               </tbody>
             </table>
-            { approvalList.length === 0 ? <div className={styles.center}>결재선을 추가해주세요</div> : ''}
+            { refList.length === 0 ? <div className={styles.center}>결재선을 추가해주세요</div> : ''}
           </div>
         </div>
   );
 }
 
 
-export default ApprovalTreeView;
+export default RefTreeView;

@@ -53,6 +53,12 @@ function Draft() {
   //결제 요청 api
   const handleRequest = () => {
     console.log(data);
+
+    // 여기서 폼작업 해줘야한다./
+
+    // 유효성 검사도 하자
+
+
   };
 
   // 임시저장 api
@@ -100,7 +106,7 @@ function Draft() {
                 <div className={style.inline}>
                   {
                     data.approvalList.length !== 0 ?
-                        data.approvalList.map(d => <Credit approval={d} />)
+                        data.approvalList.map((data, index) => <Credit key={index} approval={data} />)
                         : ""
                   }
                 </div>
@@ -154,7 +160,7 @@ function Draft() {
             </div>
           </div>
           <aside className={style.doc_side}>
-            <DocumentSide/>
+            <DocumentSide approval={data.approvalList} reference={data.refList}/>
           </aside>
         </div>
       </>

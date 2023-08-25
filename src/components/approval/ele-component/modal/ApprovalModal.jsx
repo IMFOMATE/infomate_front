@@ -25,7 +25,8 @@ const SampleData =
         "text": "홍길동",
         "data": {
             "fileType": "person",
-            "rank" : '상무'
+            "rank" : '상무',
+            "profile": '/img/user.jpg'
         }
     },
     {
@@ -56,7 +57,8 @@ const SampleData =
         "text": "김길동",
         "data": {
             "fileType": "person",
-            "rank" : '팀장'
+            "rank" : '팀장',
+            "profile": '/img/user.jpg'
         }
     },
     {
@@ -66,7 +68,8 @@ const SampleData =
         "text": "주진선",
         "data": {
             "fileType": "person",
-            "rank" : '사원'
+            "rank" : '사원',
+        "profile": '/img/user.jpg'
         }
     },
     {
@@ -76,7 +79,8 @@ const SampleData =
         "text": "김씨",
         "data": {
             "fileType": "person",
-            "rank": '사원'
+            "rank": '사원',
+            "profile": '/img/user.jpg'
         }
     },
     {
@@ -86,7 +90,8 @@ const SampleData =
         "text": "박씨",
         "data": {
             "fileType": "person",
-            "rank": '과장'
+            "rank": '과장',
+            "profile": '/img/user.jpg'
         }
     },
     {
@@ -96,7 +101,8 @@ const SampleData =
         "text": "이씨",
         "data": {
             "fileType": "person",
-            "rank": '팀장'
+            "rank": '팀장',
+            "profile": '/img/user.jpg'
         }
     }
 ];

@@ -28,6 +28,12 @@ function ApprovalTreeView({modalData}) {
     }
   };
 
+  const handleClick= (index) => {
+      const updatedList = [...approvalList];
+      updatedList.splice(index, 1);
+      setData(prev => ({...prev, approvalList:updatedList}));
+  }
+
 
   return (
         <div className={styles.app}>
@@ -61,17 +67,19 @@ function ApprovalTreeView({modalData}) {
                   <td className={tableStyle.list_td2}>이름</td>
                   <td>부서</td>
                   <td>결재 순서</td>
-                  <td><RemoveCircleOutlineIcon/></td>
+                  <td><RemoveCircleOutlineIcon className={styles.alert}/></td>
                 </tr>
               </thead>
               <tbody>
                 {
                     (approvalList.length !== 0) &&
-                    approvalList.map((value, index) => <tr key={index} className={`${styles.center} ${tableStyle.list_tr}`}>
-                    <td className={tableStyle.list_td2}>{value.text}</td>
-                    <td>{value.data.rank}</td>
-                    <td>{index+1}</td>
-                  </tr>
+                    approvalList.map((value, index) =>
+                        <tr key={index} className={`${styles.center} ${tableStyle.list_tr}`}>
+                            <td className={tableStyle.list_td2}>{value.text}</td>
+                            <td>{value.data.rank}</td>
+                            <td>{index+1}</td>
+                            <td><RemoveCircleOutlineIcon onClick={() => handleClick(index)} className={styles.alert}/></td>
+                        </tr>
                   )
                 }
               </tbody>

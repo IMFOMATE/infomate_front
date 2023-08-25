@@ -1,11 +1,11 @@
 import React from 'react';
 import style from "./Credit.module.css";
-function Credit({approval}) {
+function Credit({key, approval}) {
   const {data, text, approvalDate} = approval;
 
 
   return (
-      <div className={style.credit} >
+      <div key={key} className={style.credit} >
         <p>{data.rank}</p>
         <p className={style.credit_name}>
           {

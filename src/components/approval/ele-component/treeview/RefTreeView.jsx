@@ -77,7 +77,7 @@ function RefTreeView({modalData}) {
                 }
               </tbody>
             </table>
-            { refList.length === 0 ? <div className={styles.center}>결재선을 추가해주세요</div> : ''}
+            { refList.length === 0 ? <div className={styles.center}>참조자를 추가해주세요</div> : ''}
           </div>
         </div>
   );

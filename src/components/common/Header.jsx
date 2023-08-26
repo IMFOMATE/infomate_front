@@ -10,12 +10,14 @@ import CalendarNav from '../../pages/calendar/CalendarNav';
 import GroupNav from '../../pages/manage/GroupNav';
 import ContactNav from "../contact/ContactNav"
 import { useLocation, useParams } from 'react-router-dom';
+import { CalendarListProvider } from '../../context/CalendarContext';
 
 
 
 function Header() {
     const {currentTitle, toggleTitle } = useContext(CurrentTitleContext);
     const {menuState, toggleMenu} = useContext(MenuContext);
+    
 
     const menu = useLocation().pathname.split('/')[1];
 

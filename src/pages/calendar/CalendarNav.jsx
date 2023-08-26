@@ -1,29 +1,32 @@
 import styles from './CalendarNav.module.css';
 import CalendarNavItem from '../../components/calendar/nav/CalendarNavItem';
 import NavStyle from '../../components/common/Nav.module.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import ButtonSimple from '../../components/common/button/ButtonSimple';
 import { useContext, useEffect, useState } from 'react';
 import { SideSubLabel } from '../../components/common/label/CusLabel';
-import { CalendarProvider } from '../../context/CalendarContext';
+import { CalendarFilterContext } from '../../context/CalendarContext';
 import { MenuContext } from '../../context/MenuContext';
 import { getCalendarListAPI } from '../../apis/CalendarAPICalls';
 import { useDispatch, useSelector } from 'react-redux';
+import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
+import { MEMBER_CODE } from '../../apis/APIConfig';
 
 const CalendarNav = () => {
 
-    const {toggleMenu} = useContext(MenuContext);
-    const {events, setEvents} = useContext(CalendarProvider);
+    const {menuState, toggleMenu} = useContext(MenuContext);
+    const {filter, setFilter} = useContext(CalendarFilterContext);
     
-
     const dispatch = useDispatch();
 
-    const data = useSelector(state => state.calendarReducer);
+    const data = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
 
     const [moreToggle, setMoreToggle] = useState({
         my:false,
         fav:false,
     });
+
+    const navigate = useNavigate();
 
     const myClassName = [NavStyle.sideList, styles.listContainer, moreToggle?.my && styles.listContainerActive].join(' ');
     const corpClassName = [NavStyle.sideList, styles.listContaine].join(' ');
@@ -31,17 +34,16 @@ const CalendarNav = () => {
 
 
     useEffect(()=>{
-        //캘린더 리스트 api 호출
-        dispatch(getCalendarListAPI({memberCode:2}))
-        // console.log(calendar?.data);
+        dispatch(getCalendarListAPI())
+        
     },[])
-
 
     const calendarFilterChange = e => {
         if(e.target.checked){
-            setEvents({...events, filter : [...events.filter].filter(item => item !== parseInt(e.target.id))});
+            setFilter([...filter.filter(item => item !== parseInt(e.target.id))]);
         }else{
-            setEvents({...events, filter : [...events.filter, parseInt(e.target.id)]});
+            
+            setFilter([...filter, parseInt(e.target.id)]);
         }   
     }
 
@@ -49,7 +51,12 @@ const CalendarNav = () => {
         setMoreToggle({[e.target.name]:!moreToggle[e.target.name]});
     }
 
- 
+    const CalednarConfigPage = () => {
+        menuState && toggleMenu();
+        navigate('/calendar/management/mypage');
+    }
+
+ console.log(data);
     return (
         <div className={styles.container}>
             <div className={NavStyle.sideTop}>
@@ -63,8 +70,8 @@ const CalendarNav = () => {
             
             <div className={myClassName}>
                 {
-                    data && data.data && data.data.filter(item => (
-                        item.departmentCode === null && item.memberCode === 2 // memberCode 수정
+                    data?.data.filter(item => (
+                        item.departmentCode === null && item.memberCode === MEMBER_CODE // memberCode 수정
                     )).sort((prev , next) =>
                         prev.indexNo - next.indexNo
                     ).filter((item, index)=> (
@@ -75,21 +82,29 @@ const CalendarNav = () => {
                             calendarName={item.name}
                             color={item.labelColor}
                             id={item.id}
-                            isCheck={!events.filter.includes(parseInt(item.id))}
+                            isCheck={!filter.includes(parseInt(item.id))}
                         onChange={calendarFilterChange} />
                     ))
                 }
             </div>
-            
-            <ButtonSimple name='my' text={'더보기'} onClick={moreClickHandler} />
-            
+            {
+                data?.data.filter(item => (
+                    item.departmentCode === null && item.memberCode === MEMBER_CODE // memberCode 수정
+                )).length > 3 &&
+                <ButtonSimple
+                    name='my'
+                    text={'더보기'}
+                    onClick={moreClickHandler}
+                />
+            }
+
             <br/>
             <br/>
 
             <SideSubLabel text={'회사 일정'} />
             <div className={corpClassName}>
                 {
-                    data && data.data && data?.data?.filter(item => (
+                    data?.data?.filter(item => (
                         item.departmentCode === 1 || item.departmentCode  === 0 // 조건 수정 예정
                     )).sort((prev , next) =>
                         prev.indexNo - next.indexNo
@@ -101,7 +116,7 @@ const CalendarNav = () => {
                             calendarName={item.name}
                             color={item.labelColor}
                             id={item.id}
-                            isCheck={!events.filter.includes(parseInt(item.id))}
+                            isCheck={!filter.includes(parseInt(item.id))}
                             onChange={calendarFilterChange}
                         />
                     ))
@@ -115,8 +130,8 @@ const CalendarNav = () => {
             <SideSubLabel text={'관심 일정'} />
             <div className={favClassName}>
                 {
-                    data && data.data && data.data.filter(item => (
-                        item.memberCode !== 2 && item.departmentCode === null // membercode조건 수정 예정
+                    data?.data.filter(item => (
+                        item.memberCode !== MEMBER_CODE && item.departmentCode === null // membercode조건 수정 예정
                     )).sort((prev , next) =>
                         prev.indexNo - next.indexNo
                     ).filter((item, index)=> (
@@ -127,24 +142,31 @@ const CalendarNav = () => {
                             calendarName={item.name}
                             color={item.labelColor}
                             id={item.id}
-                            isCheck={!events.filter.includes(parseInt(item.id))}
+                            isCheck={!filter.includes(parseInt(item.id))}
                             onChange={calendarFilterChange}
                         />
                     ))
                 }
             </div>
-            <ButtonSimple 
-                name='fav'
-                text={'더보기'}
-                onClick={moreClickHandler} />
-            
+            {
+                data?.data.filter(item => (
+                    item.memberCode !== MEMBER_CODE && item.departmentCode === null // membercode조건 수정 예정
+                )).length > 3 &&
+                <ButtonSimple
+                    name='fav'
+                    text={'더보기'}
+                    onClick={moreClickHandler}
+                />
+
+            }
+
             <br/>
             <br/>
             <div style={{margin: '20px 0'}}>
                 <ButtonSimple
                     name='fav'
                     text={'캘린더 설정'}
-                    onClick={()=> document.location.href='/calendar/management/mypage'}
+                    onClick={CalednarConfigPage}
                 />
             </div>
         </div>

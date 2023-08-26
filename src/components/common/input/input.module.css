@@ -12,12 +12,12 @@
     display: block;
 }
 
-.input[type='datetime-local']{
+.input[type='datetime-local'], .input[type='date'] {
     color: var(--color-text-content);
 }
 
 .input:focus{
-    outline-color: var(--color-hard);
+    outline-color: var(--color-middle);
 }
 
 .input[type=radio]{

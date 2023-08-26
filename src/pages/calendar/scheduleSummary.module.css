@@ -4,7 +4,7 @@
     border-radius: 5px;
     width: 550px;
     max-width: 550px;
-    box-shadow: 0 0 40px rgba(200, 200, 200, 0.4);
+    box-shadow: 0 20px 30px 10px rgba(200, 200, 200, 0.6);
     background-color: var(--color-background) !important;
     animation: slidefade 0.35s linear
 }

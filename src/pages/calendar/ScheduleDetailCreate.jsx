@@ -7,51 +7,61 @@ import CheckBox from '../../components/common/input/CheckBox';
 import TextareaEl from '../../components/common/input/Textarea';
 import SelectEle from '../../components/common/select/SelectEle';
 import DaumPostcode from 'react-daum-postcode';
-import {useContext, useEffect, useRef, useState } from 'react';
-import { NavLink, useNavigate, useSearchParams } from 'react-router-dom';
-import { ScheduleProvider } from '../../layouts/CalendarLayout';
-import { CalendarProvider } from '../../context/CalendarContext';
-import { MenuContext } from '../../context/MenuContext';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { ScheduleModalProvider, ScheduleProvider } from '../../layouts/CalendarLayout';
 import { useDispatch, useSelector } from 'react-redux';
-import calendarReducer from '../../modules/CalendarMoudule';
 import { getCalendarListAPI } from '../../apis/CalendarAPICalls';
-import { postScheduleRegist } from '../../apis/ScheduleAPICalls';
+import { postScheduleRegist, getScheduleDetail } from '../../apis/ScheduleAPICalls';
+import antdStyels from './antd.module.css';
+import { MenuContext } from '../../context/MenuContext';
+import 'dayjs/locale/ko';
+import dayjs from 'dayjs';
+import locale from 'antd/es/date-picker/locale/ko_KR';
+import { DatePicker } from 'antd';
+import { FadeLoader } from 'react-spinners';
+import StylesLoading from './loadingStyle.module.css';
+import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
 
+
+
+const { RangePicker } = DatePicker;
 const ScheduleDetilaCreate = () => {
 
-    const [postToggle, setPostToggle] = useState(false);
-    const [mode, setMode] = useState('create')
-    const {toggleMenu} = useContext(MenuContext);
-
-    const calendar = useSelector(state => state.calendarReducer);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const memberCode = 2; // 삭제 예정
-
     const {schedule, setSchedule} = useContext(ScheduleProvider);
-
-
+    const {isMobile, setIsMobile} = useContext(ScheduleProvider);
+    const {isModal, setIsModal} = useContext(ScheduleModalProvider);
+    const {menuState, toggleMenu} = useContext(MenuContext);
+    
+    const [postToggle, setPostToggle] = useState(false);
     const [search] = useSearchParams();
-    const scheduleId = search.get('scheduleId');
-
     const modalRef = useRef(); // 다음 우편번호 검색 
     const addressRef = useRef(); // 주소 input
 
+    const calendar = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
+    const data = useSelector(state => state.scheduleReducer);
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+
+    const memberCode = 2; // 삭제 예정
+
+    const scheduleId = search.get('scheduleId');
+
+
     useEffect(()=>{
-        if(scheduleId === null || scheduleId === undefined) return;
-        dispatch(getCalendarListAPI({memberCode: memberCode}));
-        setSchedule({
-            ...schedule,
-            refCalendar: schedule.refCalendar || 
-            calendar.data.filter(item=> item.indexNo === 1)
-                            .map(item=>item.id)[0],
-            memberCode: memberCode,
+        calendar && calendar.data && setSchedule({
+            ...schedule, data:{
+                ...schedule.data, 
+                refCalendar: calendar.data.filter(item=> item.indexNo === 1)
+                                .map(item=>item.id)[0],
+                memberCode: memberCode,
+            }
         })
-        setMode('read')
     },[])
 
     const isEleDisabled = () => {
-        return mode === 'read'? true : false; 
+        return scheduleId !== null && scheduleId !== undefined && scheduleId !== ''
     }
 
     const postOutArea = e =>{
@@ -69,31 +79,39 @@ const ScheduleDetilaCreate = () => {
         const eleName = e.target.name;
 
         if(e.target.type === 'checkbox'){
-                setSchedule({...schedule, [eleName]: e.target.checked})        
+            setSchedule({...schedule, data:{...schedule.data, [eleName]: e.target.checked}})        
         }else if(eleName === 'participantList'){
-            setSchedule({...schedule, [eleName]: [...schedule.participantList,  e.target.value]})
+            setSchedule({...schedule, data:{...schedule.data,  [eleName]: [...schedule.participantList,  e.target.value]}})
         }else if(eleName === 'calendar') {
-            setSchedule({...schedule, [eleName]: parseInt(e.target.value)})
+            setSchedule({...schedule, data:{...schedule.data,  [eleName]: parseInt(e.target.value)}})
         }else{
-            setSchedule({...schedule, [eleName]: e.target.value})
+            setSchedule({...schedule, data:{...schedule.data,  [eleName]: e.target.value}})
         }
     }
 
     const registScheduleHandler = () => {
-        dispatch(postScheduleRegist({data:schedule}))
+        dispatch(postScheduleRegist({data:schedule}));
     }
 
     const removeParticipant = e => {
-        setSchedule({...schedule, participantList:  
-            schedule.participantList.filter(item => 
+        setSchedule({...schedule, participantList:
+            schedule.participantList.filter(item =>
                 parseInt(item.memberCode) !== parseInt(e.target.id))
-        })
-        
+        });
     }
     
+    const registCancle = () => {
+        isMobile || menuState || toggleMenu();
+        setIsModal(false);
+        setSchedule({});
+        navigate('../');
+    }
 
     return (
         <>
+        {
+            schedule && schedule.data ?
+        
             <div className={styles.mainContainer}>
                 <div className={styles.title}>
                     <h3>일정 등록</h3>
@@ -104,9 +122,9 @@ const ScheduleDetilaCreate = () => {
                             name='title'
                             type="text"
                             placeholder='제목을 입력하세요'
-                            value={schedule?.title}
+                            value={schedule.data?.title}
                             onChange={scheduleChangeHanlder}
-                            disabled={isEleDisabled()}
+                            // disabled={isEleDisabled()}
                         />
                         <div className={styles.optionItem}>
                             <div style={{marginRight: 10, verticalAlign:'middle'}}>
@@ -119,9 +137,9 @@ const ScheduleDetilaCreate = () => {
                                 <CheckBox 
                                     name="important"
                                     isChangeColor={true}
-                                    checked={schedule?.important}
+                                    checked={schedule.data.important}
                                     onChange={scheduleChangeHanlder}
-                                    disabled={isEleDisabled()}
+                                    // disabled={isEleDisabled()}
                                 />
                                 <label className={styles.chkLabel}>중요</label>
                             </div>
@@ -132,32 +150,28 @@ const ScheduleDetilaCreate = () => {
                     <div>
                         <div>
                         </div>
+                            
                         <div className={[styles.subItem, styles.subCol3].join(' ')}>
-                            <InputEle
-                                type="datetime-local"
-                                name='startDate'
-                                value={schedule?.startDate}
-                                onChange={scheduleChangeHanlder}
-                                disabled={isEleDisabled()}
-                            />
-                            {
-                                schedule?.allDay || 
-                                <InputEle
-                                    type="datetime-local"
-                                    name='endDate'
-                                    value={schedule?.endDate} 
-                                    onChange={scheduleChangeHanlder} 
-                                    disabled={isEleDisabled()}
+                            <div className={styles.date}>
+                                <RangePicker className={[antdStyels['ant-picker-focused'],antdStyels['ant-picker-active-bar']].join(' ')}
+                                    name='RangeDate'
+                                    locale={locale}
+                                    format={'YYYY-MM-DD HH:mm'}
+                                    size='middle'
+                                    style={{width:'100%', borderRadius:5 }}
+                                    showTime={{ format: 'HH:mm' }}
+                                    value={[dayjs(schedule.data.startDate), dayjs(schedule.data.endDate)]}
+                                    // onCalendarChange={changeData}
                                 />
-                            }
+                            </div>
                             <div className={styles.subCol2}>
                                 <div style={{marginRight: 10}}>
                                     <CheckBox
                                         name='allDay'
                                         isChangeColor={true}
-                                        checked={schedule?.allDay} 
+                                        checked={schedule?.allDay && schedule.allDay}
                                         onChange={scheduleChangeHanlder} 
-                                        disabled={isEleDisabled()}
+                                        // disabled={isEleDisabled()}
                                     />
                                     <label className={styles.chkLabel}>종일</label>
                                 </div>
@@ -165,9 +179,9 @@ const ScheduleDetilaCreate = () => {
                                     <CheckBox 
                                         name="repeat" 
                                         isChangeColor={true} 
-                                        checked={schedule?.repeat} 
+                                        checked={schedule.data.repeat}
                                         onChange={scheduleChangeHanlder} 
-                                        disabled={isEleDisabled()}
+                                        // disabled={isEleDisabled()}
                                     />
                                     <label className={styles.chkLabel}>반복</label>
                                 </div>
@@ -182,35 +196,37 @@ const ScheduleDetilaCreate = () => {
                         <CheckBox 
                             name="corpSchdl" 
                             isChangeColor={true} 
-                            checked={schedule?.corpSchdl} 
+                            checked={schedule.data.corpSchdl}
                             onChange={scheduleChangeHanlder} 
-                            disabled={isEleDisabled()}
+                            // disabled={isEleDisabled()}
                         />
                     </div>
                     <label>캘린더</label>
                     <div className={styles.extendEle}>
                         <SelectEle 
                             name='refCalendar' 
-                            options={calendar.data?.filter(item => (
+                            options={
+                                calendar.data.filter(item => (
                                                                 item.departmentCode !== 0 && item.memberCode === 2 //수정 예정
                                                             )).map(item => (
                                                                 {value:item.id, text:item.name})
                                                             )} 
-                            value={schedule?.refCalendar}
+                            value={schedule.data.refCalendar}
                             onChange={scheduleChangeHanlder} 
-                            disabled={isEleDisabled()}
+                            // disabled={isEleDisabled()}
+                            style={{padding: 0}}
                         />
                     </div>
                     <label>참석자</label>
                     <div style={{margin:'10px 0 10px 0'}}>
                         {
-                            schedule?.participantList?.map((item, index)=>(
-                                <AttendUser 
+                            schedule?.participantList?.map && schedule?.participantList?.map((item, index)=>(
+                                <AttendUser
                                     key={index} 
                                     id={item.memberCode} 
-                                    value={item?.memberName} 
+                                    value={item.memberName}
                                     onClick={removeParticipant} 
-                                    disabled={isEleDisabled()}
+                                    // disabled={isEleDisabled()}
                                 />
                             ))
                         }
@@ -224,19 +240,16 @@ const ScheduleDetilaCreate = () => {
                             ref={addressRef} 
                             name='address' 
                             type="text" 
-                            value={schedule?.address} 
+                            value={schedule.data.address}
                             onChange={scheduleChangeHanlder} 
-                            disabled={isEleDisabled()}
+                            // disabled={isEleDisabled()}
                         />
                         
-                        {
-                            mode === 'read' ||
-                            <ButtonInline 
-                                value={'주소검색'} 
-                                onClick={()=>setPostToggle(true)} 
-                                style={{height:30, width:80, display:'inline'}} 
-                            />
-                        }
+                        <ButtonInline 
+                            value={'주소검색'} 
+                            onClick={()=>setPostToggle(true)} 
+                            style={{height:30, width:80, display:'inline'}} 
+                        />
                         {
                             postToggle && 
                             <div ref={modalRef} className={styles.modalPost} onClick={postOutArea}>
@@ -254,26 +267,29 @@ const ScheduleDetilaCreate = () => {
                             maxLength={2000} 
                             style={{width:'95%'}} 
                             name='content' 
-                            value={schedule?.content} 
+                            value={schedule.data.content}
                             onChange={scheduleChangeHanlder} 
-                            disabled={isEleDisabled()}
+                            // disabled={isEleDisabled()}
                         />
                     </div>
                 </div>
                 <div className={styles.footer}>
                     <div>
                         <ButtonInline 
-                            value={isEleDisabled()? '수정': '등록'} 
+                            value={isEleDisabled() ? '수정': '등록'}
                             onClick={registScheduleHandler} 
                             style={{width:80, height: 40}}/>
                     </div>
                     <div>
-                        <NavLink to='../'>
-                            <ButtonInline isCancel={true} value='취소' onClick={toggleMenu} style={{width:80, height: 40}}/>
-                        </NavLink>
+                        
+                        <ButtonInline isCancel={true} value='취소' onClick={registCancle} style={{width:80, height: 40}}/>
+                        
                     </div>
                 </div>
             </div>
+            : <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
+            
+            }
         </>
     )
 }

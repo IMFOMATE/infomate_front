@@ -17,6 +17,8 @@ const CalendarManegeLayout = () => {
                     <ButtonInline value='캘린더로 돌아가기' style={{width:'15%', minWidth:150, height:40}} />
                 </NavLink>
             </div>
+
+            
         </div>
     )
 }

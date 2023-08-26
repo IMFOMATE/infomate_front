@@ -3,24 +3,12 @@ import axios from 'axios';
 import { 
     GET_SCHEDULE_DETAIL,
     POST_SCHEDULE_REGIT,
+    PUT_SCHEDULE,
+    PATCH_SCHEDULE,
 } from '../modules/ScheduleMoudule';
-import { PROTOCOL, SERVER_IP, SERVER_PORT} from './APIConfig';
-import { toast } from 'react-hot-toast';
-
-// ### 일정 등록용 캘린더 리스트 조회
-// GET http://localhost:8091/calendar/mylist/2
-
-// ### 팔로우 가능 캘린더 리스트
-// GET http://localhost:8091/calendar/openCalendarList
-
-// ### 캘린더 상세 조회 한개 조회
-// GET http://localhost:8091/calendar/5
-
-// ### 캘린더 삭제
-// DELETE http://localhost:8091/calendar/delete/5
-
-// ### 대시보드 용 일별 일정 개수 표시
-// GET http://localhost:8091/calendar/summary/2
+import { PROTOCOL, SERVER_IP, SERVER_PORT, MEMBER_CODE} from './APIConfig';
+import dayjs from 'dayjs';
+import { message } from 'antd';
 
 export const getScheduleDetail = ({scheduleId}) => {
 
@@ -32,28 +20,50 @@ export const getScheduleDetail = ({scheduleId}) => {
                     .catch(err => console.log(err));
 
         if(result?.status === 200) 
-            dispatch({ type: GET_SCHEDULE_DETAIL,  payload: result.data });
+            return dispatch({ type: GET_SCHEDULE_DETAIL,  payload: result });
         
+        message.error("알수 없는 에러가 발생했습니다.")    
     };
 }
 
 export const postScheduleRegist = ({data}) => {
+    data = {...data, memberCode: MEMBER_CODE}
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/regist`;
 
 
+    data = {...data, startDate: dayjs(data.startDate).format('YYYY-MM-DDThh:MM:ss'), endDate: dayjs(data.endDate).format('YYYY-MM-DDThh:MM:ss')}
     return async (dispatch, getState) => {
         const result = await axios.post(requestURL, data, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
-        // const result = await axios({method:'post',url:requestURL,data:data,headers:{"Content-Type":'application/json','Accept':'*/*'}})
-                    .then(res => res)
-                    .catch(err => console.log(err));
+                        .then(res => res)
+                        .catch(err => console.log(err));
 
-        if(result?.status === 200){
-            dispatch({ type: POST_SCHEDULE_REGIT,  payload: result?.data});
-            return document.location.href='/calendar';
+        if(result.status === 200){
+            message.success("일정이 등록 되었습니다.")
+            return dispatch({ type: POST_SCHEDULE_REGIT,  payload: result});
+        } 
+        
+        message.error("누락된 필드가 존재합니다.")
+    
+    };
+}
+
+export const patchScheduleUpdate = ({data}) => {
+    data = {...data, memberCode: MEMBER_CODE}
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/update`;
+    
+    
+    return async (dispatch, getState) => {
+        const result = await axios.patch(requestURL, JSON.stringify(data), {headers:{"Content-Type":'application/json','Accept':'*/*'}})
+                        .then(res => res)
+                        .catch(err => console.log(err));
+
+        if(result.status === 200){
+            message.success("일정이 변경 되었습니다.")
+            return dispatch({ type: PATCH_SCHEDULE,  payload: result});
             
         } 
         
-        toast.error("누락된 필드도 존재합니다.")
+        message.error("변경에 실패 했습니다")
     
     };
 }

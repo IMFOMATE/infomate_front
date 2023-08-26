@@ -3,15 +3,12 @@ import axios from 'axios';
 import { 
     GET_CALENDAR_FINDALL,
     GET_CALENDAR_LIST,
+    PATCH_CALENDAR_UPDATE,
     POST_CALENDAR_REGIT,
 } from '../modules/CalendarMoudule';
 
-import { PROTOCOL, SERVER_IP, SERVER_PORT} from './APIConfig';
-import { toast } from 'react-hot-toast';
-
-
-// ### 일정 등록용 캘린더 리스트 조회
-// GET http://localhost:8091/calendar/mylist/2
+import { PROTOCOL, SERVER_IP, SERVER_PORT, MEMBER_CODE} from './APIConfig';
+import { message } from 'antd';
 
 // ### 팔로우 가능 캘린더 리스트
 // GET http://localhost:8091/calendar/openCalendarList
@@ -26,32 +23,29 @@ import { toast } from 'react-hot-toast';
 // GET http://localhost:8091/calendar/summary/2
 
 
-export const getCalendarFindAllAPI = ({memberCode}) => {
+export const getCalendarFindAllAPI = () => {
 
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/list/${memberCode}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/list/${MEMBER_CODE}`;
 
     return async (dispatch, getState) => {
         
         const result = await axios.get(requestURL)
-                    .then(res => res.data)
-                    .catch(err => console.log(err));
-
+                    .then(res => res.data);
+        
         if(result.status === 200) 
             dispatch({ type: GET_CALENDAR_FINDALL,  payload: result });
         
     };
 }
 
-export const getCalendarListAPI = ({memberCode}) => {
+export const getCalendarListAPI = () => {
 
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/mylist/${memberCode}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/mylist/${MEMBER_CODE}`;
 
     return async (dispatch, getState) => {
         const result = await axios.get(requestURL)
                     .then(res => res.data)
-                    .catch(err => console.log(err));
-
-        
+                    
         if(result.status === 200) 
             dispatch({ type: GET_CALENDAR_LIST,  payload: result });
         
@@ -59,18 +53,56 @@ export const getCalendarListAPI = ({memberCode}) => {
 }
 
 export const postCalendarRegit = ({data}) => {
+
+    data = {...data, memberCode: MEMBER_CODE};
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/regist`;
 
     return async (dispatch, getState) => {
         const result = await axios.post(requestURL, data, {headers:{"Content-Type":'application/json',Accept:'*/*'}})
                     .then(res => res.data)
-                    .catch(err => console.log(err));
-                    
         
         if(result.status === 200){
-            toast.success('등록에 성공했습니다.');
+            message.success('등록에 성공했습니다.');
             dispatch({ type: POST_CALENDAR_REGIT,  payload: result });
         }
         
+    };
+}
+
+export const patchCalendarUpdate = ({data}) => {
+    data = {...data, memberCode: MEMBER_CODE}
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/update`;
+
+    return async (dispatch, getState) => {
+        const result = await axios.patch(requestURL, data, {headers:{"Content-Type":'application/json',Accept:'*/*'}})
+                    .then(res => res.data)
+                    .catch(e => console.log(e));
+        
+        if(result.status === 200){
+            console.log(result);
+            message.success('수정에 성공했습니다.');
+            return dispatch({ type: PATCH_CALENDAR_UPDATE,  payload: result });
+        }
+        
+        message.success('수정에 실패했습니다.');
+    };
+}
+
+
+export const patchDefaultCalendarUpdate = ({data}) => {
+    data = {...data, memberCode: MEMBER_CODE}
+    
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/updateDafault`;
+    return async (dispatch, getState) => {
+        const result = await axios.patch(requestURL, data, {headers:{"Content-Type":'application/json',Accept:'*/*'}})
+                    .then(res => res.data)
+                    .catch(e => console.log(e));
+        
+        if(result.status === 200){
+            message.success('기본 캘린더가 변경되었습니다.');
+            return dispatch({ type: PATCH_CALENDAR_UPDATE,  payload: result });
+        }
+        
+        message.success('수정에 실패했습니다.');
     };
 }

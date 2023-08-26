@@ -3,6 +3,7 @@ import styles from './select.module.css';
 const SelectEle = (props) => {
     return (
         <select
+            id={props?.id}
             className={styles.select}
             name={props?.name} 
             value={props?.value} 

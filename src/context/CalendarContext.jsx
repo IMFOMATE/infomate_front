@@ -1,16 +1,13 @@
 import {createContext, useState} from "react";
 
-export const CalendarProvider = createContext();
+export const CalendarFilterContext = createContext();
 
-export const CalendarListProvider = ({children}) => {
-    const [events, setEvents] = useState({
-        events: {},
-        filter: []
-    });
+export const CalendarFilterProvider = ({children}) => {
+    const [filter, setFilter] = useState([]);
 
     return(
-        <CalendarProvider.Provider value={{events, setEvents}}>
+        <CalendarFilterContext.Provider value={{filter, setFilter}}>
             {children}
-        </CalendarProvider.Provider>
+        </CalendarFilterContext.Provider>
     )
 }

@@ -1,36 +1,37 @@
 import { useEffect, useState } from "react";
 import ButtonInline from "../../common/button/ButtonInline";
 import InputEle from "../../common/input/Input";
-import ColorInput from '../../common/input/InputColor'
-import calendarReducer from '../../../modules/CalendarMoudule';
 import styles from './CalendarAdd.module.css'
-import { useDispatch, useSelector } from "react-redux";
-import { postCalendarRegit } from "../../../apis/CalendarAPICalls";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getCalendarListAPI, postCalendarRegit } from "../../../apis/CalendarAPICalls";
+import { ColorPicker } from "antd";
+
 
 const CalendarAdd = () => {
 
     const [data, setData] = useState({});
-    const calendarMypage = useSelector(state => state.calendarReducer);
     const dispatch = useDispatch();
+    
 
     useEffect(()=>{
-        setData({...data, memberCode: 2}) // 삭제 예정
     },[])
+
     const changeDataHandler = (e) =>{
-        setData({...data, [e.target.name]: e.target.value})
+        if(e.target !== undefined){
+            setData({...data, [e.target.name]: e.target.value})
+        }else{
+            setData({...data, labelColor: e.toHexString()})
+        }
     }
 
     const registCalendar = () => {
-        dispatch(postCalendarRegit({data:data}));
-        console.log(calendarMypage);
+        dispatch(postCalendarRegit({data: data}));
+        document.location.reload();
     }
-
-    const className  = [styles.add].join(' ');
 
     return (
         <>
-            <div className={className}>
+            <div className={styles.add}>
                 <label style={{fontSize: '1rem', fontWeight: 500}}>캘린더 명</label>
                 
                 <InputEle 
@@ -42,11 +43,11 @@ const CalendarAdd = () => {
                 />
                 
                 <div style={{alignSelf: 'center'}}>
-                    <ColorInput 
-                        name='labelColor'
+                    <ColorPicker 
+                        defaultValue={'#000000'}
                         value={data.labelColor}
-                        onChange={changeDataHandler}
-                        style={{textAlign:'center', width:35, height:35}}
+                        onChangeComplete={changeDataHandler}
+                        
                     />
                 </div>
                 

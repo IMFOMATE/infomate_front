@@ -6,6 +6,7 @@ import scheduleReducer from "./ScheduleMoudule";
 const rootReducer = combineReducers({
     contactReducer,
     calendarReducer,
+    // calendarListReducer,
     scheduleReducer,
 });
 

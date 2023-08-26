@@ -7,10 +7,10 @@ import MenuBtn from "../components/common/MenuBtn";
 import {CurrentTitleProvider} from "../context/CurrentTitleContext";
 import {MenuContextProvider} from "../context/MenuContext";
 import {ModalContextProvider, useModal} from "../context/ModalContext";
+import { CalendarFilterProvider } from '../context/CalendarContext';
+
 import Modal from "../components/approval/ele-component/common/Modal";
 import TreeView from "../components/approval/ele-component/treeview/TreeView";
-import { CalendarListProvider } from '../context/CalendarContext';
-import { Toaster, toast } from 'react-hot-toast';
 
 export default function Layout() {
 
@@ -19,7 +19,7 @@ export default function Layout() {
             <ModalContextProvider>
                 <MenuContextProvider>
                     <CurrentTitleProvider>
-                        <CalendarListProvider>
+                        <CalendarFilterProvider>
                             {/*<div className='wrapper'>*/}
                             {/*    <MenuBtn/>*/}
                             {/*    <div className={NavStyle.flex}>*/}
@@ -31,7 +31,7 @@ export default function Layout() {
                             {/*    <Modal/>*/}
                             {/*</div>*/}
                         <LayoutContent/>
-                        </CalendarListProvider>
+                        </CalendarFilterProvider>
                     </CurrentTitleProvider>
                 </MenuContextProvider>
             </ModalContextProvider>
@@ -52,23 +52,6 @@ function LayoutContent() {
                 </main>
             </div>
             {isModalOpen && <Modal title="결재양식 선택" content={<TreeView/>}/>}
-
-            <Toaster 
-                position='top-right'
-                toastOptions={{
-                    duration:2500,
-                    error:{
-                        iconTheme:{
-                            primary: '#7758FA',
-                            secondary: 'white'
-                        },
-                    },
-                    success:{
-                        iconTheme:{}
-                    },
-                    loading:{},
-                    custom:{},
-            }}/>
         </div>
     );
 }

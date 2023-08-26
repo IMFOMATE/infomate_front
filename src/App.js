@@ -13,14 +13,13 @@ import MyCalendar from './pages/calendar/management/MyCalendar';
 import FavoriteCalendarLayout from "./layouts/FavoriteCalendarLayout";
 import ScheduleDetailCreate from "./pages/calendar/ScheduleDetailCreate";
 import ReminderList from './components/calendar/dashboard/ReminderList';
-import Calendar from './pages/calendar/Calendar';
 import DocumentMain from "./pages/approval/DocumentMain";
 import Group from './pages/manage/Group';
 import SearchDept from './pages/manage/SearchDept';
 import './layouts/Default.css';
 import CalendarLayout from './layouts/CalendarLayout';
-import CalendarNav from './pages/calendar/CalendarNav';
 import FavoriteCalendarBody from './pages/calendar/management/FavoriteCalendarBody';
+import Calendar from './pages/calendar/Calendar';
 
 
 
@@ -58,7 +57,6 @@ function App() {
             </Route>
             <Route path="calendar" element={<CalendarLayout />}>
               <Route index element={<Calendar/>}/>
-              <Route path="test" element={<CalendarNav />} />  
               <Route path="reminder" element={<ReminderList />} />  
               <Route path="regist" element={<ScheduleDetailCreate/>} />
                 <Route path="management" element={<CalendarManegeLayout/>}>

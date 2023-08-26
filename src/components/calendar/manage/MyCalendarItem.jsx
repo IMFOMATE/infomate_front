@@ -1,39 +1,51 @@
 import CheckBox from '../../common/input/CheckBox';
-import ColorInput from '../../common/input/InputColor';
 import RadioInput from '../../common/input/RadioInput';
 import SelectEle from '../../common/select/SelectEle';
 import styles from './myCalendarItem.module.css';
 import InputEle from '../../common/input/Input';
 import icon from '../../common/meterialIcon.module.css'
 import { useState } from 'react';
+import { ColorPicker } from 'antd';
+import { useDispatch } from 'react-redux';
+import { getCalendarListAPI, patchCalendarUpdate } from '../../../apis/CalendarAPICalls';
 
 
-const MyCalendarItem = ({memberCode, isDefaultCheck, name,
+const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
                          defaultCalendar, defaultColorValue,
                          openStatus, chkOnChange, radioOnChange,
                          selectValue, selectOnChange, colorOnChange}) => {
 
-    const [textModify, setTextModify] = useState(false);
-    const [textValue, setTextValue] = useState(name);
+    const [ textModify, setTextModify ] = useState(false);
+    const [ textValue, setTextValue ] = useState(name);
+    const [ data, setData ] = useState({id: id});
+    const dispatch = useDispatch();    
 
-    const textModifyHandler = () => {
+    const changeNameHandler = (e) => {
 
         // 캘린더 이름 변경 api 호출
-
-        setTextModify(!textModify);
+        setData({...data, name:e.target.value})
+        
     }
 
-    const valuesChangeHandler = e => {
-        setTextValue(e.target.value)
+    const changeColorHandler = e => {
+        setData({...data, labelColor:e.toHexString()})
+    }
+    const updateHanlder = () =>{
+        if(textModify) {
+            dispatch(patchCalendarUpdate({data}));
+            document.location.reload();
+        }
+        setTextModify(!textModify);
     }
 
     return (
         <div className={styles.item}>
             <div style={{textAlign: 'center'}}>
                 <CheckBox
-                    id={memberCode}
+                    id={id}
                     isChangeColor={true}
                     defaultChecked={isDefaultCheck}
+                    // value={}
                     onChange={chkOnChange}
                     style={{height:20, width:20}}
                 />
@@ -42,29 +54,35 @@ const MyCalendarItem = ({memberCode, isDefaultCheck, name,
                 <div className={styles.itemFont}>
 
                     <InputEle
-                        value={textValue}
-                        onChange={valuesChangeHandler}
+                        name='name'
+                        value={ data?.name !== undefined? data?.name : textValue}
+                        onChange={changeNameHandler}
                         style={{display:'inline-block', marginRight:10, minWidth:100}}
                         disabled={!textModify}
                     />
 
-                    <ColorInput 
+                    <ColorPicker
+                        value={data?.labelColor || defaultColorValue}
+                        onChangeComplete={changeColorHandler}
+                    />
+                    {/* <ColorInput 
                         defaultValue={defaultColorValue}
                         onChange={colorOnChange}
                         style={{height:27, width:27, position:'relative',
                                  top:'3px', display:'inline-block'}}
-                    />
+                    /> */}
 
                     <button
                         className={icon.meterialIcon}
                         style={{color:'var(--color-middle)', display:'inline'}}
-                        onClick={textModifyHandler}>
+                        onClick={updateHanlder}>
                         {textModify? 'save': 'edit'}
                     </button>
                 </div>
             </div>
             <div>
                <RadioInput 
+                    id={id}
                     name={memberCode}
                     defaultChecked={defaultCalendar}
                     onChange={radioOnChange}
@@ -73,6 +91,7 @@ const MyCalendarItem = ({memberCode, isDefaultCheck, name,
             </div>
             <div style={{textAlign: 'center'}}>
                 <SelectEle
+                    id={id}
                     className={styles.itemSelect}
                     defaultValue={openStatus}
                     value={selectValue}

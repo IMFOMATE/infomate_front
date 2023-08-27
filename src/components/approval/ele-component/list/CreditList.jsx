@@ -1,5 +1,6 @@
 import React from 'react';
 import CreditListCss from './CreditList.module.css'
+import {Link} from "react-router-dom";
 
 function CreditList({data}) {
 
@@ -23,7 +24,9 @@ function CreditList({data}) {
           <p>{`기안자 ${d.writer}`}</p>
         </div>
       </div>
-      <a href="infomate_front/src/components/approval" className={CreditListCss.go}>결재하기</a>
+      <Link className={CreditListCss.go} to={`document/${d.num}`}>
+        결재하기
+      </Link>
     </div>)
   );
 }

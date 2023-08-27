@@ -23,7 +23,8 @@ const testInit = {
       status: 'WAITING',
       docTitle: '테스트 문서입니다.',
       createDate: '2023-08-08',
-      writer: '주진선'
+      writer: '주진선',
+      kind: 'vacation'
     },
     {
       num: '112',
@@ -31,7 +32,8 @@ const testInit = {
       status: 'WAITING',
       docTitle: '테스트 문서입니다.',
       createDate: '2023-08-08',
-      writer: '주진선'
+      writer: '주진선',
+      kind: 'Draft'
     }
   ],
   approvalList: [
@@ -40,21 +42,24 @@ const testInit = {
       isAlert: true,
       status: 'WAITING',
       docTitle:'테스트 문서입니다.',
-      createDate:'2023-08-08'
+      createDate:'2023-08-08',
+      kind: 'payment'
     },
     {
       no:'112',
       isAlert: true,
       status: 'WAITING',
       docTitle:'테스트 문서입니다.',
-      createDate:'2023-08-08'
+      createDate:'2023-08-08',
+      kind: 'payment'
     },
     {
       no:'113',
       isAlert: true,
       status: 'WAITING',
       docTitle:'테스트 문서입니다.',
-      createDate:'2023-08-08'
+      createDate:'2023-08-08',
+      kind: 'payment'
     },{
       no:'114',
       isAlert: true,
@@ -90,14 +95,16 @@ const testInit = {
       isAlert: true,
       status: 'WAITING',
       docTitle:'테스트 문서입니다.',
-      createDate:'2023-08-08'
+      createDate:'2023-08-08',
+      kind: 'payment'
     },
     {
       no:'124',
       isAlert: true,
       status: 'WAITING',
       docTitle:'테스트 문서입니다.',
-      createDate:'2023-08-08'
+      createDate:'2023-08-08',
+      kind: 'payment'
     },
     ,
     {
@@ -105,7 +112,8 @@ const testInit = {
       isAlert: true,
       status: 'WAITING',
       docTitle:'테스트 문서입니다.',
-      createDate:'2023-08-08'
+      createDate:'2023-08-08',
+      kind: 'payment'
     }
   ]
 }

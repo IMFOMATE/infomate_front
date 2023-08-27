@@ -30,6 +30,7 @@ function Payment() {
       [e.target.name]: e.target.value
     });
   };
+
   const checkboxHandler = (e) => {
     const newValue = e.target.checked ? 'Y' : 'N'; // 체크 여부에 따라 'Y' 또는 'N' 설정
     setData({

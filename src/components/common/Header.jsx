@@ -20,12 +20,12 @@ function Header() {
             <Navbar/>
 
             {
-                currentTitle === 'Home' && <HomeNav/> ||
-                currentTitle === 'Board' && <Board/> ||
-                currentTitle === 'Approval' && <ApprovalNav/> ||
-                currentTitle === 'Group' && <GroupNav/> ||
-                currentTitle === 'Contact' && <ContactNav /> ||
-                currentTitle === 'Schedule' && <CalendarNav/>
+                (currentTitle === 'Home') && <HomeNav/> ||
+                (currentTitle === 'Board') && <Board/> ||
+                (currentTitle === 'Approval') && <ApprovalNav/> ||
+                (currentTitle === 'Group') && <GroupNav/> ||
+                (currentTitle === 'Contact') && <ContactNav /> ||
+                (currentTitle === 'Schedule') && <CalendarNav/>
             }
 
         </header>

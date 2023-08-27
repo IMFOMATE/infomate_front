@@ -135,11 +135,10 @@ function ApprovalModal({contextType, modalData , toggleModal}) {
 
     useEffect(() => {
         if (approvalList.length > 4) {
-            Swal.fire(
-                'The Internet?',
-                'That thing is still around?',
-                'question'
-            )
+            Swal.fire({
+                icon: 'error',
+                text: '결재선은 4명이상 선택할 수 없습니다'
+            })
             setData(prev=>({...prev,approvalList:[...approvalList.slice(0, approvalList.length - 1)]}))
         }
     }, [approvalList]);

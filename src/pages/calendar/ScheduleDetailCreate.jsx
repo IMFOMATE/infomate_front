@@ -8,10 +8,9 @@ import TextareaEl from '../../components/common/input/Textarea';
 import SelectEle from '../../components/common/select/SelectEle';
 import DaumPostcode from 'react-daum-postcode';
 import { useContext, useEffect, useRef, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { redirect, useNavigate, useSearchParams } from 'react-router-dom';
 import { ScheduleModalProvider, ScheduleProvider } from '../../layouts/CalendarLayout';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCalendarListAPI } from '../../apis/CalendarAPICalls';
 import { postScheduleRegist, getScheduleDetail } from '../../apis/ScheduleAPICalls';
 import antdStyels from './antd.module.css';
 import { MenuContext } from '../../context/MenuContext';
@@ -22,12 +21,13 @@ import { DatePicker } from 'antd';
 import { FadeLoader } from 'react-spinners';
 import StylesLoading from './loadingStyle.module.css';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
+import { MEMBER_CODE } from '../../apis/APIConfig';
+import { GET_SCHEDULE_DETAIL } from '../../modules/ScheduleMoudule';
 
 
-
-const { RangePicker } = DatePicker;
 const ScheduleDetilaCreate = () => {
-
+    
+    const { RangePicker } = DatePicker;
     const {schedule, setSchedule} = useContext(ScheduleProvider);
     const {isMobile, setIsMobile} = useContext(ScheduleProvider);
     const {isModal, setIsModal} = useContext(ScheduleModalProvider);
@@ -38,29 +38,31 @@ const ScheduleDetilaCreate = () => {
     const modalRef = useRef(); // 다음 우편번호 검색 
     const addressRef = useRef(); // 주소 input
 
-    const calendar = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
-    const data = useSelector(state => state.scheduleReducer);
+    const calendarList = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
+    const data = useSelector(state => state.scheduleReducer[GET_SCHEDULE_DETAIL]);
+    const scheduleId = search.get('scheduleId');
+    const isRead = search.get('isread');
     const dispatch = useDispatch();
-
     const navigate = useNavigate();
 
-    const memberCode = 2; // 삭제 예정
-
-    const scheduleId = search.get('scheduleId');
-
-
     useEffect(()=>{
-        calendar && calendar.data && setSchedule({
-            ...schedule, data:{
-                ...schedule.data, 
-                refCalendar: calendar.data.filter(item=> item.indexNo === 1)
-                                .map(item=>item.id)[0],
-                memberCode: memberCode,
-            }
-        })
-    },[])
+        if(isDataLoad()){
+            if(isRead === null || !data?.data)
+                navigate(`?scheduleId=${scheduleId}&isread=true`)
+            if(isRead === 'true')
+                dispatch(getScheduleDetail({scheduleId:scheduleId}));
 
-    const isEleDisabled = () => {
+        }else{
+            setSchedule({
+                ...data,
+                data: {...data?.data, 
+                    refCalendar: calendarList?.data?.filter(item => item.indexNo === 1)[0].id}
+            })
+        }
+    },[isRead])
+
+    
+    const isDataLoad = () => {
         return scheduleId !== null && scheduleId !== undefined && scheduleId !== ''
     }
 
@@ -68,21 +70,34 @@ const ScheduleDetilaCreate = () => {
         if(modalRef.current === e.target)
             setPostToggle(false)
     }
+    
+    const addressSearchHandler = () => {
+        setPostToggle(true)
+        isReadConfirm();
+    }
 
     const daumPostHandler = (e) => {
         setPostToggle(false);
-        setSchedule({...schedule, address: e.address})
+        setSchedule({...schedule, data: {...schedule.data, address: e.address}})
         addressRef.current.focus();
     }
 
+    const isReadConfirm = () => {
+        if(isDataLoad() && isRead) {
+            navigate(`?scheduleId=${scheduleId}&isread=${false}`)
+        };
+    }
+
     const scheduleChangeHanlder = e => {
+        isReadConfirm();
+
         const eleName = e.target.name;
 
         if(e.target.type === 'checkbox'){
             setSchedule({...schedule, data:{...schedule.data, [eleName]: e.target.checked}})        
         }else if(eleName === 'participantList'){
             setSchedule({...schedule, data:{...schedule.data,  [eleName]: [...schedule.participantList,  e.target.value]}})
-        }else if(eleName === 'calendar') {
+        }else if(eleName === 'refCalendar') {
             setSchedule({...schedule, data:{...schedule.data,  [eleName]: parseInt(e.target.value)}})
         }else{
             setSchedule({...schedule, data:{...schedule.data,  [eleName]: e.target.value}})
@@ -110,7 +125,8 @@ const ScheduleDetilaCreate = () => {
     return (
         <>
         {
-            schedule && schedule.data ?
+            calendarList && calendarList.data && 
+            (isRead === 'true' ? (data && data.data) : (schedule && schedule.data) ) ?
         
             <div className={styles.mainContainer}>
                 <div className={styles.title}>
@@ -122,7 +138,7 @@ const ScheduleDetilaCreate = () => {
                             name='title'
                             type="text"
                             placeholder='제목을 입력하세요'
-                            value={schedule.data?.title}
+                            value={isRead === 'true' ? data.data.title : schedule.data.title}
                             onChange={scheduleChangeHanlder}
                             // disabled={isEleDisabled()}
                         />
@@ -137,7 +153,7 @@ const ScheduleDetilaCreate = () => {
                                 <CheckBox 
                                     name="important"
                                     isChangeColor={true}
-                                    checked={schedule.data.important}
+                                    checked={isRead === 'true' ? data.data.important : schedule.data.important}
                                     onChange={scheduleChangeHanlder}
                                     // disabled={isEleDisabled()}
                                 />
@@ -160,7 +176,10 @@ const ScheduleDetilaCreate = () => {
                                     size='middle'
                                     style={{width:'100%', borderRadius:5 }}
                                     showTime={{ format: 'HH:mm' }}
-                                    value={[dayjs(schedule.data.startDate), dayjs(schedule.data.endDate)]}
+                                    value={isRead === 'true' ? 
+                                        [dayjs(data.data.startDate), dayjs(data.data.endDate)] : 
+                                        [dayjs(schedule.data.startDate), dayjs(schedule.data.endDate)]
+                                    }
                                     // onCalendarChange={changeData}
                                 />
                             </div>
@@ -169,7 +188,7 @@ const ScheduleDetilaCreate = () => {
                                     <CheckBox
                                         name='allDay'
                                         isChangeColor={true}
-                                        checked={schedule?.allDay && schedule.allDay}
+                                        checked={isRead === 'true' ? data.data.allDay : schedule.allDay}
                                         onChange={scheduleChangeHanlder} 
                                         // disabled={isEleDisabled()}
                                     />
@@ -179,7 +198,7 @@ const ScheduleDetilaCreate = () => {
                                     <CheckBox 
                                         name="repeat" 
                                         isChangeColor={true} 
-                                        checked={schedule.data.repeat}
+                                        checked={isRead === 'true' ? data.data.repeat : schedule.data.repeat}
                                         onChange={scheduleChangeHanlder} 
                                         // disabled={isEleDisabled()}
                                     />
@@ -196,7 +215,7 @@ const ScheduleDetilaCreate = () => {
                         <CheckBox 
                             name="corpSchdl" 
                             isChangeColor={true} 
-                            checked={schedule.data.corpSchdl}
+                            checked={isRead === 'true' ? data.data.corpSchdl : schedule.data?.corpSchdl}
                             onChange={scheduleChangeHanlder} 
                             // disabled={isEleDisabled()}
                         />
@@ -205,14 +224,15 @@ const ScheduleDetilaCreate = () => {
                     <div className={styles.extendEle}>
                         <SelectEle 
                             name='refCalendar' 
-                            options={
-                                calendar.data.filter(item => (
-                                                                item.departmentCode !== 0 && item.memberCode === 2 //수정 예정
-                                                            )).map(item => (
-                                                                {value:item.id, text:item.name})
-                                                            )} 
-                            value={schedule.data.refCalendar}
-                            onChange={scheduleChangeHanlder} 
+                            options={calendarList.data.filter(item => (
+                                item.departmentCode !== 0 && item.memberCode === MEMBER_CODE
+                            )).sort((prev, next) => prev.indexNo - next.indexNo
+                            ).map(item => (
+                                {value: item.id, text: item.name})
+                            )}
+                            value={isRead === 'true' ? data.data.refCalendar : schedule.data?.refCalendar}
+                            onChange={scheduleChangeHanlder}
+                            onClick={isReadConfirm}
                             // disabled={isEleDisabled()}
                             style={{padding: 0}}
                         />
@@ -220,7 +240,7 @@ const ScheduleDetilaCreate = () => {
                     <label>참석자</label>
                     <div style={{margin:'10px 0 10px 0'}}>
                         {
-                            schedule?.participantList?.map && schedule?.participantList?.map((item, index)=>(
+                            schedule.participantList?.map((item, index)=>(
                                 <AttendUser
                                     key={index} 
                                     id={item.memberCode} 
@@ -240,14 +260,14 @@ const ScheduleDetilaCreate = () => {
                             ref={addressRef} 
                             name='address' 
                             type="text" 
-                            value={schedule.data.address}
+                            value={isRead === 'true' ? data.data.address : schedule.data?.address}
                             onChange={scheduleChangeHanlder} 
                             // disabled={isEleDisabled()}
                         />
                         
                         <ButtonInline 
                             value={'주소검색'} 
-                            onClick={()=>setPostToggle(true)} 
+                            onClick={addressSearchHandler} 
                             style={{height:30, width:80, display:'inline'}} 
                         />
                         {
@@ -267,7 +287,7 @@ const ScheduleDetilaCreate = () => {
                             maxLength={2000} 
                             style={{width:'95%'}} 
                             name='content' 
-                            value={schedule.data.content}
+                            value={isRead === 'true' ? data.data.content : schedule?.data?.content}
                             onChange={scheduleChangeHanlder} 
                             // disabled={isEleDisabled()}
                         />
@@ -276,7 +296,7 @@ const ScheduleDetilaCreate = () => {
                 <div className={styles.footer}>
                     <div>
                         <ButtonInline 
-                            value={isEleDisabled() ? '수정': '등록'}
+                            value={isRead ? '수정': '등록'}
                             onClick={registScheduleHandler} 
                             style={{width:80, height: 40}}/>
                     </div>
@@ -288,7 +308,6 @@ const ScheduleDetilaCreate = () => {
                 </div>
             </div>
             : <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
-            
             }
         </>
     )

@@ -9,13 +9,13 @@ const InputEle = (props,ref) => {
             className={styles.input}
             name={props?.name}
             type={props?.type} 
+            defaultValue={props?.defaultValue}
             value={props?.value || ''}  
             onChange={props?.onChange} 
             placeholder={props?.placeholder} 
             disabled={props?.disabled}
             onKeyPress={props?.onKeyPress}
             style={props?.style}
-            defaultValue={props?.desfaultValue}
             />
 }
 

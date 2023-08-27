@@ -44,14 +44,16 @@ const Calendar = () =>{
 
     const modalRef = useRef(null);
 
+    const changeIsMobile = () =>{
+        (innerSize <= 480)? setIsMobile(true) : setIsMobile(false);
+    }
+
     const sizeObserver = new ResizeObserver((entires)=>{
         const { width } = entires[0].contentRect;
-        setInnerSize(width)
-        if(width <= 480){
-            setIsMobile(true);
-        }else{
-            setIsMobile(false);
-        }
+        
+        setInnerSize(width);
+
+        changeIsMobile();
     }) 
     
 
@@ -59,11 +61,7 @@ const Calendar = () =>{
         
         setSchedule({});
 
-        if(innerSize <= 480){
-            setIsMobile(true);
-        }else{
-            setIsMobile(false);
-        }
+        changeIsMobile();
 
         sizeObserver.observe(containerRef.current);
 
@@ -83,12 +81,8 @@ const Calendar = () =>{
             }
         })
 
-        if(isMobile) {
-            navigate('./regist')
-        }else{
-            setIsModal(true);
-        }
-
+        isMobile? navigate('./regist') : setIsModal(true);
+        
 
     };
 
@@ -99,17 +93,9 @@ const Calendar = () =>{
         }
         
     }
-    const eventClickHandler = e => {
-        // setSchedule({id:e.event.extendedProps.id, startDate: e.event.startStr, endDate: e.event.endStr, allDay: e.event.allDay, title:e.event.title})
-        // setIsModal(true)
-        // setMode('read')
+    const eventClickHandler = e => {  
         menuState && toggleMenu();
-        console.log(e);
-        dispatch(getScheduleDetail({scheduleId: e.event.extendedProps.id}))
-        // document.location.href = './calendar/regist'
-        console.log(sc);
-        sc && sc.data && setSchedule({data: sc.data});
-        sc && sc.data && navigate(`./regist`);
+        navigate(`./regist?scheduleId=${e.event.extendedProps.id}&isread=true`);
     }
 
     const eventDrop = (e) =>{
@@ -135,7 +121,6 @@ const Calendar = () =>{
                                     })
                 )
             })
-
         return event;
     }
 
@@ -145,7 +130,7 @@ const Calendar = () =>{
         <>  
             <div className={styles.container} ref={containerRef}>
                 {
-                    filter && data && data.data && data.data.length > 0 ? 
+                    data?.data?.length > 0 ? 
 
                     <FullCalendar
                         locale={koLocale}

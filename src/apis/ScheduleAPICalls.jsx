@@ -37,7 +37,7 @@ export const postScheduleRegist = ({data}) => {
                         .then(res => res)
                         .catch(err => console.log(err));
 
-        if(result.status === 200){
+        if(result?.status === 200){
             message.success("일정이 등록 되었습니다.")
             return dispatch({ type: POST_SCHEDULE_REGIT,  payload: result});
         } 

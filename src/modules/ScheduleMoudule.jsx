@@ -11,15 +11,15 @@ export const DELETE_SCHEDULE = 'SCHEDULE/DELETE'
 
 
 const scheduleReducer = handleActions({
-        [GET_SCHEDULE_DETAIL]: (state, { payload }) => {
-            return payload;
-        },
-        [POST_SCHEDULE_REGIT]: (state, { payload }) => {
-            return payload;
-        },
-        [PATCH_SCHEDULE]: (state, { payload }) => {
-            return payload;
-        },
+        [GET_SCHEDULE_DETAIL]: (state, { payload }) => ({
+           ...state, [GET_SCHEDULE_DETAIL] : payload
+        }),
+        [POST_SCHEDULE_REGIT]: (state, { payload }) => ({
+            ...state, [POST_SCHEDULE_REGIT] : payload
+        }),
+        [PATCH_SCHEDULE]: (state, { payload }) => ({
+            ...state, [PATCH_SCHEDULE] : payload
+        }),
     }, initialState
 );
 

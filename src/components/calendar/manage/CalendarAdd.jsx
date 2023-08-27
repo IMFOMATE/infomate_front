@@ -1,33 +1,9 @@
-import { useEffect, useState } from "react";
 import ButtonInline from "../../common/button/ButtonInline";
 import InputEle from "../../common/input/Input";
 import styles from './CalendarAdd.module.css'
-import { useDispatch } from "react-redux";
-import { getCalendarListAPI, postCalendarRegit } from "../../../apis/CalendarAPICalls";
 import { ColorPicker } from "antd";
 
-
-const CalendarAdd = () => {
-
-    const [data, setData] = useState({});
-    const dispatch = useDispatch();
-    
-
-    useEffect(()=>{
-    },[])
-
-    const changeDataHandler = (e) =>{
-        if(e.target !== undefined){
-            setData({...data, [e.target.name]: e.target.value})
-        }else{
-            setData({...data, labelColor: e.toHexString()})
-        }
-    }
-
-    const registCalendar = () => {
-        dispatch(postCalendarRegit({data: data}));
-        document.location.reload();
-    }
+const CalendarAdd = ({calendarAddData, calendarAddHandler,registCalendarHandler}) => {
 
     return (
         <>
@@ -37,23 +13,23 @@ const CalendarAdd = () => {
                 <InputEle 
                     name='name'
                     type="text"
-                    value={data.name}
-                    onChange={changeDataHandler}
+                    value={calendarAddData?.name}
+                    onChange={calendarAddHandler}
                     style={{height:16}}
                 />
                 
                 <div style={{alignSelf: 'center'}}>
                     <ColorPicker 
                         defaultValue={'#000000'}
-                        value={data.labelColor}
-                        onChangeComplete={changeDataHandler}
+                        value={calendarAddData?.labelColor}
+                        onChangeComplete={calendarAddHandler}
                         
                     />
                 </div>
                 
                 <ButtonInline
                     value={'추가'} 
-                    onClick={registCalendar}
+                    onClick={registCalendarHandler}
                     style={{height: 30, width:60}} />
             </div>
         </>

@@ -7,7 +7,7 @@ import icon from '../../common/meterialIcon.module.css'
 import { useState } from 'react';
 import { ColorPicker } from 'antd';
 import { useDispatch } from 'react-redux';
-import { getCalendarListAPI, patchCalendarUpdate } from '../../../apis/CalendarAPICalls';
+import { patchCalendarUpdate } from '../../../apis/CalendarAPICalls';
 
 
 const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
@@ -21,10 +21,7 @@ const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
     const dispatch = useDispatch();    
 
     const changeNameHandler = (e) => {
-
-        // 캘린더 이름 변경 api 호출
         setData({...data, name:e.target.value})
-        
     }
 
     const changeColorHandler = e => {
@@ -33,7 +30,6 @@ const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
     const updateHanlder = () =>{
         if(textModify) {
             dispatch(patchCalendarUpdate({data}));
-            document.location.reload();
         }
         setTextModify(!textModify);
     }
@@ -65,12 +61,6 @@ const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
                         value={data?.labelColor || defaultColorValue}
                         onChangeComplete={changeColorHandler}
                     />
-                    {/* <ColorInput 
-                        defaultValue={defaultColorValue}
-                        onChange={colorOnChange}
-                        style={{height:27, width:27, position:'relative',
-                                 top:'3px', display:'inline-block'}}
-                    /> */}
 
                     <button
                         className={icon.meterialIcon}

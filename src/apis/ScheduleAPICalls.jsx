@@ -20,8 +20,10 @@ export const getScheduleDetail = ({scheduleId}) => {
                     .then(res => res.data)
                     .catch(err => console.log(err));
 
-        if(result?.status === 200) 
-            return dispatch({ type: GET_SCHEDULE_DETAIL,  payload: result });
+        if(result?.status === 200) {
+            dispatch({ type: GET_SCHEDULE_DETAIL,  payload: result });
+            return ;
+        }
         
         message.error("알수 없는 에러가 발생했습니다.")    
     };
@@ -40,7 +42,8 @@ export const postScheduleRegist = ({data}) => {
 
         if(result?.status === 200){
             message.success("일정이 등록 되었습니다.")
-            return dispatch({ type: POST_SCHEDULE_REGIT,  payload: result});
+            dispatch({ type: POST_SCHEDULE_REGIT,  payload: result});
+            return ;
         } 
         
         message.error("누락된 필드가 존재합니다.")
@@ -60,8 +63,8 @@ export const patchScheduleUpdate = ({data}) => {
 
         if(result.status === 200){
             message.success("일정이 변경 되었습니다.")
-            return dispatch({ type: PATCH_SCHEDULE,  payload: result});
-            
+            dispatch({ type: PATCH_SCHEDULE,  payload: result});
+            return ;
         } 
         
         message.error("변경에 실패 했습니다")
@@ -84,8 +87,8 @@ export const deleteSchedule = ({data}) => {
 
         if(result.status === 200){
             message.success("일정이 삭제 되었습니다.")
-            return dispatch({ type: DELETE_SCHEDULE,  payload: result});
-            
+            dispatch({ type: DELETE_SCHEDULE,  payload: result});
+            return ;
         } 
         
         message.error("변경에 실패 했습니다")

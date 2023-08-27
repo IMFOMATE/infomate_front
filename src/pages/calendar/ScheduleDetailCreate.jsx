@@ -22,7 +22,7 @@ import { FadeLoader } from 'react-spinners';
 import StylesLoading from './loadingStyle.module.css';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
 import { MEMBER_CODE } from '../../apis/APIConfig';
-import { DELETE_SCHEDULE, GET_SCHEDULE_DETAIL } from '../../modules/ScheduleMoudule';
+import { DELETE_SCHEDULE, GET_SCHEDULE_DETAIL, POST_SCHEDULE_REGIT } from '../../modules/ScheduleMoudule';
 
 
 const ScheduleDetilaCreate = () => {
@@ -38,9 +38,11 @@ const ScheduleDetilaCreate = () => {
     const modalRef = useRef(); // 다음 우편번호 검색 
     const addressRef = useRef(); // 주소 input
 
-    const calendarList = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
+    const getCalednarReducer = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
     const data = useSelector(state => state.scheduleReducer[GET_SCHEDULE_DETAIL]);
     const deleteState = useSelector(state => state.scheduleReducer[DELETE_SCHEDULE])
+    const scheduleRegist = useSelector(state => state.scheduleReducer[POST_SCHEDULE_REGIT])
+    
     const scheduleId = search.get('scheduleId');
     const isRead = search.get('isread');
     const dispatch = useDispatch();
@@ -60,8 +62,13 @@ const ScheduleDetilaCreate = () => {
             setSchedule({
                 ...data,
                 data: {...schedule?.data, 
-                    refCalendar: calendarList?.data?.filter(item => item.indexNo === 1)[0].id}
+                    refCalendar: getCalednarReducer?.data?.filter(item => item.indexNo === 1)[0].id}
             })
+        }
+        return () => {
+            isMobile || menuState || toggleMenu();
+            setIsModal(false);
+            setSchedule({});
         }
     },[isRead])
 
@@ -109,17 +116,12 @@ const ScheduleDetilaCreate = () => {
     }
 
     const changeDateHandler = (e) => {
-        setSchedule({...schedule, data:{...schedule.data,  startDate: dayjs(e[0]).format('YYYY-MM-DDTHH:mm:ss'), endDate: dayjs(e[1]).format('YYYY-MM-DDTHH:mm:ss')}});
-        
-        // if(schedule?.data?.allDay){
-        //     setSchedule({...schedule, data:{...schedule.data,  endDate: dayjs().format('YYYY-MM-DDTHH:mm:ss')}});
-        // }else{
-        //     setSchedule({...schedule, data:{...schedule.data,  endDate: dayjs(e[1]).format('YYYY-MM-DDTHH:mm:ss')}});
-        // }
-
-        
+        if(schedule.data.allDay){
+            setSchedule({...schedule, data:{...schedule.data,  startDate: dayjs(e).format('YYYY-MM-DDTHH:mm:ss')}});
+        }else{
+            setSchedule({...schedule, data:{...schedule.data,  startDate: dayjs(e[0]).format('YYYY-MM-DDTHH:mm:ss'), endDate: dayjs(e[1]).format('YYYY-MM-DDTHH:mm:ss')}});
+        }
     }
-
 
     const registScheduleHandler = () => {   
         if(isDataLoad()){
@@ -127,6 +129,10 @@ const ScheduleDetilaCreate = () => {
         }else{
             dispatch(postScheduleRegist({data: schedule.data}));
         }
+        if(scheduleRegist.status === 200){
+            navigate('../');
+        }
+
     }
 
     const removeParticipant = e => {
@@ -137,27 +143,21 @@ const ScheduleDetilaCreate = () => {
     }
     
     const registCancle = () => {
-        isMobile || menuState || toggleMenu();
-        setIsModal(false);
-        setSchedule({});
         navigate('../');
     }
+
     const deleteScheduleHandler = () => {
         dispatch(deleteSchedule({data: [parseInt(data.data.id)]}))
-        
-        if(deleteState?.status === 200){
-            isMobile || menuState || toggleMenu();
-            setIsModal(false);
-            setSchedule({});
+
+        if(deleteState.status === 200){
             navigate('../')
         }
     }
 
-    console.log(schedule);
     return (
         <>
         {
-            calendarList && calendarList.data && 
+            getCalednarReducer && getCalednarReducer.data && 
             (isRead === 'true' ? (data && data.data) : (schedule && schedule.data) ) ?
         
             <div className={styles.mainContainer}>
@@ -204,6 +204,7 @@ const ScheduleDetilaCreate = () => {
                                 {
                                     (isRead === 'true' ? data.data.allDay : schedule.data.allDay) ? 
                                     <DatePicker 
+                                        className={antdStyels['ant-picker-focused']}
                                         name='RangeDate'
                                         locale={locale}
                                         format={'YYYY-MM-DD HH:mm'}
@@ -214,7 +215,7 @@ const ScheduleDetilaCreate = () => {
                                             dayjs(data.data.startDate) : dayjs(schedule.data.startDate)
                                         }
                                         onClick={isReadConfirm}
-                                        onCalendarChange={changeDateHandler}
+                                        onChange={changeDateHandler}
 
                                     /> :
                                     <RangePicker className={[antdStyels['ant-picker-focused'],antdStyels['ant-picker-active-bar']].join(' ')}
@@ -231,7 +232,7 @@ const ScheduleDetilaCreate = () => {
                                         onClick={isReadConfirm}
                                         onChange={changeDateHandler}
                                     />
-                                    }
+                                }
                             </div>
                             <div className={styles.subCol2}>
                                 <div style={{marginRight: 10}}>
@@ -274,7 +275,7 @@ const ScheduleDetilaCreate = () => {
                     <div className={styles.extendEle}>
                         <SelectEle 
                             name='refCalendar' 
-                            options={calendarList.data.filter(item => (
+                            options={getCalednarReducer.data.filter(item => (
                                 item.departmentCode !== 0 && item.memberCode === MEMBER_CODE
                             )).sort((prev, next) => prev.indexNo - next.indexNo
                             ).map(item => (
@@ -323,7 +324,7 @@ const ScheduleDetilaCreate = () => {
                         {
                             postToggle && 
                             <div ref={modalRef} className={styles.modalPost} onClick={postOutArea}>
-                                <div className={styles.post}>
+                                <div className={[styles.post, postToggle && styles.modalActive].join(' ')}>
                                     <DaumPostcode onComplete={daumPostHandler} />
                                 </div>
                             </div>
@@ -353,7 +354,8 @@ const ScheduleDetilaCreate = () => {
                     <div>
                         <ButtonInline isCancel={true} value='취소' onClick={registCancle} style={{width:80, height: 40}}/>
                     </div>
-                    {
+                    {   
+                        isDataLoad() && 
                         <div>
                             <ButtonInline isCancel={true} value='삭제' onClick={deleteScheduleHandler} style={{backgroundColor:'red', width:80, height: 40}}/>
                         </div>    

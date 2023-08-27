@@ -4,19 +4,25 @@ import MyCalendarItem from '../../../components/calendar/manage/MyCalendarItem'
 
 import styles from './myCalendar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { GET_CALENDAR_LIST } from '../../../modules/CalendarMoudule';
-import { patchCalendarUpdate, patchDefaultCalendarUpdate } from '../../../apis/CalendarAPICalls';
+import { GET_CALENDAR_LIST, PATCH_CALENDAR_UPDATE, POST_CALENDAR_REGIT } from '../../../modules/CalendarMoudule';
+import { getCalendarListAPI, patchCalendarUpdate, patchDefaultCalendarUpdate, postCalendarRegit } from '../../../apis/CalendarAPICalls';
+import { useNavigate } from 'react-router-dom';
 
 const MyCalendar = () => {
 
 
     const [selectItem, setSelectItem] = useState([]);
+    const [data, setData] = useState({});
+    
     const calendarList = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
+    const calendarReducer = useSelector(state => state.calendarReducer);
     const dispatch = useDispatch();
 
     useEffect(()=> {
-        
-    },[calendarList])
+        dispatch(getCalendarListAPI());
+        setSelectItem([]);
+        setData({});
+    },[calendarReducer[POST_CALENDAR_REGIT], calendarReducer[PATCH_CALENDAR_UPDATE]])
     
 
     const checkSelectHandler = e => {
@@ -27,22 +33,36 @@ const MyCalendar = () => {
         }
     }
 
+    const CalendarAddHandler = e =>{
+        if(e.target !== undefined){
+            setData({...data, [e.target.name]: e.target.value})
+        }else{
+            setData({...data, labelColor: e.toHexString()})
+        }
+    }
+
+    const registCalendarHandler = () => {
+        dispatch(postCalendarRegit({data: data}));
+    }
+
+
     const radioOnChangeHandler = e => {
-        console.log(e.target.id);
         dispatch(patchDefaultCalendarUpdate({data: {id:parseInt(e.target.id)}}))
     }
 
     const publicOnChangeHandler = e => {
-        // console.log(e.target.value);
         dispatch(patchCalendarUpdate({data: {id:parseInt(e.target.id), openStatus: e.target.value }}))
     }
 
-    console.log(calendarList);
     return (
         <>  
             <div className={styles.calendar}>
                 <div>
-                    <CalendarAdd />
+                    <CalendarAdd
+                        calendarAddData={data}
+                        calendarAddHandler={CalendarAddHandler}
+                        registCalendarHandler={registCalendarHandler}
+                    />
                 </div>
                 <div>
                     <div className={styles.delete}>

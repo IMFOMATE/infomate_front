@@ -7,7 +7,6 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid'
 import multiMonthPlugin from '@fullcalendar/multimonth'
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
-
 import { CalendarFilterContext } from "../../context/CalendarContext";
 import { ScheduleModalProvider, ScheduleProvider } from "../../layouts/CalendarLayout";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +15,7 @@ import dayjs from "dayjs";
 import 'dayjs/locale/ko';
 import { useNavigate } from "react-router-dom";
 import { MenuContext } from "../../context/MenuContext";
-import { getScheduleDetail, patchScheduleUpdate } from "../../apis/ScheduleAPICalls";
+import { patchScheduleUpdate } from "../../apis/ScheduleAPICalls";
 import { FadeLoader } from "react-spinners";
 import { GET_CALENDAR_FINDALL } from "../../modules/CalendarMoudule";
 import StylesLoading from './loadingStyle.module.css';
@@ -28,7 +27,6 @@ const Calendar = () =>{
 
     const [mode, setMode] = useState('create');
 
-    
     const [innerSize, setInnerSize] = useState();
 
     const {isModal, setIsModal} = useContext(ScheduleModalProvider);
@@ -39,7 +37,8 @@ const Calendar = () =>{
     const navigate = useNavigate();
 
     const data = useSelector(state => state.calendarReducer[GET_CALENDAR_FINDALL]);
-    const sc = useSelector(state => state.scheduleReducer);
+    const scheduleReducer = useSelector(state => state.scheduleReducer);
+
     const dispatch = useDispatch();
 
     const modalRef = useRef(null);
@@ -50,26 +49,23 @@ const Calendar = () =>{
 
     const sizeObserver = new ResizeObserver((entires)=>{
         const { width } = entires[0].contentRect;
-        
         setInnerSize(width);
-
         changeIsMobile();
     }) 
     
 
     useEffect(()=>{
-        
         setSchedule({});
-
         changeIsMobile();
 
         sizeObserver.observe(containerRef.current);
 
         dispatch(getCalendarFindAllAPI())
+
         return () => {
             sizeObserver.disconnect();
         }
-    },[sc])
+    },[scheduleReducer])
 
     const calenderClickHandler = data => {
 
@@ -124,8 +120,6 @@ const Calendar = () =>{
         return event;
     }
 
-    
-
     return (
         <>  
             <div className={styles.container} ref={containerRef}>
@@ -174,6 +168,7 @@ const Calendar = () =>{
                                 }   
                             }
                         }}
+                        
                         events={event(data.data)}
                         select={calenderClickHandler}
                         eventClick={eventClickHandler}

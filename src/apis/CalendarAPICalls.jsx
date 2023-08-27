@@ -46,9 +46,10 @@ export const getCalendarListAPI = () => {
         const result = await axios.get(requestURL)
                     .then(res => res.data)
                     
-        if(result.status === 200) 
+        if(result.status === 200) {
             dispatch({ type: GET_CALENDAR_LIST,  payload: result });
-        
+            return ;
+        }
     };
 }
 
@@ -64,6 +65,7 @@ export const postCalendarRegit = ({data}) => {
         if(result.status === 200){
             message.success('등록에 성공했습니다.');
             dispatch({ type: POST_CALENDAR_REGIT,  payload: result });
+            return ;
         }
         
     };
@@ -79,9 +81,9 @@ export const patchCalendarUpdate = ({data}) => {
                     .catch(e => console.log(e));
         
         if(result.status === 200){
-            console.log(result);
             message.success('수정에 성공했습니다.');
-            return dispatch({ type: PATCH_CALENDAR_UPDATE,  payload: result });
+            dispatch({ type: PATCH_CALENDAR_UPDATE,  payload: result });
+            return ;
         }
         
         message.success('수정에 실패했습니다.');
@@ -100,7 +102,8 @@ export const patchDefaultCalendarUpdate = ({data}) => {
         
         if(result.status === 200){
             message.success('기본 캘린더가 변경되었습니다.');
-            return dispatch({ type: PATCH_CALENDAR_UPDATE,  payload: result });
+            dispatch({ type: PATCH_CALENDAR_UPDATE,  payload: result });
+            return ;
         }
         
         message.success('수정에 실패했습니다.');

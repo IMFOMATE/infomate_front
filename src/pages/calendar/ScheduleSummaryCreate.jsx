@@ -15,16 +15,12 @@ import dayjs from 'dayjs';
 import locale from 'antd/es/date-picker/locale/ko_KR';
 import antdStyels from './antd.module.css';
 import { DatePicker } from 'antd';
-import { CalendarProvider } from '../../context/CalendarContext';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
 import { MEMBER_CODE } from '../../apis/APIConfig';
 
-
-
-const { RangePicker } = DatePicker;
-
 const SecheduleSummaryCreate = ({modal, setModal, mode, setMode}) => {
-
+    
+    const { RangePicker } = DatePicker;
     const {schedule, setSchedule} = useContext(ScheduleProvider);
     const {isModal, setIsModal} = useContext(ScheduleModalProvider);
     const {menuState, toggleMenu} = useContext(MenuContext);
@@ -75,12 +71,14 @@ const SecheduleSummaryCreate = ({modal, setModal, mode, setMode}) => {
         menuState && toggleMenu();
     }
 
-    const changeData = (e) => {
-        console.log(dayjs(e[0]).format('YYYY-MM-DDTHH:mm'));
+    const changeDateHandler = (e) => {
+        if(schedule.data.allDay){
+            setSchedule({...schedule, data:{...schedule.data,  startDate: dayjs(e).format('YYYY-MM-DDTHH:mm:ss')}});
+        }else{
+            setSchedule({...schedule, data:{...schedule.data,  startDate: dayjs(e[0]).format('YYYY-MM-DDTHH:mm:ss'), endDate: dayjs(e[1]).format('YYYY-MM-DDTHH:mm:ss')}});
+        }
     }
-
-    console.log(schedule);
-
+    
     return (
         <>
             <div className={[styles.container, modal && styles.active].join(' ')}>
@@ -109,16 +107,31 @@ const SecheduleSummaryCreate = ({modal, setModal, mode, setMode}) => {
 
                         <label>일시</label>
                         <div>
-                            <RangePicker className={[antdStyels['ant-picker-focused'],antdStyels['ant-picker-active-bar']].join(' ')}
-                                name='RangeDate'
-                                locale={locale}
-                                format={'YYYY-MM-DD HH:mm'}
-                                style={{width:'100%', borderRadius:5 }}
-                                showTime={{ format: 'HH:mm' }}
-                                value={[dayjs(schedule.data?.startDate), dayjs(schedule.data?.endDate)]}
-                                onCalendarChange={changeData}
-                                
-                            />
+                            {
+                                schedule.data?.allDay ? 
+                                <DatePicker 
+                                    className={antdStyels['ant-picker-focused']}
+                                    name='RangeDate'
+                                    locale={locale}
+                                    format={'YYYY-MM-DD HH:mm'}
+                                    size='middle'
+                                    style={{width:'100%', borderRadius:5 }}
+                                    showTime={{ format: 'HH:mm' }}
+                                    value={dayjs(schedule.data.startDate)}
+                                    onChange={changeDateHandler}
+
+                                /> :
+                                <RangePicker className={[antdStyels['ant-picker-focused'],antdStyels['ant-picker-active-bar']].join(' ')}
+                                    name='RangeDate'
+                                    locale={locale}
+                                    format={'YYYY-MM-DD HH:mm'}
+                                    size='middle'
+                                    style={{width:'100%', borderRadius:5 }}
+                                    showTime={{ format: 'HH:mm' }}
+                                    value={[dayjs(schedule.data.startDate), dayjs(schedule.data.endDate)]}
+                                    onChange={changeDateHandler}
+                                />
+                            }
 
                             <div style={{height: 30, alignSelf: 'center'}}>
                                 <CheckBox

@@ -20,6 +20,9 @@ const scheduleReducer = handleActions({
         [PATCH_SCHEDULE]: (state, { payload }) => ({
             ...state, [PATCH_SCHEDULE] : payload
         }),
+        [DELETE_SCHEDULE]: (state, { payload }) => ({
+            ...state, [DELETE_SCHEDULE] : payload
+        }),
     }, initialState
 );
 

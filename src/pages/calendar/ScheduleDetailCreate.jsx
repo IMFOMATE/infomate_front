@@ -8,10 +8,10 @@ import TextareaEl from '../../components/common/input/Textarea';
 import SelectEle from '../../components/common/select/SelectEle';
 import DaumPostcode from 'react-daum-postcode';
 import { useContext, useEffect, useRef, useState } from 'react';
-import { redirect, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ScheduleModalProvider, ScheduleProvider } from '../../layouts/CalendarLayout';
 import { useDispatch, useSelector } from 'react-redux';
-import { postScheduleRegist, getScheduleDetail } from '../../apis/ScheduleAPICalls';
+import { postScheduleRegist, getScheduleDetail, patchScheduleUpdate, deleteSchedule } from '../../apis/ScheduleAPICalls';
 import antdStyels from './antd.module.css';
 import { MenuContext } from '../../context/MenuContext';
 import 'dayjs/locale/ko';
@@ -22,7 +22,7 @@ import { FadeLoader } from 'react-spinners';
 import StylesLoading from './loadingStyle.module.css';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
 import { MEMBER_CODE } from '../../apis/APIConfig';
-import { GET_SCHEDULE_DETAIL } from '../../modules/ScheduleMoudule';
+import { DELETE_SCHEDULE, GET_SCHEDULE_DETAIL } from '../../modules/ScheduleMoudule';
 
 
 const ScheduleDetilaCreate = () => {
@@ -40,6 +40,7 @@ const ScheduleDetilaCreate = () => {
 
     const calendarList = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
     const data = useSelector(state => state.scheduleReducer[GET_SCHEDULE_DETAIL]);
+    const deleteState = useSelector(state => state.scheduleReducer[DELETE_SCHEDULE])
     const scheduleId = search.get('scheduleId');
     const isRead = search.get('isread');
     const dispatch = useDispatch();
@@ -48,14 +49,17 @@ const ScheduleDetilaCreate = () => {
     useEffect(()=>{
         if(isDataLoad()){
             if(isRead === null || !data?.data)
-                navigate(`?scheduleId=${scheduleId}&isread=true`)
-            if(isRead === 'true')
+                navigate(`?scheduleId=${scheduleId}&isread=true`);
+            
+            if(isRead === 'true'){
                 dispatch(getScheduleDetail({scheduleId:scheduleId}));
-
+            }else{
+                setSchedule({...data, data : {...data.data, refCalendar: data.data.calendar.id}})
+            }
         }else{
             setSchedule({
                 ...data,
-                data: {...data?.data, 
+                data: {...schedule?.data, 
                     refCalendar: calendarList?.data?.filter(item => item.indexNo === 1)[0].id}
             })
         }
@@ -94,7 +98,7 @@ const ScheduleDetilaCreate = () => {
         const eleName = e.target.name;
 
         if(e.target.type === 'checkbox'){
-            setSchedule({...schedule, data:{...schedule.data, [eleName]: e.target.checked}})        
+            setSchedule({...schedule, data:{...schedule.data, [eleName]: e.target.checked}})
         }else if(eleName === 'participantList'){
             setSchedule({...schedule, data:{...schedule.data,  [eleName]: [...schedule.participantList,  e.target.value]}})
         }else if(eleName === 'refCalendar') {
@@ -104,8 +108,25 @@ const ScheduleDetilaCreate = () => {
         }
     }
 
-    const registScheduleHandler = () => {
-        dispatch(postScheduleRegist({data:schedule}));
+    const changeDateHandler = (e) => {
+        setSchedule({...schedule, data:{...schedule.data,  startDate: dayjs(e[0]).format('YYYY-MM-DDTHH:mm:ss'), endDate: dayjs(e[1]).format('YYYY-MM-DDTHH:mm:ss')}});
+        
+        // if(schedule?.data?.allDay){
+        //     setSchedule({...schedule, data:{...schedule.data,  endDate: dayjs().format('YYYY-MM-DDTHH:mm:ss')}});
+        // }else{
+        //     setSchedule({...schedule, data:{...schedule.data,  endDate: dayjs(e[1]).format('YYYY-MM-DDTHH:mm:ss')}});
+        // }
+
+        
+    }
+
+
+    const registScheduleHandler = () => {   
+        if(isDataLoad()){
+            dispatch(patchScheduleUpdate({data: schedule.data}));
+        }else{
+            dispatch(postScheduleRegist({data: schedule.data}));
+        }
     }
 
     const removeParticipant = e => {
@@ -121,7 +142,18 @@ const ScheduleDetilaCreate = () => {
         setSchedule({});
         navigate('../');
     }
+    const deleteScheduleHandler = () => {
+        dispatch(deleteSchedule({data: [parseInt(data.data.id)]}))
+        
+        if(deleteState?.status === 200){
+            isMobile || menuState || toggleMenu();
+            setIsModal(false);
+            setSchedule({});
+            navigate('../')
+        }
+    }
 
+    console.log(schedule);
     return (
         <>
         {
@@ -169,26 +201,44 @@ const ScheduleDetilaCreate = () => {
                             
                         <div className={[styles.subItem, styles.subCol3].join(' ')}>
                             <div className={styles.date}>
-                                <RangePicker className={[antdStyels['ant-picker-focused'],antdStyels['ant-picker-active-bar']].join(' ')}
-                                    name='RangeDate'
-                                    locale={locale}
-                                    format={'YYYY-MM-DD HH:mm'}
-                                    size='middle'
-                                    style={{width:'100%', borderRadius:5 }}
-                                    showTime={{ format: 'HH:mm' }}
-                                    value={isRead === 'true' ? 
-                                        [dayjs(data.data.startDate), dayjs(data.data.endDate)] : 
-                                        [dayjs(schedule.data.startDate), dayjs(schedule.data.endDate)]
+                                {
+                                    (isRead === 'true' ? data.data.allDay : schedule.data.allDay) ? 
+                                    <DatePicker 
+                                        name='RangeDate'
+                                        locale={locale}
+                                        format={'YYYY-MM-DD HH:mm'}
+                                        size='middle'
+                                        style={{width:'100%', borderRadius:5 }}
+                                        showTime={{ format: 'HH:mm' }}
+                                        value={isRead === 'true' ? 
+                                            dayjs(data.data.startDate) : dayjs(schedule.data.startDate)
+                                        }
+                                        onClick={isReadConfirm}
+                                        onCalendarChange={changeDateHandler}
+
+                                    /> :
+                                    <RangePicker className={[antdStyels['ant-picker-focused'],antdStyels['ant-picker-active-bar']].join(' ')}
+                                        name='RangeDate'
+                                        locale={locale}
+                                        format={'YYYY-MM-DD HH:mm'}
+                                        size='middle'
+                                        style={{width:'100%', borderRadius:5 }}
+                                        showTime={{ format: 'HH:mm' }}
+                                        value={isRead === 'true' ? 
+                                            [dayjs(data.data.startDate), dayjs(data.data.endDate)] : 
+                                            [dayjs(schedule.data.startDate), dayjs(schedule.data.endDate)]
+                                        }
+                                        onClick={isReadConfirm}
+                                        onChange={changeDateHandler}
+                                    />
                                     }
-                                    // onCalendarChange={changeData}
-                                />
                             </div>
                             <div className={styles.subCol2}>
                                 <div style={{marginRight: 10}}>
                                     <CheckBox
                                         name='allDay'
                                         isChangeColor={true}
-                                        checked={isRead === 'true' ? data.data.allDay : schedule.allDay}
+                                        checked={isRead === 'true' ? data.data.allDay : schedule.data.allDay}
                                         onChange={scheduleChangeHanlder} 
                                         // disabled={isEleDisabled()}
                                     />
@@ -301,10 +351,13 @@ const ScheduleDetilaCreate = () => {
                             style={{width:80, height: 40}}/>
                     </div>
                     <div>
-                        
                         <ButtonInline isCancel={true} value='취소' onClick={registCancle} style={{width:80, height: 40}}/>
-                        
                     </div>
+                    {
+                        <div>
+                            <ButtonInline isCancel={true} value='삭제' onClick={deleteScheduleHandler} style={{backgroundColor:'red', width:80, height: 40}}/>
+                        </div>    
+                    }
                 </div>
             </div>
             : <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>

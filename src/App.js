@@ -5,7 +5,7 @@ import BoardMain from "./pages/board/BoardMain";
 import Mail from "./pages/mail/Mail";
 import AddressBook from "./pages/addressBook/AddressBook";
 import AddContact from "./pages/addressBook/AddContact";
-import MailWrite from "./pages/mail/MailWrite";
+// import MailWrite from "./pages/mail/MailWrite";
 import ApprovalMain from "./pages/approval/ApprovalMain";
 import MyDocList from "./pages/approval/MyDocList";
 import CalendarManegeLayout from "./layouts/CalendarManageLayout";
@@ -15,7 +15,7 @@ import ScheduleDetailCreate from "./pages/calendar/ScheduleDetailCreate";
 import ReminderList from './components/calendar/dashboard/ReminderList';
 import DocumentMain from "./pages/approval/DocumentMain";
 import Group from './pages/manage/Group';
-import SearchDept from './pages/manage/SearchDept';
+// import SearchDept from './pages/manage/SearchDept';
 import './layouts/Default.css';
 import CalendarLayout from './layouts/CalendarLayout';
 import FavoriteCalendarBody from './pages/calendar/management/FavoriteCalendarBody';
@@ -37,7 +37,7 @@ function App() {
 
             <Route path="/addressBook" element={<AddressBook />} />
             <Route path="/addContact" element={<AddContact />} />
-            <Route path="/mailWrite" element={<MailWrite />} />
+            {/* <Route path="/mailWrite" element={<MailWrite />} /> */}
             <Route path="/mail" element={<Mail />} />
 
             {/* 인덱스로 설정해두면 위의 설정(루트 요청)과 동일하다. */}
@@ -72,7 +72,7 @@ function App() {
             <Route path='/group'>
               <Route index element={<Group/>}/>
             </Route>
-            <Route path='/searchDept' element={<SearchDept/>}/>
+            {/* <Route path='/searchDept' element={<SearchDept/>}/> */}
           </Route>
         </Routes>
       </BrowserRouter>

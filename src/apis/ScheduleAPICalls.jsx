@@ -5,6 +5,7 @@ import {
     POST_SCHEDULE_REGIT,
     PUT_SCHEDULE,
     PATCH_SCHEDULE,
+    DELETE_SCHEDULE,
 } from '../modules/ScheduleMoudule';
 import { PROTOCOL, SERVER_IP, SERVER_PORT, MEMBER_CODE} from './APIConfig';
 import dayjs from 'dayjs';
@@ -53,13 +54,37 @@ export const patchScheduleUpdate = ({data}) => {
     
     
     return async (dispatch, getState) => {
-        const result = await axios.patch(requestURL, JSON.stringify(data), {headers:{"Content-Type":'application/json','Accept':'*/*'}})
+        const result = await axios.patch(requestURL, data, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
                         .then(res => res)
                         .catch(err => console.log(err));
 
         if(result.status === 200){
             message.success("일정이 변경 되었습니다.")
             return dispatch({ type: PATCH_SCHEDULE,  payload: result});
+            
+        } 
+        
+        message.error("변경에 실패 했습니다")
+    
+    };
+}
+
+
+export const deleteSchedule = ({data}) => {
+
+    console.log(data);
+    
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/delete`;
+    
+    
+    return async (dispatch, getState) => {
+        const result = await axios.delete(requestURL, {data}, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
+                        .then(res => res)
+                        .catch(err => console.log(err));
+
+        if(result.status === 200){
+            message.success("일정이 삭제 되었습니다.")
+            return dispatch({ type: DELETE_SCHEDULE,  payload: result});
             
         } 
         

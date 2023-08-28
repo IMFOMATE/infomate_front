@@ -1,0 +1,37 @@
+.posttitle {
+display: flex;
+width: 99%;
+height: 35px;
+padding: 0px 10px;
+align-items: center;
+gap: 10px;
+flex-shrink: 0;
+border-radius: 10px;
+border: 1px solid #D9D9D9;
+margin: 10px;
+}
+
+.back {
+    color: #7758FA;
+    font-weight: 600;
+    background: none;
+    display: flex;
+    width: 70px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 6px;
+    border: 1px solid #7758FA;
+    transition: 0.4s;
+    cursor: pointer;
+    font-size: 13px;
+    margin: 20px;
+  }
+
+  .back:hover {
+      background-color: #7758FA;
+      color: white;
+      font-weight : 500;
+  }
+

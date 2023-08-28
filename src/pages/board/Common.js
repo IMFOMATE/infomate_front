@@ -37,13 +37,15 @@ function Notice() {
         ,[]
     );
 
+    // 글쓰기
     const onClickBoardInsert = () => {
         console.log('[BoardManagement] onClickBoardInsert');
-        navigate("/board-registration", { replace: false })
+        navigate("/board/posting", { replace: false })
     }
 
+    // 게시글페이지
     const onClickTableTr = (boardCode) => {
-        navigate(`/board-update/${boardCode}`, { replace: false });
+        navigate(`/board/post/${boardCode}`, { replace: false });
     }
 
     return (
@@ -62,10 +64,10 @@ function Notice() {
                       
             <div className={BoardCSS.bdtable}>
                 <colgroup>
-                    <col width="10%" />
-                    <col width="60%" />
-                    <col width="10%" />
-                    <col width="10%" />
+                <col width="10%" />
+                    <col width="50%" />
+                    <col width="20%" />
+                    <col width="20%" />
                     <col width="10%" />
                 </colgroup>
                 <thead>
@@ -74,7 +76,7 @@ function Notice() {
                         <th className={BoardCSS.bdtable_th}>제목</th>
                         <th className={BoardCSS.bdtable_th}>작성자</th>
                         <th className={BoardCSS.bdtable_th}>작성일</th>
-                        <th className={BoardCSS.bdtable_th}>조회수</th>
+                        <th className={BoardCSS.bdtable_th}>조회</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -96,6 +98,17 @@ function Notice() {
             </div>         
             
        
+            <div className={BoardCSS.pagination}>
+            <a href="#">&laquo;</a>
+            <a href="#" className={BoardCSS.active}>1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">&raquo;</a>
+            </div>
+
+
         </>
     );
 }

@@ -15,7 +15,6 @@ function WorkNav() {
             <h2 className={NavStyle.title}>근태관리</h2>
                 
 {/*  */}
-
             <div className={ SideCSS.wktimer }>12 : 30</div>
             <div className={ SideCSS.timer_ft }>출근시간 09 : 30</div>
             <div className={ SideCSS.timer_ft }>퇴근시간 18 : 30</div>
@@ -30,6 +29,7 @@ function WorkNav() {
             <a href="#">출장중</a>
             <a href="#">회의중</a>
             </div>
+    
         </div>
     <div className={ SideCSS.wk_btn_margin }></div>
 

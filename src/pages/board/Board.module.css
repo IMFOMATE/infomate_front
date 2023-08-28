@@ -37,6 +37,7 @@
     align-items: center; 
     }
   
+  
   .bdtable {
     /* border-bottom: 1px solid #ddd;
     border-top: 1px solid #ddd; */
@@ -48,11 +49,13 @@
     /* border: 1px solid #ddd; */
     padding-left: 30px;
     padding-right: 30px;
-    padding-bottom: 30px;
+    padding-bottom: 10px;
+    
   }
   
   .bdtable_th {
-    border-bottom: 1px solid #ddd;
+    background-color: #ddd;
+    border-bottom: 1px solid #0000000e;
     border-top: 1px solid #ddd;
     /* text-align: left; */
     height: 40px;
@@ -91,8 +94,8 @@
     .pagination {
     display: inline-block;
     padding-top: 40px;
-    position: absolute;
-    width: 1200px;
+    /* position: absolute; */
+    width: 100%;
     display: flex;
     justify-content: center; /* 가로 가운데 정렬 */
     align-items: center; /* 세로 가운데 정렬 */

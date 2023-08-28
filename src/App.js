@@ -36,6 +36,7 @@ import BrdDept from "./pages/board/BrdDept";
 import BrdAdmin from "./pages/board/BrdAdmin";
 import Anony from "./pages/board/Anony";
 import NewPost from "./pages/board/NewPost";
+import Posting from './pages/board/Posting';
 
 function Test() {
     return null;
@@ -123,6 +124,7 @@ function App() {
               <Route path="/board/brddept" element={ <BrdDept />}/>
               <Route path="/board/brdadmin" element={ <BrdAdmin />}/>
               <Route path="/board/anony" element={ <Anony />}/>
+              <Route path="/board/posting" element={ <Posting />}/>
               {/* <Route path="/board" element={<BoardMain/>}></Route> */}
               </Route>
         </Routes>

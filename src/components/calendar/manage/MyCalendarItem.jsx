@@ -1,4 +1,3 @@
-import CheckBox from '../../common/input/CheckBox';
 import RadioInput from '../../common/input/RadioInput';
 import SelectEle from '../../common/select/SelectEle';
 import styles from './myCalendarItem.module.css';
@@ -42,14 +41,6 @@ const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
     return (
         <div className={styles.item}>
             <div style={{textAlign: 'center'} }>
-                {/* <CheckBox
-                    id={id}
-                    isChangeColor={true}
-                    defaultChecked={isDefaultCheck}
-                    // value={}
-                    onChange={chkOnChange}
-                    style={{height:20, width:20}}
-                /> */}
                 <ColorPicker
                         value={data?.labelColor || defaultColorValue}
                         onChangeComplete={changeColorHandler}

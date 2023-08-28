@@ -6,12 +6,11 @@ import CalendarMagnageFavoriteFollowerHeader from '../../../components/calendar/
 import { useDispatch, useSelector } from 'react-redux';
 import { FadeLoader } from 'react-spinners';
 import StylesLoading from '../loadingStyle.module.css';
-import { DELETE_FAV_CALENDAR, GET_FAV_CALENDAR_FINDALL, POST_FAV_CALENDAR_REGIT } from '../../../modules/FavCalendarMoudule';
+import { DELETE_FAV_CALENDAR, GET_FAV_CALENDAR_FINDALL } from '../../../modules/FavCalendarMoudule';
 import { getFavCalendarfollowAllAPI } from '../../../apis/FavCalendarAPICalls';
 
 const FavoriteCalendarFollowing = () => {
     const [search] = useSearchParams();
-    const location = useLocation();
 
     const [ selectAll, setSelectAll ] = useState(false);
     const {chk, setChk} = useContext(ManageChkList);
@@ -32,7 +31,11 @@ const FavoriteCalendarFollowing = () => {
 
     const selectItemChange = (e)=> {
         if(e.target.checked){
-            setChk({...chk, selectList: [...chk.selectList, ...favCalendarFollowList.data.map(item=>item.id)]})
+            setChk({...chk, selectList: [
+                ...chk.selectList,
+                ...favCalendarFollowList.data.map(item=>item.id)
+            ]
+        })
         }else{
             setChk({...chk, selectList: []})
         }
@@ -43,12 +46,16 @@ const FavoriteCalendarFollowing = () => {
     return (
         <>
             
-            <CalendarMagnageFavoriteFollowerHeader chk={selectAll} setchk={selectItemChange} />
+            <CalendarMagnageFavoriteFollowerHeader
+                chk={selectAll}
+                setchk={selectItemChange}
+            />
             <br />
 
             {
                 favCalendarFollowList && favCalendarFollowList.data ?
-                favCalendarFollowList.data.map((item, index)=> <CalendarMagnageFavoriteItem
+                favCalendarFollowList.data.map((item, index) => 
+                                    <CalendarMagnageFavoriteItem
                                             key={index}
                                             id={item.id}
                                             memberName={item.member.memberName}
@@ -56,6 +63,7 @@ const FavoriteCalendarFollowing = () => {
                                             calendarName={item.calendar.name}
                                             requestDate={item?.requestDate}
                                             state={item?.approvalStatus}
+                                            isLabelColor={item?.labelColor}
                                     />)
                 : <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
             }

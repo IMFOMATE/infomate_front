@@ -11,7 +11,9 @@ export const FAV_CALENDAR_APPROVAL_STATUS = {
     APPROVAL:  '승인',
 }
 
-const CalendarMagnageFavoriteItem = ({id, memberName, calendarName, requestDate, createDate, rank, state, favState}) => {
+const CalendarMagnageFavoriteItem = (
+    {id, memberName, calendarName, requestDate, createDate, rank, state, favState}
+    ) => {
     
     const className  = [styles.fowHdGrid].join(' ');
 
@@ -19,7 +21,11 @@ const CalendarMagnageFavoriteItem = ({id, memberName, calendarName, requestDate,
 
     const checkHandler = (e) => {
         if(isCheckItem(e.target?.id)){
-            setChk({...chk, selectList: chk?.selectList.filter(item => item !== parseInt(e.target.id))})
+            setChk({
+                ...chk, 
+                selectList: chk?.selectList.filter(item => 
+                    item !== parseInt(e.target.id))
+                })
         }else{
             setChk({...chk, selectList: [...chk.selectList, parseInt(e.target.id)]})
         }
@@ -33,7 +39,12 @@ const CalendarMagnageFavoriteItem = ({id, memberName, calendarName, requestDate,
         <div className={className} style={{borderBottom:0, padding:'5px 0 5px 0'}} >
             <div>
                 <div>
-                    <CheckBox id={id} isChangeColor={true} checked={isCheckItem(id)} onChange={checkHandler} />
+                    <CheckBox 
+                        id={id} 
+                        isChangeColor={true} 
+                        checked={isCheckItem(id)} 
+                        onChange={checkHandler} 
+                    />
                 </div>
                 <div>{`${memberName}(${rank})`}</div>
                 <div>{calendarName}</div>

@@ -105,21 +105,51 @@ const ScheduleDetilaCreate = () => {
         const eleName = e.target.name;
 
         if(e.target.type === 'checkbox'){
-            setSchedule({...schedule, data:{...schedule.data, [eleName]: e.target.checked}})
+            setSchedule({
+                ...schedule, 
+                data:{...schedule.data,
+                     [eleName]: e.target.checked
+                    }
+                })
         }else if(eleName === 'participantList'){
-            setSchedule({...schedule, data:{...schedule.data,  [eleName]: [...schedule.participantList,  e.target.value]}})
+            setSchedule({
+                ...schedule, 
+                data:{...schedule.data,
+                    [eleName]: [...schedule.participantList,  e.target.value]
+                }
+            })
         }else if(eleName === 'refCalendar') {
-            setSchedule({...schedule, data:{...schedule.data,  [eleName]: parseInt(e.target.value)}})
+            setSchedule({
+                ...schedule, 
+                data:{...schedule.data,
+                    [eleName]: parseInt(e.target.value)
+                }
+            })
         }else{
-            setSchedule({...schedule, data:{...schedule.data,  [eleName]: e.target.value}})
+            setSchedule({...schedule, 
+                data:{...schedule.data, 
+                    [eleName]: e.target.value
+                }
+            })
         }
     }
 
     const changeDateHandler = (e) => {
         if(schedule.data.allDay){
-            setSchedule({...schedule, data:{...schedule.data,  startDate: dayjs(e).format('YYYY-MM-DDTHH:mm:ss')}});
+            setSchedule({
+                ...schedule, 
+                data:{...schedule.data, 
+                    startDate: dayjs(e).format('YYYY-MM-DDTHH:mm:ss')
+                }
+            });
         }else{
-            setSchedule({...schedule, data:{...schedule.data,  startDate: dayjs(e[0]).format('YYYY-MM-DDTHH:mm:ss'), endDate: dayjs(e[1]).format('YYYY-MM-DDTHH:mm:ss')}});
+            setSchedule({
+                ...schedule, 
+                data:{...schedule.data,  
+                    startDate: dayjs(e[0]).format('YYYY-MM-DDTHH:mm:ss'), 
+                    endDate: dayjs(e[1]).format('YYYY-MM-DDTHH:mm:ss')
+                }
+            });
         }
     }
 
@@ -154,6 +184,7 @@ const ScheduleDetilaCreate = () => {
         }
     }
 
+    console.log(data);
     return (
         <>
         {
@@ -218,7 +249,8 @@ const ScheduleDetilaCreate = () => {
                                         onChange={changeDateHandler}
 
                                     /> :
-                                    <RangePicker className={[antdStyels['ant-picker-focused'],antdStyels['ant-picker-active-bar']].join(' ')}
+                                    <RangePicker className={[antdStyels['ant-picker-focused'], 
+                                                            antdStyels['ant-picker-active-bar']].join(' ')}
                                         name='RangeDate'
                                         locale={locale}
                                         format={'YYYY-MM-DD HH:mm'}
@@ -302,7 +334,11 @@ const ScheduleDetilaCreate = () => {
                             ))
                         }
                         
-                        <ButtonOutline value='+' onClick={()=>{}} style={{borderRadius:'50px'}}/>
+                        <ButtonOutline 
+                            value='+' 
+                            onClick={()=>{}} 
+                            style={{borderRadius:'50px'}}
+                        />
                     </div>
                     
                     <label>장소</label>
@@ -346,18 +382,33 @@ const ScheduleDetilaCreate = () => {
                 </div>
                 <div className={styles.footer}>
                     <div>
-                        <ButtonInline 
-                            value={isRead ? '수정': '등록'}
-                            onClick={registScheduleHandler} 
-                            style={{width:80, height: 40}}/>
+                        {
+                            (data.data.calendar.memberCode !== parseInt(MEMBER_CODE) && isDataLoad()) || 
+                            <ButtonInline 
+                                value={isRead ? '수정': '등록'}
+                                onClick={registScheduleHandler} 
+                                style={{width:80, height: 40}}
+                            />
+                        }
+                        
                     </div>
                     <div>
-                        <ButtonInline isCancel={true} value='취소' onClick={registCancle} style={{width:80, height: 40}}/>
+                        <ButtonInline 
+                            isCancel={true} 
+                            value={isDataLoad() && data.data.calendar.memberCode !== parseInt(MEMBER_CODE)? '뒤로가기' : '취소' } 
+                            onClick={registCancle} 
+                            style={{width:80, height: 40}}
+                        />
                     </div>
                     {   
-                        isDataLoad() && 
+                        isDataLoad() && parseInt(data.data.calendar.memberCode) === parseInt(MEMBER_CODE) && 
                         <div>
-                            <ButtonInline isCancel={true} value='삭제' onClick={deleteScheduleHandler} style={{backgroundColor:'red', width:80, height: 40}}/>
+                            <ButtonInline 
+                                isCancel={true} 
+                                value='삭제' 
+                                onClick={deleteScheduleHandler} 
+                                style={{backgroundColor:'red', width:80, height: 40}}
+                            />
                         </div>    
                     }
                 </div>

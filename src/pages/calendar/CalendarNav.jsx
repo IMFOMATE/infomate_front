@@ -28,22 +28,37 @@ const CalendarNav = () => {
 
     const navigate = useNavigate();
 
-    const myClassName = [NavStyle.sideList, styles.listContainer, moreToggle?.my && styles.listContainerActive].join(' ');
-    const corpClassName = [NavStyle.sideList, styles.listContaine].join(' ');
-    const favClassName = [NavStyle.sideList, styles.listContainer, moreToggle?.fav && styles.listContainerActive].join(' ');
+    const myClassName = [NavStyle.sideList, 
+                    styles.listContainer, 
+                    moreToggle?.my && styles.listContainerActive
+                    ].join(' ');
+    const corpClassName = [NavStyle.sideList,
+                            styles.listContaine
+                        ].join(' ');
+    const favClassName = [NavStyle.sideList, 
+                            styles.listContainer,
+                            moreToggle?.fav && styles.listContainerActive
+                        ].join(' ');
 
 
     useEffect(()=>{
         dispatch(getCalendarListAPI())
-        
+        data?.data && setFilter([
+            ...filter, 
+            ...data.data?.filter(item => 
+                item.memberCode !== MEMBER_CODE && item.departmentCode === null
+                ).map(item => parseInt(item.id))])
     },[])
 
     const calendarFilterChange = e => {
         if(e.target.checked){
-            setFilter([...filter.filter(item => item !== parseInt(e.target.id))]);
+            setFilter([...filter.filter(item => 
+                item !== parseInt(e.target.id))
+            ]);
         }else{
-            
-            setFilter([...filter, parseInt(e.target.id)]);
+            setFilter([...filter, 
+                parseInt(e.target.id)
+            ]);
         }   
     }
 
@@ -56,12 +71,16 @@ const CalendarNav = () => {
         navigate('/calendar/management/mypage');
     }
 
- console.log(data);
+    console.log(data);
+    console.log(filter);
     return (
         <div className={styles.container}>
             <div className={NavStyle.sideTop}>
                 <h1 className={NavStyle.title}>일정</h1>
-                <NavLink to='/calendar/regist' className={NavStyle.new} onClick={toggleMenu}>
+                <NavLink 
+                    to='/calendar/regist' 
+                    className={NavStyle.new} 
+                    onClick={toggleMenu}>
                     일정등록
                 </NavLink>
             </div>
@@ -159,7 +178,6 @@ const CalendarNav = () => {
                 />
 
             }
-
             <br/>
             <br/>
             <div style={{margin: '20px 0'}}>

@@ -12,19 +12,6 @@ import {
 import { PROTOCOL, SERVER_IP, SERVER_PORT, MEMBER_CODE} from './APIConfig';
 import { message } from 'antd';
 
-// ### 팔로우 가능 캘린더 리스트
-// GET http://localhost:8091/calendar/openCalendarList
-
-// ### 캘린더 상세 조회 한개 조회
-// GET http://localhost:8091/calendar/5
-
-// ### 캘린더 삭제
-// DELETE http://localhost:8091/calendar/delete/5
-
-// ### 대시보드 용 일별 일정 개수 표시
-// GET http://localhost:8091/calendar/summary/2
-
-
 export const getCalendarFindAllAPI = () => {
 
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/list/${MEMBER_CODE}`;
@@ -56,8 +43,6 @@ export const getCalendarListAPI = () => {
 }
 
 export const getCalendarPublicListAPI = () => {
-
-
     
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/openCalendarList/${MEMBER_CODE}`;
 

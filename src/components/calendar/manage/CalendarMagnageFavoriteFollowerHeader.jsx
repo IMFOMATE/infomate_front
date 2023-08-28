@@ -13,7 +13,11 @@ const CalendarMagnageFavoriteFollowerHeader = ({chk, setchk}) => {
             <div className={className}>
                 <div>
                     <div>
-                        <CheckBox isChangeColor={true} checked={chk}  onChange={setchk} />
+                        <CheckBox 
+                            isChangeColor={true} 
+                            checked={chk}  
+                            onChange={setchk} 
+                        />
                     </div>
                     <div>직원 이름(직함)</div>
                     <div>캘린더 이름</div>

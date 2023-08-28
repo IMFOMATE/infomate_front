@@ -12,6 +12,7 @@ import { ScheduleModalProvider, ScheduleProvider } from "../../layouts/CalendarL
 import { useDispatch, useSelector } from "react-redux";
 import { getCalendarFindAllAPI } from '../../apis/CalendarAPICalls';
 import dayjs from "dayjs";
+import utc from 'dayjs/plugin/utc';
 import 'dayjs/locale/ko';
 import { useNavigate } from "react-router-dom";
 import { MenuContext } from "../../context/MenuContext";
@@ -20,6 +21,8 @@ import { FadeLoader } from "react-spinners";
 import { GET_CALENDAR_FINDALL } from "../../modules/CalendarMoudule";
 import StylesLoading from './loadingStyle.module.css';
 import { SummaryCreateModal, SummaryViewModal } from "./ScheduleSummaryModal";
+
+dayjs.extend(utc)
 
 const Calendar = () =>{
 
@@ -69,11 +72,12 @@ const Calendar = () =>{
     },[scheduleReducer])
 
     const calenderClickHandler = data => {
+        console.log(data);
         setSchedule({
             ...schedule, 
             data : {...schedule.data,
                 startDate: dayjs(data.startStr).format('YYYY-MM-DDTHH:mm'),
-                endDate: dayjs(data.endStr).subtract(1,'day').format('YYYY-MM-DDTHH:mm'),
+                endDate: data.view.type === 'dayGridMonth'? dayjs(data.endStr).subtract(1,'d').format('YYYY-MM-DDTHH:mm') : dayjs(data.endStr).format('YYYY-MM-DDTHH:mm'),
             }
         })
         isMobile? navigate('./regist') : setIsModal(true);
@@ -121,8 +125,8 @@ const Calendar = () =>{
             data.filter(item => !filter.includes(item.id))
             .forEach(item1 => {
                 item1 && item1.scheduleList && item1.scheduleList.forEach(item => 
-                        event.push({title: item.title, start:item.startDate,
-                                    end:item.endDate, allDay: item.allDay,
+                        event.push({title: item.title, start:dayjs(item.startDate).format('YYYY-MM-DDTHH:mm:ss'),
+                                    end:dayjs(item.endDate).format('YYYY-MM-DDTHH:mm:ss'), allDay: item.allDay,
                                     color: item1.labelColor, textColor: 'black',
                                     extendedProps: {id:item.id, address: item.address,
                                                     corpSchdl: item.corpSchdl}
@@ -141,7 +145,7 @@ const Calendar = () =>{
 
                     <FullCalendar
                         locale={koLocale}
-                        timeZone={'Asia/Seoul'}
+                        timeZone={'utc'}
                         stickyHeaderDates={true}
                         lazyFetching={true}
                         handleWindowResize={true}

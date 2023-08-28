@@ -18,17 +18,20 @@ const CalendarManagefavoriteModifyMenu = () => {
     const dispatch = useDispatch();
 
     const approvalRequest = () => {
-        const data = chk.selectList.map(item => ({id:item, approvalStatus: 'APPROVAL'}));
+        const data = chk.selectList.map(item => 
+            ({id:item, approvalStatus: 'APPROVAL'}));
         dispatch(patchFavCalendarStateUpdate({data:data}))
     }
 
     const rejectRequest = () => {
-        const data = [...chk.selectList.map(item => item)]
+        const data = [...chk.selectList]
         dispatch(deleteFavCalendar({data:data}))        
     }
 
     const approveRequest = () => {
-        const data = [...chk.selectList.map(item => ({refCalendar: item, memberCode: parseInt(MEMBER_CODE)}))]
+        const data = [...chk.selectList.map(item => 
+            ({refCalendar: item, memberCode: parseInt(MEMBER_CODE)}))
+        ]
         dispatch(postFavCalendarRegit({data:data}))
     }
 

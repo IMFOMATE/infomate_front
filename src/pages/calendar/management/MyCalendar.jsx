@@ -6,6 +6,7 @@ import styles from './myCalendar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { DELETE_CALENDAR, GET_CALENDAR_LIST, PATCH_CALENDAR_UPDATE, POST_CALENDAR_REGIT } from '../../../modules/CalendarMoudule';
 import { getCalendarListAPI, patchCalendarUpdate, patchDefaultCalendarUpdate, postCalendarRegit } from '../../../apis/CalendarAPICalls';
+import { MEMBER_CODE } from '../../../apis/APIConfig';
 
 const MyCalendar = () => {
 
@@ -21,12 +22,16 @@ const MyCalendar = () => {
         dispatch(getCalendarListAPI());
         setSelectItem([]);
         setData({});
-    },[calendarReducer[POST_CALENDAR_REGIT], calendarReducer[PATCH_CALENDAR_UPDATE], calendarReducer[DELETE_CALENDAR]])
+    },[
+        calendarReducer[POST_CALENDAR_REGIT],
+        calendarReducer[PATCH_CALENDAR_UPDATE], 
+        calendarReducer[DELETE_CALENDAR],
+    ])
     
 
     const checkSelectHandler = e => {
         if(selectItem.includes(e.target.id)){
-            setSelectItem([...selectItem.filter(item=>item !== e.target.id)])
+            setSelectItem([...selectItem.filter(item => item !== e.target.id)])
         }else{
             setSelectItem([...selectItem, e.target.id]);
         }
@@ -43,7 +48,6 @@ const MyCalendar = () => {
     const registCalendarHandler = () => {
         dispatch(postCalendarRegit({data: data}));
     }
-
 
     const radioOnChangeHandler = e => {
         dispatch(patchDefaultCalendarUpdate({data: {id:parseInt(e.target.id)}}))
@@ -67,7 +71,8 @@ const MyCalendar = () => {
                     <div className={styles.delete}>
                     </div>
                     {
-                        calendarList?.data.sort((prev, next) => (
+                        calendarList?.data.filter(item => item.memberCode === parseInt(MEMBER_CODE)
+                        ).sort((prev, next) => (
                             prev.indexNo - next.indexNo
                         )).map((item,index) => <MyCalendarItem 
                                                     key={index}

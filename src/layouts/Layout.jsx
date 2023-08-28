@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from "../components/common/Header";
 import {Outlet} from "react-router-dom";
-// import Default from './Default.css'; // app.js에 import 
 import NavStyle from '../components/common/Nav.module.css';
 import MenuBtn from "../components/common/MenuBtn";
 import {CurrentTitleProvider} from "../context/CurrentTitleContext";

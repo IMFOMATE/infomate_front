@@ -73,9 +73,20 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
 
     const changeDateHandler = (e) => {
         if(schedule.data.allDay){
-            setSchedule({...schedule, data:{...schedule.data,  startDate: dayjs(e).format('YYYY-MM-DDTHH:mm:ss')}});
+            setSchedule({
+                ...schedule, 
+                data:{...schedule.data,  
+                    startDate: dayjs(e).format('YYYY-MM-DDTHH:mm:ss')
+                }
+            });
         }else{
-            setSchedule({...schedule, data:{...schedule.data,  startDate: dayjs(e[0]).format('YYYY-MM-DDTHH:mm:ss'), endDate: dayjs(e[1]).format('YYYY-MM-DDTHH:mm:ss')}});
+            setSchedule({
+                ...schedule, 
+                data:{...schedule.data,  
+                    startDate: dayjs(e[0]).format('YYYY-MM-DDTHH:mm:ss'), 
+                    endDate: dayjs(e[1]).format('YYYY-MM-DDTHH:mm:ss')
+                }
+            });
         }
     }
     

@@ -11,14 +11,9 @@ import { getFavCalendarFollwerAPI } from '../../../apis/FavCalendarAPICalls';
 
 const FavoriteCalendarFollower = () => {
     const [search] = useSearchParams();
-    const location = useLocation();
-    const pathNameList = location.pathname.split('/')
-    const favorite = pathNameList[pathNameList.length - 1];
-
-
+    
     const [ selectAll, setSelectAll ] = useState(false);
     const {chk, setChk} = useContext(ManageChkList);
-    const [data, setData] = useState([{}]);
     search.get('page')
 
     
@@ -29,6 +24,9 @@ const FavoriteCalendarFollower = () => {
     useEffect(()=>{
         setChk({...chk, selectList:[]})
         dispatch(getFavCalendarFollwerAPI());
+        return () => {
+            setChk({})
+        }
     },[favCalendarReducer[PATCH_FAV_CALENDAR_STATE_UPDATE], favCalendarReducer[DELETE_FAV_CALENDAR]])
 
 
@@ -41,15 +39,12 @@ const FavoriteCalendarFollower = () => {
         
         setSelectAll(e.target.checked)
     }
-
-    console.log(calendarFollowerList);
     
     return (
         <>
             
             <CalendarMagnageFavoriteFollowerHeader chk={selectAll} setchk={selectItemChange} />
             <br />
-
             {
                 calendarFollowerList && calendarFollowerList.data ?
                 calendarFollowerList.data.map((item, index)=> <CalendarMagnageFavoriteItem

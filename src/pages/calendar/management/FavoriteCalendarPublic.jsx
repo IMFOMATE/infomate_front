@@ -13,11 +13,6 @@ import { POST_FAV_CALENDAR_REGIT } from '../../../modules/FavCalendarMoudule';
 
 const FavoriteCalendarPublic = () => {
     const [search] = useSearchParams();
-    // const location = useLocation();
-    // const pathNameList = location.pathname.split('/')
-    // const favorite = pathNameList[pathNameList.length - 1];
-    // const [data, setData] = useState([{}]);
-    
     
     const [ selectAll, setSelectAll ] = useState(false);
     const {chk, setChk} = useContext(ManageChkList);
@@ -30,9 +25,11 @@ const FavoriteCalendarPublic = () => {
     useEffect(()=>{
         setChk({...chk, selectList:[]})
 
-        
         dispatch(getCalendarPublicListAPI());
         
+        return () => {
+            setChk({})
+        }
     },[favCalendarReducer[POST_FAV_CALENDAR_REGIT]])
 
 
@@ -42,7 +39,6 @@ const FavoriteCalendarPublic = () => {
         }else{
             setChk({...chk, selectList: []})
         }
-        
         setSelectAll(e.target.checked)
     }
     
@@ -62,10 +58,9 @@ const FavoriteCalendarPublic = () => {
                                             calendarName={item?.name}
                                             requestDate={item?.requestDate}
                                             createDate={item?.createDate}
-                                            // state={item?.approvalStatus}
                                             favState={item?.favoriteCalendar[0]?.approvalStatus}
                                     />)
-                : <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
+                : <div className={StylesLoading.loading}> <FadeLoader color="#9F8AFB" /></div>
             }
         </>
     );

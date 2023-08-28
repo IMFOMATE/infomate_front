@@ -19,8 +19,8 @@ export default function Layout() {
                 <MenuContextProvider>
                     <CurrentTitleProvider>
                         <DragAndDropWrapper>
-                            <LayoutContent/>
-                                <CalendarFilterProvider>
+                            <CalendarFilterProvider>
+                                <LayoutContent/>
                             {/*<div className='wrapper'>*/}
                             {/*    <MenuBtn/>*/}
                             {/*    <div className={NavStyle.flex}>*/}
@@ -31,8 +31,8 @@ export default function Layout() {
                             {/*    </div>*/}
                             {/*    <Modal/>*/}
                             {/*</div>*/}
-                                </CalendarFilterProvider>
-                            <LayoutContent/>
+                                <LayoutContent/>
+                            </CalendarFilterProvider>
                         </DragAndDropWrapper>
                     </CurrentTitleProvider>
                 </MenuContextProvider>

@@ -24,7 +24,6 @@ import FavoriteCalendarPublic from './pages/calendar/management/FavoriteCalendar
 import FavoriteCalendarFollower from './pages/calendar/management/FavoriteCalendarFollower';
 import MemberInfo from './pages/manage/MemberInfo';
 import ChartModal from './pages/manage/ChartModal';
-import SecheduleSummaryCreate from "./pages/calendar/ScheduleSummaryCreate";
 import Work from "./pages/work/Work";
 import WkAdmin from "./pages/work/WkAdmin";
 import MyWork from "./pages/work/MyWork";
@@ -81,7 +80,7 @@ function App() {
             <Route path='group'>
               <Route index element={<Group/>}/>
             </Route>
-            
+
             <Route path='/searchDept' element={<SearchDept/>}/>
             <Route path='/' element={<Layout/>}>
             <Route path="/work" element={ <Work />}/>

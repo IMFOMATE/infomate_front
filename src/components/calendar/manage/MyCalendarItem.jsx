@@ -24,7 +24,8 @@ const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
     }
 
     const changeColorHandler = e => {
-        setData({...data, labelColor:e.toHexString()})
+        // setData({...data, labelColor:e.toHexString()})
+        dispatch(patchCalendarUpdate({data:{...data, labelColor:e.toHexString()}}));
     }
     const updateHanlder = () =>{
         if(textModify) {

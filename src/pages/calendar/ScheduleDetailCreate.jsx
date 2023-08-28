@@ -178,13 +178,9 @@ const ScheduleDetilaCreate = () => {
 
     const deleteScheduleHandler = () => {
         dispatch(deleteSchedule({data: [parseInt(data.data.id)]}))
-
-        if(deleteState.status === 200){
-            navigate('../')
-        }
+        navigate('../')
     }
 
-    console.log(data);
     return (
         <>
         {

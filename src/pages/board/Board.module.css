@@ -15,13 +15,6 @@
     font-weight: 600;
     line-height: normal;
     }
-
-.bd_contain{
-    width: 1200px;
-    height: 823px;
-    flex-shrink: 0;
-    margin-left: 30px;
-    }    
     
     /* 0000년 00월 */
     .bdcalmon {
@@ -43,26 +36,56 @@
     justify-content: center; /* 가로 가운데 정렬 */
     align-items: center; 
     }
-    
-    /* table { */
-    /* border-collapse: collapse; */
-    /* width: 100%;
-    border-bottom: 1px solid #ddd;
-    }
-      
-    th {
-    padding: 8px;
-    text-align: center;
+  
+  .bdtable {
+    /* border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd; */
+    text-align: left;
+    width: 60px;
+    height: flex;
+    border-collapse: collapse;
+    width: 100%;
+    /* border: 1px solid #ddd; */
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+  }
+  
+  .bdtable_th {
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #ddd;
-    }
-    
-    td {
-    padding: 8px;
+    /* text-align: left; */
+    height: 40px;
+    color: #000;
+    /* font-family: Inter; */
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
     text-align: center;
-    border-top: 1px solid #ffffff;
-    border-bottom: 1px solid #ffffff;
-    } */
+    /* border-left: 1px solid none; */
+    /* padding-right: 7px; */
+  }
+  
+  .bdtable_td {
+    border-bottom: 1px solid #ddd;
+    /* border-top: 1px solid #ddd; */
+    /* text-align: left; */
+    height: 40px;
+    color: #000;
+    /* font-family: Inter; */
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
+    /* border-left: 1px solid none; */
+    /* padding-right: 7px; */
+  }
+
+  .bdtable_tr:hover {
+    background-color: #ddd;
+  }
     
     /* 페이지 */
     .pagination {
@@ -189,3 +212,29 @@
       color: white;
       font-weight : 400;
     }
+
+/* 글쓰기 버튼 */
+
+.newpost {
+  color: #7758FA;
+  font-weight: 600;
+  background: none;
+  display: flex;
+  width: 80px;
+  height: 31px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 6px;
+  border: 1px solid #7758FA;
+  transition: 0.4s;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-left: 45px;
+  margin-bottom: 7px;
+}
+
+.newpost:hover {
+  background-color: #7758FA;
+  color: white;
+}

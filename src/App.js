@@ -25,7 +25,6 @@ import ChartModal from './pages/manage/ChartModal';
 import SecheduleSummaryCreate from "./pages/calendar/ScheduleSummaryCreate";
 import Work from "./pages/work/Work";
 import WkAdmin from "./pages/work/WkAdmin";
-import WorkSide from "./pages/work/WorkSide";
 import MyWork from "./pages/work/MyWork";
 import MyDept from "./pages/work/MyDept";
 import Dept from "./pages/work/Dept";
@@ -36,6 +35,7 @@ import Common from "./pages/board/Common";
 import BrdDept from "./pages/board/BrdDept";
 import BrdAdmin from "./pages/board/BrdAdmin";
 import Anony from "./pages/board/Anony";
+import NewPost from "./pages/board/NewPost";
 
 function Test() {
     return null;
@@ -50,7 +50,6 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout />}>
 
-                <Route path="/board" element={<BoardMain/>}></Route>
                 <Route path="approval"/>
             {/* 루트 요청 시 Main으로 이동하도록 설정 */}
             {/* <Route path="/" element={ <Main />}/> */}
@@ -106,14 +105,19 @@ function App() {
                   </Route>
                   <Route path='/searchDept' element={<SearchDept/>}/>
               </Route>
-              <Route path="/work" element={ <Work /> }/>
+
+              <Route path='/' element={<Layout/>}>
+              <Route path="/work" element={ <Work />}/>
               <Route path="/work/admin" element={ <WkAdmin /> }/>
-              <Route path="/work/workside" element={ <WorkSide /> }/>
               <Route path="/work/mywork" element={ <MyWork /> }/>
               <Route path="/work/mydept" element={ <MyDept />}/>
               <Route path="/work/dept" element={ <Dept />}/>
+              </Route>
+
+              <Route path="/" element={<Layout/>}>
               <Route path="/board" element={<BoardMain/>}/>
               <Route path="/board/notice" element={ <Notice />}/>
+              <Route path="/board/newpost" element={ <NewPost />}/>
               <Route path="/board/report" element={ <Report />}/>
               <Route path="/board/menu" element={ <Menu />}/>
               <Route path="/board/common" element={ <Common />}/>
@@ -121,6 +125,7 @@ function App() {
               <Route path="/board/brdadmin" element={ <BrdAdmin />}/>
               <Route path="/board/anony" element={ <Anony />}/>
               {/* <Route path="/board" element={<BoardMain/>}></Route> */}
+              </Route>
         </Routes>
       </BrowserRouter>
     </>

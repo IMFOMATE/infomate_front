@@ -50,7 +50,7 @@ function Notice() {
         <>
 
         <div className={mainCSS.maintitle}>
-        <h2>익명 게시판</h2>
+        <h2>최근 게시글</h2>
         </div>
 
             
@@ -62,7 +62,7 @@ function Notice() {
                       
             <div className={BoardCSS.bdtable}>
                 <colgroup>
-                  <col width="10%" />
+                    <col width="10%" />
                     <col width="60%" />
                     <col width="10%" />
                     <col width="10%" />
@@ -72,7 +72,7 @@ function Notice() {
                     <tr>
                         <th className={BoardCSS.bdtable_th}>No.</th>
                         <th className={BoardCSS.bdtable_th}>제목</th>
-                        <th className={BoardCSS.bdtable_th}></th>
+                        <th className={BoardCSS.bdtable_th}>작성자</th>
                         <th className={BoardCSS.bdtable_th}>작성일</th>
                         <th className={BoardCSS.bdtable_th}>조회수</th>
                     </tr>
@@ -85,7 +85,7 @@ function Notice() {
                         >
                             <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postTitle }</td>
-                            <td className={BoardCSS.bdtable_td}></td>
+                            <td className={BoardCSS.bdtable_td}>{ b.memberCode }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postDate }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
                         </tr>

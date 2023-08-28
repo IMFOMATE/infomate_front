@@ -65,7 +65,8 @@
 
 .textarea:disabled, .input:disabled{
     border: none ;
-    background-color: var(--color-background);
+    /* background-color: var(--color-background); */
+    background-color: white;
     color: black;
     padding: 0;
     

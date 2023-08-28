@@ -70,9 +70,7 @@ const CalendarNav = () => {
         menuState && toggleMenu();
         navigate('/calendar/management/mypage');
     }
-
-    console.log(data);
-    console.log(filter);
+    
     return (
         <div className={styles.container}>
             <div className={NavStyle.sideTop}>

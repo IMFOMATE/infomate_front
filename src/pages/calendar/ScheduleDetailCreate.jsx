@@ -379,7 +379,7 @@ const ScheduleDetilaCreate = () => {
                 <div className={styles.footer}>
                     <div>
                         {
-                            (data.data.calendar.memberCode !== parseInt(MEMBER_CODE) && isDataLoad()) || 
+                            (data?.data?.calendar.memberCode !== parseInt(MEMBER_CODE) && isDataLoad()) || 
                             <ButtonInline 
                                 value={isRead ? '수정': '등록'}
                                 onClick={registScheduleHandler} 
@@ -391,13 +391,13 @@ const ScheduleDetilaCreate = () => {
                     <div>
                         <ButtonInline 
                             isCancel={true} 
-                            value={isDataLoad() && data.data.calendar.memberCode !== parseInt(MEMBER_CODE)? '뒤로가기' : '취소' } 
+                            value={isDataLoad() && data?.data?.calendar.memberCode !== parseInt(MEMBER_CODE)? '뒤로가기' : '취소' } 
                             onClick={registCancle} 
                             style={{width:80, height: 40}}
                         />
                     </div>
                     {   
-                        isDataLoad() && parseInt(data.data.calendar.memberCode) === parseInt(MEMBER_CODE) && 
+                        isDataLoad() && parseInt(data?.data?.calendar.memberCode) === parseInt(MEMBER_CODE) && 
                         <div>
                             <ButtonInline 
                                 isCancel={true} 

@@ -38,10 +38,6 @@ import BrdAdmin from "./pages/board/BrdAdmin";
 import Anony from "./pages/board/Anony";
 import NewPost from "./pages/board/NewPost";
 
-function Test() {
-    return null;
-}
-
 function App() {
   return (
     <>
@@ -77,31 +73,32 @@ function App() {
                 </Route>
               </Route>          
             </Route>
+
             <Route path='group'>
               <Route index element={<Group/>}/>
             </Route>
 
             <Route path='/searchDept' element={<SearchDept/>}/>
-            <Route path='/' element={<Layout/>}>
+            
             <Route path="/work" element={ <Work />}/>
             <Route path="/work/admin" element={ <WkAdmin /> }/>
             <Route path="/work/mywork" element={ <MyWork /> }/>
             <Route path="/work/mydept" element={ <MyDept />}/>
             <Route path="/work/dept" element={ <Dept />}/>
-            </Route>
+            
 
-            <Route path="/" element={<Layout/>}>
-              <Route path="/board" element={<BoardMain/>}/>
-              <Route path="/board/notice" element={ <Notice />}/>
-              <Route path="/board/newpost" element={ <NewPost />}/>
-              <Route path="/board/report" element={ <Report />}/>
-              <Route path="/board/menu" element={ <Menu />}/>
-              <Route path="/board/common" element={ <Common />}/>
-              <Route path="/board/brddept" element={ <BrdDept />}/>
-              <Route path="/board/brdadmin" element={ <BrdAdmin />}/>
-              <Route path="/board/anony" element={ <Anony />}/>
-              {/* <Route path="/board" element={<BoardMain/>}></Route> */}
-            </Route>
+            
+            <Route path="/board" element={<BoardMain/>}/>
+            <Route path="/board/notice" element={ <Notice />}/>
+            <Route path="/board/newpost" element={ <NewPost />}/>
+            <Route path="/board/report" element={ <Report />}/>
+            <Route path="/board/menu" element={ <Menu />}/>
+            <Route path="/board/common" element={ <Common />}/>
+            <Route path="/board/brddept" element={ <BrdDept />}/>
+            <Route path="/board/brdadmin" element={ <BrdAdmin />}/>
+            <Route path="/board/anony" element={ <Anony />}/>
+            {/* <Route path="/board" element={<BoardMain/>}></Route> */}
+          
           </Route>  
         </Routes>
       </BrowserRouter>

@@ -53,8 +53,10 @@ export const postScheduleRegist = ({data}) => {
 
 export const patchScheduleUpdate = ({data}) => {
     data = {...data, memberCode: MEMBER_CODE}
+
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/update`;
     
+    console.log(data);
     
     return async (dispatch, getState) => {
         const result = await axios.patch(requestURL, data, {headers:{"Content-Type":'application/json','Accept':'*/*'}})

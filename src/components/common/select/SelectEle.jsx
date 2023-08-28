@@ -1,7 +1,7 @@
 import styles from './select.module.css';
 
 const SelectEle = (props) => {
-    return (
+    return (<>
         <select
             id={props?.id}
             className={styles.select}
@@ -14,8 +14,13 @@ const SelectEle = (props) => {
             onChange={props?.onChange}
             onClick={props?.onClick}
             >
-            {props?.options?.map((item, index) => <option key={index} value={item.value}>{item.text}</option>)}
+            {props?.options?.map((item, index) => 
+                <option key={index} value={item.value} >
+                    {item.text}
+                </option>
+            )}
         </select>
+        </>
     )
 }
 

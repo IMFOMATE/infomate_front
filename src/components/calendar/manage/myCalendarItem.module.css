@@ -25,7 +25,7 @@
     min-width: 100%;
     display: grid;
     grid-template-columns: 30px auto 70px 100px;
-    column-gap: 10px;
+    column-gap: 20px;
     align-self: center;
     align-items: center;
     padding-top: 15px;

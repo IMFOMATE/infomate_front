@@ -19,15 +19,16 @@ import { patchScheduleUpdate } from "../../apis/ScheduleAPICalls";
 import { FadeLoader } from "react-spinners";
 import { GET_CALENDAR_FINDALL } from "../../modules/CalendarMoudule";
 import StylesLoading from './loadingStyle.module.css';
-import SecheduleSummaryCreate from "./ScheduleSummaryCreate";
+import { SummaryCreateModal, SummaryViewModal } from "./ScheduleSummaryModal";
 
 const Calendar = () =>{
 
     const containerRef = createRef();
 
     const [mode, setMode] = useState('create');
-
+    const [offset, setOffset] = useState({x:0, y:0, yName:'top', xName:'left'})
     const [innerSize, setInnerSize] = useState();
+    const [viewModal, setViewModal] = useState(false);
 
     const {isModal, setIsModal} = useContext(ScheduleModalProvider);
     const {filter, setFilter} = useContext(CalendarFilterContext);
@@ -68,7 +69,6 @@ const Calendar = () =>{
     },[scheduleReducer])
 
     const calenderClickHandler = data => {
-
         setSchedule({
             ...schedule, 
             data : {...schedule.data,
@@ -76,19 +76,31 @@ const Calendar = () =>{
                 endDate: dayjs(data.endStr).subtract(1,'day').format('YYYY-MM-DDTHH:mm'),
             }
         })
-
         isMobile? navigate('./regist') : setIsModal(true);
-        
 
+        ChangeModalOffset(data.jsEvent)
     };
 
+    const hoverEventHandler = data => {
+        ChangeModalOffset(data.jsEvent)
+    }
+    
+    const ChangeModalOffset = (offset) =>{
+        setOffset({...offset, 
+            y: (offset.y + 180 + 330 >= window.innerHeight ? 0 : offset.y + 180),
+            yName: (offset.y + 180 + 330 >= window.innerHeight ? 'bottom' : 'top'),
+            x: (offset.x + 275 + 330 >= window.innerWidth ? 0 : offset.x + 275),
+            xName: (offset.x + 275 + 330 >= window.innerWidth ? 'right' : 'left')
+           })
+    }
+    
     const modalOutClickHandler = e => {
         if(modalRef.current === e.target){
             setIsModal(false);
             setMode('create');
-        }
-        
+        }   
     }
+
     const eventClickHandler = e => {  
         menuState && toggleMenu();
         navigate(`./regist?scheduleId=${e.event.extendedProps.id}&isread=true`);
@@ -98,9 +110,9 @@ const Calendar = () =>{
         const data = {
             id: e.event.extendedProps.id,
             startDate: dayjs(e.event.startStr).format('YYYY-MM-DDTHH:mm:ss'),
-            endDate:dayjs(e.event.endStr).format('YYYY-MM-DDTHH:mm:ss')
+            endDate: dayjs(e.event.endStr === ''? e.event.startStr : e.event.endStr)
+                        .format('YYYY-MM-DDTHH:mm:ss')
         }
-
         dispatch(patchScheduleUpdate({data}));
     }
 
@@ -119,6 +131,7 @@ const Calendar = () =>{
             })
         return event;
     }
+    
 
     return (
         <>  
@@ -173,18 +186,27 @@ const Calendar = () =>{
                         select={calenderClickHandler}
                         eventClick={eventClickHandler}
                         eventDrop={eventDrop}
+                        eventMouseEnter={hoverEventHandler}
+                        eventMouseLeave={hoverEventHandler}
                     />
                     : <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
                 }
                 {
-                    isModal && 
+                    isModal && !viewModal && 
                     <div ref={modalRef} className={styles.modalBg} onClick={modalOutClickHandler}>
-                        <div className={styles.modal}>
-                            <SecheduleSummaryCreate modal={isModal} setIsModal={setIsModal} mode={mode} setMode={setMode} />
+                        <div className={styles.modal} style={{[offset.yName]: offset.y , [offset.xName]: offset.x}}>
+                            <SummaryCreateModal modal={isModal} setIsModal={setIsModal} mode={mode} setMode={setMode} />
                         </div>
                     </div>
                 }
-                
+                {
+                    viewModal && !isModal &&
+                    <div ref={modalRef} className={styles.modalBg} onClick={modalOutClickHandler}>
+                        <div className={styles.modal} style={{[offset.yName]: offset.y , [offset.xName]: offset.x}}>
+                            <SummaryViewModal modal={viewModal} setIsModal={setViewModal} data={data} />
+                        </div>
+                    </div>
+                }
             </div>
         </>
     )

@@ -1,6 +1,7 @@
 
 import axios from 'axios';
 import { 
+    DELETE_CALENDAR,
     GET_CALENDAR_FINDALL,
     GET_CALENDAR_LIST,
     PATCH_CALENDAR_UPDATE,
@@ -107,5 +108,22 @@ export const patchDefaultCalendarUpdate = ({data}) => {
         }
         
         message.success('수정에 실패했습니다.');
+    };
+}
+
+export const deleteCalendar = ({data}) => {    
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/delete`;
+    return async (dispatch, getState) => {
+        const result = await axios.delete(requestURL, {data}, {headers:{"Content-Type":'application/json',Accept:'*/*'}})
+                    .then(res => res.data)
+                    .catch(e => console.log(e));
+        
+        if(result.status === 200){
+            message.success('캘린더가 정상적으로 삭제되었습니다,');
+            dispatch({ type: DELETE_CALENDAR,  payload: result });
+            return ;
+        }
+        
+        message.success('삭제에 실패했습니다.');
     };
 }

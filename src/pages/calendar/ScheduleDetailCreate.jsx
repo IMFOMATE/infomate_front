@@ -207,7 +207,7 @@ const ScheduleDetilaCreate = () => {
                                         className={antdStyels['ant-picker-focused']}
                                         name='RangeDate'
                                         locale={locale}
-                                        format={'YYYY-MM-DD HH:mm'}
+                                        format={'YYYY-MM-DD'}
                                         size='middle'
                                         style={{width:'100%', borderRadius:5 }}
                                         showTime={{ format: 'HH:mm' }}

@@ -3,7 +3,7 @@ import ButtonInline from '../../components/common/button/ButtonInline';
 import CheckBox from '../../components/common/input/CheckBox';
 import InputEle from '../../components/common/input/Input';
 import SelectEle from '../../components/common/select/SelectEle';
-import styles from './scheduleSummary.module.css';
+import styles from './scheduleSummaryModal.module.css';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import { ScheduleModalProvider, ScheduleProvider } from '../../layouts/CalendarLayout';
@@ -18,7 +18,7 @@ import { DatePicker } from 'antd';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
 import { MEMBER_CODE } from '../../apis/APIConfig';
 
-const SecheduleSummaryCreate = ({modal, setModal, mode, setMode}) => {
+export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
     
     const { RangePicker } = DatePicker;
     const {schedule, setSchedule} = useContext(ScheduleProvider);
@@ -113,7 +113,7 @@ const SecheduleSummaryCreate = ({modal, setModal, mode, setMode}) => {
                                     className={antdStyels['ant-picker-focused']}
                                     name='RangeDate'
                                     locale={locale}
-                                    format={'YYYY-MM-DD HH:mm'}
+                                    format={'YYYY-MM-DD'}
                                     size='middle'
                                     style={{width:'100%', borderRadius:5 }}
                                     showTime={{ format: 'HH:mm' }}
@@ -161,7 +161,7 @@ const SecheduleSummaryCreate = ({modal, setModal, mode, setMode}) => {
                                     item.departmentCode !== 0 && item.memberCode === MEMBER_CODE
                                 )).sort((prev, next) => prev.indexNo - next.indexNo
                                 ).map(item => (
-                                    {value: item.id, text: item.name})
+                                    {value: item.id, text: item.name, color: item.labelColor})
                                 )}
                                 onChange={scheduleChangeHanlder}
                                 // disabled={isEleDisabled()}
@@ -218,6 +218,12 @@ const SecheduleSummaryCreate = ({modal, setModal, mode, setMode}) => {
         </>
     );
 }
-    
 
-export default SecheduleSummaryCreate;
+
+export const SummaryViewModal = () => {
+    return (
+        <>
+        
+        </>
+    )
+}

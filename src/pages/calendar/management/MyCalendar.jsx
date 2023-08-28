@@ -4,7 +4,7 @@ import MyCalendarItem from '../../../components/calendar/manage/MyCalendarItem'
 
 import styles from './myCalendar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { GET_CALENDAR_LIST, PATCH_CALENDAR_UPDATE, POST_CALENDAR_REGIT } from '../../../modules/CalendarMoudule';
+import { DELETE_CALENDAR, GET_CALENDAR_LIST, PATCH_CALENDAR_UPDATE, POST_CALENDAR_REGIT } from '../../../modules/CalendarMoudule';
 import { getCalendarListAPI, patchCalendarUpdate, patchDefaultCalendarUpdate, postCalendarRegit } from '../../../apis/CalendarAPICalls';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,7 +22,7 @@ const MyCalendar = () => {
         dispatch(getCalendarListAPI());
         setSelectItem([]);
         setData({});
-    },[calendarReducer[POST_CALENDAR_REGIT], calendarReducer[PATCH_CALENDAR_UPDATE]])
+    },[calendarReducer[POST_CALENDAR_REGIT], calendarReducer[PATCH_CALENDAR_UPDATE], calendarReducer[DELETE_CALENDAR]])
     
 
     const checkSelectHandler = e => {

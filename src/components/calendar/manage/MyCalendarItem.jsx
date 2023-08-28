@@ -7,7 +7,7 @@ import icon from '../../common/meterialIcon.module.css'
 import { useState } from 'react';
 import { ColorPicker } from 'antd';
 import { useDispatch } from 'react-redux';
-import { patchCalendarUpdate } from '../../../apis/CalendarAPICalls';
+import { deleteCalendar, patchCalendarUpdate } from '../../../apis/CalendarAPICalls';
 
 
 const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
@@ -34,21 +34,29 @@ const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
         setTextModify(!textModify);
     }
 
+    const deleteHandler = e => {
+        dispatch(deleteCalendar({data: [parseInt(e.target.id)]}))
+
+    }
+
     return (
         <div className={styles.item}>
-            <div style={{textAlign: 'center'}}>
-                <CheckBox
+            <div style={{textAlign: 'center'} }>
+                {/* <CheckBox
                     id={id}
                     isChangeColor={true}
                     defaultChecked={isDefaultCheck}
                     // value={}
                     onChange={chkOnChange}
                     style={{height:20, width:20}}
+                /> */}
+                <ColorPicker
+                        value={data?.labelColor || defaultColorValue}
+                        onChangeComplete={changeColorHandler}
                 />
             </div>
             <div>
                 <div className={styles.itemFont}>
-
                     <InputEle
                         name='name'
                         value={ data?.name !== undefined? data?.name : textValue}
@@ -57,18 +65,23 @@ const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
                         disabled={!textModify}
                     />
 
-                    <ColorPicker
-                        value={data?.labelColor || defaultColorValue}
-                        onChangeComplete={changeColorHandler}
-                    />
-
                     <button
                         className={icon.meterialIcon}
                         style={{color:'var(--color-middle)', display:'inline'}}
                         onClick={updateHanlder}>
                         {textModify? 'save': 'edit'}
+                    </button>    
+
+                    
+                    <button
+                        id={id}
+                        className={icon.meterialIcon}
+                        style={{color:'var(--color-middle)', display:'inline'}}
+                        onClick={deleteHandler}>
+                        delete
                     </button>
                 </div>
+                    
             </div>
             <div>
                <RadioInput 

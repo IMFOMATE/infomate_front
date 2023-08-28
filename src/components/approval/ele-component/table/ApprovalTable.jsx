@@ -28,7 +28,7 @@ function TableHeader(){
 
 function ApprovalTable({title, data}) {
 
-  if(data === null || []){
+  if(!data || !Array.isArray(data)){
     return (
       <>
         <table className={ApprovalTableCss.list_approval}>
@@ -49,7 +49,7 @@ function ApprovalTable({title, data}) {
           <TableHeader/>
           <tbody>
           {
-            data.map((value, index) => <TrData key={index} list={value}/>)
+              data?.map((list, index)=> <TrData key={index} list={list}/>)
           }
           </tbody>
         </table>

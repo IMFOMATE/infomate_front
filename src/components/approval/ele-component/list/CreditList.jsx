@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 function CreditList({data}) {
 
-  if (data === null || []){
+  if (!data){
     return (
         <div>
           기안할 문서가 없습니다.

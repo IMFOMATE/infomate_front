@@ -15,8 +15,9 @@ export const getMainAPI = ({memberCode}) => {
         .catch(err => console.log(err));
 
 
+    console.log(result)
     if(result.status === 200){
-      dispatch({type: GET_DOCUMENT_MAIN, payload: result.data});
+      dispatch({type: GET_DOCUMENT_MAIN, payload: result});
     }
 
   };
@@ -33,9 +34,8 @@ export const getApprovalList = ({memberCode}) => {
         .then(res => res.data)
         .catch(err => console.log(err));
 
-    console.log(result)
     if(result.status === 200){
-      dispatch({type: GET_DOCUMENT_MAIN, payload: result.data});
+       dispatch({type: GET_DOCUMENT_MAIN, payload: result.data});
     }
 
   };

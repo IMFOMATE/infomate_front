@@ -9,17 +9,13 @@ const ApprovalMain = () => {
 
   const dispatch = useDispatch();
   const documentData = useSelector(state => state.documentsReducer);
-  const [ data, setData ] = useState(documentData);
+  const data = documentData.data;
 
 
   useEffect(() => {
         dispatch(getMainAPI({memberCode:2}));
-        console.log(documentData)
-        setData(documentData);
-      },
-      [data]
+      },[]
   );
-  console.log(data)
 
 
   return (
@@ -27,9 +23,9 @@ const ApprovalMain = () => {
       <div className={mainCss.maintitle}>
         <h2>전자결재 홈</h2>
       </div>
-        <ApprovalTop data={documentData.creditList}/>
-        <ApprovalTable title='기안문서' data={documentData.approvalList}/>
-        <ApprovalTable title='참조문서' data={documentData.refList}/>
+        <ApprovalTop data={data?.creditList}/>
+        <ApprovalTable title='기안문서' data={data?.approvalList}/>
+        <ApprovalTable title='참조문서' data={data?.refList}/>
     </>
   );
 };

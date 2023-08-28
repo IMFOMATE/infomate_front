@@ -1,11 +1,15 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ApprovalTableCss from "./ApprovalTable.module.css";
 import ApprovalTable from "./ApprovalTable";
+import {useDispatch} from "react-redux";
+import {GET_DOCUMENT_APRPROVALLIST} from "../../../../modules/approval/DocumentModuels";
 
 // import ToolBarCss from './Toolbar.module.css';
 
 
-function ToolbarApprovalTable() {
+function ToolbarApprovalTable({documentData}) {
+  const dispatch = useDispatch();
+
 
   /*effect이용하긴해야되는데*/
 
@@ -24,7 +28,12 @@ function ToolbarApprovalTable() {
     setFilter(selectedFilter === filter ? '' : selectedFilter);
   };
 
-  const filteredData = filter === '' ? testinit.docList : testinit.docList.filter((f) => f.status === filter);
+  const filteredData = filter === '' ? documentData?.data : documentData?.data.filter((f) => f.status === filter);
+
+  useEffect(() => {
+    dispatch({type: GET_DOCUMENT_APRPROVALLIST,payload:[]})
+  },[]);
+
 
   return (
     <div className={ApprovalTableCss.container}>
@@ -43,31 +52,10 @@ function ToolbarApprovalTable() {
         }
       </ul>
       <ApprovalTable data={filteredData}/>
+
+      {/*페이징*/}
     </div>
   );
 }
 
 export default ToolbarApprovalTable;
-
-const testinit = {
-
-  docList: [
-    {
-      no: '111',
-      isAlert: true,
-      status: 'WAITING',
-      docTitle: '테스트 문서입니다.',
-      createDate: '2023-08-08',
-      writer: '주진선'
-    },
-    {
-      no: '112',
-      isAlert: false,
-      status: 'WAITING',
-      docTitle: '테스트 문서입니다.',
-      createDate: '2023-08-08',
-      writer: '주진선'
-    },
-
-  ],
-};

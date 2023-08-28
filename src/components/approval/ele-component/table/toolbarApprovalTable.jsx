@@ -1,15 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import ApprovalTableCss from "./ApprovalTable.module.css";
 import ApprovalTable from "./ApprovalTable";
-import {useDispatch} from "react-redux";
-import {GET_DOCUMENT_APRPROVALLIST} from "../../../../modules/approval/DocumentModuels";
 
 // import ToolBarCss from './Toolbar.module.css';
 
 
 function ToolbarApprovalTable({documentData}) {
-  const dispatch = useDispatch();
-
 
   /*effect이용하긴해야되는데*/
 
@@ -31,8 +27,20 @@ function ToolbarApprovalTable({documentData}) {
   const filteredData = filter === '' ? documentData?.data : documentData?.data.filter((f) => f.status === filter);
 
   useEffect(() => {
-    dispatch({type: GET_DOCUMENT_APRPROVALLIST,payload:[]})
-  },[]);
+    // dispatch({type: GET_DOCUMENT_APRPROVALLIST,payload:[]})
+
+    setFilter('')
+  }, []);
+
+
+  // useEffect(() => {
+  //   if (filter === '') {
+  //     setFilter(documentData?.data || []);
+  //   } else {
+  //     const newData = documentData?.data.filter((item) => item.status === filter);
+  //     setFilter(newData);
+  //   }
+  // }, [filter, documentData]);
 
 
   return (

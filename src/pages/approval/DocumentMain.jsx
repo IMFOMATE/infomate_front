@@ -5,11 +5,13 @@ import Payment from "../../components/approval/ele-component/document/Payment";
 import Vacation from "../../components/approval/ele-component/document/Vacation";
 import Draft from "../../components/approval/ele-component/document/Draft";
 import styles from './DocumentMain.module.css';
+import {DraftDataProvider} from "../../context/approval/DraftDataContext";
+import {PaymentDataProvider} from "../../context/approval/PaymentDataContext";
+import {VacationProvider} from "../../context/approval/VacationDataContext";
 
 function DocumentMain() {
   const location = useLocation();
   const {name, type} = location.state;
-  console.log(type);
   return (
       <>
         <div className={mainCss.maintitle}>
@@ -17,12 +19,11 @@ function DocumentMain() {
         </div>
         <div className={styles.doc_wrapper}>
           {
-              (type === 'payment' && <Payment/>) ||
-              (type === 'draft' && <Draft/>) ||
-              (type === 'vacation' && <Vacation/>)
+              (type === 'payment' && <PaymentDataProvider><Payment/></PaymentDataProvider>) ||
+              (type === 'draft' && <DraftDataProvider><Draft/></DraftDataProvider>) ||
+              (type === 'vacation' && <VacationProvider><Vacation/></VacationProvider>)
           }
         </div>
-
       </>
   );
 }

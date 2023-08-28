@@ -1,0 +1,21 @@
+.toolbar{
+  display: flex;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.active{
+  display: block;
+}
+
+.none{
+  display: none;
+}
+
+.toolbar_list{
+  cursor: pointer;
+  padding: 10px;
+}
+
+.li_act {
+  border-bottom: 3px solid var(--color-hard);
+}

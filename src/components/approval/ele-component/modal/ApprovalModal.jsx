@@ -7,6 +7,9 @@ import ApprovalTreeView from "../treeview/ApprovalTreeView";
 import Swal from "sweetalert2";
 import {useDraftDataContext} from "../../../../context/approval/DraftDataContext";
 import RefTreeView from "../treeview/RefTreeView";
+import {usePaymentDataContext} from "../../../../context/approval/PaymentDataContext";
+import {useVacationDataContext} from "../../../../context/approval/VacationDataContext";
+import {contextMappings} from "../../../../context/contextMappings";
 
 
 const SampleData =
@@ -107,9 +110,11 @@ const SampleData =
     }
 ];
 
-function ApprovalModal({modalData , toggleModal}) {
 
-    const {data, setData} = useDraftDataContext();
+function ApprovalModal({contextType, modalData , toggleModal}) {
+    const selectedContext = contextMappings[contextType]();
+
+    const { data, setData } = selectedContext;
     const {approvalList} = data;
     const [open, setOpen] = useState('first');
 
@@ -130,11 +135,10 @@ function ApprovalModal({modalData , toggleModal}) {
 
     useEffect(() => {
         if (approvalList.length > 4) {
-            Swal.fire(
-                'The Internet?',
-                'That thing is still around?',
-                'question'
-            )
+            Swal.fire({
+                icon: 'error',
+                text: '결재선은 4명이상 선택할 수 없습니다'
+            })
             setData(prev=>({...prev,approvalList:[...approvalList.slice(0, approvalList.length - 1)]}))
         }
     }, [approvalList]);
@@ -158,10 +162,10 @@ function ApprovalModal({modalData , toggleModal}) {
                                 <li onClick={()=>toggle('second')} className={`${approvalmodal.toolbar_list} ${open === 'second' ? approvalmodal.li_act : ''}`}>참조자</li>
                             </ul>
                             <div className={`${styles.content} ${open ==='first'? approvalmodal.active : approvalmodal.none}`}>
-                                <ApprovalTreeView element={'approvalList'} modalData={SampleData}/>
+                                <ApprovalTreeView contextType={contextType} modalData={SampleData}/>
                             </div>
                             <div className={`${styles.content} ${open ==='second'? approvalmodal.active : approvalmodal.none}`}>
-                                <RefTreeView modalData={SampleData}/>
+                                <RefTreeView contextType={contextType} modalData={SampleData}/>
                             </div>
                             <div className={styles.button}>
                                 <ButtonOutline style={style} value="확인" onClick={confirm}/>

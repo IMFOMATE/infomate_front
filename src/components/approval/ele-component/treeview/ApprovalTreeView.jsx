@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./TreeView.module.css";
 import tableStyle from '../table/ApprovalTable.module.css';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
@@ -7,13 +7,13 @@ import {
 } from "@minoru/react-dnd-treeview";
 import {SelectCustomNode} from "./nodes/SelectCustomNode";
 import {CustomDragPreview} from "./CustomDragPreview";
-import Swal from 'sweetalert2';
-import {useDraftDataContext} from "../../../../context/approval/DraftDataContext";
+import {contextMappings} from "../../../../context/contextMappings";
 
 
-function ApprovalTreeView({modalData}) {
+function ApprovalTreeView({modalData, contextType}) {
 
-  const {data, setData} = useDraftDataContext();
+  const selectedContext = contextMappings[contextType]();
+  const { data, setData } = selectedContext;
   const { approvalList } = data;
 
 

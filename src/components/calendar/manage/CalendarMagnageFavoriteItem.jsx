@@ -1,17 +1,17 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import CheckBox from '../../common/input/CheckBox';
 import styles from './calendarMagnageFavoriteFollowerHeader.module.css'
 import { ManageChkList } from '../../../layouts/FavoriteCalendarLayout';
+import dayjs from 'dayjs';
 
-
-const STATUS = { 
+export const FAV_CALENDAR_APPROVAL_STATUS = { 
     REJECT: '거절',
     CANCEL: '취소',
     WAIT: '승인대기',
     APPROVAL:  '승인',
 }
 
-const CalendarMagnageFavoriteItem = ({id, memberName, calendarName, requestDate, rank, state}) => {
+const CalendarMagnageFavoriteItem = ({id, memberName, calendarName, requestDate, createDate, rank, state, favState}) => {
     
     const className  = [styles.fowHdGrid].join(' ');
 
@@ -37,10 +37,10 @@ const CalendarMagnageFavoriteItem = ({id, memberName, calendarName, requestDate,
                 </div>
                 <div>{`${memberName}(${rank})`}</div>
                 <div>{calendarName}</div>
-                <div>{requestDate}</div>
+                <div>{dayjs(requestDate || createDate).format('YYYY-MM-DD')}</div>
             </div>
             <div>
-                <div>{STATUS[state]}</div>
+                <div>{FAV_CALENDAR_APPROVAL_STATUS[state || favState]}</div>
             </div>
         </div>
     )

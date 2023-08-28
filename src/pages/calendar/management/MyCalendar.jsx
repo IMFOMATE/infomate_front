@@ -6,7 +6,6 @@ import styles from './myCalendar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { DELETE_CALENDAR, GET_CALENDAR_LIST, PATCH_CALENDAR_UPDATE, POST_CALENDAR_REGIT } from '../../../modules/CalendarMoudule';
 import { getCalendarListAPI, patchCalendarUpdate, patchDefaultCalendarUpdate, postCalendarRegit } from '../../../apis/CalendarAPICalls';
-import { useNavigate } from 'react-router-dom';
 
 const MyCalendar = () => {
 
@@ -66,7 +65,6 @@ const MyCalendar = () => {
                 </div>
                 <div>
                     <div className={styles.delete}>
-                        <div>container</div>
                     </div>
                     {
                         calendarList?.data.sort((prev, next) => (

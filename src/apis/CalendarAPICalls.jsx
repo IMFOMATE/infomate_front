@@ -3,6 +3,7 @@ import axios from 'axios';
 import { 
     DELETE_CALENDAR,
     GET_CALENDAR_FINDALL,
+    GET_CALENDAR_FIND_ALL_PUBLIC,
     GET_CALENDAR_LIST,
     PATCH_CALENDAR_UPDATE,
     POST_CALENDAR_REGIT,
@@ -54,6 +55,23 @@ export const getCalendarListAPI = () => {
     };
 }
 
+export const getCalendarPublicListAPI = () => {
+
+
+    
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/openCalendarList/${MEMBER_CODE}`;
+
+    return async (dispatch, getState) => {
+        const result = await axios.get(requestURL)
+                    .then(res => res.data)
+                    
+        if(result.status === 200) {
+            dispatch({ type: GET_CALENDAR_FIND_ALL_PUBLIC,  payload: result });
+            return ;
+        }
+    };
+}
+
 export const postCalendarRegit = ({data}) => {
 
     data = {...data, memberCode: MEMBER_CODE};
@@ -64,7 +82,7 @@ export const postCalendarRegit = ({data}) => {
                     .then(res => res.data)
         
         if(result.status === 200){
-            message.success('등록에 성공했습니다.');
+            message.success(result.message);
             dispatch({ type: POST_CALENDAR_REGIT,  payload: result });
             return ;
         }
@@ -82,7 +100,7 @@ export const patchCalendarUpdate = ({data}) => {
                     .catch(e => console.log(e));
         
         if(result.status === 200){
-            message.success('수정에 성공했습니다.');
+            message.success(result.message);
             dispatch({ type: PATCH_CALENDAR_UPDATE,  payload: result });
             return ;
         }
@@ -102,12 +120,12 @@ export const patchDefaultCalendarUpdate = ({data}) => {
                     .catch(e => console.log(e));
         
         if(result.status === 200){
-            message.success('기본 캘린더가 변경되었습니다.');
+            message.success(result.message);
             dispatch({ type: PATCH_CALENDAR_UPDATE,  payload: result });
             return ;
         }
         
-        message.success('수정에 실패했습니다.');
+        message.error('수정에 실패했습니다.');
     };
 }
 
@@ -119,11 +137,11 @@ export const deleteCalendar = ({data}) => {
                     .catch(e => console.log(e));
         
         if(result.status === 200){
-            message.success('캘린더가 정상적으로 삭제되었습니다,');
+            message.success(result.message);
             dispatch({ type: DELETE_CALENDAR,  payload: result });
             return ;
         }
         
-        message.success('삭제에 실패했습니다.');
+        message.error('삭제에 실패했습니다.');
     };
 }

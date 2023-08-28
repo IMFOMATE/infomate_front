@@ -82,7 +82,7 @@ const Calendar = () =>{
     };
 
     const hoverEventHandler = data => {
-        ChangeModalOffset(data.jsEvent)
+        // ChangeModalOffset(data.jsEvent)
     }
     
     const ChangeModalOffset = (offset) =>{
@@ -187,7 +187,7 @@ const Calendar = () =>{
                         eventClick={eventClickHandler}
                         eventDrop={eventDrop}
                         eventMouseEnter={hoverEventHandler}
-                        eventMouseLeave={hoverEventHandler}
+                        // eventMouseLeave={hoverEventHandler}
                     />
                     : <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
                 }

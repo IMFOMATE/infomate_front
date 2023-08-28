@@ -56,8 +56,6 @@ export const patchScheduleUpdate = ({data}) => {
 
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/update`;
     
-    console.log(data);
-    
     return async (dispatch, getState) => {
         const result = await axios.patch(requestURL, data, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
                         .then(res => res)
@@ -66,9 +64,9 @@ export const patchScheduleUpdate = ({data}) => {
         if(result.status === 200){
             message.success("일정이 변경 되었습니다.")
             dispatch({ type: PATCH_SCHEDULE,  payload: result});
-            return ;
-        } 
-        
+            return;
+        }
+    
         message.error("변경에 실패 했습니다")
     
     };

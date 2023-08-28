@@ -1,4 +1,3 @@
-import { useContext, useEffect } from 'react';
 import CheckBox from '../../common/input/CheckBox';
 import CalendarManagefavoriteModifyMenu from './CalendarManagefavoriteModifyMenu';
 import styles from './calendarMagnageFavoriteFollowerHeader.module.css'

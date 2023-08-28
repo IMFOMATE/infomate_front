@@ -18,8 +18,11 @@ import Group from './pages/manage/Group';
 // import SearchDept from './pages/manage/SearchDept';
 import './layouts/Default.css';
 import CalendarLayout from './layouts/CalendarLayout';
-import FavoriteCalendarBody from './pages/calendar/management/FavoriteCalendarBody';
 import Calendar from './pages/calendar/Calendar';
+import FavoriteCalendarFollowing from './pages/calendar/management/FavoriteCalendarFollowing';
+import FavoriteCalendarPublic from './pages/calendar/management/FavoriteCalendarPublic';
+import FavoriteCalendarFollower from './pages/calendar/management/FavoriteCalendarFollower';
+
 
 
 
@@ -64,8 +67,9 @@ function App() {
                 <Route path="myPage" element={<MyCalendar />}/> 
                 <Route path="favorite" element={<FavoriteCalendarLayout />}>
                   <Route index element={<FavoriteCalendarLayout />} />
-                  <Route path="following" element={<FavoriteCalendarBody />} />
-                  <Route path="follower" element={<FavoriteCalendarBody />} />
+                  <Route path="following" element={<FavoriteCalendarFollowing />} />
+                  <Route path="follower" element={<FavoriteCalendarFollower />} />
+                  <Route path="public" element={<FavoriteCalendarPublic />} />
                 </Route>
               </Route>          
             </Route>

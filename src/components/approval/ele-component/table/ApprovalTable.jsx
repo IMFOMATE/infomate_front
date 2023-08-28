@@ -28,7 +28,7 @@ function TableHeader(){
 
 function ApprovalTable({title, data}) {
 
-  if(data.length < 1){
+  if(data === null || []){
     return (
       <>
         <table className={ApprovalTableCss.list_approval}>

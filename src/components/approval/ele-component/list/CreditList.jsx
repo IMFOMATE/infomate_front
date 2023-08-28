@@ -4,12 +4,20 @@ import {Link} from "react-router-dom";
 
 function CreditList({data}) {
 
+  if (data === null || []){
+    return (
+        <div>
+          기안할 문서가 없습니다.
+        </div>
+    )
+  }
+
   return (
     data.map(d =>
     <div key={d.num} className={CreditListCss.approvalList}>
       <div className={CreditListCss.content}>
         <div>
-          {d.isAlert ?
+          {d.emergency === 'Y' ?
             <span className={CreditListCss.alert}>
             긴급
             </span>
@@ -17,14 +25,14 @@ function CreditList({data}) {
           }
           <span className={CreditListCss.status}>{d.status}</span>
         </div>
-        <p className={CreditListCss.docNum}>{`문서번호-${d.num}`}</p>
-        <h2 className={CreditListCss.title}>{d.docTitle}</h2>
+        <p className={CreditListCss.docNum}>{`문서번호-${d.id}`}</p>
+        <h2 className={CreditListCss.title}>{d.title}</h2>
         <div className={CreditListCss.subContent}>
-          <p className={CreditListCss.date}>{d.createDate}</p>
-          <p>{`기안자 ${d.writer}`}</p>
+          <p className={CreditListCss.date}>{d.createdDate}</p>
+          <p>{`기안자 ${d.auth}`}</p>
         </div>
       </div>
-      <Link className={CreditListCss.go} to={`document/${d.num}`}>
+      <Link className={CreditListCss.go} to={`document/${d.id}`}>
         결재하기
       </Link>
     </div>)

@@ -1,7 +1,7 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext } from 'react';
 import Navbar from "./Navbar";
 import NavStyle from './Nav.module.css';
-import Board from "../../pages/board/Board";
+import Board from "../board/BoardNav";
 import ApprovalNav from "../approval/ApprovalNav";
 import {CurrentTitleContext} from "../../context/CurrentTitleContext";
 import HomeNav from "../../pages/home/HomeNav";
@@ -9,8 +9,8 @@ import {MenuContext} from "../../context/MenuContext";
 import CalendarNav from '../../pages/calendar/CalendarNav';
 import GroupNav from '../../pages/manage/GroupNav';
 import ContactNav from "../contact/ContactNav"
-import { useLocation, useParams } from 'react-router-dom';
-import { CalendarListProvider } from '../../context/CalendarContext';
+import { useLocation } from 'react-router-dom';
+import WorkNav from '../../pages/work/WorkNav';
 
 
 
@@ -29,6 +29,7 @@ function Header() {
                 currentTitle === 'Home' && <HomeNav/> ||
                 currentTitle === 'Board' && <Board/> ||
                 currentTitle === 'Approval' && <ApprovalNav/> ||
+                currentTitle === 'Work' && <WorkNav/> ||
                 currentTitle === 'Group' && <GroupNav/> ||
                 currentTitle === 'Contact' && <ContactNav /> ||
                 currentTitle === 'Schedule' && <CalendarNav/>

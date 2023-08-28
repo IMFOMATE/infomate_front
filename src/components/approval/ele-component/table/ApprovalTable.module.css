@@ -9,10 +9,20 @@
     table-layout: fixed;
 }
 
+.list_thead{
+    background-color: var(--color-border);
+    text-align: center;
+}
+
 .list_tr{
     border-bottom: 1px solid var(--color-border);
     transition: 0.3s;
 }
+
+.list_tr1{
+    font-weight: 600;
+}
+
 
 .list_tr:hover{
     background-color: var(--color-border);
@@ -22,7 +32,12 @@
     padding: 10px;
 }
 
-.list_th:last-child, td:last-child{
+.list_td2 {
+    padding: 5px;
+}
+
+
+.last {
     text-align: right;
 }
 

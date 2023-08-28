@@ -31,6 +31,7 @@ export const callRegistAPI = ({form}) => {
         
         if(result.status === 201) {
             alert('연락처 추가 성공')
+
             dispatch({ type: POST_REGISTER,  payload: result });
         }
 

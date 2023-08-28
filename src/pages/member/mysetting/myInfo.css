@@ -1,0 +1,85 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    width: auto;
+    height: 800px;
+}
+
+.header {
+    border-bottom: 1px solid #E8E8E8;
+    background: #FFF;
+    height: 84px;
+    padding: 30px 0 0 30px;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    color: #535353;
+}
+
+
+.profile {
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 820px;
+    height: 520px;
+    border-bottom: 1px solid #E8E8E8;
+    background-color: #FCFCFC;
+}
+
+.registPhoto {
+    border-style: none;
+    margin-left: 270px;
+    width: 75px;
+    height: 90px;
+}
+.registPhoto:hover {
+    cursor: pointer;
+}
+
+.reWrapper {
+    display: flex;
+}
+
+.profileReq > p{
+    margin-top: 20px;
+}
+
+.profileRes > p {
+    margin-top: 18px;
+}
+
+.profileRes {
+    margin-left: 200px;
+}
+
+.btnWrapper {
+    width: 820px;
+    height: 520px;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+}
+
+.btn > button:hover {
+    cursor: pointer;
+}
+
+.btn > button:first-child {
+    background-color: #FFF;
+    color: #7758FA;
+    border-radius: 6px;
+    border: 1px solid #7758FA;
+}
+
+.btn > button:nth-child(2) {
+    margin-left: 5px;
+    background-color: #FFF;
+    color: #757575;
+    border-radius: 6px;
+    border: 1px solid #757575;
+}

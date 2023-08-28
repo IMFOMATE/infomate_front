@@ -8,7 +8,7 @@ function TrData({list}) {
       <td className={`${ApprovalTableCss.list_td} ${ApprovalTableCss.isAlert}`}>{`${list.isAlert ? '긴급' : '' }`}</td>
       <td className={ApprovalTableCss.list_td}>{list.status}</td>
       <td className={`${ApprovalTableCss.list_td} ${ApprovalTableCss.t_title}`}>{list.docTitle}</td>
-      <td className={ApprovalTableCss.list_td}>{list.createDate}</td>
+      <td className={`${ApprovalTableCss.list_td} ${ApprovalTableCss.last}`}>{list.createDate}</td>
     </tr>
   );
 }

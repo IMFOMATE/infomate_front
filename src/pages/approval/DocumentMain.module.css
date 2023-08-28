@@ -1,0 +1,139 @@
+
+.doc_wrapper{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  /* height: 100%; */
+}
+
+.doc_wrap, .container{
+  display: flex;
+}
+
+.docs{
+  padding: 12px;
+  width: 80%;
+}
+
+.doc_side{
+  width: 20%;
+  padding: 10px;
+}
+
+.doc{
+  border: 5px solid var(--color-border);
+  padding: 10px;
+  width: 100%;
+  background-color: #fff;
+}
+
+.doc_title{
+  padding: 30px;
+  text-align: center;
+}
+
+.doc_top{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.top_table{
+  width: 100%;
+  /*flex-basis: 250px;*/
+  border: 1px solid black;
+  table-layout: fixed;
+}
+
+.td{
+  padding: 5px;
+}
+
+.tr, .td, .tds {
+  border: 1px solid #000;
+}
+
+.tr .td:first-child, .tds{
+  background-color: var(--color-border);
+  text-align: center;
+}
+
+.left{
+  margin-left: 10px;
+}
+
+.inline{
+  display: inline-flex;
+}
+
+.input{
+  width: 100%;
+  padding: 5px;
+}
+
+.inline::before{
+  content: "승인";
+  background-color: var(--color-border);
+  padding: 2px;
+  writing-mode: vertical-lr;
+  vertical-align: middle;
+  text-align: center;
+  border: 1px solid #000;
+}
+
+.doc_content{
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.dept{
+  width: 100%;
+  padding: 5px;
+}
+
+.button{
+  text-align: right;
+  padding: 10px 0px;
+}
+
+.textarea{
+  width: 100%;
+  resize: none;
+  padding: 10px;
+}
+
+.sum{
+  padding: 5px;
+  text-align: right;
+}
+
+
+@media screen and (max-width: 1280px){
+
+  .container{
+    flex-direction: column;
+  }
+  .docs, .doc_side{
+    width: 100%;
+  }
+
+
+}
+
+@media screen and (max-width: 760px){
+
+  .doc_top{
+    flex-direction: column;
+  }
+
+
+}
+
+@media screen and (min-width: 760px) {
+  .top_table{
+    flex-basis: 250px;
+    width: 100%;
+    border: 1px solid black;
+  }
+
+}

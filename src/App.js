@@ -37,12 +37,11 @@ import BrdDept from "./pages/board/BrdDept";
 import BrdAdmin from "./pages/board/BrdAdmin";
 import Anony from "./pages/board/Anony";
 import NewPost from "./pages/board/NewPost";
+import Posting from './pages/board/Posting';
 import DocumentDetail from "./components/approval/ele-component/document/detail/DocumentDetail";
 
 function App() {
   return (
-
-
     <>
       <BrowserRouter>
         <Routes>
@@ -54,7 +53,7 @@ function App() {
             {/* <Route path="/board" element={<BoardMain />}></Route> */}
 
 
-
+            
             <Route path="approval">
               <Route index element={<ApprovalMain/>}/>
               <Route path="mylist" element={<MyDocList title='기안문서'/>}/> {/*내 기안 리스트*/}
@@ -70,18 +69,18 @@ function App() {
 
             <Route path="calendar" element={<CalendarLayout />}>
               <Route index element={<Calendar/>}/>
-              <Route path="reminder" element={<ReminderList />} />
+              <Route path="reminder" element={<ReminderList />} />  
               <Route path="regist" element={<ScheduleDetailCreate/>} />
                 <Route path="management" element={<CalendarManegeLayout/>}>
                 <Route index element={<MyCalendar />}/>
-                <Route path="myPage" element={<MyCalendar />}/>
+                <Route path="myPage" element={<MyCalendar />}/> 
                 <Route path="favorite">
                   <Route index element={<FavoriteCalendarLayout />} />
                   <Route path="following" element={<FavoriteCalendarFollowing />} />
                   <Route path="follower" element={<FavoriteCalendarFollower />} />
                   <Route path="public" element={<FavoriteCalendarPublic />} />
                 </Route>
-              </Route>
+              </Route>          
             </Route>
 
 
@@ -91,15 +90,15 @@ function App() {
             </Route>
 
             <Route path='/searchDept' element={<SearchDept/>}/>
-
+            
             <Route path="/work" element={ <Work />}/>
             <Route path="/work/admin" element={ <WkAdmin /> }/>
             <Route path="/work/mywork" element={ <MyWork /> }/>
             <Route path="/work/mydept" element={ <MyDept />}/>
             <Route path="/work/dept" element={ <Dept />}/>
+            
 
-
-
+            
             <Route path="/board" element={<BoardMain/>}/>
             <Route path="/board/notice" element={ <Notice />}/>
             <Route path="/board/newpost" element={ <NewPost />}/>
@@ -110,8 +109,8 @@ function App() {
             <Route path="/board/brdadmin" element={ <BrdAdmin />}/>
             <Route path="/board/anony" element={ <Anony />}/>
             {/* <Route path="/board" element={<BoardMain/>}></Route> */}
-
-          </Route>
+          
+          </Route>  
         </Routes>
       </BrowserRouter>
     </>

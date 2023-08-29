@@ -37,6 +37,7 @@ function Notice() {
         ,[]
     );
 
+    // 글작성페이지
     const onClickBoardInsert = () => {
         console.log('[BoardManagement] onClickBoardInsert');
         navigate("/board-registration", { replace: false })
@@ -95,6 +96,16 @@ function Notice() {
                          
             </div>         
             
+
+            <div className={BoardCSS.pagination}>
+            <a href="#">&laquo;</a>
+            <a href="#" className={BoardCSS.active}>1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">&raquo;</a>
+            </div>
        
         </>
     );

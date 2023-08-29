@@ -10,33 +10,37 @@ import{
 
 function Notice() {
     
+    // 연결
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const boards  = useSelector(state => state.boardReducer);      
     const boardList = boards?.data; 
     console.log('boardManagement', boardList);
 
-    //const pageInfo = boards.pageInfo;
+    // 페이징 
+    const pageInfo = boards.pageInfo;
 
     const [start, setStart] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageEnd, setPageEnd] = useState(1);
 
-    // const pageNumber = [];
-    // if(pageInfo){
-    //     for(let i = 1; i <= pageInfo.pageEnd ; i++){
-    //         pageNumber.push(i);
-    //     }
-    // }
+    const pageNumber = [];
+    if(pageInfo){
+        for(let i = 1; i <= pageInfo.pageEnd ; i++){
+            pageNumber.push(i);
+        }
+    }
 
     useEffect(
         () => {
-            // setStart((currentPage - 1) * 5);            
+            setStart((currentPage - 1) * 5);            
             dispatch(callhBoardViewAPI());            
         }
         ,[]
     );
-
+    // 페이징
+    
+    // 페이지 이동
     const onClickBoardInsert = () => {
         console.log('[BoardManagement] onClickBoardInsert');
         navigate("/board-registration", { replace: false })
@@ -45,6 +49,7 @@ function Notice() {
     const onClickTableTr = (boardCode) => {
         navigate(`/board-update/${boardCode}`, { replace: false });
     }
+    //
 
     return (
         <>
@@ -63,9 +68,9 @@ function Notice() {
             <div className={BoardCSS.bdtable}>
                 <colgroup>
                     <col width="10%" />
-                    <col width="60%" />
-                    <col width="10%" />
-                    <col width="10%" />
+                    <col width="50%" />
+                    <col width="20%" />
+                    <col width="20%" />
                     <col width="10%" />
                 </colgroup>
                 <thead>
@@ -74,7 +79,7 @@ function Notice() {
                         <th className={BoardCSS.bdtable_th}>제목</th>
                         <th className={BoardCSS.bdtable_th}>작성자</th>
                         <th className={BoardCSS.bdtable_th}>작성일</th>
-                        <th className={BoardCSS.bdtable_th}>조회수</th>
+                        <th className={BoardCSS.bdtable_th}>조회</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,8 +99,17 @@ function Notice() {
                 </tbody>           
                          
             </div>         
-            
-       
+
+            <div className={BoardCSS.pagination}>
+            <a href="#">&laquo;</a>
+            <a href="#" className={BoardCSS.active}>1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">&raquo;</a>
+            </div>
+                    
         </>
     );
 }

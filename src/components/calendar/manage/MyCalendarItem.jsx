@@ -20,10 +20,6 @@ const MyCalendarItem = ({id, memberCode, name,
     const [ data, setData ] = useState({id: id});
     const dispatch = useDispatch();    
 
-    // useEffect(()=>{
-
-    // },[name])
-    
     const changeNameHandler = (e) => {
         setData({...data, name:e.target.value})
     }
@@ -40,14 +36,16 @@ const MyCalendarItem = ({id, memberCode, name,
     }
 
     const deleteHandler = e => {
-        dispatch(deleteCalendar({data: [parseInt(e.target.id)]}))
+        dispatch(deleteCalendar({data: [parseInt(e.target.id)]}));
     }
 
     const changeIndexNo = (direction) =>{
-        dispatch(patchChangeCalendarIndexNo({data: {id:id,direction:direction}}))
+        dispatch(patchChangeCalendarIndexNo({data: {id:id,direction:direction}}));
+        
     }
-
+    console.log(id, memberCode, name);
     return (
+    <>
         <div className={styles.item}>
             <div className={styles.seqBtn}>
                 <button onClick={()=>changeIndexNo('prev')}><span className={MeterialIcon.meterialIcon}>arrow_drop_up</span></button>
@@ -73,8 +71,8 @@ const MyCalendarItem = ({id, memberCode, name,
                     <button
                         className={icon.meterialIcon}
                         style={{color:'var(--color-middle)', display:'inline'}}
-                        onClick={updateHanlder}>
-                        {textModify? 'save': 'edit'}
+                        onClick={updateHanlder}
+                    > {textModify? 'save': 'edit'}
                     </button>    
 
                     
@@ -82,8 +80,8 @@ const MyCalendarItem = ({id, memberCode, name,
                         id={id}
                         className={icon.meterialIcon}
                         style={{color:'var(--color-middle)', display:'inline'}}
-                        onClick={deleteHandler}>
-                        delete
+                        onClick={deleteHandler}
+                    > delete
                     </button>
                 </div>
                     
@@ -112,7 +110,8 @@ const MyCalendarItem = ({id, memberCode, name,
                     style={{height:'2rem', padding: 0}}
                 />
             </div>
-        </div>        
+        </div>      
+        </>  
     )
 }
 

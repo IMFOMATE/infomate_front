@@ -52,8 +52,8 @@ const FavoriteCalendarPublic = () => {
             {
                 publicCalendarList ? publicCalendarList.data === null ? 
                 <NotResultData /> :
-                publicCalendarList.data.map((item, index)=> <CalendarMagnageFavoriteItem
-                                            key={index}
+                publicCalendarList.data.map((item)=> <CalendarMagnageFavoriteItem
+                                            key={item.id}
                                             id={item.id}
                                             memberName={item.member.memberName}
                                             // rank={item?.refMember?.refRank?.name} // 직위 수정 예정

@@ -49,7 +49,7 @@ const FavoriteCalendarFollower = () => {
                 !calendarFollowerList ? 
                 <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
                 : calendarFollowerList.data.map((item, index)=> <CalendarMagnageFavoriteItem
-                                            key={index}
+                                            key={item.id}
                                             id={item.id}
                                             memberName={item.member.memberName}
                                             // rank={item?.refMember?.refRank?.name} // 직위 수정 예정

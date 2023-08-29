@@ -13,8 +13,6 @@ import StylesLoading from '../loadingStyle.module.css';
 
 const MyCalendar = () => {
 
-
-    // const [selectItem, setSelectItem] = useState([]);
     const [data, setData] = useState({});
     
     const calendarList = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
@@ -23,22 +21,12 @@ const MyCalendar = () => {
 
     useEffect(()=> {
         dispatch(getCalendarListAPI());
-        // setSelectItem([]);
         setData({});
     },[
         calendarReducer[POST_CALENDAR_REGIT],
         calendarReducer[PATCH_CALENDAR_UPDATE], 
         calendarReducer[DELETE_CALENDAR],
     ])
-    
-
-    // const checkSelectHandler = e => {
-    //     if(selectItem.includes(e.target.id)){
-    //         setSelectItem([...selectItem.filter(item => item !== e.target.id)])
-    //     }else{
-    //         setSelectItem([...selectItem, e.target.id]);
-    //     }
-    // }
 
     const CalendarAddHandler = e =>{
         if(e.target !== undefined){
@@ -60,7 +48,6 @@ const MyCalendar = () => {
         dispatch(patchCalendarUpdate({data: {id:parseInt(e.target.id), openStatus: e.target.value }}))
     }
 
-    console.log(calendarList);
     return (
         <>  
             <div className={styles.calendar}>
@@ -82,15 +69,14 @@ const MyCalendar = () => {
                         : calendarList?.data.filter(item => item.memberCode === parseInt(MEMBER_CODE)
                         ).sort((prev, next) => (
                             prev.indexNo - next.indexNo
-                        )).map((item,index) => <MyCalendarItem 
-                                                    key={index}
-                                                    id={item?.id}
-                                                    memberCode={item?.memberCode}
+                        )).map(item => <MyCalendarItem 
+                                                    key={item.id}
+                                                    id={item.id}
+                                                    memberCode={item.memberCode}
                                                     defaultCalendar={item.defaultCalendar}
                                                     name={item.name}
                                                     defaultColorValue={item.labelColor}
                                                     openStatus={item.openStatus}
-                                                    // onChange={checkSelectHandler}
                                                     radioOnChange={radioOnChangeHandler}
                                                     selectOnChange={publicOnChangeHandler}
                                                 />

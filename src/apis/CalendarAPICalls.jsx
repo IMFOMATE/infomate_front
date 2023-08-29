@@ -42,9 +42,12 @@ export const getCalendarListAPI = () => {
     };
 }
 
-export const getCalendarPublicListAPI = () => {
+export const getCalendarPublicListAPI = ({page}) => {
     
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/openCalendarList/${MEMBER_CODE}`;
+    const pageOption = (page !== undefined && page !== null) && `page=${page?.number}&size=${page?.size}`
+    const sort = (page?.sortId && page?.sortDirection) && `&sort=${page.sortId},${page.sortDirection}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/openCalendarList/${MEMBER_CODE}?${pageOption}${sort}`;
+    console.log(requestURL);
 
     return async (dispatch, getState) => {
         const result = await axios.get(requestURL)

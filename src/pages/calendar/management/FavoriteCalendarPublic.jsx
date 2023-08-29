@@ -26,7 +26,7 @@ const FavoriteCalendarPublic = () => {
     useEffect(()=>{
         setChk({...chk, selectList:[]})
 
-        dispatch(getCalendarPublicListAPI());
+        dispatch(getCalendarPublicListAPI({page:{number:0, size:12, sortId:'id',sortDirection:'asc'}}));
         
         return () => {
             setChk({})

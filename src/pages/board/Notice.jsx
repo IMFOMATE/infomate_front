@@ -1,9 +1,8 @@
-import mainCss from '../../components/common/main.module.css';
+import mainCSS from '../../components/common/main.module.css';
 import BoardCSS from './Board.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState, useRef } from "react";
-
 
 import{
     callhBoardViewAPI
@@ -50,51 +49,45 @@ function Notice() {
     return (
         <>
 
-        <div className={mainCss.maintitle}>
+        <div className={mainCSS.maintitle}>
         <h2>공지사항</h2>
         </div>
 
-        <div className={ BoardCSS.bodyDiv }>
-            <div className={ BoardCSS.buttonDiv }>
-                <button
-                    onClick={ onClickBoardInsert }
-                >
-                    글쓰기
-                </button>
-            </div>            
-            <table className={ BoardCSS.boardTable }>
+            <div className={BoardCSS.bdtable}>
                 <colgroup>
-                    <col width="15%" />
+                    <col width="10%" />
                     <col width="60%" />
-                    <col width="15%" />
-                    <col width="15%" />
-                    <col width="15%" />
+                    <col width="10%" />
+                    <col width="10%" />
+                    <col width="10%" />
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>글번호</th>
-                        <th>제목</th>
-                        <th>작성자</th> {/* 직원코드로 불러오기? 가능? */}
-                        <th>작성일</th>
+                        <th className={BoardCSS.bdtable_th}>No.</th>
+                        <th className={BoardCSS.bdtable_th}>제목</th>
+                        <th className={BoardCSS.bdtable_th}>작성자</th>
+                        <th className={BoardCSS.bdtable_th}>작성일</th>
+                        <th className={BoardCSS.bdtable_th}>조회수</th>
                     </tr>
                 </thead>
                 <tbody>
-                    { Array.isArray(boardList) && boardList.map((p) => (
-                        <tr
-                            key={ p.boardCode }
-                            onClick={ () => onClickTableTr(p.boardCode) }
+                    { Array.isArray(boardList) && boardList.map((b) => (
+                        <tr className={BoardCSS.bdtable_tr}
+                            key={ b.boardCode }
+                            onClick={ () => onClickTableTr(b.boardCode) }
                         >
-                            <td>{ p.postCode }</td>
-                            <td>{ p.postTitle }</td>
-                            <td>{ p.memberCode }</td>
-                            <td>{ p.postDate }</td>
+                            <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
+                            <td className={BoardCSS.bdtable_td}>{ b.postTitle }</td>
+                            <td className={BoardCSS.bdtable_td}>{ b.memberCode }</td>
+                            <td className={BoardCSS.bdtable_td}>{ b.postDate }</td>
+                            <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
                         </tr>
                     )) 
                     }
-                </tbody>                    
-            </table>         
+                </tbody>           
+                         
+            </div>         
             
-        </div>
        
         </>
     );

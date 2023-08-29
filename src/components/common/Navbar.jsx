@@ -56,10 +56,10 @@ function Navbar() {
                         <span>전자결재</span>
                     </NavLink>
                 </li>
-                <li onClick={()=>toggleTitle("Attend")}>
-                    <NavLink to="" >
+                <li onClick={()=>toggleTitle("Work")}>
+                    <NavLink to="/work" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
-                            approval
+                            watch
                         </span>
                         <span>근태관리</span>
                     </NavLink>

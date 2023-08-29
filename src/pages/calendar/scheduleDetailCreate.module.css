@@ -101,8 +101,8 @@
     vertical-align: middle;
     align-self: center;
     width: 100%;
-    display: flex;
-    /* grid-template-columns: 5fr 5fr 3fr; */
+    display: grid;
+    grid-template-columns: 5fr 2fr;
     column-gap: 20px;
 }
 
@@ -120,7 +120,7 @@
     display: inline;    
 }
 
-.subItem > div > div {
+.subCol2 > div {
     display: inline;
     margin: 5px 0 20px 0;
 }
@@ -180,21 +180,47 @@
 }
 
 .modalPost{
-    background-color: rgba(80, 80, 80, 0.5);
     position: fixed;
     width: 100vw;
     height: 100vh;
     left: 0;
     top: 0;
     z-index: 100;
+
+}
+.modalActive{
+    display: block !important;
+}
+
+@keyframes slidefade {
+    0% {
+        opacity: 0;
+        top: 45%;
+    }
+    100% {
+        opacity: 1;
+        top: 50%;
+    }
 }
 
 .post{
+    display: none;
     position: fixed;
     top: 50%;
     left: 50%;
-    z-index: 120;
     width: 500px;
-    transition: 1s;
+    z-index: 120;
+    padding: 30px;
+    border-radius: 7px;
+    
+    background-color: white;
+    animation: slidefade 0.35s linear;
     transform: translate(-50%, -50%);
+    
+    box-shadow: 0 20px 30px 10px rgba(200, 200, 200, 0.6);
+}
+
+.date{
+    width: 100% !important;
+    /* display: flexbox !important; */
 }

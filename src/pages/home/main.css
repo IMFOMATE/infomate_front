@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    display: flex;
+    border-bottom: 1px solid #E8E8E8;
+    background: #FFF;
+    width: auto;
+    height: 84px;
+    padding: 30px 0 0 30px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    text-align: left;
+    color: #535353;
+}
+
+.header > button {
+    margin-right: 30px;
+    border: 1px solid #7758FA;
+    border-radius: 5px;
+}
+
+.header > button:hover {
+    background: #7758FA;
+}

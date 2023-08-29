@@ -9,8 +9,28 @@
     box-sizing: border-box;
     border: 0.3px solid rgba(125, 125, 125, 0.5);
     border-radius: 5px;
+      -o-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 .select:focus{
     outline-color: var(--color-hard);
 }
 
+.select:disabled{
+    border: 0;
+    background-color: var(--color-background);
+    color: black;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    text-align: left;
+    /* top: 10px; */
+    padding: 0;
+}
+.labelColor{
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+}

@@ -5,6 +5,7 @@ const AttendUser = (props) => {
     const className  = [styles.btn,''].join(' ');
 
     return <button
+            id={props?.id}
             className={className}
             type={props.type}
             onClick={props.onClick}

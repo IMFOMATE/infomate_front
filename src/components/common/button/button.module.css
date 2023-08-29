@@ -2,11 +2,13 @@
     font-size: 0.9rem;
     padding: 5px 12px 5px 12px;
     border-radius: 5px;
+    transition: 0.5s;
 }
 
 .colorMiddle{
     background: var(--color-middle);
     color: white;
+    transition: 0.5s;
 }
 
 .colorMiddle:hover{
@@ -17,6 +19,7 @@
 .colorHard{
     border: 1px solid var(--color-hard);
     color: var(--color-hard);    
+    transition: 0.5s;
 }
 
 .colorHard:hover{
@@ -27,6 +30,7 @@
 .cancelInline{
     background-color: var(--color-cancle-button);
     color: white;
+    transition: 0.5s;
 }
 
 .cancelInline:hover{
@@ -36,6 +40,7 @@
 .cancelOutline{
     border-color: 1px solid var(--color-cancle-button);
     color: var(--color-cancle-button);
+    transition: 0.5s;
 }
 
 .cancelOutline:hover{
@@ -48,4 +53,5 @@
     font-size: 0.9rem;
     padding: 5px;
     /* border: 1px solid; */
+    transition: 0.5s;
 }

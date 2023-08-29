@@ -5,3 +5,8 @@
 .calendar > div:first-child{
     margin-bottom: 10px;
 }
+
+.delete{
+    width: 100%;
+    
+}

@@ -1,12 +1,13 @@
 import React from 'react';
 import Header from "../components/common/Header";
 import {Outlet} from "react-router-dom";
-// import Default from './Default.css';
 import NavStyle from '../components/common/Nav.module.css';
 import MenuBtn from "../components/common/MenuBtn";
 import {CurrentTitleProvider} from "../context/CurrentTitleContext";
 import {MenuContextProvider} from "../context/MenuContext";
 import {ModalContextProvider, useModal} from "../context/ModalContext";
+import { CalendarFilterProvider } from '../context/CalendarContext';
+
 import Modal from "../components/approval/ele-component/common/Modal";
 import DragAndDropWrapper from "../components/approval/ele-component/treeview/DragAndDropWrapper";
 
@@ -17,9 +18,21 @@ export default function Layout() {
             <ModalContextProvider>
                 <MenuContextProvider>
                     <CurrentTitleProvider>
-                      <DragAndDropWrapper>
-                        <LayoutContent/>
-                      </DragAndDropWrapper>
+                        <DragAndDropWrapper>
+                            <CalendarFilterProvider>
+                                <LayoutContent/>
+                            {/*<div className='wrapper'>*/}
+                            {/*    <MenuBtn/>*/}
+                            {/*    <div className={NavStyle.flex}>*/}
+                            {/*        <Header/>*/}
+                            {/*        <main>*/}
+                            {/*            <Outlet/>*/}
+                            {/*        </main>*/}
+                            {/*    </div>*/}
+                            {/*    <Modal/>*/}
+                            {/*</div>*/}
+                            </CalendarFilterProvider>
+                        </DragAndDropWrapper>
                     </CurrentTitleProvider>
                 </MenuContextProvider>
             </ModalContextProvider>

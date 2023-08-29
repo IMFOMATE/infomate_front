@@ -1,11 +1,29 @@
 .container{
+    display: none;
     padding: 15px 10px 15px 10px;
     border-radius: 5px;
     width: 550px;
     max-width: 550px;
-    box-shadow: 0 0 40px rgba(200, 200, 200, 0.4);
+    box-shadow: 0 0 10px 6px rgba(200, 200, 200, 0.3);
+    /* background-color: var(--color-background) !important; */
     background-color: white !important;
+    animation: slidefade 0.2s linear
 }
+.active{
+    display: block;
+}
+
+@keyframes slidefade {
+    0% {
+        opacity: 0;
+        /* margin-bottom: 10%; */
+    }
+    100% {
+        opacity: 1;
+        /* margin-bottom: 0%; */
+    }
+}
+
 
 .title{
     display: grid;

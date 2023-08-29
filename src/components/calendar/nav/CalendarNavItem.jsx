@@ -3,16 +3,26 @@ import CheckBox from '../../common/input/CheckBox';
 import InputColor from '../../common/input/InputColor';
 
 
-const CalendarNavItem = ({id, color, calendarName}) => {
+const CalendarNavItem = ({id, color, calendarName, isCheck, onChange}) => {
 
    return (
         <div className={styles.item}>
             <div>
-                <CheckBox id={id} style={{marginRight:10}}/> 
-                <label for={id}>{calendarName}</label>
+                <CheckBox 
+                    id={id} 
+                    style={{marginRight:10}} 
+                    checked={isCheck} 
+                    onChange={onChange} 
+                    isChangeColor={true} 
+                /> 
+                <label htmlFor={id}>{calendarName}</label>
             </div>
             <div className={styles.color}>
-                <InputColor value={color} style={{height:30, width:30}} isDisabled={true}/>
+                <InputColor 
+                    value={color} 
+                    style={{height:30, width:30}} 
+                    isDisabled={true}
+                />
             </div>
         </div>
    ) 

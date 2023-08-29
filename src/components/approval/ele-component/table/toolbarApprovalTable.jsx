@@ -1,46 +1,27 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import ApprovalTableCss from "./ApprovalTable.module.css";
 import ApprovalTable from "./ApprovalTable";
 
-// import ToolBarCss from './Toolbar.module.css';
 
 
-function ToolbarApprovalTable({documentData}) {
+function ToolbarApprovalTable({documentData, pageHandler, filterHandler, filter}) {
 
-  /*effect이용하긴해야되는데*/
-
-  const [filter, setFilter] = useState('');
-
-  const filterState = [
-    {text: '전체', url:''},
-    {text: '완료', url:'APPROVAL'},
-    {text: '진행', url:'WAITING'},
-    {text: '반려', url:'REJECT'},
-    {text: '취소', url:'CANCEL'},
-  ];
+  console.log(documentData)
+  const pageInfo = documentData.pageInfo;
+  const documents = documentData.data;
 
   const handleFilterChange = (event) => {
     const selectedFilter = event.target.dataset.type;
-    setFilter(selectedFilter === filter ? '' : selectedFilter);
+    filterHandler(selectedFilter);
   };
 
-  const filteredData = filter === '' ? documentData?.data : documentData?.data.filter((f) => f.status === filter);
+  const pageNumber = [];
 
-  useEffect(() => {
-    // dispatch({type: GET_DOCUMENT_APRPROVALLIST,payload:[]})
-
-    setFilter('')
-  }, []);
-
-
-  // useEffect(() => {
-  //   if (filter === '') {
-  //     setFilter(documentData?.data || []);
-  //   } else {
-  //     const newData = documentData?.data.filter((item) => item.status === filter);
-  //     setFilter(newData);
-  //   }
-  // }, [filter, documentData]);
+  if(pageInfo){
+    for(let i = 1; i <= pageInfo.pageEnd ; i++){
+      pageNumber.push(i);
+    }
+  }
 
 
   return (
@@ -59,11 +40,47 @@ function ToolbarApprovalTable({documentData}) {
           )
         }
       </ul>
-      <ApprovalTable data={filteredData}/>
-
-      {/*페이징*/}
+      <ApprovalTable data={documents}/>
+      <div style={{ listStyleType: "none", display: "flex", justifyContent: "center" }}>
+        { Array.isArray(documents) &&
+            <button
+                onClick={() => pageHandler(pageInfo.cri.pageNum - 1)}
+                disabled={pageInfo.cri.pageNum === 1}
+            >
+              &lt;
+            </button>
+        }
+        {pageNumber.map((num) => (
+            <li key={num} onClick={() => pageHandler(num)}>
+              <button
+                  style={ pageInfo.cri.pageNum === num ? {backgroundColor : 'orange' } : null}
+                  // className={ ReviewCSS.pagingBtn }
+              >
+                {num}
+              </button>
+            </li>
+        ))}
+        { Array.isArray(documents) &&
+            <button
+                // className={ ReviewCSS.pagingBtn }
+                onClick={() => pageHandler(pageInfo.cri.pageNum + 1)}
+                disabled={pageInfo.cri.pageNum === pageInfo.pageEnd || pageInfo.total === 0}
+            >
+              &gt;
+            </button>
+        }
+      </div>
     </div>
   );
 }
+
+const filterState = [
+  {text: '전체', url:''},
+  {text: '완료', url:'APPROVAL'},
+  {text: '진행', url:'WAITING'},
+  {text: '반려', url:'REJECT'},
+  {text: '취소', url:'CANCEL'},
+];
+
 
 export default ToolbarApprovalTable;

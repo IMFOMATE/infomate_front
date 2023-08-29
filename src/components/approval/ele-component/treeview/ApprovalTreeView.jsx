@@ -16,7 +16,7 @@ function ApprovalTreeView({modalData, contextType}) {
   const { data, setData } = selectedContext;
   const { approvalList } = data;
 
-
+  console.log(modalData)
   const handleSelect = (node) => {
     const item = approvalList.find((n) => n.id === node.id);
 

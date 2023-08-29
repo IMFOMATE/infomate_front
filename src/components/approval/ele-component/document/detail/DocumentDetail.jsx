@@ -53,7 +53,6 @@ function DocumentDetail() {
     Draft: <DraftDetail />,
     vacation: <VacationDetail />,
     payment: <PaymentDetail />,
-    // 다른 종류의 문서에 대한 컴포넌트를 추가로 매핑
   };
 
   const selectedComponent = documentComponents[document.documentKind];

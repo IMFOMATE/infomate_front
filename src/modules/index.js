@@ -4,12 +4,14 @@ import mailReducer from "./MailModule";
 import boardReducer from './BoardModule';
 import documentsReducer from "./approval/DocumentModuels";
 import calendarReducer from "./CalendarMoudule";
+import departmentReducer from "./DepartmentModule";
 const rootReducer = combineReducers({
     contactReducer,
     boardReducer,
     mailReducer,
     calendarReducer,
-    documentsReducer
+    documentsReducer,
+    departmentReducer
 });
 
 export default rootReducer;

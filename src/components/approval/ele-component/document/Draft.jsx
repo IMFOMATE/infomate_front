@@ -10,17 +10,27 @@ import Credit from "./Credit";
 import Editor from "../common/Editor";
 import DocFile from "../common/DocFile";
 import {useDraftDataContext} from "../../../../context/approval/DraftDataContext";
+import {treeviewAPI} from "../../../../apis/Department.API";
+import {useDispatch, useSelector} from "react-redux";
+import {draftRegistAPI} from "../../../../apis/DocumentAPICalls";
 
 
 function Draft() {
+  const treeview = useSelector(state => state.departmentReducer);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const {name, type} = location.state;
+  const {name} = location.state;
   const { data, setData } = useDraftDataContext();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalData, setModalData] = useState(null);
 
+  useEffect(
+      ()=>{
+        dispatch(treeviewAPI());
+      },
+      []
+  );
 
   // form 데이터
   const onChangeHandler = (e) => {
@@ -55,9 +65,26 @@ function Draft() {
     console.log(data);
 
     // 여기서 폼작업 해줘야한다./
+    const formData = new FormData();
+
+    const refListArray = data.refList.map(ref => ({ id: ref.data.memberCode }));
+    console.log(refListArray)
+    const approvalListArray = data.approvalList.map((app, index) => ({ id: app.data.memberCode, order: index + 1 }));
+
+    formData.append("title", data.title);
+    formData.append("content", data.content);
+    formData.append("emergency", data.emergency);
+    formData.append("refList", JSON.stringify(refListArray));
+    formData.append("approvalList", JSON.stringify(approvalListArray));
+    formData.append("fileList", data.fileList);
+    formData.append("coDept",data.coDept);
+
+    for(let [name, value] of formData) {
+      console.log(name, value)
+    }
+    dispatch(draftRegistAPI({form: formData}));
 
     // 유효성 검사도 하자
-
 
   };
 
@@ -94,7 +121,7 @@ function Draft() {
   return (
       <>
         {
-          isModalOpen && <ApprovalModal contextType='draft' modalData={modalData} toggleModal={toggleModal}/>
+          isModalOpen && <ApprovalModal contextType='draft' modalData={treeview} toggleModal={toggleModal}/>
         }
         <DocButtons button={<InsertButton url={url}/>}/>
         <div className={style.container}>

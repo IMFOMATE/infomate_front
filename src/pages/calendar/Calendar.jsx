@@ -92,7 +92,8 @@ const Calendar = () =>{
         if(param === viewModal) return;
         
         if(param) {
-            ChangeModalOffset(data.jsEvent, {x: 200, y: 100})
+            setViewModalData(false)
+            ChangeModalOffset(data.jsEvent, {x: 180, y: 80})
             setViewModalData(data)
         }else{
             setViewModalData({})
@@ -139,7 +140,7 @@ const Calendar = () =>{
     }
 
     const event = (data) =>{
-        console.log(data);
+        
         const event = [];
             data.filter(item => !filter.includes(item.id))
             .forEach(item1 => {
@@ -152,7 +153,7 @@ const Calendar = () =>{
                                     })
                 )
             })
-        console.log(event);
+        
         return event;
     }
     

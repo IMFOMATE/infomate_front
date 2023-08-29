@@ -11,6 +11,7 @@ import MeterialIcon from '../../common/meterialIcon.module.css'
 
 
 const MyCalendarItem = ({id, memberCode, name,
+                        min, max,
                          defaultCalendar, defaultColorValue,
                          openStatus, radioOnChange,
                          selectValue, selectOnChange}) => {
@@ -43,14 +44,22 @@ const MyCalendarItem = ({id, memberCode, name,
         dispatch(patchChangeCalendarIndexNo({data: {id:id,direction:direction}}));
         
     }
-    console.log(id, memberCode, name);
+
     return (
     <>
         <div className={styles.item}>
             <div className={styles.seqBtn}>
-                <button onClick={()=>changeIndexNo('prev')}><span className={MeterialIcon.meterialIcon}>arrow_drop_up</span></button>
-                <div className={styles.separator}></div>
-                <button onClick={()=>changeIndexNo('next')}><span className={MeterialIcon.meterialIcon}>arrow_drop_down</span></button>
+                {
+                    min ||
+                    <button onClick={()=>changeIndexNo('prev')}><span className={MeterialIcon.meterialIcon}>arrow_drop_up</span></button>
+                }
+                {
+                    min || max ? '' : <div className={styles.separator}></div>
+                }
+                {
+                    max ||
+                    <button onClick={()=>changeIndexNo('next')}><span className={MeterialIcon.meterialIcon}>arrow_drop_down</span></button>
+                }
             </div>
             <div style={{textAlign: 'center'} }>
                 <ColorPicker

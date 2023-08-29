@@ -69,9 +69,11 @@ const MyCalendar = () => {
                         : calendarList?.data.filter(item => item.memberCode === parseInt(MEMBER_CODE)
                         ).sort((prev, next) => (
                             prev.indexNo - next.indexNo
-                        )).map(item => <MyCalendarItem 
+                        )).map((item,index) => <MyCalendarItem 
                                                     key={item.id}
                                                     id={item.id}
+                                                    min={index === 0}
+                                                    max={index === (calendarList.data.filter(item => item.memberCode === parseInt(MEMBER_CODE)).length - 1)}
                                                     memberCode={item.memberCode}
                                                     defaultCalendar={item.defaultCalendar}
                                                     name={item.name}

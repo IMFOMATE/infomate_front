@@ -66,7 +66,7 @@ const ScheduleDetilaCreate = () => {
             })
         }
         return () => {
-            isMobile || menuState || toggleMenu();
+            // isMobile || menuState || toggleMenu();
             setIsModal(false);
             setSchedule({});
         }

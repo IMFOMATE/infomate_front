@@ -49,6 +49,9 @@ function App() {
             {/* <Route path="/mailWrite" element={<MailWrite />} /> */}
             <Route path="/mail" element={<Mail />} />
             {/* <Route path="/board" element={<BoardMain />}></Route> */}
+
+
+            
             <Route path="approval">
               <Route index element={<ApprovalMain/>}/>
               <Route path="mylist" element={<MyDocList title='기안문서'/>}/> {/*내 기안 리스트*/}
@@ -58,6 +61,8 @@ function App() {
               <Route path="approved" element={<MyDocList title='결재완료문서'/>}/> {/*결재 완료 리스트*/}
               <Route path="document" element={<DocumentMain/>}/>
             </Route>
+
+
             <Route path="calendar" element={<CalendarLayout />}>
               <Route index element={<Calendar/>}/>
               <Route path="reminder" element={<ReminderList />} />  
@@ -65,7 +70,7 @@ function App() {
                 <Route path="management" element={<CalendarManegeLayout/>}>
                 <Route index element={<MyCalendar />}/>
                 <Route path="myPage" element={<MyCalendar />}/> 
-                <Route path="favorite" element={<FavoriteCalendarLayout />}>
+                <Route path="favorite">
                   <Route index element={<FavoriteCalendarLayout />} />
                   <Route path="following" element={<FavoriteCalendarFollowing />} />
                   <Route path="follower" element={<FavoriteCalendarFollower />} />
@@ -73,6 +78,8 @@ function App() {
                 </Route>
               </Route>          
             </Route>
+
+
 
             <Route path='group'>
               <Route index element={<Group/>}/>

@@ -56,6 +56,7 @@ const MyCalendar = () => {
     const publicOnChangeHandler = e => {
         dispatch(patchCalendarUpdate({data: {id:parseInt(e.target.id), openStatus: e.target.value }}))
     }
+    console.log(calendarList);
 
     return (
         <>  

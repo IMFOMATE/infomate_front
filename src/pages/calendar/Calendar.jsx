@@ -7,6 +7,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid'
 import multiMonthPlugin from '@fullcalendar/multimonth'
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
+import listPlugin from '@fullcalendar/list';
 import { CalendarFilterContext } from "../../context/CalendarContext";
 import { ScheduleModalProvider, ScheduleProvider } from "../../layouts/CalendarLayout";
 import { useDispatch, useSelector } from "react-redux";
@@ -141,9 +142,11 @@ const Calendar = () =>{
         <>  
             <div className={styles.container} ref={containerRef}>
                 {
-                    data?.data?.length > 0 ? 
-
-                    <FullCalendar
+                    !data?.data?.length > 0 ? 
+                    
+                    <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
+                    
+                    :<FullCalendar
                         locale={koLocale}
                         timeZone={'utc'}
                         stickyHeaderDates={true}
@@ -157,7 +160,7 @@ const Calendar = () =>{
                         selectable={true}
                         dayMaxEvents={true}
                         expandRows={true}
-                        plugins={[ multiMonthPlugin, dayGridPlugin, timeGridPlugin, interactionPlugin ]}
+                        plugins={[ multiMonthPlugin, dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin ]}
                         initialView={'dayGridMonth'}
                                 
                         headerToolbar={{
@@ -167,7 +170,7 @@ const Calendar = () =>{
                         }}
                 
                         footerToolbar={{
-                            left: 'today',
+                            left: 'today list',
                             center: isMobile && 'scheduleRegist',
                             right: isMobile?'dayGridMonth,timeGridWeek,timeGridDay' :  'scheduleRegist'
                         }}
@@ -193,7 +196,7 @@ const Calendar = () =>{
                         eventMouseEnter={hoverEventHandler}
                         // eventMouseLeave={hoverEventHandler}
                     />
-                    : <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
+                    
                 }
                 {
                     isModal && !viewModal && 

@@ -31,7 +31,6 @@ export default function Layout() {
                             {/*    </div>*/}
                             {/*    <Modal/>*/}
                             {/*</div>*/}
-                                <LayoutContent/>
                             </CalendarFilterProvider>
                         </DragAndDropWrapper>
                     </CurrentTitleProvider>

@@ -38,14 +38,14 @@ function Notice() {
     );
 
     // 글쓰기
-    const onClickBoardInsert = () => {
-        console.log('[BoardManagement] onClickBoardInsert');
+    const postPostHandler = () => {
+        console.log('[BoardManagement] postPostHandler');
         navigate("/board/posting", { replace: false })
     }
 
     // 게시글페이지
-    const onClickTableTr = (boardCode) => {
-        navigate(`/board/post/${boardCode}`, { replace: false });
+    const postHandler = (postCode) => {
+        navigate(`/board/post/${postCode}`, { replace: false });
     }
 
     return (
@@ -56,7 +56,7 @@ function Notice() {
         </div>
 
             
-                <button onClick={ onClickBoardInsert }>
+                <button onClick={ postPostHandler }>
                     <div className={ BoardCSS.newpost }>
                         글쓰기
                     </div>  
@@ -64,7 +64,7 @@ function Notice() {
                       
             <div className={BoardCSS.bdtable}>
                 <colgroup>
-                <col width="10%" />
+                    <col width="10%" />
                     <col width="50%" />
                     <col width="20%" />
                     <col width="20%" />
@@ -83,7 +83,7 @@ function Notice() {
                     { Array.isArray(boardList) && boardList.map((b) => (
                         <tr className={BoardCSS.bdtable_tr}
                             key={ b.boardCode }
-                            onClick={ () => onClickTableTr(b.boardCode) }
+                            onClick={ () => postHandler(b.postCode) }
                         >
                             <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postTitle }</td>

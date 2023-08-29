@@ -73,7 +73,7 @@ const Calendar = () =>{
     },[scheduleReducer])
 
     const calenderClickHandler = data => {
-        console.log(data);
+        
         setSchedule({
             ...schedule, 
             data : {...schedule.data,
@@ -162,17 +162,24 @@ const Calendar = () =>{
                         expandRows={true}
                         plugins={[ multiMonthPlugin, dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin ]}
                         initialView={'dayGridMonth'}
+                        windowResize={e => {
+                            if(window.innerWidth <= 480){
+                                setIsMobile(true);
+                            }else{
+                                setIsMobile(false);
+                            }                    
+                        }}
                                 
                         headerToolbar={{
-                            left: !isMobile && 'dayGridMonth,timeGridWeek,timeGridDay',
+                            left: !isMobile && 'dayGridMonth,timeGridWeek,timeGridDay,list',
                             center: 'title',
                             right: 'prev,next'
                         }}
                 
                         footerToolbar={{
-                            left: 'today list',
+                            left: 'today',
                             center: isMobile && 'scheduleRegist',
-                            right: isMobile?'dayGridMonth,timeGridWeek,timeGridDay' :  'scheduleRegist'
+                            right: isMobile?'dayGridMonth,timeGridWeek,timeGridDay,list' :  'scheduleRegist'
                         }}
                         
                         stickyFooterScrollbar={true}

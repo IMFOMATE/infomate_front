@@ -6,19 +6,24 @@ import icon from '../../common/meterialIcon.module.css'
 import { useState } from 'react';
 import { ColorPicker } from 'antd';
 import { useDispatch } from 'react-redux';
-import { deleteCalendar, patchCalendarUpdate } from '../../../apis/CalendarAPICalls';
+import { deleteCalendar, patchCalendarUpdate, patchChangeCalendarIndexNo } from '../../../apis/CalendarAPICalls';
+import MeterialIcon from '../../common/meterialIcon.module.css'
 
 
-const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
+const MyCalendarItem = ({id, memberCode, name,
                          defaultCalendar, defaultColorValue,
-                         openStatus, chkOnChange, radioOnChange,
-                         selectValue, selectOnChange, colorOnChange}) => {
+                         openStatus, radioOnChange,
+                         selectValue, selectOnChange}) => {
 
     const [ textModify, setTextModify ] = useState(false);
     const [ textValue, setTextValue ] = useState(name);
     const [ data, setData ] = useState({id: id});
     const dispatch = useDispatch();    
 
+    // useEffect(()=>{
+
+    // },[name])
+    
     const changeNameHandler = (e) => {
         setData({...data, name:e.target.value})
     }
@@ -36,11 +41,19 @@ const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
 
     const deleteHandler = e => {
         dispatch(deleteCalendar({data: [parseInt(e.target.id)]}))
+    }
 
+    const changeIndexNo = (direction) =>{
+        dispatch(patchChangeCalendarIndexNo({data: {id:id,direction:direction}}))
     }
 
     return (
         <div className={styles.item}>
+            <div className={styles.seqBtn}>
+                <button onClick={()=>changeIndexNo('prev')}><span className={MeterialIcon.meterialIcon}>arrow_drop_up</span></button>
+                <div className={styles.separator}></div>
+                <button onClick={()=>changeIndexNo('next')}><span className={MeterialIcon.meterialIcon}>arrow_drop_down</span></button>
+            </div>
             <div style={{textAlign: 'center'} }>
                 <ColorPicker
                         value={data?.labelColor || defaultColorValue}
@@ -80,6 +93,7 @@ const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
                     id={id}
                     name={memberCode}
                     defaultChecked={defaultCalendar}
+                    cheked={defaultCalendar}
                     onChange={radioOnChange}
                     style={{verticalAlign: 'middle', alignSelf: 'center', display: 'block'}}
                 />

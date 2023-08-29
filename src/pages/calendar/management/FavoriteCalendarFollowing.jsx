@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import CalendarMagnageFavoriteItem from '../../../components/calendar/manage/CalendarMagnageFavoriteItem';
 import { ManageChkList } from '../../../layouts/FavoriteCalendarLayout';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import CalendarMagnageFavoriteFollowerHeader from '../../../components/calendar/manage/CalendarMagnageFavoriteFollowerHeader';
 import { useDispatch, useSelector } from 'react-redux';
 import { FadeLoader } from 'react-spinners';
@@ -53,8 +53,9 @@ const FavoriteCalendarFollowing = () => {
             <br />
 
             {
-                favCalendarFollowList && favCalendarFollowList.data ?
-                favCalendarFollowList.data.map((item, index) => 
+                !favCalendarFollowList
+                ? <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
+                : favCalendarFollowList.data.map((item, index) => 
                                     <CalendarMagnageFavoriteItem
                                             key={index}
                                             id={item.id}
@@ -65,7 +66,7 @@ const FavoriteCalendarFollowing = () => {
                                             state={item?.approvalStatus}
                                             isLabelColor={item?.labelColor}
                                     />)
-                : <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
+                
             }
         </>
     );

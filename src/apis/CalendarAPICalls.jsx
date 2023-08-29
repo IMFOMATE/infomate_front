@@ -114,6 +114,26 @@ export const patchDefaultCalendarUpdate = ({data}) => {
     };
 }
 
+export const patchChangeCalendarIndexNo = ({data}) => {
+    data = {...data, memberCode: MEMBER_CODE}
+    console.log(data);
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/changeIndexNo`;
+    return async (dispatch, getState) => {
+        const result = await axios.patch(requestURL, data, {headers:{"Content-Type":'application/json',Accept:'*/*'}})
+                    .then(res => res.data)
+                    .catch(e => console.log(e));
+        
+        if(result.status === 200){
+            message.success(result.message);
+            dispatch({ type: PATCH_CALENDAR_UPDATE,  payload: result });
+            return ;
+        }
+        
+        message.error('수정에 실패했습니다.');
+    };
+}
+
+
 export const deleteCalendar = ({data}) => {    
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/delete`;
     return async (dispatch, getState) => {

@@ -9,6 +9,7 @@ import { getCalendarPublicListAPI } from '../../../apis/CalendarAPICalls';
 import { FadeLoader } from 'react-spinners';
 import StylesLoading from '../loadingStyle.module.css';
 import { POST_FAV_CALENDAR_REGIT } from '../../../modules/FavCalendarMoudule';
+import { NotResultData } from '../../common/Error';
 
 
 const FavoriteCalendarPublic = () => {
@@ -41,7 +42,7 @@ const FavoriteCalendarPublic = () => {
         }
         setSelectAll(e.target.checked)
     }
-    
+
     return (
         <>
             
@@ -49,7 +50,8 @@ const FavoriteCalendarPublic = () => {
             <br />
 
             {
-                publicCalendarList && publicCalendarList.data ?
+                publicCalendarList ? publicCalendarList.data === null ? 
+                <NotResultData /> :
                 publicCalendarList.data.map((item, index)=> <CalendarMagnageFavoriteItem
                                             key={index}
                                             id={item.id}

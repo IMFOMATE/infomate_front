@@ -52,8 +52,52 @@
 .col2 label{
     vertical-align: middle;
     align-self: center;
+    text-align: center;
 }
 
 .footer{
     margin-top: 30px;
+}
+
+.viewContainer{
+    width: 400px;
+    font-size: 0.95rem;
+}
+
+.viewCol2{
+    display: grid;
+    grid-template-columns: 1.3fr 8fr;
+    row-gap: 0.9rem;
+    font-size: 0.9rem;
+}
+.viewCol2 > label {
+    text-align: center;
+    align-self: center;
+    
+}
+.labelColor{
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 3px;
+    background-color: navy;
+    vertical-align: middle;
+}
+.viewHeader{
+    display: flex;
+    justify-content: end;
+}
+.viewHeader > button {
+    color: gray ;
+}
+
+.viewSubject{
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+}
+
+.viewDate{
+    font-size: 0.8rem;
+    letter-spacing: 0.05rem;
 }

@@ -17,6 +17,8 @@ import antdStyels from './antd.module.css';
 import { DatePicker } from 'antd';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
 import { MEMBER_CODE } from '../../apis/APIConfig';
+import meterialIcon from '../../components/common/meterialIcon.module.css'
+dayjs.locale('ko')
 
 export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
     
@@ -231,10 +233,42 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
 }
 
 
-export const SummaryViewModal = () => {
+export const SummaryViewModal = ({setIsModal, data}) => {
+
+    const navigate = useNavigate();
+
+    const editClickHandler = () => {
+        navigate(`./regist?scheduleId=${data.event.extendedProps.id}&isread=true`);
+    }
+
     return (
         <>
-        
+            {/* <div className={[styles.container, modal && styles.active].join(' ')}> */}
+            <div className={[styles.container,styles.active, styles.viewContainer].join(' ')}>
+                <div className={styles.viewHeader}>
+                    <button className={meterialIcon.meterialIcon} onClick={editClickHandler}>edit</button>
+                    <button className={meterialIcon.meterialIcon} onClick={setIsModal}>close</button>
+                </div>
+                <div className={styles.viewCol2}>
+                    <label><div className={styles.labelColor} style={{backgroundColor:data.event.backgroundColor}}></div></label>
+                    <div className={styles.viewSubject}>{data.event.title}</div>
+
+                    <label></label>
+                    <div className={styles.viewDate}>
+                        {dayjs(data.event.startStr).format('M월 D일(dddd)')}
+                        {data.event.endStr && ` ~ ${dayjs(data.event.endStr).format('M월 D일(dddd)')}`}
+                    </div>
+                    
+                    
+                    <label><span className={meterialIcon.meterialIcon}>home</span></label>
+                    <div>{data.event.extendedProps.address}</div>
+
+                    <label><span className={meterialIcon.meterialIcon}>calendar_month</span></label>
+                    <div>{data.event.extendedProps.calendarName}</div>
+                </div>
+                
+                
+            </div>
         </>
     )
 }

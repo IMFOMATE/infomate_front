@@ -10,6 +10,8 @@ export const POST_DRAFT = 'document/POST_DRAFT';
 export const POST_VACATION = 'document/POST_VACATION';
 export const POST_PAYMENT = 'document/POST_PAYMENT';
 
+export const GET_DETAIL = 'document/GET_DETAIL';
+
 
 const actions = createActions({
   [GET_DOCUMENT_MAIN] : () => {},
@@ -19,11 +21,12 @@ const actions = createActions({
   [POST_DRAFT] : () => {},
   [POST_VACATION] : () => {},
   [POST_PAYMENT] : () => {},
+  [GET_DETAIL] : () => {},
 })
 
 const documentsReducer = handleActions(
     {
-      [GET_DOCUMENT_MAIN] :  (state, { payload }) => {
+      [GET_DOCUMENT_MAIN] : (state, { payload }) => {
         return payload;
       },
       [GET_DOCUMENT_APRPROVALLIST] : (state, { payload }) => {
@@ -42,6 +45,9 @@ const documentsReducer = handleActions(
         return payload;
       },
       [POST_PAYMENT] : (state, { payload }) => {
+        return payload;
+      },
+      [GET_DETAIL] : (state, { payload }) => {
         return payload;
       },
     },

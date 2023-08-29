@@ -5,6 +5,7 @@ import {getApprovalList, getCreditList, getRefList} from "../../apis/DocumentAPI
 import ToolbarApprovalTable from "../../components/approval/ele-component/table/toolbarApprovalTable";
 import {useSearchParams} from "react-router-dom";
 
+
 function MyDocList({title}) {
 
   /*여기서 url에 따라 다른 fetch가 일어나게하고
@@ -24,7 +25,6 @@ function MyDocList({title}) {
 
 
   const dispatchData = () => {
-    console.log(filter)
 
      if (title === '기안문서') {
         dispatch(getApprovalList({ memberCode: 2, page: page, filter: filter }));
@@ -40,6 +40,7 @@ function MyDocList({title}) {
 
   };
 
+
   return (
     <>
       <div className={style.maintitle}>
@@ -47,7 +48,7 @@ function MyDocList({title}) {
           {title}
         </h2>
       </div>
-      <ToolbarApprovalTable documentData={document} pageHandler={setCurrentPage} title={title} page={currentPage} filter={filter}/>
+            <ToolbarApprovalTable documentData={document} pageHandler={setCurrentPage} title={title} page={currentPage} filter={filter}/>
     </>
   );
 }

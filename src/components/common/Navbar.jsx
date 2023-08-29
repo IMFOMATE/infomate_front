@@ -1,6 +1,6 @@
 import * as React from 'react';
 import NavStyle from './Nav.module.css';
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import {CurrentTitleContext} from "../../context/CurrentTitleContext";
 import {NavLink} from "react-router-dom";
 import {MenuContext} from "../../context/MenuContext";
@@ -8,9 +8,13 @@ import {MenuContext} from "../../context/MenuContext";
 
 
 function Navbar() {
-    const {currentTitle, toggleTitle } = useContext(CurrentTitleContext);
-    const {menuState, toggleMenu } = useContext(MenuContext);
+    const { toggleTitle } = useContext(CurrentTitleContext);
+    const { menuState } = useContext(MenuContext);
 
+    useEffect(() => {
+        const storedTitle = localStorage.getItem('currentTitle') || 'Home';
+        toggleTitle(storedTitle);
+    }, []);
 
     return (
         <nav className={`${NavStyle.nav} ${menuState ? '' : NavStyle.close }`}>
@@ -24,7 +28,7 @@ function Navbar() {
                 </div>
             </div>
             <ul className=''>
-                <li className='' onClick={()=>toggleTitle("Group")}>
+                <li className='' onClick={()=>toggleTitle("Home")}>
                     <NavLink to="/" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             home

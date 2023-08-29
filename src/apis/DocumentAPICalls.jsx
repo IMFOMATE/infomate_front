@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {
+  GET_DETAIL,
   GET_DOCUMENT_APRPROVALLIST, GET_DOCUMENT_CREDIT,
   GET_DOCUMENT_MAIN, GET_DOCUMENT_REFLIST, POST_DRAFT,
 } from '../modules/approval/DocumentModuels';
@@ -24,7 +25,7 @@ export const getMainAPI = ({memberCode}) => {
 
 //기안문서
 export const getApprovalList = ({filter, memberCode, page}) => {
-  console.log(`${filter} ${memberCode} ${page}`)
+  // console.log(`${filter} ${memberCode} ${page}`)
   const requestURL = `http://localhost:8989/document/approval/${memberCode}?status=${filter}&page=${page}`;
   // const requestURL = `http://localhost:8989/document/appproval/${memberCode}?status=${filter}&page=${page}`;
 
@@ -94,3 +95,22 @@ export const draftRegistAPI = ({form})=>{
 
   };
 };
+
+//문서세부내용
+export const getDocumentDetailAPI = ({documentCode})=>{
+
+  const requestURL = `http://localhost:8989/document/${documentCode}`;
+
+  return async (dispatch, getState)  => {
+
+    const result = await axios.get(requestURL)
+        .then(res => res.data)
+        .catch(err => console.log(err));
+
+    if(result.status === 200){
+      dispatch({type: GET_DETAIL, payload: result.data});
+    }
+
+  };
+};
+

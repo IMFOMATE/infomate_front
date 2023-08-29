@@ -8,12 +8,8 @@ import {useNavigate} from "react-router-dom";
 function ToolbarApprovalTable({documentData, pageHandler, title, filter}) {
 
   const navigate = useNavigate();
-  console.log(documentData)
   const pageInfo = documentData.pageInfo;
   const documents = documentData.data;
-
-  // const url =
-
 
   const handleFilterChange = (event) => {
     const selectedFilter = event.target.dataset.type;

@@ -63,6 +63,7 @@ button {
 a {
 	display: inline-block;
     text-decoration: none;
+	color: var(--color-black);
 }
 
 main{
@@ -74,7 +75,7 @@ main{
 	--color-hard : #7758FA;
 	--color-middle : #9F8AFB;
 	--color-light : #BAABFC;
-	--color-admin-hard : #000000;
+	--color-black : #000000;
 	--color-admin-middle : #333333;
 	--color-admin-hard : #717171;
 	--color-cancle-button : #A2A3A3; 

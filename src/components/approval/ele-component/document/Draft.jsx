@@ -111,9 +111,9 @@ function Draft() {
 
   //현재 문서작성자 -> 로컬스토리지에서 가져오기
   const writer= {
-    name : '주진선',
-    dept : '개발부서',
-    date : `${new Date().toISOString().substring(0,10)}`
+    memberName : '주진선',
+    deptName : '개발부서',
+    createdDate : `${new Date().toISOString().substring(0,10)}`
   }
 
 
@@ -140,7 +140,7 @@ function Draft() {
                 <div className={style.inline}>
                   {
                     data.approvalList.length !== 0 ?
-                        data.approvalList.map((data, index) => <Credit key={index} approval={data} />)
+                        data.approvalList.map((data, index) => <Credit key={data.memberCode} text={data?.text} rank={data.data.rank} approvalDate={data?.approvalDate} />)
                         : ""
                   }
                 </div>

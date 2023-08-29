@@ -1,6 +1,7 @@
 import React from 'react';
 import CreditListCss from './CreditList.module.css'
 import {Link} from "react-router-dom";
+import Status from "../table/Status";
 
 function CreditList({data}) {
 
@@ -23,7 +24,7 @@ function CreditList({data}) {
             </span>
             : ''
           }
-          <span className={CreditListCss.status}>{d.status}</span>
+          <Status status={d.status}/>
         </div>
         <p className={CreditListCss.docNum}>{`문서번호-${d.id}`}</p>
         <h2 className={CreditListCss.title}>{d.title}</h2>

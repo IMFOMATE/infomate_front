@@ -14,10 +14,11 @@ import { NotResultData } from '../../common/Error';
 
 const FavoriteCalendarPublic = () => {
     const [search] = useSearchParams();
+
     
     const [ selectAll, setSelectAll ] = useState(false);
     const {chk, setChk} = useContext(ManageChkList);
-    search.get('page')
+    
 
     const publicCalendarList = useSelector(state => state.calendarReducer[GET_CALENDAR_FIND_ALL_PUBLIC]);
     const favCalendarReducer = useSelector(state => state.favCalendarReducer);
@@ -26,7 +27,12 @@ const FavoriteCalendarPublic = () => {
     useEffect(()=>{
         setChk({...chk, selectList:[]})
 
-        dispatch(getCalendarPublicListAPI({page:{number:0, size:12, sortId:'id',sortDirection:'asc'}}));
+        dispatch(getCalendarPublicListAPI({page: {
+            number:search.get('page'),
+            size:search.get('size'), 
+            sortId:search.get('sortname'), 
+            sortDirection:search.get('direction')}
+        }));
         
         return () => {
             setChk({})
@@ -43,6 +49,7 @@ const FavoriteCalendarPublic = () => {
         setSelectAll(e.target.checked)
     }
 
+    console.log(publicCalendarList);
     return (
         <>
             

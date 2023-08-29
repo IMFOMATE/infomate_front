@@ -90,7 +90,7 @@ const Calendar = () =>{
 
     const hoverEventHandler = (data, param) => {
         if(param === viewModal) return;
-        
+        console.log(data);
         if(param) {
             setViewModalData(false)
             ChangeModalOffset(data.jsEvent, {x: 180, y: 80})
@@ -149,7 +149,7 @@ const Calendar = () =>{
                                     end:dayjs(item.endDate).format('YYYY-MM-DDTHH:mm:ss'), allDay: item.allDay,
                                     color: item1.labelColor, textColor: 'black',
                                     extendedProps: {id:item.id, address: item.address,
-                                                    corpSchdl: item.corpSchdl, calendarName: item1.name}
+                                                    corpSchdl: item.corpSchdl, calendarName: item1.name, important: item.important}
                                     })
                 )
             })

@@ -4,7 +4,7 @@
     border-radius: 5px;
     width: 550px;
     max-width: 550px;
-    box-shadow: 0 0 10px 6px rgba(200, 200, 200, 0.3);
+    box-shadow: 0 0 15px 5px rgba(200, 200, 200, 0.2);
     /* background-color: var(--color-background) !important; */
     background-color: white !important;
     animation: slidefade 0.2s linear
@@ -100,4 +100,9 @@
 .viewDate{
     font-size: 0.8rem;
     letter-spacing: 0.05rem;
+}
+.viewOption{
+    color: blue;
+    font-size: 0.8rem;
+    display: grid;
 }

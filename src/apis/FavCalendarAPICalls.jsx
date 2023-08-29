@@ -23,7 +23,6 @@ export const getFavCalendarfollowAllAPI = () => {
         
         if(result.status === 200) 
             dispatch({ type: GET_FAV_CALENDAR_FINDALL,  payload: result });
-        
     };
 }
 

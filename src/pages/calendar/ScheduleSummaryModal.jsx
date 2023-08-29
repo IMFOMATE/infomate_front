@@ -265,9 +265,25 @@ export const SummaryViewModal = ({setIsModal, data}) => {
 
                     <label><span className={meterialIcon.meterialIcon}>calendar_month</span></label>
                     <div>{data.event.extendedProps.calendarName}</div>
+                    <label></label>
+                    <div className={styles.viewOption}>
+                        {
+                            data.event.extendedProps.important && <span>#중요&nbsp;</span>   
+                        }
+
+                        {
+                            data.event.allDay && <span>#종일&nbsp;</span>   
+                        }
+                        
+                        {
+                            data.event.extendedProps.corpSchdl && <span>#전사일정&nbsp;</span>   
+                        }
+
+                        {
+                            // data.event.allDay && <span>#종일&nbsp;</span>   
+                        }
+                    </div>
                 </div>
-                
-                
             </div>
         </>
     )

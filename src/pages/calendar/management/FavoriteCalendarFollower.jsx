@@ -23,7 +23,12 @@ const FavoriteCalendarFollower = () => {
 
     useEffect(()=>{
         setChk({...chk, selectList:[]})
-        dispatch(getFavCalendarFollwerAPI());
+        dispatch(getFavCalendarFollwerAPI({page: {
+            number:search.get('page'),
+            size:search.get('size'), 
+            sortId:search.get('sortname'), 
+            sortDirection:search.get('direction')}
+        }));
         return () => {
             setChk({})
         }

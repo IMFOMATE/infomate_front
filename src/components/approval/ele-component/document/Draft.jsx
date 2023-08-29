@@ -67,21 +67,28 @@ function Draft() {
     // 여기서 폼작업 해줘야한다./
     const formData = new FormData();
 
-    const refListArray = data.refList.map(ref => ({ id: ref.data.memberCode }));
-    console.log(refListArray)
-    const approvalListArray = data.approvalList.map((app, index) => ({ id: app.data.memberCode, order: index + 1 }));
+
+    // const approvalListArray = data.approvalList.map((app, index) => ({ "id": app.data.memberCode, "order": index + 1 }));
+
+
+    data.fileList.forEach((file) => {
+      formData.append("fileList", file); // 각 파일을 formData에 추가
+    });
+
+    data.approvalList.forEach((app,index)=> {
+      formData.append("approvalList", ({ "id": app.data.memberCode, "order": index + 1 }))
+    })
+
+
+    //
+    // const refListArray = data.refList.map(ref => ({ "id": ref.data.memberCode }));
+    // formData.append("refList", refListArray);
 
     formData.append("title", data.title);
     formData.append("content", data.content);
-    formData.append("emergency", data.emergency);
-    formData.append("refList", JSON.stringify(refListArray));
-    formData.append("approvalList", JSON.stringify(approvalListArray));
-    formData.append("fileList", data.fileList);
-    formData.append("coDept",data.coDept);
+    formData.append("emergency", data.emergency ?? "N");
+    formData.append("coDept", data.coDept);
 
-    for(let [name, value] of formData) {
-      console.log(name, value)
-    }
     dispatch(draftRegistAPI({form: formData}));
 
     // 유효성 검사도 하자

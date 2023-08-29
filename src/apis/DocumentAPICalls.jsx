@@ -3,7 +3,6 @@ import {
   GET_DOCUMENT_APRPROVALLIST, GET_DOCUMENT_CREDIT,
   GET_DOCUMENT_MAIN, GET_DOCUMENT_REFLIST, POST_DRAFT,
 } from '../modules/approval/DocumentModuels';
-import {useNavigate} from "react-router-dom";
 
 // 결재 메인 화면
 export const getMainAPI = ({memberCode}) => {
@@ -16,8 +15,6 @@ export const getMainAPI = ({memberCode}) => {
         .then(res => res.data)
         .catch(err => console.log(err));
 
-
-    console.log(result)
     if(result.status === 200){
       dispatch({type: GET_DOCUMENT_MAIN, payload: result});
     }
@@ -27,8 +24,9 @@ export const getMainAPI = ({memberCode}) => {
 
 //기안문서
 export const getApprovalList = ({filter, memberCode, page}) => {
-
-  const requestURL = `http://localhost:8989/document/approval/${memberCode}?page=${page}$status=${filter}`;
+  console.log(`${filter} ${memberCode} ${page}`)
+  const requestURL = `http://localhost:8989/document/approval/${memberCode}?status=${filter}&page=${page}`;
+  // const requestURL = `http://localhost:8989/document/appproval/${memberCode}?status=${filter}&page=${page}`;
 
   return async (dispatch, getState)  => {
 
@@ -46,7 +44,7 @@ export const getApprovalList = ({filter, memberCode, page}) => {
 //참조문서
 export const getRefList = ({filter, memberCode, page}) => {
 
-  const requestURL = `http://localhost:8989/ref/viewer/${memberCode}?page=${page}$status=${filter}`;
+  const requestURL = `http://localhost:8989/ref/viewer/${memberCode}?status=${filter}&page=${page}`;
 
   return async (dispatch, getState)  => {
 
@@ -86,8 +84,8 @@ export const draftRegistAPI = ({form})=>{
   const requestURL = `http://localhost:8989/document/regist/draft`;
 
   return async (dispatch, getState)  => {
-    const result = await axios.post(requestURL,form,
-        {headers:{Accept:'*/*'}})
+    const result = await axios.post(requestURL, form,
+        {headers:{'Content-Type': 'multipart/form-data', Accept:'*/*'}})
         .then(res => res.data)
 
     if(result.status === 200){

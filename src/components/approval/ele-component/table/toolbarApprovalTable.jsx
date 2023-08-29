@@ -1,18 +1,27 @@
 import React from 'react';
 import ApprovalTableCss from "./ApprovalTable.module.css";
 import ApprovalTable from "./ApprovalTable";
+import {useNavigate} from "react-router-dom";
 
 
 
-function ToolbarApprovalTable({documentData, pageHandler, filterHandler, filter}) {
+function ToolbarApprovalTable({documentData, pageHandler, title, filter}) {
 
+  const navigate = useNavigate();
   console.log(documentData)
   const pageInfo = documentData.pageInfo;
   const documents = documentData.data;
 
+  // const url =
+
+
   const handleFilterChange = (event) => {
     const selectedFilter = event.target.dataset.type;
-    filterHandler(selectedFilter);
+    if(title === '기안문서'){
+      navigate(`/approval/mylist?status=${selectedFilter}&page=${pageInfo.cri.pageNum-1}`);
+    }else if(title === '참조문서'){
+      navigate(`/approval/reflist?status=${selectedFilter}&page=${pageInfo.cri.pageNum-1}`);
+    }
   };
 
   const pageNumber = [];
@@ -28,23 +37,25 @@ function ToolbarApprovalTable({documentData, pageHandler, filterHandler, filter}
     <div className={ApprovalTableCss.container}>
       <ul className={ApprovalTableCss.toolbar}>
         {
+          title !== '결재대기문서' && title !== '임시저장문서' ?
+
           filterState.map((value, index) =>
             <li
               key={index}
               onClick={handleFilterChange}
               data-type={value.url}
-              className={filter === value.url ? ApprovalTableCss.active : ''}
+              className={filter === value.url ?ApprovalTableCss.active : ''}
             >
               {value.text}
             </li>
-          )
+          ) : ''
         }
       </ul>
       <ApprovalTable data={documents}/>
       <div style={{ listStyleType: "none", display: "flex", justifyContent: "center" }}>
         { Array.isArray(documents) &&
             <button
-                onClick={() => pageHandler(pageInfo.cri.pageNum - 1)}
+                onClick={() => navigate()}
                 disabled={pageInfo.cri.pageNum === 1}
             >
               &lt;
@@ -54,7 +65,6 @@ function ToolbarApprovalTable({documentData, pageHandler, filterHandler, filter}
             <li key={num} onClick={() => pageHandler(num)}>
               <button
                   style={ pageInfo.cri.pageNum === num ? {backgroundColor : 'orange' } : null}
-                  // className={ ReviewCSS.pagingBtn }
               >
                 {num}
               </button>

@@ -18,9 +18,11 @@ function AddContact({title}) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const member = useSelector(state => state.contactReducer); 
+    const imageInput = useRef();
+    const [image, setImage] = useState(null);
 
     const [form, setForm] = useState ({
-        photo: '',
+        contactPhoto: '',
         name: '',
         company: '',
         department: '',
@@ -29,6 +31,10 @@ function AddContact({title}) {
         companyPhone: '',
         companyAddress: '',
         memo: '',
+        like: 'N',
+
+        
+    
     })
 
     useEffect(() => {
@@ -46,6 +52,7 @@ function AddContact({title}) {
 
     const onChangeHandler = (e) => {
         setForm( {
+
             ...form,
             [e.target.name]: e.target.value
         })
@@ -56,12 +63,44 @@ function AddContact({title}) {
 
 
     const onClickRegisterHandler = () => {
+
+        const formData = new FormData();
+
+        
+        formData.append('name', form.name);  
+        console.log("======", form.name);
+        formData.append('company', form.company);  
+        formData.append('department', form.department);  
+        formData.append('email', form.email);  
+        formData.append('phone', form.phone);  
+        formData.append('companyPhone', form.companyPhone);  
+        formData.append('companyAddress', form.companyAddress);  
+        formData.append('memo', form.memo);  
+        formData.append('like', form.like);  
+
+        console.log("ddfsaf",formData);
+        
+        if(image){
+            formData.append("contactPhoto", image);
+        }
+
+
         navigate("/addressBook");
         dispatch(callRegistAPI({
-            form: form,
-        
+            form: formData,
+
         }))
     }
+
+
+    const onChangeImageUpload = (e) => {
+
+        const image = e.target.files[0];
+
+        setImage(image);
+    };
+
+    
 
  
 
@@ -72,15 +111,19 @@ function AddContact({title}) {
                 const previewElement = document.getElementById(style.preview);
                 if (previewElement) {
                     previewElement.src = e.target.result;
+
+                    
                 }
             };
             reader.readAsDataURL(input.files[0]);
+            
         } else {
             const previewElement = document.getElementById(style.preview);
             if (previewElement) {
                 previewElement.src = "";
             }
         }
+
     }
     
 
@@ -98,8 +141,8 @@ function AddContact({title}) {
                                 <p>사진</p>
                                 <img src= {img} id={style.preview} style={{width: '100px', height: '100px'}}/>
                                 
-                                <input type="file"  id="fileInput" onChange={(e) => readURL(e.target)} style={{display: 'none'}}/>
-                                <label for="fileInput" class={style.customFileInput}>
+                                <input type="file"  id="fileInput" onChange={(e) => readURL(e.target)} style={{display: 'none'}} onClick={ onChangeImageUpload }/>
+                                <label for="fileInput" class={style.customFileInput} name='contactPhoto'>
                                     사진 첨부
                                 </label>
                             </li>

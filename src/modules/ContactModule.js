@@ -6,6 +6,7 @@ const initialState = [];
 /* 액션 */
 export const POST_REGISTER = 'contact/POST_REGISTER';
 export const GET_ADDRESSBOOK = 'contact/GET_ADDRESSBOOK';
+export const PUT_ADDRESSBOOK = 'contact/PUT_ADDRESSBOOK';
 
 const actions = createActions({
     [POST_REGISTER]: () => {},
@@ -23,6 +24,11 @@ const contactReducer = handleActions (
         },
 
         [GET_ADDRESSBOOK]: (state, { payload }) => {
+
+            return payload;
+        },
+
+        [PUT_ADDRESSBOOK]: (state, { payload }) => {
 
             return payload;
         },

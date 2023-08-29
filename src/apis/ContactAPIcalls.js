@@ -2,10 +2,12 @@
 import {
     POST_REGISTER
    ,GET_ADDRESSBOOK
+   ,PUT_ADDRESSBOOK
 } from '../modules/ContactModule';
 
 export const callRegistAPI = ({form}) => {
     const requestURL = "http://localhost:8989/addressBook/addContact";
+    console.log("이거",form);
 
     return async (dispatch, getState) => {
 
@@ -15,19 +17,21 @@ export const callRegistAPI = ({form}) => {
                 "Content-Type": "application/json",
                 "Accept": "*/*",
             },
-            body: JSON.stringify({
-                photo: form.photo,
-                contactName: form.name,
-                company: form.company,
-                department: form.department,
-                contactEmail: form.email,
-                contactPhone: form.phone,
-                companyPhone: form.companyPhone,
-                companyAddress: form.companyAddress,
-                memo: form.memo,
-            })
+            body: form
+                // photo: form.contactPhoto,
+                // contactName: form.name,
+                // company: form.company,
+                // department: form.department,
+                // contactEmail: form.email,
+                // contactPhone: form.phone,
+                // companyPhone: form.companyPhone,
+                // companyAddress: form.companyAddress,
+                // memo: form.memo,
+                // contactLike: form.like,
+                
+            
         }).then(response => response.json());
-        console.log("[ContactAPICalls] callRegisterAPI RESULT : ", result);
+        console.log("[ContactAPICalls] callRegisterAPI RESULT : ", result); 
         
         if(result.status === 201) {
             alert('연락처 추가 성공')
@@ -53,9 +57,27 @@ export const callSelectAPI = () => {
 
         
 
-        console.log('[ContactAPICalls] callLoginAPI RESULT  {} : ', result);
+        console.log('[ContactAPICalls] callSelectAPI RESULT  {} : ', result);
 
         dispatch({type: GET_ADDRESSBOOK, payload: result});
+    }
+};
+
+export const callUpdateAPI = ({contactCode}) => {
+
+    const requestURL = `http://localhost:8989/addressBook/contactUpdate/${ contactCode }`;
+
+    return async (dispatch, getState) => {
+        
+        const result = await fetch(requestURL, {
+            method: "PUT",
+
+        })
+        .then(response => response.json());
+
+        console.log('[ContactAPICalls] callUpdateAPI RESULT  {} : ', result);
+
+        dispatch({type: PUT_ADDRESSBOOK, payload: result})
     }
 };
 

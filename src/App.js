@@ -38,6 +38,7 @@ import BrdAdmin from "./pages/board/BrdAdmin";
 import Anony from "./pages/board/Anony";
 import NewPost from "./pages/board/NewPost";
 import { SummaryViewModal } from './pages/calendar/ScheduleSummaryModal';
+import { Pagenation } from './components/common/Pagenation';
 
 function App() {
   return (
@@ -50,8 +51,6 @@ function App() {
             {/* <Route path="/mailWrite" element={<MailWrite />} /> */}
             <Route path="/mail" element={<Mail />} />
             {/* <Route path="/board" element={<BoardMain />}></Route> */}
-
-
             
             <Route path="approval">
               <Route index element={<ApprovalMain/>}/>
@@ -67,7 +66,7 @@ function App() {
             <Route path="calendar" element={<CalendarLayout />}>
               <Route index element={<Calendar/>}/>
               <Route path="reminder" element={<ReminderList />} />
-              <Route path="test" element={<SummaryViewModal />} />
+              <Route path="test" element={<Pagenation />} />
               <Route path="regist" element={<ScheduleDetailCreate/>} />
                 <Route path="management" element={<CalendarManegeLayout/>}>
                 <Route index element={<MyCalendar />}/>

@@ -22,7 +22,6 @@ import { FadeLoader } from "react-spinners";
 import { GET_CALENDAR_FINDALL } from "../../modules/CalendarMoudule";
 import StylesLoading from './loadingStyle.module.css';
 import { SummaryCreateModal, SummaryViewModal } from "./ScheduleSummaryModal";
-import { ViewWeek } from "@mui/icons-material";
 
 dayjs.extend(utc)
 
@@ -141,12 +140,20 @@ const Calendar = () =>{
             data.filter(item => !filter.includes(item.id))
             .forEach(item1 => {
                 item1 && item1.scheduleList && item1.scheduleList.forEach(item => 
-                        event.push({title: item.title, start:dayjs(item.startDate).format('YYYY-MM-DDTHH:mm:ss'),
-                                    end:dayjs(item.endDate).format('YYYY-MM-DDTHH:mm:ss'), allDay: item.allDay,
-                                    color: item1.labelColor, textColor: 'black',
-                                    extendedProps: {id:item.id, address: item.address,
-                                                    corpSchdl: item.corpSchdl, calendarName: item1.name, important: item.important}
-                                    })
+                        event.push({
+                            title: item.title,
+                            start: dayjs(item.startDate).format('YYYY-MM-DDTHH:mm:ss'),
+                            end: dayjs(item.endDate).format('YYYY-MM-DDTHH:mm:ss'), allDay: item.allDay,
+                            color: item1.labelColor,
+                            textColor: 'black',
+                            extendedProps: {
+                                id: item.id,
+                                address: item.address,
+                                corpSchdl: item.corpSchdl, 
+                                calendarName: item1.name, 
+                                important: item.important
+                                }
+                            })
                 )
             })
         return event;

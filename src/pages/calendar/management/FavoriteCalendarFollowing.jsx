@@ -8,6 +8,7 @@ import { FadeLoader } from 'react-spinners';
 import StylesLoading from '../loadingStyle.module.css';
 import { DELETE_FAV_CALENDAR, GET_FAV_CALENDAR_FINDALL } from '../../../modules/FavCalendarMoudule';
 import { getFavCalendarfollowAllAPI } from '../../../apis/FavCalendarAPICalls';
+import { Pagenation } from '../../../components/common/Pagenation';
 
 const FavoriteCalendarFollowing = () => {
     const [search] = useSearchParams();
@@ -25,13 +26,13 @@ const FavoriteCalendarFollowing = () => {
         dispatch(getFavCalendarfollowAllAPI({page: {
             number:search.get('page'),
             size:search.get('size'), 
-            sortId:search.get('sortname'), 
+            sortId:search.get('sort'), 
             sortDirection:search.get('direction')}
         }));
         return () => {
             setChk({});
         }   
-    },[favCalendarReducer[DELETE_FAV_CALENDAR]])
+    },[search, favCalendarReducer[DELETE_FAV_CALENDAR]])
 
 
     const selectItemChange = (e)=> {
@@ -72,6 +73,15 @@ const FavoriteCalendarFollowing = () => {
                                             isLabelColor={item?.labelColor}
                                     />)
                 
+            }
+            {
+                favCalendarFollowList?.pageInfo &&
+                <Pagenation
+                    prev={favCalendarFollowList.pageInfo.prev}
+                    next={favCalendarFollowList.pageInfo.next}
+                    total={favCalendarFollowList.pageInfo.total} 
+                    pageNum={favCalendarFollowList.pageInfo.cri.pageNum}
+                />
             }
         </>
     );

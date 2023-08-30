@@ -8,6 +8,7 @@ import { FadeLoader } from 'react-spinners';
 import StylesLoading from '../loadingStyle.module.css';
 import { DELETE_FAV_CALENDAR, GET_FAV_CALENDAR_FOLLOWER, PATCH_FAV_CALENDAR_STATE_UPDATE } from '../../../modules/FavCalendarMoudule';
 import { getFavCalendarFollwerAPI } from '../../../apis/FavCalendarAPICalls';
+import { Pagenation } from '../../../components/common/Pagenation';
 
 const FavoriteCalendarFollower = () => {
     const [search] = useSearchParams();
@@ -26,13 +27,13 @@ const FavoriteCalendarFollower = () => {
         dispatch(getFavCalendarFollwerAPI({page: {
             number:search.get('page'),
             size:search.get('size'), 
-            sortId:search.get('sortname'), 
+            sortId:search.get('sort'), 
             sortDirection:search.get('direction')}
         }));
         return () => {
             setChk({})
         }
-    },[favCalendarReducer[PATCH_FAV_CALENDAR_STATE_UPDATE], favCalendarReducer[DELETE_FAV_CALENDAR]])
+    },[favCalendarReducer[PATCH_FAV_CALENDAR_STATE_UPDATE], favCalendarReducer[DELETE_FAV_CALENDAR], search])
 
 
     const selectItemChange = (e)=> {
@@ -44,6 +45,8 @@ const FavoriteCalendarFollower = () => {
         
         setSelectAll(e.target.checked)
     }
+    
+
     
     return (
         <>
@@ -63,6 +66,15 @@ const FavoriteCalendarFollower = () => {
                                             state={item?.approvalStatus}
                                     />)
                 
+            }
+            {
+                calendarFollowerList?.pageInfo &&
+                <Pagenation
+                    prev={calendarFollowerList.pageInfo.prev}
+                    next={calendarFollowerList.pageInfo.next}
+                    total={calendarFollowerList.pageInfo.total} 
+                    pageNum={calendarFollowerList.pageInfo.cri.pageNum}
+                />
             }
         </>
     );

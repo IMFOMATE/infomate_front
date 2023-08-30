@@ -55,7 +55,7 @@ export const getCalendarPublicListAPI = ({page}) => {
                     .catch(res => res)
         
         console.log(result);
-        
+
         if(result === undefined || result === ''){
             message.error('조회할 내용이 없습니다.')
             dispatch({ type: GET_CALENDAR_FIND_ALL_PUBLIC,  payload: undefined });

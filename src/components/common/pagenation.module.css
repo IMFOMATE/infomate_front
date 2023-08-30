@@ -1,0 +1,21 @@
+.container {
+    text-align: center;
+    vertical-align: middle;
+}
+.container > button{
+    color: grey ;
+    font-size: 1rem;
+    margin: 0 1px;
+    vertical-align: middle;
+    text-align: center;
+    width: 20px;
+}
+
+.iconSize {
+   font-size: 1.6rem;
+   margin: 0;
+}
+.active{
+    font-weight: 600;
+    color: rgb(100, 100, 100);
+}

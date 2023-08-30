@@ -70,7 +70,7 @@ const ScheduleDetilaCreate = () => {
             setIsModal(false);
             setSchedule({});
         }
-    },[isRead])
+    },[isRead, search])
 
     
     const isDataLoad = () => {

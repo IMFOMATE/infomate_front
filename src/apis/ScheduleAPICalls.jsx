@@ -32,10 +32,9 @@ export const getScheduleDetail = ({scheduleId}) => {
 }
 
 export const postScheduleRegist = ({data}) => {
-    data = {...data, memberCode: MEMBER_CODE}
+    data = {...data, memberCode: MEMBER_CODE}    
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/regist`;
-
-
+    
     data = {...data, startDate: dayjs(data.startDate).format('YYYY-MM-DDTHH:MM:ss'), endDate: dayjs(data.endDate).format('YYYY-MM-DDTHH:MM:ss')}
     return async (dispatch, getState) => {
         const result = await axios.post(requestURL, data, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
@@ -45,6 +44,7 @@ export const postScheduleRegist = ({data}) => {
         if(result?.status === 200){
             message.success("일정이 등록 되었습니다.")
             dispatch({ type: POST_SCHEDULE_REGIT,  payload: result});
+            console.log('1');
             return ;
         } 
         

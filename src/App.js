@@ -37,8 +37,6 @@ import BrdDept from "./pages/board/BrdDept";
 import BrdAdmin from "./pages/board/BrdAdmin";
 import Anony from "./pages/board/Anony";
 import NewPost from "./pages/board/NewPost";
-import { SummaryViewModal } from './pages/calendar/ScheduleSummaryModal';
-import { Pagenation } from './components/common/Pagenation';
 
 function App() {
   return (
@@ -66,7 +64,6 @@ function App() {
             <Route path="calendar" element={<CalendarLayout />}>
               <Route index element={<Calendar/>}/>
               <Route path="reminder" element={<ReminderList />} />
-              <Route path="test" element={<Pagenation />} />
               <Route path="regist" element={<ScheduleDetailCreate/>} />
                 <Route path="management" element={<CalendarManegeLayout/>}>
                 <Route index element={<MyCalendar />}/>

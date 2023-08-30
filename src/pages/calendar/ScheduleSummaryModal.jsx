@@ -9,7 +9,7 @@ import { useContext, useEffect } from 'react';
 import { ScheduleModalProvider, ScheduleProvider } from '../../layouts/CalendarLayout';
 import { MenuContext } from '../../context/MenuContext';
 import { useDispatch, useSelector } from 'react-redux';
-import { postScheduleRegist } from '../../apis/ScheduleAPICalls';
+import { deleteSchedule, postScheduleRegist } from '../../apis/ScheduleAPICalls';
 import 'dayjs/locale/ko';
 import dayjs from 'dayjs';
 import locale from 'antd/es/date-picker/locale/ko_KR';
@@ -38,7 +38,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
         setSchedule({
             ...schedule,
             data: {...schedule.data, 
-                refCalendar: parseInt(calendarList.data.filter(item => item.indexNo === 1)[0].id)}
+                refCalendar: calendarList.data.filter(item => item.indexNo === 1 && item.memberCode === MEMBER_CODE)[0].id}
         })
     },[])
 
@@ -228,9 +228,19 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
 export const SummaryViewModal = ({setIsModal, data}) => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const editClickHandler = () => {
+        // navigate(`./regist?scheduleId=${data.event.extendedProps.id}&isread=true`);
         navigate(`./regist?scheduleId=${data.event.extendedProps.id}&isread=true`);
+    }
+
+    const deleteScheduleHandler = () => {
+        dispatch(deleteSchedule({data: [parseInt(data.event.extendedProps.id)]}));
+        setIsModal(false);
+    }
+    const addressLinkClickHandler = () => {
+        window.open(`https://map.kakao.com/link/search/${data.event.extendedProps.address}`)
     }
 
     return (
@@ -238,6 +248,7 @@ export const SummaryViewModal = ({setIsModal, data}) => {
             {/* <div className={[styles.container, modal && styles.active].join(' ')}> */}
             <div className={[styles.container,styles.active, styles.viewContainer].join(' ')}>
                 <div className={styles.viewHeader}>
+                <button className={meterialIcon.meterialIcon} onClick={deleteScheduleHandler}>delete</button>
                     <button className={meterialIcon.meterialIcon} onClick={editClickHandler}>edit</button>
                     <button className={meterialIcon.meterialIcon} onClick={setIsModal}>close</button>
                 </div>
@@ -253,7 +264,7 @@ export const SummaryViewModal = ({setIsModal, data}) => {
                     
                     
                     <label><span className={meterialIcon.meterialIcon}>home</span></label>
-                    <div>{data.event.extendedProps.address}</div>
+                    <div><button onClick={addressLinkClickHandler} style={{color:'blue'}}>{data.event.extendedProps.address}</button></div>
 
                     <label><span className={meterialIcon.meterialIcon}>calendar_month</span></label>
                     <div>{data.event.extendedProps.calendarName}</div>

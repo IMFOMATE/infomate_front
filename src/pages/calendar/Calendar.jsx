@@ -22,6 +22,7 @@ import { FadeLoader } from "react-spinners";
 import { GET_CALENDAR_FINDALL } from "../../modules/CalendarMoudule";
 import StylesLoading from './loadingStyle.module.css';
 import { SummaryCreateModal, SummaryViewModal } from "./ScheduleSummaryModal";
+import { DELETE_SCHEDULE, GET_SCHEDULE_DETAIL, PATCH_SCHEDULE, POST_SCHEDULE_REGIT } from "../../modules/ScheduleMoudule";
 
 dayjs.extend(utc)
 
@@ -60,23 +61,35 @@ const Calendar = () =>{
     }) 
     
     useEffect(()=>{
-        setSchedule({});
+        setIsModal(false);
+        setViewModal(false);
+        setSchedule(undefined);
+        dispatch(dispatch => dispatch({ type: GET_SCHEDULE_DETAIL,  payload: undefined }))
         changeIsMobile();
 
         sizeObserver.observe(containerRef.current);
 
         dispatch(getCalendarFindAllAPI())
+        // setSchedule(data);
+        
 
         return () => {
             sizeObserver.disconnect();
         }
-    },[scheduleReducer])
+    },[
+        dispatch,
+        scheduleReducer[PATCH_SCHEDULE],
+        scheduleReducer[DELETE_SCHEDULE],
+        scheduleReducer[POST_SCHEDULE_REGIT],
+        scheduleReducer[GET_SCHEDULE_DETAIL],
+
+    ])
 
     const calenderClickHandler = data => {
         
         setSchedule({
             ...schedule, 
-            data : {...schedule.data,
+            data : {...schedule?.data,
                 startDate: dayjs(data.startStr).format('YYYY-MM-DDTHH:mm'),
                 endDate: data.view.type === 'dayGridMonth'? dayjs(data.endStr).subtract(1,'d').format('YYYY-MM-DDTHH:mm') : dayjs(data.endStr).format('YYYY-MM-DDTHH:mm'),
             }
@@ -122,7 +135,16 @@ const Calendar = () =>{
     const eventClickHandler = e => {  
         menuState && toggleMenu();
         ChangeModalOffset(e.jsEvent, {x:270 , y: 180});
-        navigate(`./regist?scheduleId=${e.event.extendedProps.id}&isread=true`);
+        console.log(isMobile);
+        if(!isMobile){
+            setViewModalData(false)
+            ChangeModalOffset(e.jsEvent, {x: 180, y: 80})
+            setViewModalData(e)
+            setViewModal(true);
+        }else{
+            // navigate(`./regist?scheduleId=${e.event.extendedProps.id}&isread=true`);
+            navigate(`./regist?scheduleId=${e.event.extendedProps.id}&isread=true`);
+        }
     }
 
     const eventDrop = (e) =>{
@@ -222,8 +244,8 @@ const Calendar = () =>{
                         select={calenderClickHandler}
                         eventClick={eventClickHandler}
                         eventDrop={eventDrop}
-                        eventMouseEnter={(e)=> hoverEventHandler(e, true)}
-                        eventMouseLeave={(e)=> hoverEventHandler(e, false)}
+                        // eventMouseEnter={(e)=> hoverEventHandler(e, true)}
+                        // eventMouseLeave={(e)=> hoverEventHandler(e, false)}
                     />
                     
                 }

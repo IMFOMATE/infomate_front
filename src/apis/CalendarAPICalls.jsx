@@ -53,8 +53,6 @@ export const getCalendarPublicListAPI = ({page}) => {
         const result = await axios.get(requestURL)
                     .then(res => res.data)
                     .catch(res => res)
-        
-        console.log(result);
 
         if(result === undefined || result === ''){
             message.error('조회할 내용이 없습니다.')

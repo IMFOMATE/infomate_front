@@ -20,8 +20,6 @@ import Anony from "./pages/board/Anony";
 
 import './components/common/nav.css';
 
-import './components/common/default.css';
-
 import Mail from "./pages/mail/Mail";
 import AddressBook from "./pages/addressBook/AddressBook";
 import AddContact from "./pages/addressBook/AddContact";
@@ -54,9 +52,6 @@ function Test() {
     return null;
 }
 
-function Test() {
-    return null;
-}
 
 function App() {
   return (
@@ -81,9 +76,6 @@ function App() {
             </Route>
           </Route>
           <Route path="/" element={<Layout/>}>
-                  {/* <Route path="/board" element={<BoardMain />}></Route> */}
-
-          <Route path="/" element={<Layout/>}>
                   <Route path="calendar">
                       <Route index element={<SecheduleSummaryCreate/>}/>
                   </Route>
@@ -103,7 +95,7 @@ function App() {
 
 
                 <Route path='group'>
-                <Route index element={<Group/>}/>
+                  <Route index element={<Group/>}/>
                 </Route>
                 <Route path='searchDept' element={<SearchDept/>}/>
                 <Route path='memberInfo' element={<MemberInfo/>}/>
@@ -111,14 +103,6 @@ function App() {
 
                 
             </Route>          
-              </Route>          
-            <Route path='/manage'>
-              <Route index element={<Group/>}/>
-            </Route>
-            <Route path='/searchDept' element={<SearchDept/>}/>
-            <Route path='memberInfo' element={<MemberInfo/>}/>
-            <Route path='memberupdate' element={<UpdateMember/>}/>
-
             <Route path='test' element={<ChartModal/>}/>
                 <Route path="calendar">
                   <Route index element={<Calendar/>}/>
@@ -134,10 +118,7 @@ function App() {
                       </Route>
                     </Route>
                 </Route>
-                  <Route path='/manage'>
-                    <Route index element={<Group/>}/>
-                  </Route>
-                  <Route path='/searchDept' element={<SearchDept/>}/>
+                  
 
                   <Route path="/work" element={ <Work /> }/>
                   <Route path="/work/admin" element={ <WkAdmin /> }/>

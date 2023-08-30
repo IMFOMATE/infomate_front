@@ -113,19 +113,19 @@ margin-left: 10px;
     gap: 3px
     }
 
-table {
+.table {
 border-collapse: collapse;
 width: 100%;
 }
   
-th {
+.th {
 padding: 8px;
 text-align: center;
 border-bottom: 1px solid #ddd;
 border-top: 1px solid #ddd;
 }
 
-td {
+.td {
 padding: 14px;
 text-align: center;
 border-top: 1px solid #dddddd6d;

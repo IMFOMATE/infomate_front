@@ -25,7 +25,7 @@
     }
 
 /* 식단표 */
-table { 
+.table { 
 border-bottom: 1px solid #ddd;
 border-top: 1px solid #ddd;
 text-align: left;
@@ -37,7 +37,7 @@ border: 1px solid #ddd;
 margin-top: 12px;
 }
 
-td {
+.td {
 color: #000;
 font-family: Inter;
 font-size: 12px;
@@ -53,7 +53,7 @@ width: 60px;
 height: 3px;
 }
 
-th { 
+.th { 
 border-bottom: 1px solid #ddd;
 border-top: 1px solid #ddd;
 /* text-align: left; */

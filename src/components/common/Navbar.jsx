@@ -24,8 +24,8 @@ function Navbar() {
                 </div>
             </div>
             <ul className=''>
-                <li className='' onClick={()=>toggleTitle("Group")}>
-                    <NavLink to="/manage" >
+                <li className='' onClick={()=>toggleTitle("Home")}>
+                    <NavLink to="/" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             home
                         </span>
@@ -59,7 +59,7 @@ function Navbar() {
                 <li onClick={()=>toggleTitle("Attend")}>
                     <NavLink to="" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
-                            approval
+                            watch
                         </span>
                         <span>근태관리</span>
                     </NavLink>
@@ -73,7 +73,7 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Group")}>
-                    <NavLink to="/" >
+                    <NavLink to="/group" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             group
                         </span>

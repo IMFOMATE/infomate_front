@@ -16,14 +16,6 @@
     line-height: normal;
     }
 
-/* 배경 */
-.wk_contain{
-    width: 1200px;
-    height: 823px;
-    flex-shrink: 0;
-    margin-left: 30px;
-    }    
-
 /* 연차사용내역조회 폰트 */
 .minift {
 width: 300px;
@@ -116,6 +108,19 @@ margin-left: 10px;
 .table {
 border-collapse: collapse;
 width: 100%;
+/* 테이블 */
+.wktable {
+  /* border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd; */
+  text-align: left;
+  /* width: 60px; */
+  height: flex;
+  border-collapse: collapse;
+  width: 100%;
+  /* border: 1px solid #ddd; */
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
 }
   
 .th {
@@ -123,6 +128,21 @@ padding: 8px;
 text-align: center;
 border-bottom: 1px solid #ddd;
 border-top: 1px solid #ddd;
+
+.wktable_th {
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  /* text-align: left; */
+  height: 40px;
+  color: #000;
+  /* font-family: Inter; */
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-align: center;
+  /* border-left: 1px solid none; */
+  /* padding-right: 7px; */
 }
 
 .td {
@@ -130,4 +150,53 @@ padding: 14px;
 text-align: center;
 border-top: 1px solid #dddddd6d;
 border-bottom: 1px solid #dddddd6d;
+/* 테이블 */
+.wktable {
+  /* border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd; */
+  text-align: left;
+  /* width: 60px; */
+  height: flex;
+  border-collapse: collapse;
+  width: 100%;
+  /* border: 1px solid #ddd; */
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+}
+
+.wktable_th {
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  /* text-align: left; */
+  height: 40px;
+  color: #000;
+  /* font-family: Inter; */
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-align: center;
+  /* border-left: 1px solid none; */
+  /* padding-right: 7px; */
+}
+
+.wktable_td {
+  border-bottom: 1px solid #ddd;
+  /* border-top: 1px solid #ddd; */
+  /* text-align: left; */
+  height: 40px;
+  color: #000;
+  /* font-family: Inter; */
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  /* border-left: 1px solid none; */
+  /* padding-right: 7px; */
+}
+
+.wktable_tr:hover {
+  background-color: #ddd;
 }

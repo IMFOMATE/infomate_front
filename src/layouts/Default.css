@@ -30,6 +30,13 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 }
+
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
 article, aside, details, figcaption, figure, footer, hgroup, menu, nav, section {
 	display: block;
 }
@@ -56,6 +63,7 @@ button {
 a {
 	display: inline-block;
     text-decoration: none;
+	color: var(--color-black);
 }
 
 main{
@@ -67,10 +75,11 @@ main{
 	--color-hard : #7758FA;
 	--color-middle : #9F8AFB;
 	--color-light : #BAABFC;
-	--color-admin-hard : #000000;
+	--color-black : #000000;
 	--color-admin-middle : #333333;
 	--color-admin-hard : #717171;
 	--color-cancle-button : #A2A3A3; 
+	--color-cancle-button-hard: #7f7f7f;
 	--color-text-title: #535353;
 	--color-text-content: #757575;
 	--color-border: #e8e8e8;
@@ -78,6 +87,10 @@ main{
 	--color-background : #F8F8F8;
 	--color-alert: #FF6767;
 	--color-success : #36D99E;
+	--fc-button-bg-color: #9F8AFB;
+	--fc-button-border-color: #9F8AFB;
+	--fc-button-active-bg-color: #7758FA;
+	--fc-button-active-border-color: #7758FA;
 }
 
 
@@ -97,10 +110,9 @@ main{
 	right: 0;
 }
 ::-webkit-scrollbar-thumb:hover {
-
     background: var(--color-hard);
     border-radius: 10px;
-	opacity: 0.5;
+		opacity: 0.5;
 }
 
 .wrapper{

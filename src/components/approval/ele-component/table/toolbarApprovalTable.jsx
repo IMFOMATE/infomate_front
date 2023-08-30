@@ -1,73 +1,92 @@
-import React, {useState} from 'react';
+import React from 'react';
 import ApprovalTableCss from "./ApprovalTable.module.css";
 import ApprovalTable from "./ApprovalTable";
+import {useNavigate} from "react-router-dom";
 
-// import ToolBarCss from './Toolbar.module.css';
 
 
-function ToolbarApprovalTable() {
+function ToolbarApprovalTable({documentData, pageHandler, title, filter}) {
 
-  /*effect이용하긴해야되는데*/
-
-  const [filter, setFilter] = useState('');
-
-  const filterState = [
-    {text: '전체', url:''},
-    {text: '완료', url:'APPROVAL'},
-    {text: '진행', url:'WAITING'},
-    {text: '반려', url:'REJECT'},
-    {text: '취소', url:'CANCEL'},
-  ];
+  const navigate = useNavigate();
+  const pageInfo = documentData.pageInfo;
+  const documents = documentData.data;
 
   const handleFilterChange = (event) => {
     const selectedFilter = event.target.dataset.type;
-    setFilter(selectedFilter === filter ? '' : selectedFilter);
+    if(title === '기안문서'){
+      navigate(`/approval/mylist?status=${selectedFilter}&page=${pageInfo.cri.pageNum-1}`);
+    }else if(title === '참조문서'){
+      navigate(`/approval/reflist?status=${selectedFilter}&page=${pageInfo.cri.pageNum-1}`);
+    }
   };
 
-  const filteredData = filter === '' ? testinit.docList : testinit.docList.filter((f) => f.status === filter);
+  const pageNumber = [];
+
+  if(pageInfo){
+    for(let i = 1; i <= pageInfo.pageEnd ; i++){
+      pageNumber.push(i);
+    }
+  }
+
 
   return (
     <div className={ApprovalTableCss.container}>
       <ul className={ApprovalTableCss.toolbar}>
         {
+          title !== '결재대기문서' && title !== '임시저장문서' ?
+
           filterState.map((value, index) =>
             <li
               key={index}
               onClick={handleFilterChange}
               data-type={value.url}
-              className={filter === value.url ? ApprovalTableCss.active : ''}
+              className={filter === value.url ?ApprovalTableCss.active : ''}
             >
               {value.text}
             </li>
-          )
+          ) : ''
         }
       </ul>
-      <ApprovalTable data={filteredData}/>
+      <ApprovalTable data={documents}/>
+      <div style={{ listStyleType: "none", display: "flex", justifyContent: "center" }}>
+        { Array.isArray(documents) &&
+            <button
+                onClick={() => navigate()}
+                disabled={pageInfo.cri.pageNum === 1}
+            >
+              &lt;
+            </button>
+        }
+        {pageNumber.map((num) => (
+            <li key={num} onClick={() => pageHandler(num)}>
+              <button
+                  style={ pageInfo.cri.pageNum === num ? {backgroundColor : 'orange' } : null}
+              >
+                {num}
+              </button>
+            </li>
+        ))}
+        { Array.isArray(documents) &&
+            <button
+                // className={ ReviewCSS.pagingBtn }
+                onClick={() => pageHandler(pageInfo.cri.pageNum + 1)}
+                disabled={pageInfo.cri.pageNum === pageInfo.pageEnd || pageInfo.total === 0}
+            >
+              &gt;
+            </button>
+        }
+      </div>
     </div>
   );
 }
 
+const filterState = [
+  {text: '전체', url:''},
+  {text: '완료', url:'APPROVAL'},
+  {text: '진행', url:'WAITING'},
+  {text: '반려', url:'REJECT'},
+  {text: '취소', url:'CANCEL'},
+];
+
+
 export default ToolbarApprovalTable;
-
-const testinit = {
-
-  docList: [
-    {
-      no: '111',
-      isAlert: true,
-      status: 'WAITING',
-      docTitle: '테스트 문서입니다.',
-      createDate: '2023-08-08',
-      writer: '주진선'
-    },
-    {
-      no: '112',
-      isAlert: false,
-      status: 'WAITING',
-      docTitle: '테스트 문서입니다.',
-      createDate: '2023-08-08',
-      writer: '주진선'
-    },
-
-  ],
-};

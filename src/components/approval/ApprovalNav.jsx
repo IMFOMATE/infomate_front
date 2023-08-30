@@ -6,7 +6,7 @@ import {useModal} from "../../context/ModalContext";
 function ApprovalNav() {
 
     const {menuState, toggleMenu} = useContext(MenuContext);
-    const {modalOpen , toggleModal } = useModal();
+    const { isModalOpen, toggleModal } = useModal('documentKind'); // 모달 별 상태가져오기
 
     return (
         <div className={`${NavStyle.sidemenu} ${menuState ? '': NavStyle.close}`}>
@@ -24,9 +24,8 @@ function ApprovalNav() {
 export default ApprovalNav;
 
 const approvalLink = [
-  {text:'기안문서', link:'/approval/mylist'},
-  {text:'참조문서', link:'/approval/reflist'},
-  {text:'임시저장문서', link:'/approval/temp'},
-  {text:'결재대기문서', link:'/approval/approving'},
-  {text:'결재완료문서', link:'/approval/approved'},
+  {text:'기안문서', link:'approval/mylist?status='},
+  {text:'참조문서', link:'approval/reflist?status='},
+  {text:'임시저장문서', link:'approval/temp'},
+  {text:'결재대기문서', link:'approval/approving'},
 ]

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import NavStyle from './Nav.module.css';
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import {CurrentTitleContext} from "../../context/CurrentTitleContext";
 import {NavLink} from "react-router-dom";
 import {MenuContext} from "../../context/MenuContext";
@@ -8,9 +8,13 @@ import {MenuContext} from "../../context/MenuContext";
 
 
 function Navbar() {
-    const {currentTitle, toggleTitle } = useContext(CurrentTitleContext);
-    const {menuState, toggleMenu } = useContext(MenuContext);
+    const { toggleTitle } = useContext(CurrentTitleContext);
+    const { menuState } = useContext(MenuContext);
 
+    useEffect(() => {
+        const storedTitle = localStorage.getItem('currentTitle') || 'Home';
+        toggleTitle(storedTitle);
+    }, []);
 
     return (
         <nav className={`${NavStyle.nav} ${menuState ? '' : NavStyle.close }`}>
@@ -56,8 +60,8 @@ function Navbar() {
                         <span>전자결재</span>
                     </NavLink>
                 </li>
-                <li onClick={()=>toggleTitle("Attend")}>
-                    <NavLink to="" >
+                <li onClick={()=>toggleTitle("Work")}>
+                    <NavLink to="/work" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             watch
                         </span>

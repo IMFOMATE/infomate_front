@@ -7,7 +7,7 @@ const RadioInput = (props) => {
                 type='radio'
                 className={styles.input}
                 name={props?.name}
-                defaultChecked={props.defaultChecked}
+                defaultChecked={props?.defaultChecked}
                 // value={props?.value}
                 onToggle={props?.onToggle}
                 onChange={props?.onChange}

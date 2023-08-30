@@ -17,6 +17,7 @@ const CheckBox  = (props) => {
             style={props?.style}
             defaultChecked={props?.defaultChecked}
             checked={props?.checked}
+            disabled={props.disabled}
         />
     )
 }

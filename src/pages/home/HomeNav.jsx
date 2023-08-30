@@ -10,7 +10,8 @@ function HomeNav() {
         <div className={NavStyle.sidemenu }>
             <div className={NavStyle.sideTop}>
                 <h1>HOME</h1>
-                <a href="/">글쓰기</a>
+                <br/>
+                <a href="/" className={NavStyle.new}>글쓰기</a>
             </div>
             <div className={NavStyle.sideList}>
 

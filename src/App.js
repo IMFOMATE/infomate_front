@@ -29,16 +29,17 @@ import MyDocList from "./pages/approval/MyDocList";
 import CalendarManegeLayout from "./layouts/CalendarManageLayout";
 import MyCalendar from './pages/calendar/management/MyCalendar';
 import FavoriteCalendarLayout from "./layouts/FavoriteCalendarLayout";
-import FavoriteCalendarFollowing from './pages/calendar/management/FavoriteCalendarFollowing'
-import FavoriteCalendarFollower from "./pages/calendar/management/FavoriteCalendarFollower";
 import ScheduleDetailCreate from "./pages/calendar/ScheduleDetailCreate";
 import ReminderList from './components/calendar/dashboard/ReminderList';
-import Calendar from './pages/calendar/Calendar';
 import DocumentMain from "./pages/approval/DocumentMain";
 import Group from './pages/manage/Group';
-
 import SearchDept from './pages/manage/SearchDept';
 import './layouts/Default.css';
+import CalendarLayout from './layouts/CalendarLayout';
+import Calendar from './pages/calendar/Calendar';
+import FavoriteCalendarFollowing from './pages/calendar/management/FavoriteCalendarFollowing';
+import FavoriteCalendarPublic from './pages/calendar/management/FavoriteCalendarPublic';
+import FavoriteCalendarFollower from './pages/calendar/management/FavoriteCalendarFollower';
 import MemberInfo from './pages/manage/MemberInfo';
 import ChartModal from './pages/manage/ChartModal';
 import UpdateMember from './pages/manage/UpdateMember';
@@ -52,6 +53,21 @@ function Test() {
     return null;
 }
 
+import Work from "./pages/work/Work";
+import WkAdmin from "./pages/work/WkAdmin";
+import MyWork from "./pages/work/MyWork";
+import MyDept from "./pages/work/MyDept";
+import Dept from "./pages/work/Dept";
+import Notice from "./pages/board/Notice";
+import Report from "./pages/board/Report";
+import Menu from "./pages/board/Menu";
+import Common from "./pages/board/Common";
+import BrdDept from "./pages/board/BrdDept";
+import BrdAdmin from "./pages/board/BrdAdmin";
+import Anony from "./pages/board/Anony";
+import NewPost from "./pages/board/NewPost";
+import Posting from './pages/board/Posting';
+import DocumentDetail from "./components/approval/ele-component/document/detail/DocumentDetail";
 
 function App() {
   return (
@@ -65,9 +81,10 @@ function App() {
             {/* <Route path="/" element={ <Main />}/> */}
             <Route path="/addressBook" element={<AddressBook />} />
             <Route path="/addContact" element={<AddContact />} />
-            <Route path="/mailWrite" element={<MailWrite />} />
+            {/* <Route path="/mailWrite" element={<MailWrite />} /> */}
             <Route path="/mail" element={<Mail />} />
-            <Route path="/readMail" element={<ReadMail />} />
+            {/* <Route path="/board" element={<BoardMain />}></Route> */}
+
 
             {/* 인덱스로 설정해두면 위의 설정(루트 요청)과 동일하다. */}
             {/* <Route index element={<Main />} /> */}
@@ -100,6 +117,19 @@ function App() {
                 <Route path='searchDept' element={<SearchDept/>}/>
                 <Route path='memberInfo' element={<MemberInfo/>}/>
                 <Route path='memberupdate' element={<UpdateMember/>}/>
+            
+            <Route path="approval">
+              <Route index element={<ApprovalMain/>}/>
+              <Route path="mylist" element={<MyDocList title='기안문서'/>}/> {/*내 기안 리스트*/}
+              <Route path="reflist" element={<MyDocList title='참조문서'/>}/> {/*참조문서리스트*/}
+              <Route path="temp" element={<MyDocList title='임시저장문서'/>} /> {/*임시저장문서리스트*/}
+              <Route path="approving" element={<MyDocList title='결재대기문서'/>}/> {/*결재 대기문서리스트*/}
+              <Route path="document">
+                <Route path="new" element={<DocumentMain/>}/>
+                <Route path=":documentId" element={<DocumentDetail/>}/> {/* 문서 조회 */}
+              </Route>
+            </Route>
+
 
                 
             </Route>          

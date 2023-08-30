@@ -8,6 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 100;
 }
 
 .modal{
@@ -18,6 +19,11 @@
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 30px;
+}
+
+.modal_upsize{
+    flex-basis: 700px;
 }
 
 .close {
@@ -28,7 +34,7 @@
 }
 
 .title{
-    padding: 20px;
+    padding: 10px;
 }
 
 .content_wrapper{
@@ -42,7 +48,7 @@
     padding: 10px;
     display: flex;
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .button{
@@ -50,3 +56,10 @@
     text-align: right;
 }
 
+.none{
+    display: none;
+}
+
+.open{
+    display: block;
+}

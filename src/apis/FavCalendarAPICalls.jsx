@@ -29,7 +29,7 @@ export const getFavCalendarfollowAllAPI = () => {
 
 export const getFavCalendarFollwerAPI = () => {
 
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/favorite/followerList/${MEMBER_CODE}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/favorite/followerL  ist/${MEMBER_CODE}`;
 
     return async (dispatch, getState) => {
         const result = await axios.get(requestURL)

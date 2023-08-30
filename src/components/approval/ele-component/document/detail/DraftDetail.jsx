@@ -83,7 +83,7 @@ function DraftDetail({data}) {
           </div>
         </div>
         <aside className={style.doc_side}>
-          {/*<DocumentSide approval={approvalList} reference={refList}/>*/}
+          <DocumentSide approval={approvalList} reference={refList}/>
         </aside>
       </div>
   );

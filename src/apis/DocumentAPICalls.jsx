@@ -27,7 +27,6 @@ export const getMainAPI = ({memberCode}) => {
 export const getApprovalList = ({filter, memberCode, page}) => {
   // console.log(`${filter} ${memberCode} ${page}`)
   const requestURL = `http://localhost:8989/document/approval/${memberCode}?status=${filter}&page=${page}`;
-  // const requestURL = `http://localhost:8989/document/appproval/${memberCode}?status=${filter}&page=${page}`;
 
   return async (dispatch, getState)  => {
 
@@ -80,14 +79,14 @@ export const getCreditList = ({ memberCode, page}) => {
 
 
 //문서등록
-export const draftRegistAPI = ({form})=>{
+export const draftRegistAPI = (form)=>{
 
   const requestURL = `http://localhost:8989/document/regist/draft`;
 
   return async (dispatch, getState)  => {
-    const result = await axios.post(requestURL, form,
-        {headers:{'Content-Type': 'multipart/form-data', Accept:'*/*'}})
-        .then(res => res.data)
+
+    const result = await axios.post(requestURL, form)
+        .then(res => res.data);
 
     if(result.status === 200){
       dispatch({type: POST_DRAFT, payload: result.data});

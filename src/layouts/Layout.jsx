@@ -5,9 +5,8 @@ import NavStyle from '../components/common/Nav.module.css';
 import MenuBtn from "../components/common/MenuBtn";
 import {CurrentTitleProvider} from "../context/CurrentTitleContext";
 import {MenuContextProvider} from "../context/MenuContext";
-import {ModalContextProvider, useModal} from "../context/ModalContext";
+import {ModalContextProvider} from "../context/ModalContext";
 import { CalendarFilterProvider } from '../context/CalendarContext';
-
 import Modal from "../components/approval/ele-component/common/Modal";
 import DragAndDropWrapper from "../components/approval/ele-component/treeview/DragAndDropWrapper";
 
@@ -21,16 +20,6 @@ export default function Layout() {
                         <DragAndDropWrapper>
                             <CalendarFilterProvider>
                                 <LayoutContent/>
-                            {/*<div className='wrapper'>*/}
-                            {/*    <MenuBtn/>*/}
-                            {/*    <div className={NavStyle.flex}>*/}
-                            {/*        <Header/>*/}
-                            {/*        <main>*/}
-                            {/*            <Outlet/>*/}
-                            {/*        </main>*/}
-                            {/*    </div>*/}
-                            {/*    <Modal/>*/}
-                            {/*</div>*/}
                             </CalendarFilterProvider>
                         </DragAndDropWrapper>
                     </CurrentTitleProvider>
@@ -42,7 +31,7 @@ export default function Layout() {
 }
 
 function LayoutContent() {
-    // const { isModalOpen } = useModal(); // 모달을 열기 위한 함수 가져오기
+
 
     return (
         <div className='wrapper'>

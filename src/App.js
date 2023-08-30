@@ -84,7 +84,6 @@ function App() {
             </Route>
 
 
-
             <Route path='group'>
               <Route index element={<Group/>}/>
             </Route>
@@ -96,7 +95,6 @@ function App() {
             <Route path="/work/mywork" element={ <MyWork /> }/>
             <Route path="/work/mydept" element={ <MyDept />}/>
             <Route path="/work/dept" element={ <Dept />}/>
-            
 
             
             <Route path="/board" element={<BoardMain/>}/>

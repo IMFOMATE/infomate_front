@@ -39,12 +39,6 @@ const ApprovalMain = () => {
               <ApprovalTable title='참조문서' data={data?.refList}/>
             </>
       }
-
-
-
-
-
-
     </>
   );
 };

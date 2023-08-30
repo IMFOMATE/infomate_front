@@ -2,6 +2,8 @@ import React from "react";
 // import DeptCss from "./SearchDept.module.css";
 import SdeptCss from "./SearchDept.module.css";
 import DeptList from "./DeptList"
+import GroupCss from './Group.module.css';
+
 
 
 

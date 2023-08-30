@@ -2,6 +2,26 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from "./layouts/Layout";
 import BoardMain from "./pages/board/BoardMain";
+// import './components/common/main.css';
+// import './components/common/component.css';
+import Work from "./pages/work/Work";
+import WkAdmin from "./pages/work/WkAdmin";
+import WorkSide from "./pages/work/WorkSide";
+import MyWork from "./pages/work/MyWork";
+import MyDept from "./pages/work/MyDept";
+import Dept from "./pages/work/Dept";
+import Notice from "./pages/board/Notice";
+import Report from "./pages/board/Report";
+import Menu from "./pages/board/Menu";
+import Common from "./pages/board/Common";
+import BrdDept from "./pages/board/BrdDept";
+import BrdAdmin from "./pages/board/BrdAdmin";
+import Anony from "./pages/board/Anony";
+
+import './components/common/nav.css';
+
+import './components/common/default.css';
+
 import Mail from "./pages/mail/Mail";
 import AddressBook from "./pages/addressBook/AddressBook";
 import AddContact from "./pages/addressBook/AddContact";

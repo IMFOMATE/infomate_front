@@ -1,14 +1,14 @@
 .container {
     margin: 30px;
-    width: 90%;
+    width: 95%;
     height: 90%;
 }
 
 .modalBg{
     position: fixed;
-    background-color: rgba(80, 80, 80, 0.5);
-    width: 100vw;
-    height: 100vh;
+    /* background-color: rgba(80, 80, 80, 0.5); */
+    width: 115vw;
+    height: 112vh;
     z-index: 99;
     top: 0;
     left: 0;
@@ -16,9 +16,7 @@
 
 .modal{
     position: absolute;
-    top: 50%;
-    left: 50%;
     z-index: 20;
     transform: translate(-50%, -50%);
-    transition: 0.5s;
+    transition: 0.2s;
 }

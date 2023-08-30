@@ -96,3 +96,29 @@
 .container{
     width: 100%;
 }
+
+.status{
+    font-weight: 800;
+    font-size: 6px;
+    padding: 4px 11px;
+}
+
+.waiting{
+    border: 2px solid var(--color-success);
+    color: var(--color-success);
+}
+
+.done {
+    border: 2px solid var(--color-text-content);
+    color: var(--color-text-content);
+}
+
+.reject{
+    border: 2px solid var(--color-alert);
+    color: var(--color-alert);
+}
+
+.temp{
+    border: 2px solid var(--color-middle);
+    color: var(--color-middle);
+}

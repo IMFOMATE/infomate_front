@@ -14,6 +14,8 @@
       font-size: 50px;
       font-weight: 1000;
       color: #535353;
+      margin-left: 4px;
+      
   }
   
   /* 출퇴근시간 폰트 */
@@ -67,7 +69,7 @@
         
         .dropdown-content a {
           color: #7758FA;
-          padding: 9px 15px;
+          padding: 7px 15px;
           text-decoration: none;
           display: block;
           font-size: 13px;

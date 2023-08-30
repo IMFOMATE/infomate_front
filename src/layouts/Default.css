@@ -13,23 +13,23 @@ body {
     background: var(--color-background);
 	-webkit-font-smoothing: antialiased;
 }
-/*html, body, div, span, applet, object, iframe,*/
-/*h1, h2, h3, h4, h5, h6, p, blockquote, pre,*/
-/*a, abbr, acronym, address, big, cite, code,*/
-/*del, dfn, em, img, ins, kbd, q, s, samp,*/
-/*small, strike, strong, sub, sup, tt, var,*/
-/*b, u, i, center,*/
-/*dl, dt, dd, ol, ul, li,*/
-/*fieldset, form, label, legend,*/
-/*table, caption, tbody, tfoot, thead, tr, th, td,*/
-/*article, aside, canvas, details, embed,*/
-/*figure, figcaption, footer, header, hgroup,*/
-/*menu, nav, output, ruby, section, summary,*/
-/*time, mark, audio, video {*/
-/*	margin: 0;*/
-/*	padding: 0;*/
-/*	border: 0;*/
-/*}*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
 
 * {
 	margin: 0;
@@ -63,6 +63,7 @@ button {
 a {
 	display: inline-block;
     text-decoration: none;
+	color: var(--color-black);
 }
 
 main{
@@ -74,10 +75,11 @@ main{
 	--color-hard : #7758FA;
 	--color-middle : #9F8AFB;
 	--color-light : #BAABFC;
-	--color-admin-hard : #000000;
+	--color-black : #000000;
 	--color-admin-middle : #333333;
 	--color-admin-hard : #717171;
 	--color-cancle-button : #A2A3A3; 
+	--color-cancle-button-hard: #7f7f7f;
 	--color-text-title: #535353;
 	--color-text-content: #757575;
 	--color-border: #e8e8e8;
@@ -85,6 +87,10 @@ main{
 	--color-background : #F8F8F8;
 	--color-alert: #FF6767;
 	--color-success : #36D99E;
+	--fc-button-bg-color: #9F8AFB;
+	--fc-button-border-color: #9F8AFB;
+	--fc-button-active-bg-color: #7758FA;
+	--fc-button-active-border-color: #7758FA;
 }
 
 

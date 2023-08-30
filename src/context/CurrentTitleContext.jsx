@@ -5,7 +5,10 @@ export const CurrentTitleContext= createContext();
 export function CurrentTitleProvider({children}){
     const [currentTitle, setCurrentTitle] = useState('Home');
 
-    const toggleTitle = (newTitle) => setCurrentTitle(newTitle);
+    const toggleTitle = (newTitle) => {
+        setCurrentTitle(newTitle);
+        localStorage.setItem('currentTitle',newTitle);
+    };
 
     return(
         <CurrentTitleContext.Provider value={{currentTitle, toggleTitle}}>

@@ -30,6 +30,7 @@ function Payment() {
       [e.target.name]: e.target.value
     });
   };
+
   const checkboxHandler = (e) => {
     const newValue = e.target.checked ? 'Y' : 'N'; // 체크 여부에 따라 'Y' 또는 'N' 설정
     setData({
@@ -135,7 +136,7 @@ function Payment() {
                 <div className={style.inline}>
                   {
                     data.approvalList.length !== 0 ?
-                        data.approvalList.map((data, index) => <Credit key={index} approval={data} />)
+                        data.approvalList.map((data, index) => <Credit key={data.memberCode} text={data.memberName} rank={data.rankName} approvalDate={data?.approvalDate}/>)
                         : ""
                   }
                 </div>

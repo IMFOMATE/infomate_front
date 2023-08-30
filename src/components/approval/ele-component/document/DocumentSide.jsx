@@ -23,14 +23,14 @@ function DocumentSide({approval, reference}) {
               <div className={`${selectedTab === 'approval' ? style.active : style.none}`}>
                   <ul className={style.list}>
                       {
-                          approval.map((list, index) => <DocumentSideList key={index} data={list}/>)
+                          approval?.map((list, index) => <DocumentSideList key={index} data={list}/>)
                       }
                   </ul>
               </div>
               <div className={selectedTab === 'reference' ? style.active : style.none}>
                   <ul className={style.list}>
                       {
-                          reference.map((list, index) => <DocumentSideList key={index} data={list}/>)
+                          reference?.map((list, index) => <DocumentSideList key={index} data={list}/>)
                       }
                   </ul>
               </div>

@@ -14,7 +14,7 @@
 .credit p {
   width: 100%;
   padding: 5px 0px;
-  flex: 0.3;
+  flex: 0.5;
 }
 
 .credit p:first-child, .credit p:nth-child(2){

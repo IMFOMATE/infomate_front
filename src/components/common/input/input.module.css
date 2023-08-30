@@ -2,24 +2,24 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box; 
-    
     width: 100%;
     min-height: 30px;
     max-height: 30px;
     font-size: 0.9rem;
     border: 0.3px solid rgba(125, 125, 125, 0.5);
-    border-radius: 3px;
+    border-radius: 3px ;
     padding: 10px 10px 10px 10px;
     display: block;
 }
 
-.input[type='datetime-local']{
+.input[type='datetime-local'], .input[type='date'] {
     color: var(--color-text-content);
 }
 
 .input:focus{
-    outline-color: var(--color-hard);
+    outline-color: var(--color-middle);
 }
+
 .input[type=radio]{
     width: 23px;
     height: 23px;
@@ -51,13 +51,23 @@
     width: 100%;
     padding: 10px;
     resize: none;
+    border-radius: 5px;
     border: 0.3px solid rgba(125, 125, 125, 0.5);
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    color: black;
 }
-
 
 .textarea:focus{
     outline-color: var(--color-middle);
+}
+
+.textarea:disabled, .input:disabled{
+    border: none ;
+    /* background-color: var(--color-background); */
+    background-color: white;
+    color: black;
+    padding: 0;
+    
 }

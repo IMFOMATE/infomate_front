@@ -66,7 +66,7 @@ const ScheduleDetilaCreate = () => {
             })
         }
         return () => {
-            // isMobile || menuState || toggleMenu();
+            isMobile || menuState || toggleMenu();
             setIsModal(false);
             setSchedule({});
         }
@@ -199,7 +199,6 @@ const ScheduleDetilaCreate = () => {
                             placeholder='제목을 입력하세요'
                             value={isRead === 'true' ? data.data.title : schedule.data.title}
                             onChange={scheduleChangeHanlder}
-                            // disabled={isEleDisabled()}
                         />
                         <div className={styles.optionItem}>
                             <div style={{marginRight: 10, verticalAlign:'middle'}}>
@@ -214,7 +213,6 @@ const ScheduleDetilaCreate = () => {
                                     isChangeColor={true}
                                     checked={isRead === 'true' ? data.data.important : schedule.data.important}
                                     onChange={scheduleChangeHanlder}
-                                    // disabled={isEleDisabled()}
                                 />
                                 <label className={styles.chkLabel}>중요</label>
                             </div>
@@ -269,7 +267,6 @@ const ScheduleDetilaCreate = () => {
                                         isChangeColor={true}
                                         checked={isRead === 'true' ? data.data.allDay : schedule.data.allDay}
                                         onChange={scheduleChangeHanlder} 
-                                        // disabled={isEleDisabled()}
                                     />
                                     <label className={styles.chkLabel}>종일</label>
                                 </div>
@@ -279,7 +276,6 @@ const ScheduleDetilaCreate = () => {
                                         isChangeColor={true} 
                                         checked={isRead === 'true' ? data.data.repeat : schedule.data.repeat}
                                         onChange={scheduleChangeHanlder} 
-                                        // disabled={isEleDisabled()}
                                     />
                                     <label className={styles.chkLabel}>반복</label>
                                 </div>
@@ -296,7 +292,6 @@ const ScheduleDetilaCreate = () => {
                             isChangeColor={true} 
                             checked={isRead === 'true' ? data.data.corpSchdl : schedule.data?.corpSchdl}
                             onChange={scheduleChangeHanlder} 
-                            // disabled={isEleDisabled()}
                         />
                     </div>
                     <label>캘린더</label>
@@ -312,7 +307,6 @@ const ScheduleDetilaCreate = () => {
                             value={isRead === 'true' ? data.data.refCalendar : schedule.data?.refCalendar}
                             onChange={scheduleChangeHanlder}
                             onClick={isReadConfirm}
-                            // disabled={isEleDisabled()}
                             style={{padding: 0}}
                         />
                     </div>
@@ -325,7 +319,6 @@ const ScheduleDetilaCreate = () => {
                                     id={item.memberCode} 
                                     value={item.memberName}
                                     onClick={removeParticipant} 
-                                    // disabled={isEleDisabled()}
                                 />
                             ))
                         }
@@ -372,7 +365,6 @@ const ScheduleDetilaCreate = () => {
                             name='content' 
                             value={isRead === 'true' ? data.data.content : schedule?.data?.content}
                             onChange={scheduleChangeHanlder} 
-                            // disabled={isEleDisabled()}
                         />
                     </div>
                 </div>

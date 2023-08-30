@@ -60,7 +60,6 @@ const Calendar = () =>{
         changeIsMobile();
     }) 
     
-
     useEffect(()=>{
         setSchedule({});
         changeIsMobile();
@@ -89,8 +88,7 @@ const Calendar = () =>{
     };
 
     const hoverEventHandler = (data, param) => {
-        if(param === viewModal) return;
-        console.log(data);
+        if(param === viewModal || param === isMobile) return;
         if(param) {
             setViewModalData(false)
             ChangeModalOffset(data.jsEvent, {x: 180, y: 80})
@@ -99,7 +97,6 @@ const Calendar = () =>{
             setViewModalData({})
         }
         setViewModal(param);
-            
     }
     
     const ChangeModalOffset = (offset, plusOffset) =>{
@@ -139,8 +136,7 @@ const Calendar = () =>{
         dispatch(patchScheduleUpdate({data}));
     }
 
-    const event = (data) =>{
-        
+    const event = (data) =>{ 
         const event = [];
             data.filter(item => !filter.includes(item.id))
             .forEach(item1 => {
@@ -153,7 +149,6 @@ const Calendar = () =>{
                                     })
                 )
             })
-        
         return event;
     }
     
@@ -166,7 +161,7 @@ const Calendar = () =>{
                     
                     <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
                     
-                    :<FullCalendar
+                    : <FullCalendar
                         ref={modalRef}
                         locale={koLocale}
                         timeZone={'utc'}
@@ -235,11 +230,9 @@ const Calendar = () =>{
                 }
                 {
                     viewModal && !isModal &&
-                    // <div ref={modalRef} className={styles.modalBg} onClick={modalOutClickHandler}>
                         <div className={styles.modal} style={{[offset.yName]: offset.y , [offset.xName]: offset.x}}>
                             <SummaryViewModal modal={viewModal} setIsModal={changeViewModalHandler} data={viewModalData}/>
                         </div>
-                    // </div>
                 }
             </div>
         </>

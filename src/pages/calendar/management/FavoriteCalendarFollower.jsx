@@ -6,7 +6,7 @@ import CalendarMagnageFavoriteFollowerHeader from '../../../components/calendar/
 import { useDispatch, useSelector } from 'react-redux';
 import { FadeLoader } from 'react-spinners';
 import StylesLoading from '../loadingStyle.module.css';
-import {  DELETE_FAV_CALENDAR, GET_FAV_CALENDAR_FOLLOWER, PATCH_FAV_CALENDAR_STATE_UPDATE } from '../../../modules/FavCalendarMoudule';
+import { DELETE_FAV_CALENDAR, GET_FAV_CALENDAR_FOLLOWER, PATCH_FAV_CALENDAR_STATE_UPDATE } from '../../../modules/FavCalendarMoudule';
 import { getFavCalendarFollwerAPI } from '../../../apis/FavCalendarAPICalls';
 
 const FavoriteCalendarFollower = () => {

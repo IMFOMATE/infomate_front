@@ -9,7 +9,7 @@ import {
     POST_CALENDAR_REGIT,
 } from '../modules/CalendarMoudule';
 
-import { PROTOCOL, SERVER_IP, SERVER_PORT, MEMBER_CODE} from './APIConfig';
+import { PROTOCOL, SERVER_IP, SERVER_PORT, MEMBER_CODE, PageURI, Pageable} from './APIConfig';
 import { message } from 'antd';
 
 export const getCalendarFindAllAPI = () => {
@@ -43,9 +43,9 @@ export const getCalendarListAPI = () => {
 }
 
 export const getCalendarPublicListAPI = ({page}) => {
+
+    const {pageOption, sort} = Pageable({page:page.number, size:page.size, sortId: page.sortId, sortDirection: page. sortDirection});
     
-    const pageOption = `page=${page?.number}&size=${page?.size}`
-    const sort = (page?.sortId && page?.sortDirection) && `sort=${page.sortId},${page.sortDirection}`;
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/openCalendarList/${MEMBER_CODE}?${pageOption}&${sort}`;
     
 
@@ -53,15 +53,23 @@ export const getCalendarPublicListAPI = ({page}) => {
         const result = await axios.get(requestURL)
                     .then(res => res.data)
                     .catch(res => res)
-    
-
-        if(result.status === 200) {
-            dispatch({ type: GET_CALENDAR_FIND_ALL_PUBLIC,  payload: result });
-            return ;
-        }
-        if(result.response.status === 500) {
+        
+        console.log(result);
+        
+        if(result === undefined || result === ''){
             message.error('조회할 내용이 없습니다.')
+            dispatch({ type: GET_CALENDAR_FIND_ALL_PUBLIC,  payload: undefined });
+            return;
         }
+        if(result?.status === 200) {
+            dispatch({ type: GET_CALENDAR_FIND_ALL_PUBLIC,  payload: result });
+            return;
+        }
+        if(result?.response.status === 500) {
+            message.error('조회할 내용이 없습니다.')
+            return;
+        }
+        
     };
 }
 
@@ -124,7 +132,7 @@ export const patchDefaultCalendarUpdate = ({data}) => {
 
 export const patchChangeCalendarIndexNo = ({data}) => {
     data = {...data, memberCode: MEMBER_CODE}
-    console.log(data);
+    
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/changeIndexNo`;
     return async (dispatch, getState) => {
         const result = await axios.patch(requestURL, data, {headers:{"Content-Type":'application/json',Accept:'*/*'}})

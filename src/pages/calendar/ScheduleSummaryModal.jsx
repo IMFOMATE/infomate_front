@@ -34,9 +34,6 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
 
     const navigate = useNavigate();
 
-    const memberCode = 2; // 수정예정
-    
-
     useEffect(()=>{
         setSchedule({
             ...schedule,
@@ -100,10 +97,11 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                      일정 등록
                     </span>
                     <span className={styles.close}>
-                        <ButtonInline
-                            value={'X'}
+                        <button 
+                            className={meterialIcon.meterialIcon} 
                             onClick={closeHanlder}
-                        />    
+                            style={{color:'gray'}}
+                        >close</button>
                     </span>
                 </div>
                 <div className={styles.content}>
@@ -115,7 +113,6 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                             name='title'
                             value={schedule.data?.title}
                             onChange={scheduleChangeHanlder}
-                            // disabled={isEleDisabled()}
                         />
 
                         <label>일시</label>
@@ -132,7 +129,6 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                                     showTime={{ format: 'HH:mm' }}
                                     value={dayjs(schedule.data.startDate)}
                                     onChange={changeDateHandler}
-
                                 /> :
                                 <RangePicker className={[antdStyels['ant-picker-focused'],antdStyels['ant-picker-active-bar']].join(' ')}
                                     name='RangeDate'
@@ -154,7 +150,6 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                                     style={{display: 'inline', position: 'relative', top: '10px'}}
                                     checked={schedule.data?.allDay}
                                     onChange={scheduleChangeHanlder}
-                                    // disabled={isEleDisabled()}
                                 />
                                 <label style={{
                                     display: 'inline',
@@ -177,7 +172,6 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                                     {value: item.id, text: item.name, color: item.labelColor})
                                 )}
                                 onChange={scheduleChangeHanlder}
-                                // disabled={isEleDisabled()}
                                 style={{width: '100%', padding: 0, color: 'gray'}}
                             />
                         </div>
@@ -188,7 +182,6 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                             type={'text'}
                             value={schedule.data?.address}
                             onChange={scheduleChangeHanlder}
-                            // disabled={isEleDisabled()}
                         />
 
                         <label>전사일정</label>
@@ -199,7 +192,6 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                                 isChangeColor={true}
                                 style={{position: 'relative', top: '2px'}}
                                 onChange={scheduleChangeHanlder}
-                                // disabled={isEleDisabled()}
                             />
                         </div>
                     </div>

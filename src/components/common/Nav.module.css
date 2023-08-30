@@ -154,6 +154,11 @@ main{
     border-right: 1px solid var(--color-border);
 }
 
+.hideSidemenu{  /* 메인화면에서 사이드바 반만 펴지게 */
+    flex: 1 0 240px;
+    display: hidden;
+}
+
 .sideTop{
     padding: 20px;
 }

@@ -16,3 +16,13 @@ body {
     text-align: left;
     color: #535353;
 }
+
+.regist {
+    margin-right: 30px;
+    border: 1px solid #7758FA;
+    border-radius: 5px;
+}
+
+.regist:hover {
+    background: #7758FA;
+}

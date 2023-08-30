@@ -16,13 +16,3 @@ body {
     text-align: left;
     color: #535353;
 }
-
-.header > button {
-    margin-right: 30px;
-    border: 1px solid #7758FA;
-    border-radius: 5px;
-}
-
-.header > button:hover {
-    background: #7758FA;
-}

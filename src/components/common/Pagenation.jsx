@@ -20,8 +20,8 @@ export const Pagenation = ({prev, next, total, pageNum}) => {
     return(
         <div className={styles.container}>
             {
-                prev && pageNum - 5 > 0 &&
-                <button onClick={()=>pageMove(pageNum - 3)}><span className={[meterailIcon.meterialIcon, styles.iconSize].join(' ')}>keyboard_double_arrow_left</span></button>
+                pageNum - 4 > 0 &&
+                <button onClick={()=>pageMove(pageNum - 4)}><span className={[meterailIcon.meterialIcon, styles.iconSize].join(' ')}>keyboard_double_arrow_left</span></button>
             }
             {
                 parseInt(pageNum) > 1 &&
@@ -37,10 +37,10 @@ export const Pagenation = ({prev, next, total, pageNum}) => {
             }            
             {
                 parseInt(pageNum) < parseInt(total) &&
-                <button  onClick={()=>pageMove(pageNum+1)}><span className={[meterailIcon.meterialIcon, styles.iconSize].join(' ')}>navigate_next</span></button>
+                <button  onClick={()=>pageMove(pageNum + 1)}><span className={[meterailIcon.meterialIcon, styles.iconSize].join(' ')}>navigate_next</span></button>
             }
             {
-                next && pageNum + 3 <= total &&
+                pageNum + 4 <= total &&
                 <button  onClick={()=>pageMove(pageNum + 4)}><span className={[meterailIcon.meterialIcon, styles.iconSize].join(' ')}>keyboard_double_arrow_right</span></button>
             }
         </div>

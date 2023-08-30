@@ -8,7 +8,7 @@ import{
     callhBoardViewAPI
 } from '../../apis/BoardAPICalls'
 
-function Notice() {
+function Common() {
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -113,4 +113,4 @@ function Notice() {
     );
 }
 
-export default Notice;
+export default Common;

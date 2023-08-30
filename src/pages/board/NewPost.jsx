@@ -8,48 +8,45 @@ import{
     callhBoardViewAPI
 } from '../../apis/BoardAPICalls'
 
-function Notice() {
+function NewPost() {
     
-    // 연결
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const boards  = useSelector(state => state.boardReducer);      
     const boardList = boards?.data; 
     console.log('boardManagement', boardList);
 
-    // 페이징 
-    const pageInfo = boards.pageInfo;
+    //const pageInfo = boards.pageInfo;
 
     const [start, setStart] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageEnd, setPageEnd] = useState(1);
 
-    const pageNumber = [];
-    if(pageInfo){
-        for(let i = 1; i <= pageInfo.pageEnd ; i++){
-            pageNumber.push(i);
-        }
-    }
+    // const pageNumber = [];
+    // if(pageInfo){
+    //     for(let i = 1; i <= pageInfo.pageEnd ; i++){
+    //         pageNumber.push(i);
+    //     }
+    // }
 
     useEffect(
         () => {
-            setStart((currentPage - 1) * 5);            
+            // setStart((currentPage - 1) * 5);            
             dispatch(callhBoardViewAPI());            
         }
         ,[]
     );
-    // 페이징
-    
-    // 페이지 이동
-    const onClickBoardInsert = () => {
-        console.log('[BoardManagement] onClickBoardInsert');
-        navigate("/board-registration", { replace: false })
+
+    // 글쓰기
+    const postPostHandler = () => {
+        console.log('[BoardManagement] postPostHandler');
+        navigate("/board/posting", { replace: false })
     }
 
-    const onClickTableTr = (boardCode) => {
-        navigate(`/board-update/${boardCode}`, { replace: false });
+    // 게시글페이지
+    const postHandler = (postCode) => {
+        navigate(`/board/post/${postCode}`, { replace: false });
     }
-    //
 
     return (
         <>
@@ -59,18 +56,18 @@ function Notice() {
         </div>
 
             
-                <button onClick={ onClickBoardInsert }>
+                <button onClick={ postPostHandler }>
                     <div className={ BoardCSS.newpost }>
                         글쓰기
                     </div>  
                 </button>
                       
-            <div className={BoardCSS.bdtable}>
+            <table className={BoardCSS.bdtable}>
                 <colgroup>
                     <col width="10%" />
                     <col width="50%" />
-                    <col width="20%" />
-                    <col width="20%" />
+                    <col width="10%" />
+                    <col width="10%" />
                     <col width="10%" />
                 </colgroup>
                 <thead>
@@ -83,23 +80,26 @@ function Notice() {
                     </tr>
                 </thead>
                 <tbody>
-                    { Array.isArray(boardList) && boardList.map((b) => (
+                    { Array.isArray(boardList) && boardList.map((b, index) => (
                         <tr className={BoardCSS.bdtable_tr}
                             key={ b.boardCode }
-                            onClick={ () => onClickTableTr(b.boardCode) }
+                            // key={index}
+                            onClick={ () => postHandler(b.postCode) }
+                            
                         >
                             <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postTitle }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.memberCode }</td>
-                            <td className={BoardCSS.bdtable_td}>{ b.postDate }</td>
+                            <td className={BoardCSS.bdtable_td}>{b.postDate.split('T')[0]}</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
                         </tr>
                     )) 
                     }
                 </tbody>           
                          
-            </div>         
-
+            </table>         
+            
+       
             <div className={BoardCSS.pagination}>
             <a href="#">&laquo;</a>
             <a href="#" className={BoardCSS.active}>1</a>
@@ -109,9 +109,10 @@ function Notice() {
             <a href="#">5</a>
             <a href="#">&raquo;</a>
             </div>
-                    
+
+
         </>
     );
 }
 
-export default Notice;
+export default NewPost;

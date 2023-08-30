@@ -1,3 +1,4 @@
+import mainCSS from '../../components/common/main.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -21,12 +22,12 @@ function PostView() {
         }
     )
 
-    const postHandler = () => {
-        navigate(`/post/${params.postCode}`, {replace: false});
-    }
+    
 
     return (
-        <div></div>
+        <div className={mainCSS.maintitle}>
+        <h2>일반 게시판</h2>
+        </div>
 
     );
 }

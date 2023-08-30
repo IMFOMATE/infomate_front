@@ -7,7 +7,7 @@ import {
 export const callhBoardViewAPI = () => {   // 게시판 조회
     console.log('[BoardAPICalls] callSearchBoardAPI Call');
 
-    const requestURL = `http://localhost:8989/board/notice`;
+    const requestURL = `http://localhost:8989/board/`;
     
     return async (dispatch, getState) => {
 
@@ -38,9 +38,11 @@ export const callPostPostAPI = () => {   // 게시글 생성
         const result = await fetch(requestURL, {
             method: "POST",
             headers: {
-                "Accept": "*/*",
+                "Content-Type": "multipart/form-data",
+                // "Accept": "*/*",
                 // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
             },
+            
         })
         .then(response => response.json());
 

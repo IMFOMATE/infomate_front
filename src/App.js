@@ -39,13 +39,23 @@ import Anony from "./pages/board/Anony";
 import NewPost from "./pages/board/NewPost";
 import Posting from './pages/board/Posting';
 import DocumentDetail from "./components/approval/ele-component/document/detail/DocumentDetail";
+import LoginForm from "./pages/member/login/LoginForm";
+import Main from './pages/home/Main';
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
+          
+          <Route index element={<LoginForm />} />
+
           <Route path="/" element={<Layout/>}>
+
+            <Route path='main'>
+              <Route index element={<Main/>}/>
+            </Route>
+
             <Route path="/addressBook" element={<AddressBook />} />
             <Route path="/addContact" element={<AddContact />} />
             {/* <Route path="/mailWrite" element={<MailWrite />} /> */}

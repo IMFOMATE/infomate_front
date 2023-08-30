@@ -11,6 +11,9 @@ function Navbar() {
     const { toggleTitle } = useContext(CurrentTitleContext);
     const { menuState } = useContext(MenuContext);
 
+    // const { memberState } = useContext(MemberContext); 
+
+
     useEffect(() => {
         const storedTitle = localStorage.getItem('currentTitle') || 'Home';
         toggleTitle(storedTitle);
@@ -23,13 +26,18 @@ function Navbar() {
                     <img className={NavStyle.profileImg} alt='profileImg' src='img/user.jpg'/>
                 </a>
                 <div className={NavStyle.profileInfo}>
-                    <p>하이미디어 부서</p>
-                    <p>홍길동 사원</p>
+                    <p>하이미디어 부서
+                        {/* {memberState.deptName} */}
+                    </p>
+                    <p>홍길동 사원
+                        {/* {memberState.name} */}
+
+                    </p>
                 </div>
             </div>
             <ul className=''>
                 <li className='' onClick={()=>toggleTitle("Home")}>
-                    <NavLink to="/" >
+                    <NavLink to="/main" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             home
                         </span>

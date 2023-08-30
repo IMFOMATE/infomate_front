@@ -6,7 +6,7 @@
     justify-content: center;
     margin: 0;
     padding: 0;
-    background-color: #E8E8E8;
+    background-color: #FFF;
 }
 
 .registerDiv{    
@@ -20,7 +20,7 @@
     margin: 0;
     padding: 0;
     background-color: white;
-    border: solid 1px black;
+    border: 1px solid #E8E8E8;
     border-radius: 25px;    
 }
 
@@ -30,6 +30,7 @@
     height: 30px;
     width: 250px;
     border-radius: 25px;
+    border: 1px solid #9F8AFB;
     text-indent: 10px;
 }
 
@@ -39,6 +40,6 @@
     height: 30px;
     width: 250px;
     border-radius: 25px;
-    background-color: white;
+    background-color: #7758FA;
     font-weight: bold;
 }

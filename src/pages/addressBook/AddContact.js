@@ -20,6 +20,8 @@ function AddContact({title}) {
     const member = useSelector(state => state.contactReducer); 
     const imageInput = useRef();
     const [image, setImage] = useState(null);
+    const [previewSrc, setPreviewSrc] = useState('');
+    
 
     const [form, setForm] = useState ({
         contactPhoto: '',
@@ -65,19 +67,24 @@ function AddContact({title}) {
     const onClickRegisterHandler = () => {
 
         const formData = new FormData();
-
+        console.log("form", form);
         
-        formData.append('name', form.name);  
-        console.log("======", form.name);
-        formData.append('company', form.company);  
+        formData.append("contactName", form.name);  
+        
+        
+        formData.append("company", form.company);  
         formData.append('department', form.department);  
-        formData.append('email', form.email);  
-        formData.append('phone', form.phone);  
+        formData.append('contactEmail', form.email);  
+        formData.append('contactPhone', form.phone);  
         formData.append('companyPhone', form.companyPhone);  
         formData.append('companyAddress', form.companyAddress);  
         formData.append('memo', form.memo);  
-        formData.append('like', form.like);  
+        formData.append('contactLike', form.like);  
 
+
+        for(let [name,value] of formData){
+            
+        }
         console.log("ddfsaf",formData);
         
         if(image){
@@ -97,6 +104,8 @@ function AddContact({title}) {
 
         const image = e.target.files[0];
 
+        console.log("사진파일",e.target.files[0]);
+
         setImage(image);
     };
 
@@ -112,7 +121,7 @@ function AddContact({title}) {
                 if (previewElement) {
                     previewElement.src = e.target.result;
 
-                    
+                    setPreviewSrc(e.target.result); 
                 }
             };
             reader.readAsDataURL(input.files[0]);
@@ -121,6 +130,7 @@ function AddContact({title}) {
             const previewElement = document.getElementById(style.preview);
             if (previewElement) {
                 previewElement.src = "";
+                setPreviewSrc('');
             }
         }
 
@@ -132,17 +142,25 @@ function AddContact({title}) {
     return (
         <>
 
-        
-             <div class="wrapper">
-                    <h1 style={{ color: 'var(--color-text-title)'}}>{title}</h1>
+        <div className={style.container}>
+             <div class={style.wrapper}>
+                    <h1 style={{ color: 'var(--color-text-title)', padding: '20px'}}>{title}</h1>
                     <div class={style.contactInformation}>
                         <ul>
                             <li class={style.contactFile}>
                                 <p>사진</p>
                                 <img src= {img} id={style.preview} style={{width: '100px', height: '100px'}}/>
                                 
-                                <input type="file"  id="fileInput" onChange={(e) => readURL(e.target)} style={{display: 'none'}} onClick={ onChangeImageUpload }/>
-                                <label for="fileInput" class={style.customFileInput} name='contactPhoto'>
+                                <input
+                                        type="file"
+                                        id="fileInput"
+                                        onChange={(e) => {
+                                            readURL(e.target);
+                                            onChangeImageUpload(e);
+                                        }}
+                                        style={{ display: 'none' }}
+                                    />
+                                <label htmlFor="fileInput" class={style.customFileInput} name='contactPhoto'>
                                     사진 첨부
                                 </label>
                             </li>
@@ -183,6 +201,7 @@ function AddContact({title}) {
 
                         <button class={style.contactSave} onClick={ onClickRegisterHandler } >저장</button>
                     </div>
+                </div>
                 </div>
         </>  
     )

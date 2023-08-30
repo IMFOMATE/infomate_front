@@ -6,7 +6,7 @@ import {useModal} from "../../context/ModalContext";
 function ApprovalNav() {
 
     const {menuState, toggleMenu} = useContext(MenuContext);
-    const {modalOpen , toggleModal } = useModal();
+    const { isModalOpen, toggleModal } = useModal('documentKind'); // 모달 별 상태가져오기
 
     return (
         <div className={`${NavStyle.sidemenu} ${menuState ? '': NavStyle.close}`}>

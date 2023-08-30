@@ -1,6 +1,7 @@
 .tap{
   display: flex;
   width: 100%;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .tap li {
@@ -9,8 +10,9 @@
   cursor: pointer;
 }
 
-.wrapper{
-
+.side_wrapper{
+  height: 100%;
+  border: 5px solid var(--color-border);
 }
 
 
@@ -18,21 +20,19 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  border: 2px solid var(--color-border);
-  padding: 10px;
   background-color: #ffffff;
 }
 
-.list li{
-  /*display: flex;*/
-  /*gap: 15px;*/
+.list > ul{
+  display: flex;
   width: 100%;
-  display: inline;
+  align-items: center;
 }
 
 .photo{
   width: 50px;
   height: 50px;
+  flex-shrink: 0;
 }
 
 .photo img{
@@ -40,9 +40,21 @@
   width: 100%;
 }
 
-.content{
-
+.item{
+  width: 100%;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  overflow: hidden;
+  padding: 10px;
+  border-bottom: 1px solid var(--color-border);
 }
+
+.content{
+  flex-shrink: 1;
+  min-width: 0;
+}
+
 .content span, .content p{
   display: block;
   font-size: 13px;

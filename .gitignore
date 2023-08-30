@@ -13,6 +13,7 @@
 
 # misc
 .DS_Store
+.env.dev
 .env.local
 .env.development.local
 .env.test.local
@@ -215,3 +216,7 @@ thumb
 sketch
 
 # End of https://www.toptal.com/developers/gitignore/api/react
+.idea/jpa-buddy.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml

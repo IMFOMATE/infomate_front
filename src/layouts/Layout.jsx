@@ -1,14 +1,15 @@
 import React from 'react';
 import Header from "../components/common/Header";
 import {Outlet} from "react-router-dom";
-import Default from './Default.css';
 import NavStyle from '../components/common/Nav.module.css';
 import MenuBtn from "../components/common/MenuBtn";
 import {CurrentTitleProvider} from "../context/CurrentTitleContext";
 import {MenuContextProvider} from "../context/MenuContext";
 import {ModalContextProvider, useModal} from "../context/ModalContext";
+import { CalendarFilterProvider } from '../context/CalendarContext';
+
 import Modal from "../components/approval/ele-component/common/Modal";
-import TreeView from "../components/approval/ele-component/treeview/TreeView";
+import DragAndDropWrapper from "../components/approval/ele-component/treeview/DragAndDropWrapper";
 
 export default function Layout() {
 
@@ -17,6 +18,9 @@ export default function Layout() {
             <ModalContextProvider>
                 <MenuContextProvider>
                     <CurrentTitleProvider>
+                        <DragAndDropWrapper>
+                            <CalendarFilterProvider>
+                                <LayoutContent/>
                             {/*<div className='wrapper'>*/}
                             {/*    <MenuBtn/>*/}
                             {/*    <div className={NavStyle.flex}>*/}
@@ -27,16 +31,18 @@ export default function Layout() {
                             {/*    </div>*/}
                             {/*    <Modal/>*/}
                             {/*</div>*/}
-                        <LayoutContent/>
+                            </CalendarFilterProvider>
+                        </DragAndDropWrapper>
                     </CurrentTitleProvider>
                 </MenuContextProvider>
             </ModalContextProvider>
         </>
     );
+
 }
 
 function LayoutContent() {
-    const { isModalOpen } = useModal(); // 모달을 열기 위한 함수 가져오기
+    // const { isModalOpen } = useModal(); // 모달을 열기 위한 함수 가져오기
 
     return (
         <div className='wrapper'>
@@ -47,7 +53,7 @@ function LayoutContent() {
                     <Outlet/>
                 </main>
             </div>
-            {isModalOpen && <Modal title="결재양식 선택" content={<TreeView/>}/>}
+            <Modal modalId="documentKind" title="결재양식 선택" />
         </div>
     );
 }

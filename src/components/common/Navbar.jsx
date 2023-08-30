@@ -25,7 +25,7 @@ function Navbar() {
             </div>
             <ul className=''>
                 <li className='' onClick={()=>toggleTitle("Group")}>
-                    <NavLink to="/manage" >
+                    <NavLink to="/" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             home
                         </span>
@@ -56,16 +56,16 @@ function Navbar() {
                         <span>전자결재</span>
                     </NavLink>
                 </li>
-                <li onClick={()=>toggleTitle("Attend")}>
-                    <NavLink to="" >
+                <li onClick={()=>toggleTitle("Work")}>
+                    <NavLink to="/work" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
-                            approval
+                            watch
                         </span>
                         <span>근태관리</span>
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Mail")}>
-                    <NavLink to="" >
+                    <NavLink to="/mail" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             mail
                         </span>
@@ -73,16 +73,17 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Group")}>
-                    <NavLink to="/manage" >
-                       <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
+                    <NavLink to="/group" >
+                        <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             group
                         </span>
                         <span>조직도</span>
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Address")}>
+
                     <NavLink to="/addressBook" >
-                       <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
+                        <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             library_books
                         </span>
                         <span>주소록</span>
@@ -90,7 +91,7 @@ function Navbar() {
                 </li>
                 <li onClick={()=>toggleTitle("Alarm")}>
                     <NavLink to="" >
-                       <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
+                        <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             notifications
                         </span>
                         <span>알림</span>
@@ -98,7 +99,7 @@ function Navbar() {
                 </li>
                 <li onClick={()=>toggleTitle("Chat")}>
                     <NavLink to="" >
-                       <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
+                        <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             mode_comment
                         </span>
                         <span>채팅</span>

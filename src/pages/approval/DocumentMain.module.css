@@ -40,15 +40,16 @@
 
 .top_table{
   width: 100%;
-  flex-basis: 250px;
+  /*flex-basis: 250px;*/
   border: 1px solid black;
+  table-layout: fixed;
 }
 
 .td{
   padding: 5px;
 }
 
-.tr, .td{
+.tr, .td, .tds {
   border: 1px solid #000;
 }
 
@@ -57,6 +58,54 @@
   text-align: center;
 }
 
+.left{
+  margin-left: 10px;
+}
+
+.inline{
+  display: inline-flex;
+}
+
+.input{
+  width: 100%;
+  padding: 5px;
+}
+
+.inline::before{
+  content: "승인";
+  background-color: var(--color-border);
+  padding: 2px;
+  writing-mode: vertical-lr;
+  vertical-align: middle;
+  text-align: center;
+  border: 1px solid #000;
+}
+
+.doc_content{
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.dept{
+  width: 100%;
+  padding: 5px;
+}
+
+.button{
+  text-align: right;
+  padding: 10px 0px;
+}
+
+.textarea{
+  width: 100%;
+  resize: none;
+  padding: 10px;
+}
+
+.sum{
+  padding: 5px;
+  text-align: right;
+}
 
 
 @media screen and (max-width: 1280px){
@@ -75,6 +124,16 @@
 
   .doc_top{
     flex-direction: column;
+  }
+
+
+}
+
+@media screen and (min-width: 760px) {
+  .top_table{
+    flex-basis: 250px;
+    width: 100%;
+    border: 1px solid black;
   }
 
 }

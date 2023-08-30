@@ -11,7 +11,7 @@ import {
 } from '../../apis/MailAPICalls'
 
 
-function Mail() {
+function Mail({title}) {
 
     const dispatch = useDispatch();
     const mail = useSelector(state => state.mailReducer);
@@ -33,7 +33,7 @@ function Mail() {
         <>
                     <div className={ style.wrapper }>
                     <h1  style={{color: 'var(--color-text-title)', display: 'flex', padding: '20px' }}>
-                        받은 메일함
+                        {title}
                         <p>전체 메일 0 / 안읽은 메일 0</p>
                     </h1>
                     <div className={style.mailButton}>

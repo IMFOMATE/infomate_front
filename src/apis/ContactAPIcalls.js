@@ -3,18 +3,17 @@ import {
     POST_REGISTER
    ,GET_ADDRESSBOOK
    ,PUT_ADDRESSBOOK
+   ,DELETE_ADDRESSBOOK
 } from '../modules/ContactModule';
 
 export const callRegistAPI = ({form}) => {
-    const requestURL = "http://localhost:8989/addressBook/addContact";
-    console.log("이거",form);
+    const requestURL = "http://localhost:8989/addressBook/addContact"
 
     return async (dispatch, getState) => {
 
         const result = await fetch(requestURL, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
                 "Accept": "*/*",
             },
             body: form
@@ -54,6 +53,7 @@ export const callSelectAPI = () => {
 
         })
         .then(response => response.json());
+        
 
         
 
@@ -80,4 +80,27 @@ export const callUpdateAPI = ({contactCode}) => {
         dispatch({type: PUT_ADDRESSBOOK, payload: result})
     }
 };
+
+export const callDeleteContactAPI = ({contactCode}) => {
+
+    const requestURL = `http://localhost:8989/addressBook/deleteContact/${ contactCode }`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method: "DELETE",
+        })
+        .then(response => response.json());
+
+        console.log('[callDeleteContactAPI] callDeleteContactAPI result {} : ' ,result);
+
+        dispatch({type: DELETE_ADDRESSBOOK, payload: result})
+
+        
+        alert("연락처가 삭제되었습니다.")
+        window.location.reload();
+
+        
+    }
+}
 

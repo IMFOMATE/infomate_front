@@ -3,14 +3,14 @@ import img1 from './images/free-icon-star-1163655.png';
 import img2 from './images/free-icon-star-126482.png'
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
-    callSelectAPI
+    callSelectAPI, callUpdateAPI, callDeleteContactAPI
 } from '../../apis/ContactAPIcalls';
 import { Search, South } from '@mui/icons-material';
-import {
-    callUpdateAPI
-} from '../../apis/ContactAPIcalls';
+import ContactModal from '../../../src/components/approval/ele-component/contact/ContactModal';
+
+
 
 const selectButton = ["전체","ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
 
@@ -21,6 +21,7 @@ function AddressBook({ title }) {
 
     const contactList = contact.data;
     const params = useParams();
+    
 
     useEffect(
         () => {
@@ -33,13 +34,14 @@ function AddressBook({ title }) {
 
     useEffect(() => {
         setMatchingNames(contactList);
+        
       }, [contactList]);
 
 
 
     const [selectName, setSelectName] = useState("");
     const [matchingNames, setMatchingNames] = useState([]);
-    const [check, setCheck] = useState(false);
+    // const [check, setCheck] = useState(false);
     function getConstantVowel(kor) {
         const f = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ',];
         const ga = 44032;
@@ -92,9 +94,16 @@ function AddressBook({ title }) {
             alert("즐겨찾기가 등록되었습니다.")
             window.location.reload();
         }
-        
+    }
 
-       
+    const onDeleteContactHandler = (contactCode) => {
+
+        console.log("contactCode " , contactCode);
+
+            dispatch(callDeleteContactAPI( {
+                contactCode : contactCode
+            }))
+        closeModal();
     }
 
     const handleSearch = (name) => {
@@ -152,7 +161,7 @@ function AddressBook({ title }) {
                     <div className={style.addressText}>메모</div>
                 </div>
 
-                <div id="selectButton">
+                <div className={style.selectButton} style={buttonStyle}>
                     
                     {selectButton.map((name, index) => (
                         <button
@@ -212,25 +221,26 @@ function AddressBook({ title }) {
                         <h2>{selectedContact.contactName} 연락처 정보</h2>
                         </div>
                         <div className={style.contentModal}>
-                        <p><strong>사진:</strong> <img src="profile.jpg" alt="프로필 사진" /></p>
-                        <p><strong>이름:</strong> {selectedContact.contactName}</p>
-                        <p><strong>회사:</strong> {selectedContact.company}</p>
-                        <p><strong>부서:</strong> {selectedContact.department}</p>
-                        <p><strong>이메일:</strong> {selectedContact.contactEmail}</p>
-                        <p><strong>휴대폰:</strong> {selectedContact.contactPhone}</p>
-                        <p><strong>회사전화:</strong> {selectedContact.companyPhone}</p>
-                        <p><strong>회사주소:</strong> {selectedContact.companyAddress}</p>
-                        <p><strong>메모:</strong> {selectedContact.memo}</p>
+                        <p className='content'><strong>사진:</strong> <img src={selectedContact.contactPhoto} alt="프로필 사진" /></p>
+                        <p className='content'><strong>이름:</strong> {selectedContact.contactName}</p>
+                        <p className='content'><strong>회사:</strong> {selectedContact.company}</p>
+                        <p className='content'><strong>부서:</strong> {selectedContact.department}</p>
+                        <p className='content'><strong>이메일:</strong> {selectedContact.contactEmail}</p>
+                        <p className='content'><strong>휴대폰:</strong> {selectedContact.contactPhone}</p>
+                        <p className='content'><strong>회사전화:</strong> {selectedContact.companyPhone}</p>
+                        <p className='content'><strong>회사주소:</strong> {selectedContact.companyAddress}</p>
+                        <p className='content'><strong>메모:</strong> {selectedContact.memo}</p>
                         </div>
                     <div className={style.contentButton}>
-                    <button>수정</button>
-                    <button>삭제</button>
+                    
+                    <button onClick={ () => onDeleteContactHandler(selectedContact.contactCode) }>삭제</button>
                     </div>
                         
                     </div>
                 </div>
       )}
-            
+     
+        
         </>
     )
 

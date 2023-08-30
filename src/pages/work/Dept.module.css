@@ -1,0 +1,365 @@
+/* 헤더 */
+.header{
+    display: flex;
+    width: 1212px;
+    /* height: 84px; */
+    padding: 20px;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-bottom: 1px solid #E8E8E8;
+    color: #535353;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    }
+
+.bd_contain{
+width: 1200px;
+height: 823px;
+flex-shrink: 0;
+margin-left: 30px;
+}    
+
+/* 0000년 00월 */
+.bdcalmon {
+display: flex;
+width: 1200px;
+height: 37px;
+flex-direction: column;
+justify-content: center;
+flex-shrink: 0;
+color: #757575;
+text-align: center;
+font-family: Inter;
+font-size: 18px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+padding-top: 15px;
+padding-bottom: 15px;
+justify-content: center; /* 가로 가운데 정렬 */
+align-items: center; 
+}
+
+.table {
+/* border-collapse: collapse; */
+width: 100%;
+border-bottom: 1px solid #ddd;
+}
+  
+.th {
+padding: 8px;
+text-align: center;
+border-bottom: 1px solid #ddd;
+border-top: 1px solid #ddd;
+}
+
+.td {
+padding: 8px;
+text-align: center;
+border-top: 1px solid #ffffff;
+border-bottom: 1px solid #ffffff;
+}
+
+/* 페이지 */
+.pagination {
+display: inline-block;
+padding-top: 40px;
+position: absolute;
+width: 1200px;
+display: flex;
+justify-content: center; /* 가로 가운데 정렬 */
+align-items: center; /* 세로 가운데 정렬 */
+}
+
+.pagination a {
+color: black;
+float: left;
+padding: 8px 16px;
+text-decoration: none;
+transition: background-color 0.3s;
+border-radius: 100px;
+}
+
+.pagination a.active {
+background-color: #9e88fe;
+color: white;
+border-radius: 100px;
+}
+  
+.pagination a:hover:not(.active) {
+background-color: #ddd;
+border-radius: 100px;
+}
+
+/* 검색창 */
+.search[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+.search[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .search[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  .wk_btn_margin {
+    margin-bottom: 4px;
+  }
+
+/*  */
+.menumargin{
+    margin: 20px;
+}
+
+/* 검색 드롭바 */
+.dropsearch {
+  color: #7758FA;
+  font-weight: 600;
+  background: none;
+  display: flex;
+  width: 178px;
+  height: 31px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 6px;
+  border: 1px solid #7758FA;
+  transition: 0.4s;
+  cursor: pointer;
+  padding-bottom: 2px;
+}
+
+.drdown {
+  position: relative;
+  display: inline-block;
+}
+
+.drdown-content {
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  min-width: 178px;
+  height: 115px;
+  box-shadow: 0px 4px 8px 0px #7658fa34;
+  z-index: 1;
+  border-radius: 6px;
+  text-align: center;
+  
+}
+
+.drdown-content a {
+  color: black;
+  padding: 6px 10px;
+  text-decoration: none;
+  display: block;
+  font-size: 13px;
+  font-weight : 600;
+}
+
+.drdown-content a:hover {
+  background-color: #7758FA;
+  color: white;
+}
+
+.drdown:hover .drdown-content {
+  display: block;
+}
+
+.drdown:hover .dropsearch {
+  background-color: #7758FA;
+  color: white;
+  font-weight : 400;
+}
+
+.bd_contain{
+    width: 1200px;
+    height: 823px;
+    flex-shrink: 0;
+    margin-left: 30px;
+    }    
+    
+    /* 0000년 00월 */
+    .bdcalmon {
+    display: flex;
+    width: 1200px;
+    height: 37px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #757575;
+    text-align: center;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    justify-content: center; /* 가로 가운데 정렬 */
+    align-items: center; 
+    }
+    
+    .table {
+    /* border-collapse: collapse; */
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    }
+      
+    .th {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    }
+    
+    .td {
+    padding: 8px;
+    text-align: center;
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    }
+    
+    /* 페이지 */
+    .pagination {
+    display: inline-block;
+    padding-top: 40px;
+    position: absolute;
+    width: 1200px;
+    display: flex;
+    justify-content: center; /* 가로 가운데 정렬 */
+    align-items: center; /* 세로 가운데 정렬 */
+    }
+    
+    .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border-radius: 100px;
+    }
+    
+    .pagination a.active {
+    background-color: #9e88fe;
+    color: white;
+    border-radius: 100px;
+    }
+      
+    .pagination a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 100px;
+    }
+    
+    /* 검색창 */
+    .search[type=text], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      
+    .search[type=submit] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      
+      .search[type=submit]:hover {
+        background-color: #45a049;
+      }
+    
+      .wk_btn_margin {
+        margin-bottom: 4px;
+      }
+    
+    /*  */
+    .menumargin{
+        margin: 20px;
+    }
+    
+    /* 검색 드롭바 */
+    .dropsearch {
+      color: #7758FA;
+      font-weight: 600;
+      background: none;
+      display: flex;
+      width: 178px;
+      height: 31px;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      border-radius: 6px;
+      border: 1px solid #7758FA;
+      transition: 0.4s;
+      cursor: pointer;
+      padding-bottom: 2px;
+    }
+    
+    .drdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .drdown-content {
+      display: none;
+      position: absolute;
+      background-color: #ffffff;
+      min-width: 178px;
+      height: 115px;
+      box-shadow: 0px 4px 8px 0px #7658fa34;
+      z-index: 1;
+      border-radius: 6px;
+      text-align: center;
+      
+    }
+    
+    .drdown-content a {
+      color: black;
+      padding: 6px 10px;
+      text-decoration: none;
+      display: block;
+      font-size: 13px;
+      font-weight : 600;
+    }
+    
+    .drdown-content a:hover {
+      background-color: #7758FA;
+      color: white;
+    }
+    
+    .drdown:hover .drdown-content {
+      display: block;
+    }
+    
+    .drdown:hover .dropsearch {
+      background-color: #7758FA;
+      color: white;
+      font-weight : 400;
+    }

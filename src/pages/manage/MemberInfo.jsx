@@ -1,10 +1,50 @@
 import * as React from 'react';
 import GroupCss from './Group.module.css';
-import {Link} from "react-router-dom";
+// import {Link} from "react-router-dom";
 import InfoCss from "./Info.module.css";
+import {
+    callEmployeeInfoAPI
+} from '../../apis/EmployeeAPI';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import {  useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { FadeLoader } from "react-spinners";
+import StylesLoading from '../calendar/loadingStyle.module.css';
+
 
 
 function MemberInfo(){
+
+    const dispatch = useDispatch();
+    // const navigate = useNavigate();
+    const params = useParams();
+    const member = useSelector(state => state.employeeReducer);
+
+//     useEffect(              // 직원 정보 조회
+//     () => {
+//         if(member) return;
+//         dispatch(callEmployeeInfoAPI({
+//             memberCode: params.MEMBER_CODE
+//         }))
+//     }
+//     ,[member]
+// );
+
+    useEffect(              // 직원 정보 조회
+        () => {
+            // if(member) return;
+            dispatch(callEmployeeInfoAPI({
+                memberCode: params.MEMBER_CODE
+            }))
+        }
+        ,[]
+    );
+        
+    console.log(member);
+
+    if(member.length === 0) return <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
+
 
     return(
         <>
@@ -21,43 +61,43 @@ function MemberInfo(){
                             <tbody className={`empBody ${InfoCss.empBody}`}>
                                 <tr>
                                     <th>이름</th>
-                                    <td>홍길동</td>
+                                    <td>{member.memberName}</td>
                                 </tr>
                                 <tr>
                                     <th>사번</th>
-                                    <td>CoNum1234</td>
+                                    <td>{member.memberId}</td>
                                 </tr>
                                 <tr>
                                     <th>부서</th>
-                                    <td>리스크 관리 3팀</td>
+                                    <td>{member.department.deptName}</td>
                                 </tr>
                                 <tr>
                                     <th>직위</th>
-                                    <td>대표이사</td>
+                                    <td>{member.rank.rankName}</td>
                                 </tr>
                                 <tr>
                                     <th>이메일</th>
-                                    <td>CoNum1234@gmail.com</td>
+                                    <td>{member.memberEmail}</td>
                                 </tr>
                                 <tr>
                                     <th>Cell.</th>
-                                    <td>010-1234-5676</td>
+                                    <td>{member.memberPhone}</td>
                                 </tr>
                                 <tr>
                                     <th>Dir.</th>
-                                    <td>070-0987-4754</td>
+                                    <td>{member.extensionNumber}</td>
                                 </tr>
                                 <tr>
                                     <th>생년월일</th>
-                                    <td>1001-09-21</td>
+                                    <td>{member.memberNo}</td>
                                 </tr>
                                 <tr>
                                     <th>주소</th>
-                                    <td>경기도 고양시 일산 서구 일산로</td>
+                                    <td>{member.memberAddress}</td>
                                 </tr>
                                 <tr>
                                     <th>입사일</th>
-                                    <td>2023-01-01</td>
+                                    <td>{member.hireDate}</td>
                                 </tr>
                             </tbody>
                         </table>

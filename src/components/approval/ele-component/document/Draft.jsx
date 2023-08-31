@@ -10,7 +10,7 @@ import Credit from "./Credit";
 import Editor from "../common/Editor";
 import DocFile from "../common/DocFile";
 import {useDraftDataContext} from "../../../../context/approval/DraftDataContext";
-import {treeviewAPI} from "../../../../apis/Department.API";
+import {treeviewAPI} from "../../../../apis/DepartmentAPI";
 import {useDispatch, useSelector} from "react-redux";
 import {draftRegistAPI} from "../../../../apis/DocumentAPICalls";
 

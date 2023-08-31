@@ -61,10 +61,15 @@
   /*padding: ;*/
 }
 
-.content p{
+.content p {
   background-color: var(--color-border);
   padding: 5px;
 }
+
+.comment{
+  background-color: var(--color-border);
+}
+
 
 .active{
   display: block;

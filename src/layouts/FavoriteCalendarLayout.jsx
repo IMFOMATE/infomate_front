@@ -4,6 +4,12 @@ import { createContext, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
 export const ManageChkList = createContext(null);    
+export const PageableContext = createContext({
+    prev: false,
+    next: false,
+    pageNum: 1,
+    total: 1,
+});    
 
 const FavoriteCalendarLayout = () => {
 
@@ -12,12 +18,17 @@ const FavoriteCalendarLayout = () => {
         selectList: [],
     })
     
+    // const [pageable, setPageable] = useState({});
+
+
+
     return (
         <>
             <ManageChkList.Provider value={{chk, setChk}} >
-                <CalendarManageFavoriteNavbar />
-                <br/>
-                <Outlet />
+                    <CalendarManageFavoriteNavbar />
+                    <br/>
+                    <Outlet />
+                    <br/>
             </ManageChkList.Provider>
         </>
     );

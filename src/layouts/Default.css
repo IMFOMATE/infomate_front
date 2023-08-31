@@ -87,10 +87,14 @@ main{
 	--color-background : #F8F8F8;
 	--color-alert: #FF6767;
 	--color-success : #36D99E;
+
+	/* -- fullcalendar Color Overriding -- Start */
 	--fc-button-bg-color: #9F8AFB;
 	--fc-button-border-color: #9F8AFB;
 	--fc-button-active-bg-color: #7758FA;
 	--fc-button-active-border-color: #7758FA;
+	--fc-neutral-bg-color: #FFFFFF
+	/* -- fullcalendar Color Overriding -- END */
 }
 
 

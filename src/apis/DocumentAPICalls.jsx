@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
   GET_DETAIL,
   GET_DOCUMENT_APRPROVALLIST, GET_DOCUMENT_CREDIT,
-  GET_DOCUMENT_MAIN, GET_DOCUMENT_REFLIST, POST_DRAFT,
+  GET_DOCUMENT_MAIN, GET_DOCUMENT_REFLIST, POST_DRAFT, POST_PAYMENT, POST_VACATION,
 } from '../modules/approval/DocumentModuels';
 
 // 결재 메인 화면
@@ -78,7 +78,7 @@ export const getCreditList = ({ memberCode, page}) => {
 }
 
 
-//문서등록
+// 기안문서등록
 export const draftRegistAPI = (form)=>{
 
   const requestURL = `http://localhost:8989/document/regist/draft`;
@@ -94,6 +94,41 @@ export const draftRegistAPI = (form)=>{
 
   };
 };
+// 휴가 문서 등록
+
+export const vacationRegistAPI = (form)=>{
+
+  const requestURL = `http://localhost:8989/document/regist/vacation`;
+
+  return async (dispatch, getState)  => {
+
+    const result = await axios.post(requestURL, form)
+        .then(res => res.data);
+
+    if(result.status === 200){
+      dispatch({type: POST_VACATION, payload: result.data});
+    }
+
+  };
+};
+
+export const paymentRegistAPI = (form)=>{
+
+  const requestURL = `http://localhost:8989/document/regist/draft`;
+
+  return async (dispatch, getState)  => {
+
+    const result = await axios.post(requestURL, form)
+        .then(res => res.data);
+
+    if(result.status === 200){
+      dispatch({type: POST_PAYMENT, payload: result.data});
+    }
+
+  };
+};
+
+
 
 //문서세부내용
 export const getDocumentDetailAPI = ({documentCode})=>{

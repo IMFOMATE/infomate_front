@@ -36,7 +36,6 @@ function DocumentDetail() {
 
   const selectedComponent = documentComponents[documentData.documentKind];
 
-  console.log(documentData.id)
   return (
       <>
         {!documentData.id && (

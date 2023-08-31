@@ -11,10 +11,6 @@ function Navbar() {
     const { toggleTitle } = useContext(CurrentTitleContext);
     const { menuState } = useContext(MenuContext);
 
-    useEffect(() => {
-        const storedTitle = localStorage.getItem('currentTitle') || 'Home';
-        toggleTitle(storedTitle);
-    }, []);
 
     return (
         <nav className={`${NavStyle.nav} ${menuState ? '' : NavStyle.close }`}>

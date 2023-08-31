@@ -7,7 +7,6 @@ import {useSearchParams} from "react-router-dom";
 
 
 function MyDocList({title}) {
-
   /*여기서 url에 따라 다른 fetch가 일어나게하고
   * ToolbarApprovalTable에 넘어온 값을 넘겨주자 */
   const [searchParams, setSearchParams] = useSearchParams();
@@ -27,13 +26,13 @@ function MyDocList({title}) {
   const dispatchData = () => {
 
      if (title === '기안문서') {
-        dispatch(getApprovalList({ memberCode: 2, page: page, filter: filter }));
+        dispatch(getApprovalList({ memberCode: 22, page: page, filter: filter }));
      } else if (title === '임시저장문서') {
 
      } else if (title === '참조문서') {
-        dispatch(getRefList({ memberCode: 2, page: page, filter: filter }));
+        dispatch(getRefList({ memberCode: process.env.REACT_APP_TEST_MEMBER_CODE, page: page, filter: filter }));
      } else if (title === '결재대기문서') {
-        dispatch(getCreditList({ memberCode: 2, page: currentPage}))
+        dispatch(getCreditList({ memberCode: process.env.REACT_APP_TEST_MEMBER_CODE, page: currentPage}))
      } else if (title === '결재완료문서') {
        // Handle other cases if needed
      }

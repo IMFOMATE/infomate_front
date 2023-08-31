@@ -11,18 +11,27 @@ import DocFile from "../common/DocFile";
 import DocumentSide from "./DocumentSide";
 import ButtonInline from "../../../common/button/ButtonInline";
 import PaymentList from "./PaymentList";
+import {useDispatch, useSelector} from "react-redux";
+
+import {treeviewAPI} from "../../../../apis/Department.API";
+import {paymentRegistAPI} from "../../../../apis/DocumentAPICalls";
+import {formatApprovalDate, handleCancel, isPaymentValid, isValid, showValidationAndConfirm} from "../common/dataUtils";
 
 function Payment() {
+  const treeview = useSelector(state => state.departmentReducer);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const {name, type} = location.state;
   const { data, setData } = usePaymentDataContext();
 
-  const {title, content, emergency, refList, approvalList, fileList, paymentList} = data;
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalData, setModalData] = useState(null);
 
+  useEffect(()=>{
+    if (isModalOpen){
+      dispatch(treeviewAPI());
+    }
+  },[isModalOpen]);
   // form 데이터
   const onChangeHandler = (e) => {
     setData({
@@ -39,24 +48,47 @@ function Payment() {
     });
   };
 
-  // 모달이 열릴 때 fetch GET 조직도 가지고옴 -> modalData
-  useEffect(()=>{
-    if (isModalOpen){
-
-    }
-  },[isModalOpen]);
-
   //모달 토글 버튼
   const toggleModal = () => setIsModalOpen(prev => !prev);
 
+  const requestApproval = (formData) => {
+    dispatch(paymentRegistAPI(formData));
+  };
+
+  //폼 데이터 생성
+  const createFormData = () => {
+    const formData = new FormData();
+
+    data.fileList.forEach((file) => {
+      formData.append("fileList", file); // 각 파일을 formData에 추가
+    });
+
+    data.approvalList.forEach((app, index) => {
+      formData.append(`approvalList[${index}].id`, app.data.memberCode);
+      formData.append(`approvalList[${index}].order`, index + 1);
+    });
+
+    data.refList.forEach((app, index) => {
+      formData.append(`refList[${index}].id`, app.data.memberCode);
+    });
+
+    //잠시대기
+    // data.paymentList.forEach((app, index) => {
+    //   formData.append(`paymentList[${index}].id`, app.data.memberCode);
+    // });
+
+    formData.append("title", data.title);
+    formData.append("content", data.content);
+    formData.append("emergency", data.emergency ?? "N");
+
+    return formData;
+  };
   //결제 요청 api
   const handleRequest = () => {
 
     console.log(data);
-
-    // 여기서 폼작업 해줘야한다./
-
-    // 유효성 검사도 하자
+    const validationResult = isPaymentValid(data, false);
+    console.log(validationResult)
 
   };
 
@@ -81,7 +113,7 @@ function Payment() {
       paymentContent: '',
       remarks: ''
     };
-    setData(prev =>({...prev, paymentList:[...paymentList, newPayment]}));
+    setData(prev =>({...prev, paymentList:[...prev.paymentList, newPayment]}));
   };
 
   const handleInputChange = (index, field, value) => {
@@ -91,25 +123,23 @@ function Payment() {
   }
 
   const removeRow = () => {
-    const updatedList = paymentList.slice(0,-1);
+    const updatedList = data.paymentList.slice(0,-1);
     setData(prev=>({...prev, paymentList: updatedList}));
   };
 
   const formatNumberWithCommas = (number) => {
-    // return number.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   const calculateTotal = () => {
     const total = data.paymentList.reduce((acc, payment) => acc + parseFloat(payment.paymentPrice.replace(/,/g, '')), 0);
-    return formatNumberWithCommas(total.toFixed(2));
+    return formatNumberWithCommas((Math.floor(total)).toString());
   }
 
   //현재 문서작성자 -> 로컬스토리지에서 가져오기
   const writer= {
-    name : '주진선',
-    dept : '개발부서',
-    date : `${new Date().toISOString().substring(0,10)}`
+    memberName : '주진선',
+    deptName : '개발부서',
   }
 
   //버튼에 함수 넘겨주기
@@ -119,12 +149,10 @@ function Payment() {
     cancel: handleCancel,
     choice: handleChoice
   }
-
-
   return (
       <>
         {
-            isModalOpen && <ApprovalModal contextType='payment' modalData={modalData} toggleModal={toggleModal}/>
+            isModalOpen && <ApprovalModal contextType='payment' modalData={treeview} toggleModal={toggleModal}/>
         }
         <DocButtons button={<InsertButton url={url}/>}/>
         <div className={style.container}>
@@ -132,7 +160,7 @@ function Payment() {
             <div className={style.doc}>
               <h2 className={style.doc_title}>{name}</h2>
               <div className={style.doc_top}>
-                <WriterInfo writer={writer}/>
+                <WriterInfo writer={writer} start={new Date()}/>
                 <div className={style.inline}>
                   {
                     data.approvalList.length !== 0 ?
@@ -148,7 +176,7 @@ function Payment() {
                   <tr className={style.tr}>
                     <td className={style.td}>작성일자</td>
                     <td className={style.td}>
-                      <input name="startDate" type="date" className={style.input} onChange={onChangeHandler}/>
+                      <span>{formatApprovalDate(new Date())}</span>
                     </td>
                     <td className={`${style.tds} ${style.td}`} >긴급여부</td>
                     <td className={style.td} >
@@ -199,7 +227,7 @@ function Payment() {
                     </thead>
                     <tbody>
                       {
-                        paymentList.map((value, index)=>
+                        data.paymentList.map((value, index)=>
                             <PaymentList
                                 key={index}
                                 payment={value}

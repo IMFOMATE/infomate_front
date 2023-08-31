@@ -17,7 +17,7 @@ import WorkNav from '../../pages/work/WorkNav';
 function Header() {
     const {currentTitle, toggleTitle } = useContext(CurrentTitleContext);
     const {menuState, toggleMenu} = useContext(MenuContext);
-    
+
 
     const menu = useLocation().pathname.split('/')[1];
 
@@ -25,22 +25,13 @@ function Header() {
         <header className={`${menuState === false ? NavStyle.close : ''}`}>
             <Navbar/>
 
-            {/* {
-                currentTitle === 'Home' && <HomeNav/> ||
-                currentTitle === 'Board' && <Board/> ||
-                currentTitle === 'Approval' && <ApprovalNav/> ||
-                currentTitle === 'Work' && <WorkNav/> ||
-                currentTitle === 'Group' && <GroupNav/> ||
-                currentTitle === 'Contact' && <ContactNav /> ||
-                currentTitle === 'Schedule' && <CalendarNav/>
-            } */}
             {
-                menu === '' && <HomeNav/> ||
-                menu === 'board' && <Board/> ||
-                menu === 'approval' && <ApprovalNav/> ||
-                menu === 'group' && <GroupNav/> ||
-                menu === 'contact' && <ContactNav /> ||
-                menu === 'calendar' && <CalendarNav/>
+                (currentTitle === 'Home') && <HomeNav/> ||
+                (currentTitle === 'Board') && <Board/> ||
+                (currentTitle === 'Approval') && <ApprovalNav/> ||
+                (currentTitle === 'Group') && <GroupNav/> ||
+                (currentTitle === 'Contact') && <ContactNav /> ||
+                (currentTitle === 'Schedule') && <CalendarNav/>
             }
 
         </header>

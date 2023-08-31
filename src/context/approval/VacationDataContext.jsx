@@ -15,7 +15,7 @@ export const VacationProvider = ({children}) => {
     refList: [],
     approvalList: [],
     fileList: [],
-    sort:'',
+    sort:'연차',
     startDate: '',
     endDate: '',
     reason:''

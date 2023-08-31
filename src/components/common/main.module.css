@@ -14,6 +14,11 @@
 	.maintitle h1{
 		position: absolute;
 		left: 70px;
-		top: 20px;
+		top: 22px;
+	}
+	.maintitle h2{
+		position: absolute;
+		left: 70px;
+		top: 22px;
 	}
 }

@@ -38,7 +38,15 @@ main{
 .menuBtn div > span:first-child{
     font-size: 2rem;
     cursor: pointer;
+}
+
+
+.white{
     color: #fff;
+}
+
+.purple{
+    color: var(--color-hard);
 }
 
 .menuBtn div > span:nth-child(2){
@@ -186,11 +194,11 @@ main{
     .close {
         display: none;
     }
-    .menuBtn div > span:first-child{
-        font-size: 2rem;
-        cursor: pointer;
-        color: var(--color-middle);
-    }
+    /*.menuBtn div > span:first-child{*/
+    /*    font-size: 2rem;*/
+    /*    cursor: pointer;*/
+    /*    color: var(--color-middle);*/
+    /*}*/
 
 }
 

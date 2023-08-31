@@ -7,10 +7,9 @@ import InsertButton from "../buttons/InsertButton";
 import style from "../../../../pages/approval/DocumentMain.module.css";
 import WriterInfo from "./WriterInfo";
 import Credit from "./Credit";
-import ButtonInline from "../../../common/button/ButtonInline";
-import PaymentList from "./PaymentList";
 import DocFile from "../common/DocFile";
 import DocumentSide from "./DocumentSide";
+import Swal from "sweetalert2";
 
 function Vacation() {
 
@@ -18,7 +17,7 @@ function Vacation() {
   const location = useLocation();
   const {name, type} = location.state;
   const { data, setData } = useVacationDataContext();
-
+  const { sort, startDate, endDate} = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState(null);
 
@@ -29,6 +28,7 @@ function Vacation() {
       [e.target.name]: e.target.value
     });
   };
+
   const checkboxHandler = (e) => {
     const newValue = e.target.checked ? 'Y' : 'N'; // 체크 여부에 따라 'Y' 또는 'N' 설정
     setData({
@@ -36,6 +36,32 @@ function Vacation() {
       [e.target.name]: newValue
     });
   };
+
+  const onStartDateChange =(e) => {
+    if(sort === '오전반차'){
+      setData({...data, startDate:e.target.value + ' 09:00:00',endDate: e.target.value + ' 13:00:00'});
+      return;
+    }
+    if(sort === '오후반차'){
+      setData({...data, startDate:e.target.value + ' 13:00:00',endDate: e.target.value + ' 18:00:00'});
+      return;
+    }
+    setData({...data, startDate:e.target.value + ' 09:00:00'})
+  };
+
+  const onEndDateChange = (e) => {
+
+    if(new Date(e.target.value) < new Date(startDate)){
+      Swal.fire({
+        icon: 'error',
+        text: '종료날짜는 시작날짜보다 작을 수 없습니다'
+      })
+    }
+
+    setData({...data, endDate:e.target.value + ' 18:00:00'})
+  }
+
+
 
   // 모달이 열릴 때 fetch GET 조직도 가지고옴 -> modalData
   useEffect(()=>{
@@ -104,7 +130,7 @@ function Vacation() {
                 <div className={style.inline}>
                   {
                     data.approvalList.length !== 0 ?
-                        data.approvalList.map((data, index) => <Credit key={index} approval={data} />)
+                        data.approvalList.map((data, index) => <Credit key={index} text={data.memberName} rank={data.rankName} approvalDate={data?.approvalDate} />)
                         : ""
                   }
                 </div>
@@ -113,6 +139,11 @@ function Vacation() {
                 {/*이것도 컴포넌트로........*/}
                 <table className={`${style.top_table} ${style.doc_content}`}>
                   <tbody>
+                  <tr className={style.none}>
+                    <td>
+                      <input name='title' value={name} type="text"/>
+                    </td>
+                  </tr>
                   <tr className={style.tr}>
                     <td className={style.td}>작성일자</td>
                     <td className={style.td}>
@@ -130,18 +161,41 @@ function Vacation() {
                     </td>
                   </tr>
                   <tr className={style.tr}>
-                    <td className={style.td}>제목</td>
-                    <td className={style.td} >
-                      <input name="title" type="text" placeholder="제목을 입력해주세요" className={style.input} onChange={onChangeHandler}/>
+                    <td className={style.td}>휴가종류</td>
+                    <td className={style.td} colSpan={3}>
+                      <select className={style.input} name='sort' onChange={onChangeHandler}>
+                        <option value="연차">연차</option>
+                        <option value="오전반차">오전반차</option>
+                        <option value="오후반차">오후반차</option>
+                      </select>
                     </td>
-
                   </tr>
                   <tr>
-                    <td className={style.tds}>지출사유</td>
+                    <td className={style.tds}>기간 사유</td>
+                    <td colSpan={3} className={style.td}>
+                      <input className={style.td} name='startDate' type="date" onChange={onStartDateChange} />
+                      {
+                        sort === '연차' ?
+                        <>
+                          <span> ~ </span>
+                          <input className={style.td} name='endDate' type="date" onChange={onEndDateChange}/>
+                        </>
+                        : ''
+                      }
+                      <span>
+                      {/*{*/}
+                      {/*  new Date(data.endDate) - new Date(data.startDate)/ (1000 * 60 * 60 * 24) + 1*/}
+                      {/*} 일*/}
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className={style.tds}>휴가 사유</td>
                     <td colSpan={3}>
                       <textarea className={style.textarea} name="content" id="reason" cols="30" rows="10" onChange={onChangeHandler}/>
                     </td>
                   </tr>
+
                   </tbody>
                 </table>
 

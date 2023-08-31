@@ -17,8 +17,6 @@ function RefTreeView({modalData, contextType}) {
 
   const { refList } = data;
 
-
-
   const handleSelect = (node) => {
     const item = refList.find((n) => n.id === node.id);
 

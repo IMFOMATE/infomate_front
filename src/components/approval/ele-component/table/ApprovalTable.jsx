@@ -1,6 +1,8 @@
 import React from 'react';
 import ApprovalTableCss from './ApprovalTable.module.css';
 import TrData from "./TrData";
+import loadingCss from "../../../../pages/calendar/loadingStyle.module.css";
+import { FadeLoader } from "react-spinners";
 
 function TableHeader(){
   return(
@@ -28,14 +30,11 @@ function TableHeader(){
 
 function ApprovalTable({title, data}) {
 
-  if(data.length < 1){
+  if(!data || !Array.isArray(data)){
     return (
-      <>
-        <table className={ApprovalTableCss.list_approval}>
-          <TableHeader/>
-        </table>
-        <div className={ApprovalTableCss.nolist}>해당문서가 없습니다.</div>
-      </>
+        <div className={loadingCss.loading}>
+          <FadeLoader color="#9F8AFB" />
+        </div>
     );
   }
 
@@ -49,7 +48,7 @@ function ApprovalTable({title, data}) {
           <TableHeader/>
           <tbody>
           {
-            data.map((value, index) => <TrData key={index} list={value}/>)
+              data?.map((list, index)=> <TrData key={index} list={list}/>)
           }
           </tbody>
         </table>

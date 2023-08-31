@@ -37,6 +37,8 @@ import BrdDept from "./pages/board/BrdDept";
 import BrdAdmin from "./pages/board/BrdAdmin";
 import Anony from "./pages/board/Anony";
 import NewPost from "./pages/board/NewPost";
+import Posting from './pages/board/Posting';
+import DocumentDetail from "./components/approval/ele-component/document/detail/DocumentDetail";
 
 function App() {
   return (
@@ -56,8 +58,10 @@ function App() {
               <Route path="reflist" element={<MyDocList title='참조문서'/>}/> {/*참조문서리스트*/}
               <Route path="temp" element={<MyDocList title='임시저장문서'/>} /> {/*임시저장문서리스트*/}
               <Route path="approving" element={<MyDocList title='결재대기문서'/>}/> {/*결재 대기문서리스트*/}
-              <Route path="approved" element={<MyDocList title='결재완료문서'/>}/> {/*결재 완료 리스트*/}
-              <Route path="document" element={<DocumentMain/>}/>
+              <Route path="document">
+                <Route path="new" element={<DocumentMain/>}/>
+                <Route path=":documentId" element={<DocumentDetail/>}/> {/* 문서 조회 */}
+              </Route>
             </Route>
 
 
@@ -78,7 +82,6 @@ function App() {
             </Route>
 
 
-
             <Route path='group'>
               <Route index element={<Group/>}/>
             </Route>
@@ -90,7 +93,6 @@ function App() {
             <Route path="/work/mywork" element={ <MyWork /> }/>
             <Route path="/work/mydept" element={ <MyDept />}/>
             <Route path="/work/dept" element={ <Dept />}/>
-            
 
             
             <Route path="/board" element={<BoardMain/>}/>

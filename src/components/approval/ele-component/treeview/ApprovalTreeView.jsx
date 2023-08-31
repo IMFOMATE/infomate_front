@@ -16,7 +16,7 @@ function ApprovalTreeView({modalData, contextType}) {
   const { data, setData } = selectedContext;
   const { approvalList } = data;
 
-
+  // console.log(modalData)
   const handleSelect = (node) => {
     const item = approvalList.find((n) => n.id === node.id);
 
@@ -37,29 +37,33 @@ function ApprovalTreeView({modalData, contextType}) {
 
   return (
         <div className={styles.app}>
+          {
+            modalData !== [] ?
+            <Tree
+                tree={modalData}
+                rootId={0}
+                render={(node, { depth, isOpen, onToggle }) => (
+                    <SelectCustomNode
+                        node={node}
+                        depth={depth}
+                        isOpen={isOpen}
+                        isSelected={!!approvalList.find((n) => n.id === node.id)}
+                        canDrop={()=> false}
+                        onToggle={onToggle}
+                        onSelect={handleSelect}
+                    />
+                )}
+                dragPreviewRender={(monitorProps) => (
+                    <CustomDragPreview monitorProps={monitorProps} />
+                )}
+                classes={{
+                  draggingSource: styles.draggingSource,
+                  dropTarget: styles.dropTarget
+                }}
+            />
+            : ''
+          }
 
-          <Tree
-              tree={modalData}
-              rootId={0}
-              render={(node, { depth, isOpen, onToggle }) => (
-                  <SelectCustomNode
-                      node={node}
-                      depth={depth}
-                      isOpen={isOpen}
-                      isSelected={!!approvalList.find((n) => n.id === node.id)}
-                      canDrop={()=> false}
-                      onToggle={onToggle}
-                      onSelect={handleSelect}
-                  />
-              )}
-              dragPreviewRender={(monitorProps) => (
-                  <CustomDragPreview monitorProps={monitorProps} />
-              )}
-              classes={{
-                draggingSource: styles.draggingSource,
-                dropTarget: styles.dropTarget
-              }}
-          />
           <div className={styles.current}>
             <table className={tableStyle.list_approval}>
               <thead className={tableStyle.list_thead}>

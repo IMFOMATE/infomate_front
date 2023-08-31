@@ -102,6 +102,15 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
     }
 
     const changeDateHandler = (e) => {
+        if(e === null){
+            return setSchedule({
+                ...schedule, 
+                data:{...schedule.data,  
+                    startDate: dayjs().format('YYYY-MM-DDTHH:mm:ss'), 
+                    endDate: dayjs().format('YYYY-MM-DDTHH:mm:ss')
+                }
+            });
+        }
         if(schedule.data.allDay){
             setSchedule({
                 ...schedule, 
@@ -120,7 +129,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
         }
     }
 
-    
+
     return (
         <>
             <div className={[styles.container, modal && styles.active].join(' ')}>

@@ -15,7 +15,7 @@ import locale from 'antd/es/date-picker/locale/ko_KR';
 import antdStyels from './antd.module.css';
 import { DatePicker } from 'antd';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
-import { MEMBER_CODE } from '../../apis/APIConfig';
+import { DEPARTMENT_CODE, MEMBER_CODE } from '../../apis/APIConfig';
 import meterialIcon from '../../components/common/meterialIcon.module.css'
 dayjs.locale('ko')
 
@@ -165,7 +165,8 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                                 name='refCalendar'
                                 value={schedule?.calendar}
                                 options={calendarList.data.filter(item => (
-                                    item.departmentCode !== 0 && item.memberCode === MEMBER_CODE
+                                    item.departmentCode !== 1 && 
+                                    (item.memberCode === MEMBER_CODE || item.departmentCode === DEPARTMENT_CODE)
                                 )).sort((prev, next) => prev.indexNo - next.indexNo
                                 ).map(item => (
                                     {value: item.id, text: item.name, color: item.labelColor})
@@ -197,7 +198,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                     <div className={styles.footer}>
                         {
                             mode === 'read' ||
-                            <NavLink to='./regist'>
+                            <NavLink to='./regist?new=true'>
                                 <ButtonOutline value={'상세일정등록'} onClick={sidebarToggle} style={{margin: '5px'}}/>
                             </NavLink>
                         }

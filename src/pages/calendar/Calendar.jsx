@@ -86,6 +86,8 @@ const Calendar = () =>{
 
     ])
 
+
+    console.log(data);
     const calenderClickHandler = data => {
         
         setSchedule({
@@ -95,7 +97,7 @@ const Calendar = () =>{
                 endDate: data.view.type === 'dayGridMonth'? dayjs(data.endStr).subtract(1,'d').format('YYYY-MM-DDTHH:mm') : dayjs(data.endStr).format('YYYY-MM-DDTHH:mm'),
             }
         })
-        isMobile? navigate('./regist') : setIsModal(true);
+        isMobile? navigate('./regist?new=true') : setIsModal(true);
         
         ChangeModalOffset(data.jsEvent || data, {x: 275, y: 180})
     };
@@ -136,7 +138,6 @@ const Calendar = () =>{
     const eventClickHandler = e => {  
         menuState && toggleMenu();
         ChangeModalOffset(e.jsEvent, {x:270 , y: 180});
-        console.log(isMobile);
         if(!isMobile){
             setViewModalData(false)
             ChangeModalOffset(e.jsEvent, {x: 180, y: 80})

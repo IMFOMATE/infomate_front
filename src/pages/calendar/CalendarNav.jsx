@@ -10,7 +10,7 @@ import { MenuContext } from '../../context/MenuContext';
 import { getCalendarListAPI } from '../../apis/CalendarAPICalls';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
-import { MEMBER_CODE } from '../../apis/APIConfig';
+import { DEPARTMENT_CODE, MEMBER_CODE } from '../../apis/APIConfig';
 import { LoadingSpiner } from '../../components/common/other/LoadingSpiner';
 
 const CalendarNav = () => {
@@ -58,6 +58,8 @@ const CalendarNav = () => {
             item.memberCode !== MEMBER_CODE && item.departmentCode === null
             ).map(item => parseInt(item.id))])
     }
+
+    console.log(data);
 
     const calendarFilterChange = e => {
         if(e.target.checked){
@@ -131,7 +133,7 @@ const CalendarNav = () => {
             <div className={corpClassName}>
                 {
                     data.data.filter(item => (
-                        item.departmentCode === 1 || item.departmentCode  === 0 // 조건 수정 예정
+                        item.departmentCode === DEPARTMENT_CODE || item.departmentCode  === 1 // 조건 수정 예정
                     )).sort((prev , next) =>
                         prev.indexNo - next.indexNo
                     ).filter((item, index) => (

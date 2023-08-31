@@ -53,7 +53,7 @@ const ScheduleDetilaCreate = () => {
                 ...data,
                 data: {...schedule.data, 
                     refCalendar: getCalednarReducer.data.filter(item => 
-                        item.indexNo === 1 && item.memberCode === MEMBER_CODE)[0].id
+                        item.indexNo === 1 && item.memberCode === MEMBER_CODE && item.departmentCode === null)[0].id
                     }
             })    
         }
@@ -274,7 +274,7 @@ const ScheduleDetilaCreate = () => {
                                     />
                                     <label className={styles.chkLabel}>종일</label>
                                 </div>
-                                <div>
+                                {/* <div>
                                     <CheckBox 
                                         name="repeat" 
                                         isChangeColor={true} 
@@ -282,14 +282,14 @@ const ScheduleDetilaCreate = () => {
                                         onChange={scheduleChangeHanlder} 
                                     />
                                     <label className={styles.chkLabel}>반복</label>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
                     
                 </div>
                 <div className={styles.container}>
-                    <label>전사일정</label>
+                    {/* <label>전사일정</label>
                     <div className={styles.extendEle}>
                         <CheckBox 
                             name="corpSchdl" 
@@ -297,16 +297,17 @@ const ScheduleDetilaCreate = () => {
                             checked={isRead === 'true' ? data.data.corpSchdl : schedule?.data?.corpSchdl}
                             onChange={scheduleChangeHanlder} 
                         />
-                    </div>
+                    </div> */}
                     <label>캘린더</label>
                     <div className={styles.extendEle}>
                         <SelectEle 
                             name='refCalendar' 
                             options={getCalednarReducer.data.filter(item => (
-                                item.departmentCode !== 0 && (item.memberCode === MEMBER_CODE  || item.departmentCode === DEPARTMENT_CODE)
+                                item.departmentCode !== 1 && 
+                                (item.memberCode === MEMBER_CODE || item.departmentCode === DEPARTMENT_CODE)
                             )).sort((prev, next) => prev.indexNo - next.indexNo
                             ).map(item => (
-                                {value: item.id, text: item.name})
+                                {value: item.id, text: item.name, color: item.labelColor})
                             )}
                             value={isRead === 'true' ? data.data.refCalendar : schedule?.data?.refCalendar}
                             onChange={scheduleChangeHanlder}

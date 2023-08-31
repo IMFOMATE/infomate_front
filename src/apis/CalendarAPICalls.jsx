@@ -113,7 +113,7 @@ export const patchCalendarUpdate = ({data}) => {
 export const patchDefaultCalendarUpdate = ({data}) => {
     data = {...data, memberCode: MEMBER_CODE}
     
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/updateDafault`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/updateDafault/${MEMBER_CODE}`;
     return async (dispatch, getState) => {
         const result = await axios.patch(requestURL, data, {headers:{"Content-Type":'application/json',Accept:'*/*'}})
                     .then(res => res.data)
@@ -150,7 +150,7 @@ export const patchChangeCalendarIndexNo = ({data}) => {
 
 
 export const deleteCalendar = ({data}) => {    
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/delete`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/delete/${MEMBER_CODE}`;
     return async (dispatch, getState) => {
         const result = await axios.delete(requestURL, {data}, {headers:{"Content-Type":'application/json',Accept:'*/*'}})
                     .then(res => res.data)

@@ -17,6 +17,7 @@ import { DatePicker } from 'antd';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
 import { DEPARTMENT_CODE, MEMBER_CODE } from '../../apis/APIConfig';
 import meterialIcon from '../../components/common/meterialIcon.module.css'
+import { data } from 'jquery';
 dayjs.locale('ko')
 
 export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
@@ -37,9 +38,13 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
         setSchedule({
             ...schedule,
             data: {...schedule.data, 
-                refCalendar: calendarList.data.filter(item => item.indexNo === 1 && item.memberCode === MEMBER_CODE)[0].id}
+                refCalendar: calendarList.data.filter(item => 
+                    item.indexNo === 1 && item.memberCode === MEMBER_CODE && item.departmentCode === null)[0].id
+                }
         })
     },[])
+
+    console.log(schedule);
 
     const scheduleChangeHanlder = e => {
         const eleName = e.target.name;
@@ -87,7 +92,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
             });
         }
     }
-    
+    console.log(schedule);
     return (
         <>
             <div className={[styles.container, modal && styles.active].join(' ')}>
@@ -163,7 +168,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                         <div>
                             <SelectEle
                                 name='refCalendar'
-                                value={schedule?.calendar}
+                                value={schedule.data.refCalendar}
                                 options={calendarList.data.filter(item => (
                                     item.departmentCode !== 1 && 
                                     (item.memberCode === MEMBER_CODE || item.departmentCode === DEPARTMENT_CODE)
@@ -184,7 +189,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                             onChange={scheduleChangeHanlder}
                         />
 
-                        <label>전사일정</label>
+                        {/* <label>전사일정</label>
                         <div style={{textAlign: 'left'}}>
                             <CheckBox
                                 name='corpSchdl'
@@ -193,7 +198,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                                 style={{position: 'relative', top: '2px'}}
                                 onChange={scheduleChangeHanlder}
                             />
-                        </div>
+                        </div> */}
                     </div>
                     <div className={styles.footer}>
                         {

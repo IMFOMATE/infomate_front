@@ -61,6 +61,7 @@ const Calendar = () =>{
     }) 
     
     useEffect(()=>{
+        
         // if(data) return;
         dispatch(dispatch => dispatch({ type: GET_SCHEDULE_DETAIL,  payload: undefined }))
 
@@ -94,7 +95,9 @@ const Calendar = () =>{
             ...schedule, 
             data : {...schedule?.data,
                 startDate: dayjs(data.startStr).format('YYYY-MM-DDTHH:mm'),
-                endDate: data.view.type === 'dayGridMonth'? dayjs(data.endStr).subtract(1,'d').format('YYYY-MM-DDTHH:mm') : dayjs(data.endStr).format('YYYY-MM-DDTHH:mm'),
+                endDate: data.view.type === 'dayGridMonth'
+                ? dayjs(data.endStr).subtract(1,'d').format('YYYY-MM-DDTHH:mm') 
+                : dayjs(data.endStr).format('YYYY-MM-DDTHH:mm'),
             }
         })
         isMobile? navigate('./regist?new=true') : setIsModal(true);
@@ -163,13 +166,15 @@ const Calendar = () =>{
         const event = [];
             data.filter(item => !filter.includes(item.id))
             .forEach(item1 => {
-                item1 && item1.scheduleList && item1.scheduleList.forEach(item => 
+                item1.scheduleList.forEach(item => 
                         event.push({
                             title: item.title,
                             start: dayjs(item.startDate).format('YYYY-MM-DDTHH:mm:ss'),
                             end: dayjs(item.endDate).format('YYYY-MM-DDTHH:mm:ss'), allDay: item.allDay,
                             color: item1.labelColor,
-                            textColor: 'black',
+                            textColor: (item.allDay 
+                                || dayjs(item.startDate).format('YYYY-MM-DD') !== dayjs(item.endDate).format('YYYY-MM-DD'))
+                                ? 'white': 'black',
                             extendedProps: {
                                 id: item.id,
                                 address: item.address,

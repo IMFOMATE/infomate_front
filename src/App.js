@@ -1,7 +1,14 @@
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from "./layouts/Layout";
-import BoardMain from "./pages/board/BoardMain";
+
+// import './components/common/main.css';
+// import './components/common/component.css';
+
+import './components/common/nav.css';
+
+import './components/common/default.css';
+
 import Mail from "./pages/mail/Mail";
 import AddressBook from "./pages/addressBook/AddressBook";
 import AddContact from "./pages/addressBook/AddContact";
@@ -24,6 +31,7 @@ import FavoriteCalendarPublic from './pages/calendar/management/FavoriteCalendar
 import FavoriteCalendarFollower from './pages/calendar/management/FavoriteCalendarFollower';
 import MemberInfo from './pages/manage/MemberInfo';
 import ChartModal from './pages/manage/ChartModal';
+import DocumentDetail from "./components/approval/ele-component/document/detail/DocumentDetail";
 import Work from "./pages/work/Work";
 import WkAdmin from "./pages/work/WkAdmin";
 import MyWork from "./pages/work/MyWork";
@@ -37,6 +45,7 @@ import BrdAdmin from "./pages/board/BrdAdmin";
 import Anony from "./pages/board/Anony";
 import NewPost from "./pages/board/NewPost";
 import Posting from './pages/board/Posting';
+import PostView from './pages/board/PostView';
 
 function App() {
   return (

@@ -59,7 +59,9 @@ const ScheduleDetilaCreate = () => {
             return setSchedule({
                 ...data,
                 data: {...schedule.data, 
-                    refCalendar: getCalednarReducer.data.filter(item => item.indexNo === 1 && item.memberCode === MEMBER_CODE)[0].id}
+                    refCalendar: getCalednarReducer.data.filter(item => 
+                        item.indexNo === 1 && item.memberCode === MEMBER_CODE)[0].id
+                    }
             })
             
         }

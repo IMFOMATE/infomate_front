@@ -2,7 +2,6 @@ import CalendarManageFavoriteNavbar from '../components/calendar/manage/Calendar
 
 import { createContext, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Pagenation } from '../components/common/Pagenation';
 
 export const ManageChkList = createContext(null);    
 export const PageableContext = createContext({
@@ -26,13 +25,10 @@ const FavoriteCalendarLayout = () => {
     return (
         <>
             <ManageChkList.Provider value={{chk, setChk}} >
-                {/* <PageableContext.Provider value={{pageable, setPageable}}> */}
                     <CalendarManageFavoriteNavbar />
                     <br/>
                     <Outlet />
                     <br/>
-                    {/* <Pagenation pageable={{...pageable}} /> */}
-                {/* </PageableContext.Provider> */}
             </ManageChkList.Provider>
         </>
     );

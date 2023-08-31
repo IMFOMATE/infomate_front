@@ -10,7 +10,7 @@ import { FadeLoader } from 'react-spinners';
 import StylesLoading from '../loadingStyle.module.css';
 import { POST_FAV_CALENDAR_REGIT } from '../../../modules/FavCalendarMoudule';
 import { NotResultData } from '../../common/Error';
-import { Pagenation } from '../../../components/common/Pagenation';
+import { Pagenation } from '../../../components/common/other/Pagenation';
 
 const FavoriteCalendarPublic = () => {
     const [search] = useSearchParams();

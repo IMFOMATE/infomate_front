@@ -1,5 +1,5 @@
 import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom';
-import meterailIcon from './meterialIcon.module.css'
+import meterailIcon from '../meterialIcon.module.css'
 import styles from './pagenation.module.css'
 
 export const Pagenation = ({total, pageNum}) => {

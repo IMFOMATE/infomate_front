@@ -8,7 +8,7 @@ import { FadeLoader } from 'react-spinners';
 import StylesLoading from '../loadingStyle.module.css';
 import { DELETE_FAV_CALENDAR, GET_FAV_CALENDAR_FOLLOWER, PATCH_FAV_CALENDAR_STATE_UPDATE } from '../../../modules/FavCalendarMoudule';
 import { getFavCalendarFollwerAPI } from '../../../apis/FavCalendarAPICalls';
-import { Pagenation } from '../../../components/common/Pagenation';
+import { Pagenation } from '../../../components/common/other/Pagenation';
 
 const FavoriteCalendarFollower = () => {
     const [search] = useSearchParams();

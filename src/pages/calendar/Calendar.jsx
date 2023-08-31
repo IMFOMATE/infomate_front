@@ -61,19 +61,20 @@ const Calendar = () =>{
     }) 
     
     useEffect(()=>{
+        // if(data) return;
+        dispatch(dispatch => dispatch({ type: GET_SCHEDULE_DETAIL,  payload: undefined }))
+
         setIsModal(false);
         setViewModal(false);
         setSchedule(undefined);
-        dispatch(dispatch => dispatch({ type: GET_SCHEDULE_DETAIL,  payload: undefined }))
         changeIsMobile();
 
         sizeObserver.observe(containerRef.current);
 
         dispatch(getCalendarFindAllAPI())
-        // setSchedule(data);
-        
-
+    
         return () => {
+            console.log(1);
             sizeObserver.disconnect();
         }
     },[

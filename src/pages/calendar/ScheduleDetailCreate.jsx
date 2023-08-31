@@ -212,6 +212,8 @@ const ScheduleDetilaCreate = () => {
             dispatch(postScheduleRegist({data: schedule.data}));
         }
 
+        navigate('../');
+
     }
 
     const removeParticipant = e => {

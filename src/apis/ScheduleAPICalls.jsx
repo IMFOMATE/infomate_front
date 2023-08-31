@@ -64,9 +64,8 @@ export const patchScheduleUpdate = ({data}) => {
                         .catch(err => console.log(err));
 
         if(result.status === 200){
-            message.success("일정이 변경 되었습니다.")
             dispatch({ type: PATCH_SCHEDULE,  payload: result});
-            return;
+            return message.success("일정이 변경 되었습니다.");  
         }
     
         message.error("변경에 실패 했습니다")

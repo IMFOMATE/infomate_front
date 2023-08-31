@@ -4,11 +4,11 @@ import { ManageChkList } from '../../../layouts/FavoriteCalendarLayout';
 import { useSearchParams } from 'react-router-dom';
 import CalendarMagnageFavoriteFollowerHeader from '../../../components/calendar/manage/CalendarMagnageFavoriteFollowerHeader';
 import { useDispatch, useSelector } from 'react-redux';
-import { FadeLoader } from 'react-spinners';
-import StylesLoading from '../loadingStyle.module.css';
 import { DELETE_FAV_CALENDAR, GET_FAV_CALENDAR_FOLLOWER, PATCH_FAV_CALENDAR_STATE_UPDATE } from '../../../modules/FavCalendarMoudule';
 import { getFavCalendarFollwerAPI } from '../../../apis/FavCalendarAPICalls';
 import { Pagenation } from '../../../components/common/other/Pagenation';
+import { LoadingSpiner } from '../../../components/common/other/LoadingSpiner';
+import { NotResultData } from '../../common/Error';
 
 const FavoriteCalendarFollower = () => {
     const [search] = useSearchParams();
@@ -35,6 +35,8 @@ const FavoriteCalendarFollower = () => {
         }
     },[favCalendarReducer[PATCH_FAV_CALENDAR_STATE_UPDATE], favCalendarReducer[DELETE_FAV_CALENDAR], search])
 
+    if(!calendarFollowerList) return <LoadingSpiner />
+    if(calendarFollowerList.data.length === 0) return <NotResultData />
 
     const selectItemChange = (e)=> {
         if(e.target.checked){
@@ -46,17 +48,13 @@ const FavoriteCalendarFollower = () => {
         setSelectAll(e.target.checked)
     }
     
-
-    
     return (
         <>
             
             <CalendarMagnageFavoriteFollowerHeader chk={selectAll} setchk={selectItemChange} />
             <br />
             {
-                !calendarFollowerList ? 
-                <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
-                : calendarFollowerList.data.map((item, index)=> <CalendarMagnageFavoriteItem
+                calendarFollowerList.data.map((item, index)=> <CalendarMagnageFavoriteItem
                                             key={item.id}
                                             id={item.id}
                                             memberName={item.member.memberName}
@@ -65,10 +63,8 @@ const FavoriteCalendarFollower = () => {
                                             requestDate={item?.requestDate}
                                             state={item?.approvalStatus}
                                     />)
-                
             }
             {
-                calendarFollowerList?.pageInfo &&
                 <Pagenation
                     prev={calendarFollowerList.pageInfo.prev}
                     next={calendarFollowerList.pageInfo.next}

@@ -2,26 +2,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from "./layouts/Layout";
 import BoardMain from "./pages/board/BoardMain";
-// import './components/common/main.css';
-// import './components/common/component.css';
-import Work from "./pages/work/Work";
-import WkAdmin from "./pages/work/WkAdmin";
-import WorkSide from "./pages/work/WorkSide";
-import MyWork from "./pages/work/MyWork";
-import MyDept from "./pages/work/MyDept";
-import Dept from "./pages/work/Dept";
-import Notice from "./pages/board/Notice";
-import Report from "./pages/board/Report";
-import Menu from "./pages/board/Menu";
-import Common from "./pages/board/Common";
-import BrdDept from "./pages/board/BrdDept";
-import BrdAdmin from "./pages/board/BrdAdmin";
-import Anony from "./pages/board/Anony";
-
-import './components/common/nav.css';
-
-import './components/common/default.css';
-
 import Mail from "./pages/mail/Mail";
 import AddressBook from "./pages/addressBook/AddressBook";
 import AddContact from "./pages/addressBook/AddContact";
@@ -50,7 +30,6 @@ import MyWork from "./pages/work/MyWork";
 import MyDept from "./pages/work/MyDept";
 import Dept from "./pages/work/Dept";
 import Notice from "./pages/board/Notice";
-import Report from "./pages/board/Report";
 import Menu from "./pages/board/Menu";
 import Common from "./pages/board/Common";
 import BrdDept from "./pages/board/BrdDept";
@@ -58,7 +37,6 @@ import BrdAdmin from "./pages/board/BrdAdmin";
 import Anony from "./pages/board/Anony";
 import NewPost from "./pages/board/NewPost";
 import Posting from './pages/board/Posting';
-import DocumentDetail from "./components/approval/ele-component/document/detail/DocumentDetail";
 
 function App() {
   return (
@@ -115,15 +93,15 @@ function App() {
             <Route path="/work/dept" element={ <Dept />}/>
 
             
-            <Route path="/board" element={<BoardMain/>}/>
+            <Route path="/board" element={<NewPost/>}/>
             <Route path="/board/notice" element={ <Notice />}/>
-            <Route path="/board/newpost" element={ <NewPost />}/>
-            <Route path="/board/report" element={ <Report />}/>
             <Route path="/board/menu" element={ <Menu />}/>
             <Route path="/board/common" element={ <Common />}/>
             <Route path="/board/brddept" element={ <BrdDept />}/>
             <Route path="/board/brdadmin" element={ <BrdAdmin />}/>
             <Route path="/board/anony" element={ <Anony />}/>
+            <Route path="/board/posting" element={ <Posting />}/>
+            <Route path="/board/post/:postCode" element={ <PostView />}/>
             {/* <Route path="/board" element={<BoardMain/>}></Route> */}
           
           </Route>  

@@ -31,6 +31,12 @@ function Posting() {
 
     });
 
+ const changeContent = (editor) => {
+    
+    
+ }
+
+
     /* form 데이터 세팅 */   
      const onChangeHandler = (e) => {
         setForm({
@@ -40,10 +46,17 @@ function Posting() {
     };
 
     /* form 데이터 */
-    const postPostHandler = () => {
+    const postPostHandler = async () => {
         console.log('postPostHandler');
 
         const formData = new FormData();
+
+        // const currentDate = new Date();
+        // const year = currentDate.getFullYear();
+        // const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        // const day = String(currentDate.getDate()).padStart(2, '0');
+        // const formattedDate = `${year}-${month}-${day}`;
+        // formData.append("postDate", formattedDate);
 
         formData.append("postCode", form.postCode);
         formData.append("postTitle", form.postTitle);
@@ -52,6 +65,12 @@ function Posting() {
         formData.append("boardCategory", form.boardCategory);
         formData.append("boardCode", form.boardCode);
         formData.append("memberCode", form.memberCode);
+
+        for(let [name, value] of formData ) {
+            console.log("========",name)
+            console.log("==============",value)
+
+        }
         // append : 필드와 값을 추가하는 메서드 (필드, 값);
 
 
@@ -59,7 +78,7 @@ function Posting() {
             form: formData
         }));
 
-        alert('게시판 목록으로 이동합니다.');
+        alert('작성완료');
         navigate('/board/common', { replace:true});
         window.location.reload();
 
@@ -90,7 +109,7 @@ function Posting() {
       ]; 
  
       const quillRef = useRef(null);
-    //   
+    //   ============================
 
     return (
         <>
@@ -100,7 +119,9 @@ function Posting() {
         </div>
         
             <div>
-                <select id="category" className={PostingCSS.category}>
+                <select name="boardCategory" 
+                        className={PostingCSS.category}
+                        onChange={onChangeHandler}>
                     <option value="" >게시판을 선택해주세요</option>
                     <option value="일반게시판" className={PostingCSS.drdown}>일반게시판</option>
                     <option value="익명게시판" className={PostingCSS.drdown}>익명게시판</option>
@@ -115,7 +136,8 @@ function Posting() {
         <input 
         className={PostingCSS.title} 
         placeholder="제목을 입력해주세요."
-        name='postTitle'>
+        name='postTitle'
+        onChange={onChangeHandler}>
             
         </input>
         <div className={PostingCSS.postmargin}>
@@ -128,8 +150,11 @@ function Posting() {
                         
                     }}
                     theme="snow"
+                    onChange={(value, delta, source,editor)=>{
+                        setForm((prev)=> ({...prev, postContents:editor.getHTML()}))
+                    }}
                     />
-            
+                    
         </div>
         {/*  */}
 

@@ -3,10 +3,12 @@ import BoardCSS from './Board.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState, useRef } from "react";
+import PostTable from '../../components/board/Post';
 
 import{
     callhBoardViewAPI
 } from '../../apis/BoardAPICalls'
+import NewButton from '../../components/board/NewButton';
 
 function NewPost() {
     
@@ -37,12 +39,6 @@ function NewPost() {
         ,[]
     );
 
-    // 글쓰기
-    const postPostHandler = () => {
-        console.log('[BoardManagement] postPostHandler');
-        navigate("/board/posting", { replace: false })
-    }
-
     // 게시글페이지
     const postHandler = (postCode) => {
         navigate(`/board/post/${postCode}`, { replace: false });
@@ -54,49 +50,27 @@ function NewPost() {
         <div className={mainCSS.maintitle}>
         <h2>최근 게시글</h2>
         </div>
-
             
-                <button onClick={ postPostHandler }>
-                    <div className={ BoardCSS.newpost }>
-                        글쓰기
-                    </div>  
-                </button>
+            <NewButton />
                       
             <table className={BoardCSS.bdtable}>
-                <colgroup>
-                    <col width="10%" />
-                    <col width="50%" />
-                    <col width="10%" />
-                    <col width="10%" />
-                    <col width="10%" />
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th className={BoardCSS.bdtable_th}>No.</th>
-                        <th className={BoardCSS.bdtable_th}>제목</th>
-                        <th className={BoardCSS.bdtable_th}>작성자</th>
-                        <th className={BoardCSS.bdtable_th}>작성일</th>
-                        <th className={BoardCSS.bdtable_th}>조회</th>
-                    </tr>
-                </thead>
+                <PostTable />
                 <tbody>
                     { Array.isArray(boardList) && boardList.map((b, index) => (
                         <tr className={BoardCSS.bdtable_tr}
                             key={ b.boardCode }
                             // key={index}
                             onClick={ () => postHandler(b.postCode) }
-                            
                         >
                             <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postTitle }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.memberCode }</td>
-                            <td className={BoardCSS.bdtable_td}>{b.postDate.split('T')[0]}</td>
+                            <td className={BoardCSS.bdtable_td}>{ b.postDate }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
                         </tr>
                     )) 
                     }
-                </tbody>           
-                         
+                </tbody>
             </table>         
             
        

@@ -3,6 +3,7 @@ import BoardCSS from './Board.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState, useRef } from "react";
+import PostTable from '../../components/board/Post';
 
 import{
     callhBoardViewAPI
@@ -63,22 +64,9 @@ function Common() {
                 </button>
                       
             <div className={BoardCSS.bdtable}>
-                <colgroup>
-                    <col width="10%" />
-                    <col width="50%" />
-                    <col width="20%" />
-                    <col width="20%" />
-                    <col width="10%" />
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th className={BoardCSS.bdtable_th}>No.</th>
-                        <th className={BoardCSS.bdtable_th}>제목</th>
-                        <th className={BoardCSS.bdtable_th}>작성자</th>
-                        <th className={BoardCSS.bdtable_th}>작성일</th>
-                        <th className={BoardCSS.bdtable_th}>조회</th>
-                    </tr>
-                </thead>
+               
+               <PostTable />
+
                 <tbody>
                     { Array.isArray(boardList) && boardList.map((b) => (
                         <tr className={BoardCSS.bdtable_tr}

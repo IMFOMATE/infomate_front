@@ -105,17 +105,17 @@ const Calendar = () =>{
         ChangeModalOffset(data.jsEvent || data, {x: 275, y: 180})
     };
 
-    const hoverEventHandler = (data, param) => {
-        if(param === viewModal || param === isMobile) return;
-        if(param) {
-            setViewModalData(false)
-            ChangeModalOffset(data.jsEvent, {x: 180, y: 80})
-            setViewModalData(data)
-        }else{
-            setViewModalData({})
-        }
-        setViewModal(param);
-    }
+    // const hoverEventHandler = (data, param) => {
+    //     if(param === viewModal || param === isMobile) return;
+    //     if(param) {
+    //         setViewModalData(false)
+    //         ChangeModalOffset(data.jsEvent, {x: 180, y: 80})
+    //         setViewModalData(data)
+    //     }else{
+    //         setViewModalData({})
+    //     }
+    //     setViewModal(param);
+    // }
     
     const ChangeModalOffset = (offset, plusOffset) =>{
         setOffset({...offset, 
@@ -147,7 +147,6 @@ const Calendar = () =>{
             setViewModalData(e)
             setViewModal(true);
         }else{
-            // navigate(`./regist?scheduleId=${e.event.extendedProps.id}&isread=true`);
             navigate(`./regist?scheduleId=${e.event.extendedProps.id}&isread=true`);
         }
     }

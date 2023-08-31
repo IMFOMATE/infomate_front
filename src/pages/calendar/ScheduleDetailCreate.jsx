@@ -67,7 +67,8 @@ const ScheduleDetilaCreate = () => {
         search,
         dispatch,
         data,
-        getCalednarReducer
+        getCalednarReducer,
+        schedule?.data?.allDay
     ])
 
     const isDataLoad = () => {
@@ -119,6 +120,15 @@ const ScheduleDetilaCreate = () => {
                      [eleName]: e.target.checked
                     }
                 })
+            if(eleName === 'allDay'){
+                setSchedule({
+                    ...schedule, 
+                    data:{...schedule.data, 
+                        [eleName]: e.target.checked,
+                        endDate: schedule.data.startDate,
+                    }
+                });
+            }
         }else if(eleName === 'participantList'){
             setSchedule({
                 ...schedule, 
@@ -143,12 +153,23 @@ const ScheduleDetilaCreate = () => {
     }
 
     const changeDateHandler = (e) => {
-        
+        // 일정 초기화
+        if(e === null){
+            return setSchedule({
+                ...schedule, 
+                data:{...schedule.data,  
+                    startDate: dayjs().format('YYYY-MM-DDTHH:mm:ss'), 
+                    endDate: dayjs().format('YYYY-MM-DDTHH:mm:ss')
+                }
+            });
+        }
+
         if(schedule.data.allDay){
             setSchedule({
                 ...schedule, 
                 data:{...schedule.data, 
-                    startDate: dayjs(e).format('YYYY-MM-DDTHH:mm:ss')
+                    startDate: dayjs(e).format('YYYY-MM-DDTHH:mm:ss'),
+                    endDate: dayjs(e).format('YYYY-MM-DDTHH:mm:ss'),
                 }
             });
         }else{
@@ -161,7 +182,6 @@ const ScheduleDetilaCreate = () => {
             });
         }
     }
-
 
     const registScheduleHandler = () => {
         
@@ -245,7 +265,6 @@ const ScheduleDetilaCreate = () => {
                                         }
                                         onClick={isReadConfirm}
                                         onChange={changeDateHandler}
-
                                     /> :
                                     <RangePicker className={[antdStyels['ant-picker-focused'], 
                                                             antdStyels['ant-picker-active-bar']].join(' ')}

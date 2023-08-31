@@ -51,11 +51,38 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
 
         // 수정 예정
         if(e.target.type === 'checkbox'){
-            setSchedule({...schedule, data: {...schedule.data, [eleName]: e.target.checked}})         
+            setSchedule({
+                ...schedule, 
+                data: {
+                    ...schedule.data, 
+                    [eleName]: e.target.checked
+                }
+            })         
+            if(eleName === 'allDay'){
+                setSchedule({
+                    ...schedule, 
+                    data:{...schedule.data, 
+                        [eleName]: e.target.checked,
+                        endDate: schedule.data.startDate,
+                    }
+                });
+            }
         }else if(eleName === 'calendar') {
-            setSchedule({...schedule, data: {...schedule.data, [eleName]: parseInt(e.target.value)}})
+            setSchedule({
+                ...schedule, 
+                data: {
+                    ...schedule.data, 
+                    [eleName]: parseInt(e.target.value)
+                }
+            })
         }else{
-            setSchedule({...schedule, data: {...schedule.data, [eleName]: e.target.value}})
+            setSchedule({
+                ...schedule, 
+                data: {
+                    ...schedule.data, 
+                    [eleName]: e.target.value
+                }
+            })
         }
     }
     
@@ -92,7 +119,8 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
             });
         }
     }
-    console.log(schedule);
+
+    
     return (
         <>
             <div className={[styles.container, modal && styles.active].join(' ')}>

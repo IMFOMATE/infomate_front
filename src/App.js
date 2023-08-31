@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from "./layouts/Layout";
 import BoardMain from "./pages/board/BoardMain";
@@ -58,6 +57,7 @@ import BrdAdmin from "./pages/board/BrdAdmin";
 import Anony from "./pages/board/Anony";
 import NewPost from "./pages/board/NewPost";
 import Posting from './pages/board/Posting';
+import UpdateMember from './pages/manage/UpdateMember';
 import DocumentDetail from "./components/approval/ele-component/document/detail/DocumentDetail";
 
 function App() {
@@ -105,7 +105,8 @@ function App() {
             <Route path='group'>
               <Route index element={<Group/>}/>
             </Route>
-
+            <Route path='memberInfo' element={<MemberInfo />}/>
+            <Route path='memberupdate' element={<UpdateMember/>}/>
             <Route path='/searchDept' element={<SearchDept/>}/>
             
             <Route path="/work" element={ <Work />}/>

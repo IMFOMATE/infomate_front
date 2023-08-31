@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import { 
     GET_SCHEDULE_DETAIL,

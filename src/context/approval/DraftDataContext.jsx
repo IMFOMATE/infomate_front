@@ -20,7 +20,7 @@ export const DraftDataProvider = ({children}) =>{
   });
 
   return (
-      <DraftDataContext.Provider value={{data,setData}}>
+      <DraftDataContext.Provider value={{data ,setData}}>
         {children}
       </DraftDataContext.Provider>
   );

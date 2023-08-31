@@ -7,11 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DELETE_CALENDAR, GET_CALENDAR_LIST, PATCH_CALENDAR_UPDATE, POST_CALENDAR_REGIT } from '../../../modules/CalendarMoudule';
 import { getCalendarListAPI, patchCalendarUpdate, patchDefaultCalendarUpdate, postCalendarRegit } from '../../../apis/CalendarAPICalls';
 import { MEMBER_CODE } from '../../../apis/APIConfig';
+import { NotResultData } from '../../common/Error';
+import { FadeLoader } from 'react-spinners';
+import StylesLoading from '../loadingStyle.module.css';
 
 const MyCalendar = () => {
 
-
-    const [selectItem, setSelectItem] = useState([]);
     const [data, setData] = useState({});
     
     const calendarList = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
@@ -20,22 +21,12 @@ const MyCalendar = () => {
 
     useEffect(()=> {
         dispatch(getCalendarListAPI());
-        setSelectItem([]);
         setData({});
     },[
         calendarReducer[POST_CALENDAR_REGIT],
         calendarReducer[PATCH_CALENDAR_UPDATE], 
         calendarReducer[DELETE_CALENDAR],
     ])
-    
-
-    const checkSelectHandler = e => {
-        if(selectItem.includes(e.target.id)){
-            setSelectItem([...selectItem.filter(item => item !== e.target.id)])
-        }else{
-            setSelectItem([...selectItem, e.target.id]);
-        }
-    }
 
     const CalendarAddHandler = e =>{
         if(e.target !== undefined){
@@ -56,7 +47,6 @@ const MyCalendar = () => {
     const publicOnChangeHandler = e => {
         dispatch(patchCalendarUpdate({data: {id:parseInt(e.target.id), openStatus: e.target.value }}))
     }
-    console.log(calendarList);
 
     return (
         <>  
@@ -72,19 +62,23 @@ const MyCalendar = () => {
                     <div className={styles.delete}>
                     </div>
                     {
-                        calendarList?.data.filter(item => item.memberCode === parseInt(MEMBER_CODE)
+                        !calendarList 
+                        ? <div className={StylesLoading.loading}> <FadeLoader color="#9F8AFB" /></div>
+                        : calendarList.data === null 
+                        ? <NotResultData />
+                        : calendarList?.data.filter(item => item.memberCode === parseInt(MEMBER_CODE)
                         ).sort((prev, next) => (
                             prev.indexNo - next.indexNo
                         )).map((item,index) => <MyCalendarItem 
-                                                    key={index}
-                                                    id={item?.id}
-                                                    memberCode={item?.memberCode}
-                                                    defaultCalendar={item?.defaultCalendar}
+                                                    key={item.id}
+                                                    id={item.id}
+                                                    min={index === 0}
+                                                    max={index === (calendarList.data.filter(item => item.memberCode === parseInt(MEMBER_CODE)).length - 1)}
+                                                    memberCode={item.memberCode}
+                                                    defaultCalendar={item.defaultCalendar}
                                                     name={item.name}
-                                                    defaultColorValue={item?.labelColor}
-                                                    isDefaultCheck={item?.isDefaultCheck}
-                                                    openStatus={item?.openStatus}
-                                                    onChange={checkSelectHandler}
+                                                    defaultColorValue={item.labelColor}
+                                                    openStatus={item.openStatus}
                                                     radioOnChange={radioOnChangeHandler}
                                                     selectOnChange={publicOnChangeHandler}
                                                 />

@@ -21,7 +21,6 @@ function ApprovalModal({contextType, modalData , toggleModal}) {
         setOpen(name);
     };
 
-
     const clear = () => {
         setData(prev => ({...prev, approvalList:[], refList:[]}));
         toggleModal();
@@ -36,8 +35,8 @@ function ApprovalModal({contextType, modalData , toggleModal}) {
             Swal.fire({
                 icon: 'error',
                 text: '결재선은 4명이상 선택할 수 없습니다'
-            })
-            setData(prev=>({...prev,approvalList:[...approvalList.slice(0, approvalList.length - 1)]}))
+            });
+            setData( prev => ({...prev, approvalList:[...approvalList.slice(0, approvalList.length - 1)]}))
         }
     }, [approvalList]);
 
@@ -48,6 +47,7 @@ function ApprovalModal({contextType, modalData , toggleModal}) {
         fontWeight: '700'
     }
 
+    console.log(!!modalData?.data)
     return(
         <>
             <div className={styles.container}>
@@ -60,10 +60,16 @@ function ApprovalModal({contextType, modalData , toggleModal}) {
                                 <li onClick={()=>toggle('second')} className={`${approvalmodal.toolbar_list} ${open === 'second' ? approvalmodal.li_act : ''}`}>참조자</li>
                             </ul>
                             <div className={`${styles.content} ${open ==='first'? approvalmodal.active : approvalmodal.none}`}>
-                                <ApprovalTreeView contextType={contextType} modalData={modalData.data}/>
+                                {
+
+                                    !!modalData?.data ? <ApprovalTreeView contextType={contextType} modalData={modalData?.data}/> : ''
+                                }
                             </div>
                             <div className={`${styles.content} ${open ==='second'? approvalmodal.active : approvalmodal.none}`}>
-                                <RefTreeView contextType={contextType} modalData={modalData.data}/>
+                                {
+                                    !!modalData?.data ? <RefTreeView contextType={contextType} modalData={modalData.data}/> : ''
+                                }
+
                             </div>
                             <div className={styles.button}>
                                 <ButtonOutline style={style} value="확인" onClick={confirm}/>

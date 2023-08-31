@@ -13,6 +13,8 @@ import {useDraftDataContext} from "../../../../context/approval/DraftDataContext
 import {treeviewAPI} from "../../../../apis/Department.API";
 import {useDispatch, useSelector} from "react-redux";
 import {draftRegistAPI} from "../../../../apis/DocumentAPICalls";
+import Swal from "sweetalert2";
+import {isValid, showValidationAndConfirm} from "../common/dataUtils";
 
 
 function Draft() {
@@ -25,14 +27,20 @@ function Draft() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // 모달이 열릴 때 fetch GET 조직도 가지고옴 -> modalData
+  useEffect(()=>{
+    if (isModalOpen){
+      dispatch(treeviewAPI());
+    }
+  },[isModalOpen]);
+
   useEffect(
       ()=>{
-        dispatch(treeviewAPI());
       },
       []
   );
 
-  // form 데이터
+  // 데이터 핸들러
   const onChangeHandler = (e) => {
     setData({
       ...data,
@@ -40,6 +48,7 @@ function Draft() {
     });
   };
 
+  // 체크박스 핸들러
   const checkboxHandler = (e) => {
     const newValue = e.target.checked ? 'Y' : 'N'; // 체크 여부에 따라 'Y' 또는 'N' 설정
     setData({
@@ -48,57 +57,56 @@ function Draft() {
     });
   };
 
-
-  // 모달이 열릴 때 fetch GET 조직도 가지고옴 -> modalData
-  useEffect(()=>{
-    if (isModalOpen){
-
-    }
-  },[isModalOpen]);
-
-
   //모달 토글 버튼
   const toggleModal = () => setIsModalOpen(prev => !prev);
 
-  //결제 요청 api
-  const handleRequest = () => {
-    console.log(data);
+  //폼요청
+  const requestApproval = (formData) => {
+    dispatch(draftRegistAPI(formData));
+  };
 
-    // 여기서 폼작업 해줘야한다./
+  // formData 생성하는 함수
+  const createFormData = () => {
     const formData = new FormData();
-
-
-    // const approvalListArray = data.approvalList.map((app, index) => ({ "id": app.data.memberCode, "order": index + 1 }));
-
 
     data.fileList.forEach((file) => {
       formData.append("fileList", file); // 각 파일을 formData에 추가
     });
 
-    data.approvalList.forEach((app,index)=> {
-      formData.append("approvalList", ({ "id": app.data.memberCode, "order": index + 1 }))
-    })
+    data.approvalList.forEach((app, index) => {
+      formData.append(`approvalList[${index}].id`, app.data.memberCode);
+      formData.append(`approvalList[${index}].order`, index + 1);
+    });
 
-
-    //
-    // const refListArray = data.refList.map(ref => ({ "id": ref.data.memberCode }));
-    // formData.append("refList", refListArray);
+    data.refList.forEach((app, index) => {
+      formData.append(`refList[${index}].id`, app.data.memberCode);
+    });
 
     formData.append("title", data.title);
     formData.append("content", data.content);
     formData.append("emergency", data.emergency ?? "N");
     formData.append("coDept", data.coDept);
 
-    dispatch(draftRegistAPI({form: formData}));
-
-    // 유효성 검사도 하자
-
+    return formData;
   };
 
+  //유효성 및 결재 요청
+  const handleRequest = () => {
+
+    const validationResult = isValid(data);
+
+    showValidationAndConfirm(
+        validationResult, '결재자를 선택하지 않았습니다, 계속 진행하시겠습니까?',
+        ()=>{
+          const formData = createFormData();
+          requestApproval(formData);
+        }
+    )
+  };
+  
   // 임시저장 api
   const handleTemp = () => {};
 
-  //
   const handleChoice = toggleModal;  //결재선 지정 모달
   const handleCancel = () => navigate("/approval"); // 결제 취소
 
@@ -113,9 +121,7 @@ function Draft() {
   const writer= {
     memberName : '주진선',
     deptName : '개발부서',
-    createdDate : `${new Date().toISOString().substring(0,10)}`
   }
-
 
   //버튼에 함수 넘겨주기
   const url = {
@@ -136,7 +142,7 @@ function Draft() {
             <div className={style.doc}>
               <h2 className={style.doc_title}>{name}</h2>
               <div className={style.doc_top}>
-                <WriterInfo writer={writer}/>
+                <WriterInfo writer={writer} start={new Date()}/>
                 <div className={style.inline}>
                   {
                     data.approvalList.length !== 0 ?

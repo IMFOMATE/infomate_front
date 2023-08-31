@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 import CalendarMagnageFavoriteItem from '../../../components/calendar/manage/CalendarMagnageFavoriteItem';
 import { ManageChkList } from '../../../layouts/FavoriteCalendarLayout';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import CalendarMagnageFavoriteFollowerHeader from '../../../components/calendar/manage/CalendarMagnageFavoriteFollowerHeader';
 import { useDispatch, useSelector } from 'react-redux';
 import { FadeLoader } from 'react-spinners';
 import StylesLoading from '../loadingStyle.module.css';
 import { DELETE_FAV_CALENDAR, GET_FAV_CALENDAR_FINDALL } from '../../../modules/FavCalendarMoudule';
 import { getFavCalendarfollowAllAPI } from '../../../apis/FavCalendarAPICalls';
+import { Pagenation } from '../../../components/common/other/Pagenation';
 
 const FavoriteCalendarFollowing = () => {
     const [search] = useSearchParams();
@@ -22,11 +23,16 @@ const FavoriteCalendarFollowing = () => {
 
     useEffect(()=>{
         setChk({...chk, selectList:[]})
-        dispatch(getFavCalendarfollowAllAPI());
+        dispatch(getFavCalendarfollowAllAPI({page: {
+            number:search.get('page'),
+            size:search.get('size'), 
+            sortId:search.get('sort'), 
+            sortDirection:search.get('direction')}
+        }));
         return () => {
             setChk({});
         }   
-    },[favCalendarReducer[DELETE_FAV_CALENDAR]])
+    },[search, favCalendarReducer[DELETE_FAV_CALENDAR]])
 
 
     const selectItemChange = (e)=> {
@@ -53,10 +59,11 @@ const FavoriteCalendarFollowing = () => {
             <br />
 
             {
-                favCalendarFollowList && favCalendarFollowList.data ?
-                favCalendarFollowList.data.map((item, index) => 
+                !favCalendarFollowList
+                ? <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
+                : favCalendarFollowList.data.map((item, index) => 
                                     <CalendarMagnageFavoriteItem
-                                            key={index}
+                                            key={item.id}
                                             id={item.id}
                                             memberName={item.member.memberName}
                                             // rank={item?.refMember?.refRank?.name} // 직위 수정 예정
@@ -65,7 +72,16 @@ const FavoriteCalendarFollowing = () => {
                                             state={item?.approvalStatus}
                                             isLabelColor={item?.labelColor}
                                     />)
-                : <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
+                
+            }
+            {
+                favCalendarFollowList?.pageInfo &&
+                <Pagenation
+                    prev={favCalendarFollowList.pageInfo.prev}
+                    next={favCalendarFollowList.pageInfo.next}
+                    total={favCalendarFollowList.pageInfo.total} 
+                    pageNum={favCalendarFollowList.pageInfo.cri.pageNum}
+                />
             }
         </>
     );

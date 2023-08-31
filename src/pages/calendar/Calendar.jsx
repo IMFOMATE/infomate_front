@@ -22,6 +22,7 @@ import { FadeLoader } from "react-spinners";
 import { GET_CALENDAR_FINDALL } from "../../modules/CalendarMoudule";
 import StylesLoading from './loadingStyle.module.css';
 import { SummaryCreateModal, SummaryViewModal } from "./ScheduleSummaryModal";
+import { DELETE_SCHEDULE, GET_SCHEDULE_DETAIL, PATCH_SCHEDULE, POST_SCHEDULE_REGIT } from "../../modules/ScheduleMoudule";
 
 dayjs.extend(utc)
 
@@ -33,6 +34,7 @@ const Calendar = () =>{
     const [offset, setOffset] = useState({x:0, y:0, yName:'top', xName:'left'})
     const [innerSize, setInnerSize] = useState();
     const [viewModal, setViewModal] = useState(false);
+    const [viewModalData, setViewModalData] = useState({});
 
     const {isModal, setIsModal} = useContext(ScheduleModalProvider);
     const {filter, setFilter} = useContext(CalendarFilterContext);
@@ -58,57 +60,91 @@ const Calendar = () =>{
         changeIsMobile();
     }) 
     
-
     useEffect(()=>{
-        setSchedule({});
+        setIsModal(false);
+        setViewModal(false);
+        setSchedule(undefined);
+        dispatch(dispatch => dispatch({ type: GET_SCHEDULE_DETAIL,  payload: undefined }))
         changeIsMobile();
 
         sizeObserver.observe(containerRef.current);
 
         dispatch(getCalendarFindAllAPI())
+        // setSchedule(data);
+        
 
         return () => {
             sizeObserver.disconnect();
         }
-    },[scheduleReducer])
+    },[
+        dispatch,
+        scheduleReducer[PATCH_SCHEDULE],
+        scheduleReducer[DELETE_SCHEDULE],
+        scheduleReducer[POST_SCHEDULE_REGIT],
+        scheduleReducer[GET_SCHEDULE_DETAIL],
+
+    ])
 
     const calenderClickHandler = data => {
-        console.log(data);
+        
         setSchedule({
             ...schedule, 
-            data : {...schedule.data,
+            data : {...schedule?.data,
                 startDate: dayjs(data.startStr).format('YYYY-MM-DDTHH:mm'),
                 endDate: data.view.type === 'dayGridMonth'? dayjs(data.endStr).subtract(1,'d').format('YYYY-MM-DDTHH:mm') : dayjs(data.endStr).format('YYYY-MM-DDTHH:mm'),
             }
         })
         isMobile? navigate('./regist') : setIsModal(true);
-
-        ChangeModalOffset(data.jsEvent)
+        
+        ChangeModalOffset(data.jsEvent || data, {x: 275, y: 180})
     };
 
-    const hoverEventHandler = data => {
-        // ChangeModalOffset(data.jsEvent)
+    const hoverEventHandler = (data, param) => {
+        if(param === viewModal || param === isMobile) return;
+        if(param) {
+            setViewModalData(false)
+            ChangeModalOffset(data.jsEvent, {x: 180, y: 80})
+            setViewModalData(data)
+        }else{
+            setViewModalData({})
+        }
+        setViewModal(param);
     }
     
-    const ChangeModalOffset = (offset) =>{
+    const ChangeModalOffset = (offset, plusOffset) =>{
         setOffset({...offset, 
-            y: (offset.y + 180 + 330 >= window.innerHeight ? 0 : offset.y + 180),
-            yName: (offset.y + 180 + 330 >= window.innerHeight ? 'bottom' : 'top'),
-            x: (offset.x + 275 + 330 >= window.innerWidth ? 0 : offset.x + 275),
-            xName: (offset.x + 275 + 330 >= window.innerWidth ? 'right' : 'left')
+            y: (offset.y + plusOffset.y + 330 >= window.innerHeight ? 0 : offset.y + plusOffset.y),
+            yName: (offset.y + plusOffset.y + 330 >= window.innerHeight ? 'bottom' : 'top'),
+            x: (offset.x + plusOffset.x + 330 >= window.innerWidth ? 0 : offset.x + plusOffset.x),
+            xName: (offset.x + plusOffset.x + 330 >= window.innerWidth ? 'right' : 'left')
            })
     }
     
     const modalOutClickHandler = e => {
         if(modalRef.current === e.target){
             setIsModal(false);
+            setViewModal(false)
             setMode('create');
         }   
     }
 
+    const changeViewModalHandler = () =>{
+        setViewModal(!viewModal);
+    }
+
     const eventClickHandler = e => {  
         menuState && toggleMenu();
-        navigate(`./regist?scheduleId=${e.event.extendedProps.id}&isread=true`);
+        ChangeModalOffset(e.jsEvent, {x:270 , y: 180});
+        console.log(isMobile);
+        if(!isMobile){
+            setViewModalData(false)
+            ChangeModalOffset(e.jsEvent, {x: 180, y: 80})
+            setViewModalData(e)
+            setViewModal(true);
+        }else{
+            // navigate(`./regist?scheduleId=${e.event.extendedProps.id}&isread=true`);
+            navigate(`./regist?scheduleId=${e.event.extendedProps.id}&isread=true`);
+        }
     }
 
     const eventDrop = (e) =>{
@@ -121,17 +157,25 @@ const Calendar = () =>{
         dispatch(patchScheduleUpdate({data}));
     }
 
-    const event = (data) =>{
+    const event = (data) =>{ 
         const event = [];
             data.filter(item => !filter.includes(item.id))
             .forEach(item1 => {
                 item1 && item1.scheduleList && item1.scheduleList.forEach(item => 
-                        event.push({title: item.title, start:dayjs(item.startDate).format('YYYY-MM-DDTHH:mm:ss'),
-                                    end:dayjs(item.endDate).format('YYYY-MM-DDTHH:mm:ss'), allDay: item.allDay,
-                                    color: item1.labelColor, textColor: 'black',
-                                    extendedProps: {id:item.id, address: item.address,
-                                                    corpSchdl: item.corpSchdl}
-                                    })
+                        event.push({
+                            title: item.title,
+                            start: dayjs(item.startDate).format('YYYY-MM-DDTHH:mm:ss'),
+                            end: dayjs(item.endDate).format('YYYY-MM-DDTHH:mm:ss'), allDay: item.allDay,
+                            color: item1.labelColor,
+                            textColor: 'black',
+                            extendedProps: {
+                                id: item.id,
+                                address: item.address,
+                                corpSchdl: item.corpSchdl, 
+                                calendarName: item1.name, 
+                                important: item.important
+                                }
+                            })
                 )
             })
         return event;
@@ -146,7 +190,8 @@ const Calendar = () =>{
                     
                     <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
                     
-                    :<FullCalendar
+                    : <FullCalendar
+                        ref={modalRef}
                         locale={koLocale}
                         timeZone={'utc'}
                         stickyHeaderDates={true}
@@ -162,17 +207,24 @@ const Calendar = () =>{
                         expandRows={true}
                         plugins={[ multiMonthPlugin, dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin ]}
                         initialView={'dayGridMonth'}
+                        windowResize={e => {
+                            if(window.innerWidth <= 480){
+                                setIsMobile(true);
+                            }else{
+                                setIsMobile(false);
+                            }                    
+                        }}
                                 
                         headerToolbar={{
-                            left: !isMobile && 'dayGridMonth,timeGridWeek,timeGridDay',
+                            left: !isMobile && 'dayGridMonth,timeGridWeek,timeGridDay,list',
                             center: 'title',
                             right: 'prev,next'
                         }}
                 
                         footerToolbar={{
-                            left: 'today list',
+                            left: 'today',
                             center: isMobile && 'scheduleRegist',
-                            right: isMobile?'dayGridMonth,timeGridWeek,timeGridDay' :  'scheduleRegist'
+                            right: isMobile?'dayGridMonth,timeGridWeek,timeGridDay,list' :  'scheduleRegist'
                         }}
                         
                         stickyFooterScrollbar={true}
@@ -183,7 +235,6 @@ const Calendar = () =>{
                             scheduleRegist: {
                                 text: '등록',
                                 click: (e)=>{
-                                    console.log(e)
                                     calenderClickHandler(e);
                                 }   
                             }
@@ -193,13 +244,13 @@ const Calendar = () =>{
                         select={calenderClickHandler}
                         eventClick={eventClickHandler}
                         eventDrop={eventDrop}
-                        eventMouseEnter={hoverEventHandler}
-                        // eventMouseLeave={hoverEventHandler}
+                        // eventMouseEnter={(e)=> hoverEventHandler(e, true)}
+                        // eventMouseLeave={(e)=> hoverEventHandler(e, false)}
                     />
                     
                 }
                 {
-                    isModal && !viewModal && 
+                    isModal && 
                     <div ref={modalRef} className={styles.modalBg} onClick={modalOutClickHandler}>
                         <div className={styles.modal} style={{[offset.yName]: offset.y , [offset.xName]: offset.x}}>
                             <SummaryCreateModal modal={isModal} setIsModal={setIsModal} mode={mode} setMode={setMode} />
@@ -208,11 +259,9 @@ const Calendar = () =>{
                 }
                 {
                     viewModal && !isModal &&
-                    <div ref={modalRef} className={styles.modalBg} onClick={modalOutClickHandler}>
                         <div className={styles.modal} style={{[offset.yName]: offset.y , [offset.xName]: offset.x}}>
-                            <SummaryViewModal modal={viewModal} setIsModal={setViewModal} data={data} />
+                            <SummaryViewModal modal={viewModal} setIsModal={changeViewModalHandler} data={viewModalData}/>
                         </div>
-                    </div>
                 }
             </div>
         </>

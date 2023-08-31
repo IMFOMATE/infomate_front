@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 import CalendarMagnageFavoriteItem from '../../../components/calendar/manage/CalendarMagnageFavoriteItem';
 import { ManageChkList } from '../../../layouts/FavoriteCalendarLayout';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import CalendarMagnageFavoriteFollowerHeader from '../../../components/calendar/manage/CalendarMagnageFavoriteFollowerHeader';
 import { useDispatch, useSelector } from 'react-redux';
 import { FadeLoader } from 'react-spinners';
 import StylesLoading from '../loadingStyle.module.css';
-import {  DELETE_FAV_CALENDAR, GET_FAV_CALENDAR_FOLLOWER, PATCH_FAV_CALENDAR_STATE_UPDATE } from '../../../modules/FavCalendarMoudule';
+import { DELETE_FAV_CALENDAR, GET_FAV_CALENDAR_FOLLOWER, PATCH_FAV_CALENDAR_STATE_UPDATE } from '../../../modules/FavCalendarMoudule';
 import { getFavCalendarFollwerAPI } from '../../../apis/FavCalendarAPICalls';
+import { Pagenation } from '../../../components/common/other/Pagenation';
 
 const FavoriteCalendarFollower = () => {
     const [search] = useSearchParams();
@@ -23,11 +24,16 @@ const FavoriteCalendarFollower = () => {
 
     useEffect(()=>{
         setChk({...chk, selectList:[]})
-        dispatch(getFavCalendarFollwerAPI());
+        dispatch(getFavCalendarFollwerAPI({page: {
+            number:search.get('page'),
+            size:search.get('size'), 
+            sortId:search.get('sort'), 
+            sortDirection:search.get('direction')}
+        }));
         return () => {
             setChk({})
         }
-    },[favCalendarReducer[PATCH_FAV_CALENDAR_STATE_UPDATE], favCalendarReducer[DELETE_FAV_CALENDAR]])
+    },[favCalendarReducer[PATCH_FAV_CALENDAR_STATE_UPDATE], favCalendarReducer[DELETE_FAV_CALENDAR], search])
 
 
     const selectItemChange = (e)=> {
@@ -40,15 +46,18 @@ const FavoriteCalendarFollower = () => {
         setSelectAll(e.target.checked)
     }
     
+
+    
     return (
         <>
             
             <CalendarMagnageFavoriteFollowerHeader chk={selectAll} setchk={selectItemChange} />
             <br />
             {
-                calendarFollowerList && calendarFollowerList.data ?
-                calendarFollowerList.data.map((item, index)=> <CalendarMagnageFavoriteItem
-                                            key={index}
+                !calendarFollowerList ? 
+                <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
+                : calendarFollowerList.data.map((item, index)=> <CalendarMagnageFavoriteItem
+                                            key={item.id}
                                             id={item.id}
                                             memberName={item.member.memberName}
                                             // rank={item?.refMember?.refRank?.name} // 직위 수정 예정
@@ -56,7 +65,16 @@ const FavoriteCalendarFollower = () => {
                                             requestDate={item?.requestDate}
                                             state={item?.approvalStatus}
                                     />)
-                : <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
+                
+            }
+            {
+                calendarFollowerList?.pageInfo &&
+                <Pagenation
+                    prev={calendarFollowerList.pageInfo.prev}
+                    next={calendarFollowerList.pageInfo.next}
+                    total={calendarFollowerList.pageInfo.total} 
+                    pageNum={calendarFollowerList.pageInfo.cri.pageNum}
+                />
             }
         </>
     );

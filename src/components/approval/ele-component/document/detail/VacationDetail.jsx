@@ -8,7 +8,6 @@ import {formatApprovalDate} from "../../common/dataUtils";
 
 function VacationDetail({data}) {
 
-
   return (
       <div className={style.container}>
         <div className={style.docs}>
@@ -110,7 +109,7 @@ function VacationDetail({data}) {
           </div>
         </div>
         <aside className={style.doc_side}>
-          {/*<DocumentSide approval={data.approvalList} reference={data.refList}/>*/}
+          <DocumentSide approval={data.approvalList} reference={data.refList}/>
         </aside>
       </div>
 

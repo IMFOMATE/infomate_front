@@ -71,8 +71,6 @@ function App() {
             {/* <Route path="/mailWrite" element={<MailWrite />} /> */}
             <Route path="/mail" element={<Mail />} />
             {/* <Route path="/board" element={<BoardMain />}></Route> */}
-
-
             
             <Route path="approval">
               <Route index element={<ApprovalMain/>}/>
@@ -89,20 +87,19 @@ function App() {
 
             <Route path="calendar" element={<CalendarLayout />}>
               <Route index element={<Calendar/>}/>
-              <Route path="reminder" element={<ReminderList />} />  
+              <Route path="reminder" element={<ReminderList />} />
               <Route path="regist" element={<ScheduleDetailCreate/>} />
                 <Route path="management" element={<CalendarManegeLayout/>}>
                 <Route index element={<MyCalendar />}/>
                 <Route path="myPage" element={<MyCalendar />}/> 
-                <Route path="favorite">
-                  <Route index element={<FavoriteCalendarLayout />} />
+                <Route path="favorite" element={<FavoriteCalendarLayout />}>
+                  <Route index element={<FavoriteCalendarFollowing />} />
                   <Route path="following" element={<FavoriteCalendarFollowing />} />
                   <Route path="follower" element={<FavoriteCalendarFollower />} />
                   <Route path="public" element={<FavoriteCalendarPublic />} />
                 </Route>
               </Route>          
             </Route>
-
 
 
             <Route path='group'>
@@ -116,7 +113,6 @@ function App() {
             <Route path="/work/mywork" element={ <MyWork /> }/>
             <Route path="/work/mydept" element={ <MyDept />}/>
             <Route path="/work/dept" element={ <Dept />}/>
-            
 
             
             <Route path="/board" element={<BoardMain/>}/>

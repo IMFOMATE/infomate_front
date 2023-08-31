@@ -1,6 +1,5 @@
 import styles from './calendarNavItem.module.css'
 import CheckBox from '../../common/input/CheckBox';
-import InputColor from '../../common/input/InputColor';
 
 
 const CalendarNavItem = ({id, color, calendarName, isCheck, onChange}) => {
@@ -18,10 +17,9 @@ const CalendarNavItem = ({id, color, calendarName, isCheck, onChange}) => {
                 <label htmlFor={id}>{calendarName}</label>
             </div>
             <div className={styles.color}>
-                <InputColor 
-                    value={color} 
-                    style={{height:30, width:30}} 
-                    isDisabled={true}
+                <div 
+                    className={styles.labelColor}
+                    style={{backgroundColor:color}} 
                 />
             </div>
         </div>

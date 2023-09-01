@@ -81,7 +81,7 @@ function NewPost() {
                         dsabled={currentPage === 1}
                         className={ BoardCSS.pagination }
                     >
-                    &laquo;
+                    &lt;
                     </button>
                     }
                     { pageNumber.map((num) => (
@@ -100,7 +100,7 @@ function NewPost() {
                         onClick={() => setCurrentPage(currentPage +1)}
                         disabled={ currentPage === pageInfo.pageEnd || pageInfo.total == 0}
                     >
-                        &raquo;
+                        &gt;
                         </button>
                         }
                 </div>

@@ -1,0 +1,88 @@
+.boardtitle {
+    margin-left: 3%;
+	padding-inline: 20px;
+    margin-top: 40px;
+    font-size: 23px;
+    font-weight: 600;
+}
+
+/* 작성자 작성일 게시글코드 조회수 */
+.actfnt {
+    font-size: 12px;
+    font-weight: 100;
+    color: #6e6e6e;
+    border-bottom: 1px solid rgba(98, 95, 95, 0.592);
+    width: 93%;
+    margin-left: 3%;
+    padding-inline: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* 아래 선 */
+.boardcontentsline {
+    border-top: 1px solid rgba(98, 95, 95, 0.592);
+    width: 93%;
+    margin-left: 3%;
+    margin-top: 20px;
+    padding-inline: 20px;
+}
+
+/* 수정하기 */
+.boardupload {
+    color: #7758FA;
+    font-weight: 600;
+    background: none;
+    display: flex;
+    width: 80px;
+    height: 31px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 6px;
+    border: 1px solid #7758FA;
+    transition: 0.4s;
+    cursor: pointer;
+    margin-top: 8px;
+    margin-left: 4px;
+    margin-bottom: 7px;
+    font-size: 13px;
+    padding-top: 4px;
+    margin-left: 3%;
+  }
+  .boardupload:hover {
+    background-color: #7758FA;
+    color: white;
+  }
+
+  /* 삭제하기 */
+  .boarddelete {
+    color: #7758FA;
+    font-weight: 600;
+    background: none;
+    display: flex;
+    width: 80px;
+    height: 31px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 6px;
+    border: 1px solid #7758FA;
+    transition: 0.4s;
+    cursor: pointer;
+    margin-top: 8px;
+    margin-left: 4px;
+    margin-bottom: 7px;
+    font-size: 13px;
+    padding-top: 4px;
+  }
+  
+  .boarddelete:hover {
+    background-color: #7758FA;
+    color: white;
+  }
+
+
+.naranhe {
+    display: flex;
+}

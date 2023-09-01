@@ -15,7 +15,14 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {treeviewAPI} from "../../../../apis/Department.API";
 import {paymentRegistAPI} from "../../../../apis/DocumentAPICalls";
-import {formatApprovalDate, handleCancel, isPaymentValid, isValid, showValidationAndConfirm} from "../common/dataUtils";
+import {
+  formatApprovalDate,
+  formatNumberWithCommas,
+  handleCancel,
+  isPaymentValid,
+  isValid,
+  showValidationAndConfirm
+} from "../common/dataUtils";
 
 function Payment() {
   const treeview = useSelector(state => state.departmentReducer);
@@ -72,10 +79,13 @@ function Payment() {
       formData.append(`refList[${index}].id`, app.data.memberCode);
     });
 
-    //잠시대기
-    // data.paymentList.forEach((app, index) => {
-    //   formData.append(`paymentList[${index}].id`, app.data.memberCode);
-    // });
+    data.paymentList.forEach((app, index) => {
+      formData.append(`paymentList[${index}].paymentDate`, app.paymentDate);
+      formData.append(`paymentList[${index}].paymentSort`, app.paymentSort);
+      formData.append(`paymentList[${index}].paymentPrice`, app.paymentPrice);
+      formData.append(`paymentList[${index}].paymentContent`, app.paymentContent);
+      formData.append(`paymentList[${index}].remarks`, app.remarks);
+    });
 
     formData.append("title", data.title);
     formData.append("content", data.content);
@@ -88,16 +98,22 @@ function Payment() {
 
     console.log(data);
     const validationResult = isPaymentValid(data, false);
-    console.log(validationResult)
+    console.log(validationResult);
 
+    showValidationAndConfirm(
+      validationResult,data.approvalList.length,
+      () => {
+        const formData = createFormData();
+        requestApproval(formData);
+      }
+    )
   };
 
   // 임시저장 api
   const handleTemp = () => {};
 
-  //
   const handleChoice = toggleModal;  //결재선 지정 모달
-  const handleCancel = () => navigate("/approval"); // 결제 취소
+  const cancelAction = () => navigate("/approval");
 
   // 파일 저장
   const handleFileChange = (event) => {
@@ -116,6 +132,7 @@ function Payment() {
     setData(prev =>({...prev, paymentList:[...prev.paymentList, newPayment]}));
   };
 
+
   const handleInputChange = (index, field, value) => {
     const updatedData = [...data.paymentList];
     updatedData[index][field] = value;
@@ -127,9 +144,6 @@ function Payment() {
     setData(prev=>({...prev, paymentList: updatedList}));
   };
 
-  const formatNumberWithCommas = (number) => {
-    return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  };
 
   const calculateTotal = () => {
     const total = data.paymentList.reduce((acc, payment) => acc + parseFloat(payment.paymentPrice.replace(/,/g, '')), 0);
@@ -146,7 +160,7 @@ function Payment() {
   const url = {
     request: handleRequest,
     temp: handleTemp,
-    cancel: handleCancel,
+    cancel:() => {handleCancel(cancelAction)},
     choice: handleChoice
   }
   return (
@@ -164,7 +178,7 @@ function Payment() {
                 <div className={style.inline}>
                   {
                     data.approvalList.length !== 0 ?
-                        data.approvalList.map((data, index) => <Credit key={data.memberCode} text={data.memberName} rank={data.rankName} approvalDate={data?.approvalDate}/>)
+                        data.approvalList.map((data, index) => <Credit key={data.memberCode} text={data?.text} rank={data.data.rank} approvalDate={data?.approvalDate} />)
                         : ""
                   }
                 </div>
@@ -198,13 +212,13 @@ function Payment() {
                       총금액
                     </td>
                     <td className={style.td}>
-                      {calculateTotal()}
+                      {calculateTotal()}원
                     </td>
                   </tr>
                   <tr>
                     <td className={style.tds}>지출사유</td>
                     <td colSpan={3}>
-                      <textarea className={style.textarea} name="content" id="reason" cols="30" rows="10" onChange={onChangeHandler}/>
+                      <textarea className={style.textarea} name="content" cols="30" rows="10" onChange={onChangeHandler}/>
                     </td>
                   </tr>
                   </tbody>
@@ -239,7 +253,7 @@ function Payment() {
                       <tr>
                         <td colSpan="1" className={style.sum}></td>
                         <td className={style.sum}>합계 : </td>
-                        <td colSpan="1">{calculateTotal()}</td>
+                        <td colSpan="1">{calculateTotal()}원</td>
                       </tr>
                     </tfoot>
                   </table>

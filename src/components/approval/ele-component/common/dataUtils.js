@@ -11,7 +11,6 @@ export function diffDate(date1, date2){
   const timeDifference = endDate - startDate;
 
   return timeDifference / (1000 * 60 * 60 * 24);
-
 }
 
 export function formatStatus(status){
@@ -26,6 +25,10 @@ export function formatStatus(status){
       return "반려";
   }
 }
+
+export const formatNumberWithCommas = (number) => {
+  return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 
 export const isValid = (data, checkStartDate= false) => {
   console.log(data.content)

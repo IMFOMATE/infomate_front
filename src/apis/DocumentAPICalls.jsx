@@ -114,7 +114,7 @@ export const vacationRegistAPI = (form)=>{
 
 export const paymentRegistAPI = (form)=>{
 
-  const requestURL = `http://localhost:8989/document/regist/draft`;
+  const requestURL = `http://localhost:8989/document/regist/payment`;
 
   return async (dispatch, getState)  => {
 

@@ -13,7 +13,7 @@ import ButtonInline from "../../../common/button/ButtonInline";
 import PaymentList from "./PaymentList";
 import {useDispatch, useSelector} from "react-redux";
 
-import {treeviewAPI} from "../../../../apis/Department.API";
+import {treeviewAPI} from "../../../../apis/DepartmentAPI";
 import {paymentRegistAPI} from "../../../../apis/DocumentAPICalls";
 import {
   formatApprovalDate,

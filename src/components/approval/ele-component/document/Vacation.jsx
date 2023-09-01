@@ -11,7 +11,7 @@ import DocFile from "../common/DocFile";
 import {useDispatch, useSelector} from "react-redux";
 import DocumentSide from "./DocumentSide";
 import Swal from "sweetalert2";
-import {treeviewAPI} from "../../../../apis/Department.API";
+import {treeviewAPI} from "../../../../apis/DepartmentAPI";
 import {formatApprovalDate, handleCancel, isValid, showValidationAndConfirm} from "../common/dataUtils";
 import {vacationRegistAPI} from "../../../../apis/DocumentAPICalls";
 

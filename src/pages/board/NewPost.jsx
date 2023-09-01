@@ -14,29 +14,31 @@ function NewPost() {
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const boards  = useSelector(state => state.boardReducer);      
-    const boardList = boards?.data; 
+    const board  = useSelector(state => state.boardReducer);      
+    const boardList = board?.data; 
     console.log('boardManagement', boardList);
 
-    //const pageInfo = boards.pageInfo;
+    // 페이징
+    const pageInfo = board.pageInfo;
 
     const [start, setStart] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageEnd, setPageEnd] = useState(1);
 
-    // const pageNumber = [];
-    // if(pageInfo){
-    //     for(let i = 1; i <= pageInfo.pageEnd ; i++){
-    //         pageNumber.push(i);
-    //     }
-    // }
+    const pageNumber = [];
+    if(pageInfo){
+        for(let i = 1; i <= pageInfo.pageEnd ; i++){
+            pageNumber.push(i);
+        }
+    }
 
     useEffect(
         () => {
-            // setStart((currentPage - 1) * 5);            
-            dispatch(callhBoardViewAPI());            
+            setStart((currentPage - 1) * 5);            
+            dispatch(callhBoardViewAPI({ 
+                currentPage: currentPage} ));
         }
-        ,[]
+        ,[currentPage]
     );
 
     // 게시글페이지
@@ -71,19 +73,42 @@ function NewPost() {
                     )) 
                     }
                 </tbody>
-            </table>         
+            </table>
             
-       
-            <div className={BoardCSS.pagination}>
-            <a href="#">&laquo;</a>
-            <a href="#" className={BoardCSS.active}>1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">&raquo;</a>
+            <div style={{ listStyleType: "none", display: "flex", justifyContent: "center" }}>
+                { Array.isArray(boardList) &&
+                <button
+                    onClick={() => setCurrentPage(currentPage -1)}
+                    dsabled={currentPage === 1}
+                    className={ BoardCSS.pagination }
+                >
+                &laquo;
+                </button>
+                }
+                { pageNumber.map((num) => (
+                <li key={num} onClick={() => setCurrentPage(num)}>
+                    <button
+                        style={ currentPage === num ? { backgroundColor : '#9e88fe'} : null }
+                        className={ BoardCSS.pagination }
+                    >
+                        {num}
+                    </button>
+                </li>
+                ))}
+                { Array.isArray(boardList) &&
+                <button
+                    className={ BoardCSS.pagination }
+                    onClick={() => setCurrentPage(currentPage +1)}
+                    disabled={ currentPage === pageInfo.pageEnd || pageInfo.total == 0}
+                >
+                    &raquo;
+                    </button>
+                    }
             </div>
 
+
+            
+       
 
         </>
     );

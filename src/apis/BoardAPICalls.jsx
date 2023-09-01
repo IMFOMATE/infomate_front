@@ -10,10 +10,19 @@ import {
 
 } from '../modules/BoardModule.jsx';
 
-export const callhBoardViewAPI = () => {   // 게시판 조회
+export const callhBoardViewAPI = ({currentPage}) => {   // 게시판 조회
     console.log('[BoardAPICalls] callSearchBoardAPI Call');
 
-    const requestURL = `http://localhost:8989/board/`;
+    let requestURL;
+
+    if(currentPage !== undefined && currentPage !== null){
+        requestURL = `http://localhost:8989/brd/board?offset=${currentPage}`;
+    } else {
+        requestURL = `http://localhost:8989/brd/board`;
+    }
+
+    console.log(`[BoardAPICalls] requesURL : `, requestURL);
+    
     
     return async (dispatch, getState) => {
 
@@ -28,10 +37,10 @@ export const callhBoardViewAPI = () => {   // 게시판 조회
 
         console.log('[BoardAPICalls] callSearchBoardAPI RESULT : ', result);
 
-        dispatch({ type: GET_BOARD,  payload: result });
+        dispatch({ type: GET_BOARD,  payload: result.data });
         
     };    
-};
+}
 
 
 export const callPostPostAPI = () => {   // 게시글 생성
@@ -79,7 +88,7 @@ export const callPostPostAPI = () => {   // 게시글 생성
 //     };    
 // }
 
-export const callPostViewAPI = () => { // 게시글 보기
+export const callPostViewAPI = ({ boardCode, currentPage }) => { // 게시글 보기
     const requestURL = "http://localhost:8989/board/post";
 
     return async (dispatch, getState) => {

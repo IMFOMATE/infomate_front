@@ -26,7 +26,7 @@
 }
 
 .sc{
-    width: 90%;
+    width: 94%;
     text-align: right;
 }
 
@@ -101,6 +101,9 @@
     border-radius: 6px;
 }
 
+.tb {
+    border-bottom: 1px solid #333333;
+}
 
 .board_link{
     color: #333333;
@@ -119,7 +122,9 @@
     border-radius: 4px;
 }
 
-
+/* .tb {
+    width: 90%;
+} */
 
 
 

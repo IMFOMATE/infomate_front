@@ -8,13 +8,14 @@ import {
     PATCH_FAV_CALENDAR_STATE_UPDATE
 } from '../modules/FavCalendarMoudule';
 
-import { PROTOCOL, SERVER_IP, SERVER_PORT, MEMBER_CODE} from './APIConfig';
+import { PROTOCOL, SERVER_IP, SERVER_PORT, MEMBER_CODE, Pageable} from './APIConfig';
 import { message } from 'antd';
 
+export const getFavCalendarfollowAllAPI = ({page}) => {
 
-export const getFavCalendarfollowAllAPI = () => {
+    const {pageOption, sort} = Pageable({page:page.number, size:page.size, sortId: page.sortId, sortDirection: page. sortDirection});
 
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/favorite/follow/${MEMBER_CODE}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/favorite/follow/${MEMBER_CODE}?${pageOption}&${sort}`;
 
     return async (dispatch, getState) => {
         
@@ -23,13 +24,14 @@ export const getFavCalendarfollowAllAPI = () => {
         
         if(result.status === 200) 
             dispatch({ type: GET_FAV_CALENDAR_FINDALL,  payload: result });
-        
     };
 }
 
-export const getFavCalendarFollwerAPI = () => {
+export const getFavCalendarFollwerAPI = ({page}) => {
 
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/favorite/followerL  ist/${MEMBER_CODE}`;
+    const {pageOption, sort} = Pageable({page:page.number, size:page.size, sortId: page.sortId, sortDirection: page. sortDirection});
+    
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/favorite/followerList/${MEMBER_CODE}?${pageOption}&${sort}`;
 
     return async (dispatch, getState) => {
         const result = await axios.get(requestURL)
@@ -43,7 +45,7 @@ export const getFavCalendarFollwerAPI = () => {
 }
 
 export const postFavCalendarRegit = ({data}) => {
-    console.log(data);
+    
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/favorite/follwer/regist`;
 
     return async (dispatch, getState) => {

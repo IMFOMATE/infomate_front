@@ -1,5 +1,4 @@
 import ButtonOutline from '../../components/common/button/ButtonOutline';
-import ButtonInline from '../../components/common/button/ButtonInline';
 import CheckBox from '../../components/common/input/CheckBox';
 import InputEle from '../../components/common/input/Input';
 import SelectEle from '../../components/common/select/SelectEle';
@@ -9,7 +8,7 @@ import { useContext, useEffect } from 'react';
 import { ScheduleModalProvider, ScheduleProvider } from '../../layouts/CalendarLayout';
 import { MenuContext } from '../../context/MenuContext';
 import { useDispatch, useSelector } from 'react-redux';
-import { postScheduleRegist } from '../../apis/ScheduleAPICalls';
+import { deleteSchedule, postScheduleRegist } from '../../apis/ScheduleAPICalls';
 import 'dayjs/locale/ko';
 import dayjs from 'dayjs';
 import locale from 'antd/es/date-picker/locale/ko_KR';
@@ -17,6 +16,8 @@ import antdStyels from './antd.module.css';
 import { DatePicker } from 'antd';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
 import { MEMBER_CODE } from '../../apis/APIConfig';
+import meterialIcon from '../../components/common/meterialIcon.module.css'
+dayjs.locale('ko')
 
 export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
     
@@ -32,14 +33,11 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
 
     const navigate = useNavigate();
 
-    const memberCode = 2; // 수정예정
-    
-
     useEffect(()=>{
         setSchedule({
             ...schedule,
             data: {...schedule.data, 
-                refCalendar: parseInt(calendarList.data.filter(item => item.indexNo === 1)[0].id)}
+                refCalendar: calendarList.data.filter(item => item.indexNo === 1 && item.memberCode === MEMBER_CODE)[0].id}
         })
     },[])
 
@@ -98,10 +96,11 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                      일정 등록
                     </span>
                     <span className={styles.close}>
-                        <ButtonInline
-                            value={'X'}
+                        <button 
+                            className={meterialIcon.meterialIcon} 
                             onClick={closeHanlder}
-                        />    
+                            style={{color:'gray'}}
+                        >close</button>
                     </span>
                 </div>
                 <div className={styles.content}>
@@ -113,7 +112,6 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                             name='title'
                             value={schedule.data?.title}
                             onChange={scheduleChangeHanlder}
-                            // disabled={isEleDisabled()}
                         />
 
                         <label>일시</label>
@@ -130,7 +128,6 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                                     showTime={{ format: 'HH:mm' }}
                                     value={dayjs(schedule.data.startDate)}
                                     onChange={changeDateHandler}
-
                                 /> :
                                 <RangePicker className={[antdStyels['ant-picker-focused'],antdStyels['ant-picker-active-bar']].join(' ')}
                                     name='RangeDate'
@@ -152,7 +149,6 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                                     style={{display: 'inline', position: 'relative', top: '10px'}}
                                     checked={schedule.data?.allDay}
                                     onChange={scheduleChangeHanlder}
-                                    // disabled={isEleDisabled()}
                                 />
                                 <label style={{
                                     display: 'inline',
@@ -175,7 +171,6 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                                     {value: item.id, text: item.name, color: item.labelColor})
                                 )}
                                 onChange={scheduleChangeHanlder}
-                                // disabled={isEleDisabled()}
                                 style={{width: '100%', padding: 0, color: 'gray'}}
                             />
                         </div>
@@ -186,7 +181,6 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                             type={'text'}
                             value={schedule.data?.address}
                             onChange={scheduleChangeHanlder}
-                            // disabled={isEleDisabled()}
                         />
 
                         <label>전사일정</label>
@@ -197,7 +191,6 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                                 isChangeColor={true}
                                 style={{position: 'relative', top: '2px'}}
                                 onChange={scheduleChangeHanlder}
-                                // disabled={isEleDisabled()}
                             />
                         </div>
                     </div>
@@ -231,10 +224,69 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
 }
 
 
-export const SummaryViewModal = () => {
+export const SummaryViewModal = ({setIsModal, data}) => {
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const editClickHandler = () => {
+        // navigate(`./regist?scheduleId=${data.event.extendedProps.id}&isread=true`);
+        navigate(`./regist?scheduleId=${data.event.extendedProps.id}&isread=true`);
+    }
+
+    const deleteScheduleHandler = () => {
+        dispatch(deleteSchedule({data: [parseInt(data.event.extendedProps.id)]}));
+        setIsModal(false);
+    }
+    const addressLinkClickHandler = () => {
+        window.open(`https://map.kakao.com/link/search/${data.event.extendedProps.address}`)
+    }
+
     return (
         <>
-        
+            {/* <div className={[styles.container, modal && styles.active].join(' ')}> */}
+            <div className={[styles.container,styles.active, styles.viewContainer].join(' ')}>
+                <div className={styles.viewHeader}>
+                <button className={meterialIcon.meterialIcon} onClick={deleteScheduleHandler}>delete</button>
+                    <button className={meterialIcon.meterialIcon} onClick={editClickHandler}>edit</button>
+                    <button className={meterialIcon.meterialIcon} onClick={setIsModal}>close</button>
+                </div>
+                <div className={styles.viewCol2}>
+                    <label><div className={styles.labelColor} style={{backgroundColor:data.event.backgroundColor}}></div></label>
+                    <div className={styles.viewSubject}>{data.event.title}</div>
+
+                    <label></label>
+                    <div className={styles.viewDate}>
+                        {dayjs(data.event.startStr).format('M월 D일(dddd)')}
+                        {data.event.endStr && ` ~ ${dayjs(data.event.endStr).format('M월 D일(dddd)')}`}
+                    </div>
+                    
+                    
+                    <label><span className={meterialIcon.meterialIcon}>home</span></label>
+                    <div><button onClick={addressLinkClickHandler} style={{color:'blue'}}>{data.event.extendedProps.address}</button></div>
+
+                    <label><span className={meterialIcon.meterialIcon}>calendar_month</span></label>
+                    <div>{data.event.extendedProps.calendarName}</div>
+                    <label></label>
+                    <div className={styles.viewOption}>
+                        {
+                            data.event.extendedProps.important && <span>#중요&nbsp;</span>   
+                        }
+
+                        {
+                            data.event.allDay && <span>#종일&nbsp;</span>   
+                        }
+                        
+                        {
+                            data.event.extendedProps.corpSchdl && <span>#전사일정&nbsp;</span>   
+                        }
+
+                        {
+                            // data.event.allDay && <span>#종일&nbsp;</span>   
+                        }
+                    </div>
+                </div>
+            </div>
         </>
     )
 }

@@ -6,13 +6,15 @@ import icon from '../../common/meterialIcon.module.css'
 import { useState } from 'react';
 import { ColorPicker } from 'antd';
 import { useDispatch } from 'react-redux';
-import { deleteCalendar, patchCalendarUpdate } from '../../../apis/CalendarAPICalls';
+import { deleteCalendar, patchCalendarUpdate, patchChangeCalendarIndexNo } from '../../../apis/CalendarAPICalls';
+import MeterialIcon from '../../common/meterialIcon.module.css'
 
 
-const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
+const MyCalendarItem = ({id, memberCode, name,
+                        min, max,
                          defaultCalendar, defaultColorValue,
-                         openStatus, chkOnChange, radioOnChange,
-                         selectValue, selectOnChange, colorOnChange}) => {
+                         openStatus, radioOnChange,
+                         selectValue, selectOnChange}) => {
 
     const [ textModify, setTextModify ] = useState(false);
     const [ textValue, setTextValue ] = useState(name);
@@ -35,12 +37,30 @@ const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
     }
 
     const deleteHandler = e => {
-        dispatch(deleteCalendar({data: [parseInt(e.target.id)]}))
+        dispatch(deleteCalendar({data: [parseInt(e.target.id)]}));
+    }
 
+    const changeIndexNo = (direction) =>{
+        dispatch(patchChangeCalendarIndexNo({data: {id:id,direction:direction}}));
+        
     }
 
     return (
+    <>
         <div className={styles.item}>
+            <div className={styles.seqBtn}>
+                {
+                    min ||
+                    <button onClick={()=>changeIndexNo('prev')}><span className={MeterialIcon.meterialIcon}>arrow_drop_up</span></button>
+                }
+                {
+                    min || max ? '' : <div className={styles.separator}></div>
+                }
+                {
+                    max ||
+                    <button onClick={()=>changeIndexNo('next')}><span className={MeterialIcon.meterialIcon}>arrow_drop_down</span></button>
+                }
+            </div>
             <div style={{textAlign: 'center'} }>
                 <ColorPicker
                         value={data?.labelColor || defaultColorValue}
@@ -60,8 +80,8 @@ const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
                     <button
                         className={icon.meterialIcon}
                         style={{color:'var(--color-middle)', display:'inline'}}
-                        onClick={updateHanlder}>
-                        {textModify? 'save': 'edit'}
+                        onClick={updateHanlder}
+                    > {textModify? 'save': 'edit'}
                     </button>    
 
                     
@@ -69,8 +89,8 @@ const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
                         id={id}
                         className={icon.meterialIcon}
                         style={{color:'var(--color-middle)', display:'inline'}}
-                        onClick={deleteHandler}>
-                        delete
+                        onClick={deleteHandler}
+                    > delete
                     </button>
                 </div>
                     
@@ -80,6 +100,7 @@ const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
                     id={id}
                     name={memberCode}
                     defaultChecked={defaultCalendar}
+                    cheked={defaultCalendar}
                     onChange={radioOnChange}
                     style={{verticalAlign: 'middle', alignSelf: 'center', display: 'block'}}
                 />
@@ -98,7 +119,8 @@ const MyCalendarItem = ({id, memberCode, isDefaultCheck, name,
                     style={{height:'2rem', padding: 0}}
                 />
             </div>
-        </div>        
+        </div>      
+        </>  
     )
 }
 

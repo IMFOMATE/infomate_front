@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import CalendarMagnageFavoriteItem from '../../../components/calendar/manage/CalendarMagnageFavoriteItem';
-import { ManageChkList } from '../../../layouts/FavoriteCalendarLayout';
+import { ManageChkList, PageableContext } from '../../../layouts/FavoriteCalendarLayout';
 import { useSearchParams } from 'react-router-dom';
 import CalendarMagnageFavoriteFollowerHeader from '../../../components/calendar/manage/CalendarMagnageFavoriteFollowerHeader';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,15 +9,16 @@ import { getCalendarPublicListAPI } from '../../../apis/CalendarAPICalls';
 import { FadeLoader } from 'react-spinners';
 import StylesLoading from '../loadingStyle.module.css';
 import { POST_FAV_CALENDAR_REGIT } from '../../../modules/FavCalendarMoudule';
-
+import { NotResultData } from '../../common/Error';
+import { Pagenation } from '../../../components/common/other/Pagenation';
 
 const FavoriteCalendarPublic = () => {
     const [search] = useSearchParams();
     
     const [ selectAll, setSelectAll ] = useState(false);
     const {chk, setChk} = useContext(ManageChkList);
-    search.get('page')
-
+    
+    
     const publicCalendarList = useSelector(state => state.calendarReducer[GET_CALENDAR_FIND_ALL_PUBLIC]);
     const favCalendarReducer = useSelector(state => state.favCalendarReducer);
     const dispatch = useDispatch();
@@ -25,13 +26,17 @@ const FavoriteCalendarPublic = () => {
     useEffect(()=>{
         setChk({...chk, selectList:[]})
 
-        dispatch(getCalendarPublicListAPI());
-        
+        dispatch(getCalendarPublicListAPI({page: {
+            number:search.get('page'),
+            size:search.get('size'), 
+            sortId:search.get('sort'), 
+            sortDirection:search.get('direction')}
+        }));
+
         return () => {
             setChk({})
         }
-    },[favCalendarReducer[POST_FAV_CALENDAR_REGIT]])
-
+    },[search, favCalendarReducer[POST_FAV_CALENDAR_REGIT]])
 
     const selectItemChange = (e)=> {
         if(e.target.checked){
@@ -41,7 +46,7 @@ const FavoriteCalendarPublic = () => {
         }
         setSelectAll(e.target.checked)
     }
-    
+
     return (
         <>
             
@@ -49,9 +54,10 @@ const FavoriteCalendarPublic = () => {
             <br />
 
             {
-                publicCalendarList && publicCalendarList.data ?
-                publicCalendarList.data.map((item, index)=> <CalendarMagnageFavoriteItem
-                                            key={index}
+                publicCalendarList ? publicCalendarList.data === null || publicCalendarList.data.length === 0 ? 
+                <NotResultData /> :
+                publicCalendarList.data.map((item)=> <CalendarMagnageFavoriteItem
+                                            key={item.id}
                                             id={item.id}
                                             memberName={item.member.memberName}
                                             // rank={item?.refMember?.refRank?.name} // 직위 수정 예정
@@ -62,8 +68,20 @@ const FavoriteCalendarPublic = () => {
                                     />)
                 : <div className={StylesLoading.loading}> <FadeLoader color="#9F8AFB" /></div>
             }
+            {
+                publicCalendarList?.pageInfo &&
+                <Pagenation 
+                    prev={publicCalendarList.pageInfo.prev}
+                    next={publicCalendarList.pageInfo.next}
+                    total={publicCalendarList.pageInfo.total} 
+                    pageNum={publicCalendarList.pageInfo.cri.pageNum}
+                />
+            }
         </>
     );
 }
 
 export default FavoriteCalendarPublic;
+            
+            
+            

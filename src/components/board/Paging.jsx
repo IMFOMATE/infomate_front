@@ -1,17 +1,10 @@
-import mainCSS from '../../components/common/main.module.css';
-import BoardCSS from './Board.module.css';
+import BoardCSS from '../../pages/board/Board.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState, useRef } from "react";
-import PostTable from '../../components/board/Post';
 
-import{
-    callhBoardViewAPI
-} from '../../apis/BoardAPICalls'
-import NewButton from '../../components/board/NewButton';
+function Paging({api}) {
 
-function Anony() {
-    
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const board  = useSelector(state => state.boardReducer);      
@@ -35,46 +28,15 @@ function Anony() {
     useEffect(
         () => {
             setStart((currentPage - 1) * 5);            
-            dispatch(callhBoardViewAPI({ 
+            dispatch(api({ 
                 currentPage: currentPage} ));
         }
         ,[currentPage]
     );
 
-    // 게시글페이지
-    const postHandler = (postCode) => {
-        navigate(`/board/post/${postCode}`, { replace: false });
-    }
+    return(
 
-    return (
-        <>
-
-        <div className={mainCSS.maintitle}>
-        <h2>익명 게시판</h2>
-        </div>
-            
-            <NewButton />
-                      
-            <table className={BoardCSS.bdtable}>
-                <PostTable />
-                <tbody>
-                    { Array.isArray(boardList) && boardList.map((b, index) => (
-                        <tr className={BoardCSS.bdtable_tr}
-                            key={ b.boardCode }
-                            // key={index}
-                            onClick={ () => postHandler(b.postCode) }
-                        >
-                            <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
-                            <td className={BoardCSS.bdtable_td}>{ b.postTitle }</td>
-                            <td className={BoardCSS.bdtable_td}></td>
-                            <td className={BoardCSS.bdtable_td}>{ b.postDate }</td>
-                            <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
-                        </tr>
-                    )) 
-                    }
-                </tbody>
-            </table>
-                <div style={{ listStyleType: "none", display: "flex", justifyContent: "center"}} >
+        <div style={{ listStyleType: "none", display: "flex", justifyContent: "center"}} >
                     { Array.isArray(boardList) &&
                     <button
                         onClick={() => setCurrentPage(currentPage -1)}
@@ -104,11 +66,8 @@ function Anony() {
                         </button>
                         }
                 </div>
-            
        
-
-        </>
-    );
+    )
 }
 
-export default Anony;
+export default Paging;

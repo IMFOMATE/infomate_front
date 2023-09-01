@@ -1,26 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from "./layouts/Layout";
-import BoardMain from "./pages/board/BoardMain";
-// import './components/common/main.css';
-// import './components/common/component.css';
-import Work from "./pages/work/Work";
-import WkAdmin from "./pages/work/WkAdmin";
-import WorkSide from "./pages/work/WorkSide";
-import MyWork from "./pages/work/MyWork";
-import MyDept from "./pages/work/MyDept";
-import Dept from "./pages/work/Dept";
-import Notice from "./pages/board/Notice";
-import Report from "./pages/board/Report";
-import Menu from "./pages/board/Menu";
-import Common from "./pages/board/Common";
-import BrdDept from "./pages/board/BrdDept";
-import BrdAdmin from "./pages/board/BrdAdmin";
-import Anony from "./pages/board/Anony";
-
-import './components/common/nav.css';
-
-import './components/common/default.css';
-
 import Mail from "./pages/mail/Mail";
 import AddressBook from "./pages/addressBook/AddressBook";
 import AddContact from "./pages/addressBook/AddContact";
@@ -49,7 +28,6 @@ import MyWork from "./pages/work/MyWork";
 import MyDept from "./pages/work/MyDept";
 import Dept from "./pages/work/Dept";
 import Notice from "./pages/board/Notice";
-import Report from "./pages/board/Report";
 import Menu from "./pages/board/Menu";
 import Common from "./pages/board/Common";
 import BrdDept from "./pages/board/BrdDept";
@@ -59,6 +37,7 @@ import NewPost from "./pages/board/NewPost";
 import Posting from './pages/board/Posting';
 import UpdateMember from './pages/manage/UpdateMember';
 import DocumentDetail from "./components/approval/ele-component/document/detail/DocumentDetail";
+import PostView from './pages/board/PostView';
 
 function App() {
   return (
@@ -71,6 +50,8 @@ function App() {
             {/* <Route path="/mailWrite" element={<MailWrite />} /> */}
             <Route path="/mail" element={<Mail />} />
             {/* <Route path="/board" element={<BoardMain />}></Route> */}
+
+
             
             <Route path="approval">
               <Route index element={<ApprovalMain/>}/>
@@ -78,28 +59,27 @@ function App() {
               <Route path="reflist" element={<MyDocList title='참조문서'/>}/> {/*참조문서리스트*/}
               <Route path="temp" element={<MyDocList title='임시저장문서'/>} /> {/*임시저장문서리스트*/}
               <Route path="approving" element={<MyDocList title='결재대기문서'/>}/> {/*결재 대기문서리스트*/}
-              <Route path="document">
-                <Route path="new" element={<DocumentMain/>}/>
-                <Route path=":documentId" element={<DocumentDetail/>}/> {/* 문서 조회 */}
-              </Route>
+              <Route path="approved" element={<MyDocList title='결재완료문서'/>}/> {/*결재 완료 리스트*/}
+              <Route path="document" element={<DocumentMain/>}/>
             </Route>
 
 
             <Route path="calendar" element={<CalendarLayout />}>
               <Route index element={<Calendar/>}/>
-              <Route path="reminder" element={<ReminderList />} />
+              <Route path="reminder" element={<ReminderList />} />  
               <Route path="regist" element={<ScheduleDetailCreate/>} />
                 <Route path="management" element={<CalendarManegeLayout/>}>
                 <Route index element={<MyCalendar />}/>
                 <Route path="myPage" element={<MyCalendar />}/> 
-                <Route path="favorite" element={<FavoriteCalendarLayout />}>
-                  <Route index element={<FavoriteCalendarFollowing />} />
+                <Route path="favorite">
+                  <Route index element={<FavoriteCalendarLayout />} />
                   <Route path="following" element={<FavoriteCalendarFollowing />} />
                   <Route path="follower" element={<FavoriteCalendarFollower />} />
                   <Route path="public" element={<FavoriteCalendarPublic />} />
                 </Route>
               </Route>          
             </Route>
+
 
 
             <Route path='group'>
@@ -114,17 +94,18 @@ function App() {
             <Route path="/work/mywork" element={ <MyWork /> }/>
             <Route path="/work/mydept" element={ <MyDept />}/>
             <Route path="/work/dept" element={ <Dept />}/>
+            
 
             
-            <Route path="/board" element={<BoardMain/>}/>
+            <Route path="/board" element={<NewPost/>}/>
             <Route path="/board/notice" element={ <Notice />}/>
-            <Route path="/board/newpost" element={ <NewPost />}/>
-            <Route path="/board/report" element={ <Report />}/>
             <Route path="/board/menu" element={ <Menu />}/>
             <Route path="/board/common" element={ <Common />}/>
             <Route path="/board/brddept" element={ <BrdDept />}/>
             <Route path="/board/brdadmin" element={ <BrdAdmin />}/>
             <Route path="/board/anony" element={ <Anony />}/>
+            <Route path="/board/posting" element={ <Posting />}/>
+            <Route path="/board/post/:postCode" element={ <PostView />}/>
             {/* <Route path="/board" element={<BoardMain/>}></Route> */}
           
           </Route>  

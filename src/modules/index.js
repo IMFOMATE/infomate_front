@@ -8,6 +8,7 @@ import documentsReducer from "./approval/DocumentModuels";
 import calendarReducer from "./CalendarMoudule";
 import departmentReducer from "./DepartmentModule";
 import approvalReducer from "./approval/ApprovalModuels";
+import employeeReducer from "./EmployeeModule";
 const rootReducer = combineReducers({
     favCalendarReducer,
     scheduleReducer,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
     calendarReducer,
     documentsReducer,
     departmentReducer,
-    approvalReducer
+    approvalReducer,
+    employeeReducer,
 });
 
 export default rootReducer;

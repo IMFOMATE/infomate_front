@@ -24,7 +24,7 @@
 }
 
 
-.list_tr:hover{
+.list_tr:hover, .data_null:hover{
     background-color: var(--color-border);
 }
 
@@ -121,4 +121,9 @@
 .temp{
     border: 2px solid var(--color-middle);
     color: var(--color-middle);
+}
+
+.data_null{
+    padding: 30px;
+    text-align: center;
 }

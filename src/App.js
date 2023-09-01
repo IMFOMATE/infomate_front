@@ -40,6 +40,12 @@ import NewPost from "./pages/board/NewPost";
 import Posting from './pages/board/Posting';
 import DocumentDetail from "./components/approval/ele-component/document/detail/DocumentDetail";
 
+function Test() {
+
+  console.log("여기야")
+  return <div>테스트인데</div>;
+}
+
 function App() {
   return (
     <>
@@ -53,16 +59,17 @@ function App() {
             {/* <Route path="/board" element={<BoardMain />}></Route> */}
 
 
-            
+
             <Route path="approval">
               <Route index element={<ApprovalMain/>}/>
-              <Route path="mylist" element={<MyDocList title='기안문서'/>}/> {/*내 기안 리스트*/}
-              <Route path="reflist" element={<MyDocList title='참조문서'/>}/> {/*참조문서리스트*/}
-              <Route path="temp" element={<MyDocList title='임시저장문서'/>} /> {/*임시저장문서리스트*/}
-              <Route path="approving" element={<MyDocList title='결재대기문서'/>}/> {/*결재 대기문서리스트*/}
+              <Route path="approval" element={<MyDocList />}/> {/*내 기안 리스트*/}
+              <Route path="ref" element={<MyDocList />}/> {/*참조문서리스트*/}
+              <Route path="temporary" element={<MyDocList />} /> {/*임시저장문서리스트*/}
+              <Route path="credit" element={<MyDocList/>}/> {/*결재 대기문서리스트*/}
               <Route path="document">
                 <Route path="new" element={<DocumentMain/>}/>
                 <Route path=":documentId" element={<DocumentDetail/>}/> {/* 문서 조회 */}
+                <Route path=":documentId/reapply" element={<DocumentMain/>}/>
               </Route>
             </Route>
 

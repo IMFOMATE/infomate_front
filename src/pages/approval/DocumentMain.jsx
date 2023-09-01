@@ -8,18 +8,17 @@ import styles from './DocumentMain.module.css';
 import {DraftDataProvider} from "../../context/approval/DraftDataContext";
 import {PaymentDataProvider} from "../../context/approval/PaymentDataContext";
 import {VacationProvider} from "../../context/approval/VacationDataContext";
+import DocumentHeader from "../../components/approval/manage/DocumentHeader";
 
 function DocumentMain() {
   const location = useLocation();
   const {name, type} = location.state;
   return (
       <>
-        <div className={mainCss.maintitle}>
-          <h2>{name}</h2>
-        </div>
+        <DocumentHeader name={name}/>
         <div className={styles.doc_wrapper}>
           {
-              (type === 'payment' && <PaymentDataProvider><Payment/></PaymentDataProvider>) ||
+              (type === 'payment' && <PaymentDataProvider><Payment /></PaymentDataProvider>) ||
               (type === 'draft' && <DraftDataProvider><Draft/></DraftDataProvider>) ||
               (type === 'vacation' && <VacationProvider><Vacation/></VacationProvider>)
           }

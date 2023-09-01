@@ -23,9 +23,7 @@ function DocumentDetail() {
       },
       []
   );
-
-
-
+  console.log(documentData)
 
   // 문서 종류별 세부 컴포넌트를 매핑하는 객체
   const documentComponents = {
@@ -35,6 +33,14 @@ function DocumentDetail() {
   };
 
   const selectedComponent = documentComponents[documentData.documentKind];
+
+
+  //임시저장상태면 input 태그여야하니까
+  if(documentData.documentStatus === "TEMPORARY"){
+
+
+  }
+
 
   return (
       <>

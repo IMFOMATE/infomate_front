@@ -24,8 +24,8 @@ function ApprovalNav() {
 export default ApprovalNav;
 
 const approvalLink = [
-  {text:'기안문서', link:'approval/mylist?status='},
-  {text:'참조문서', link:'approval/reflist?status='},
-  {text:'임시저장문서', link:'approval/temp'},
-  {text:'결재대기문서', link:'approval/approving'},
+  {text:'기안문서', link:'approval/approval?status='},
+  {text:'참조문서', link:'approval/ref?status='},
+  {text:'임시저장문서', link:'approval/temporary?status='},
+  {text:'결재대기문서', link:'approval/credit'},
 ]

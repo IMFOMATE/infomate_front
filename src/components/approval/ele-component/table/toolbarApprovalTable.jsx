@@ -1,24 +1,24 @@
 import React from 'react';
 import ApprovalTableCss from "./ApprovalTable.module.css";
 import ApprovalTable from "./ApprovalTable";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 
 
 
-function ToolbarApprovalTable({documentData, pageHandler, title, filter}) {
+function ToolbarApprovalTable({documentData, pageHandler, filter}) {
 
-  console.log(documentData)
+  const [searchParams, setSearchParams] = useSearchParams();
+  const {pathname} = useLocation()
+  const path = pathname.split("/")[2];
+
   const navigate = useNavigate();
   const pageInfo = documentData?.pageInfo;
   const documents = documentData?.data;
 
   const handleFilterChange = (event) => {
     const selectedFilter = event.target.dataset.type;
-    if(title === '기안문서'){
-      navigate(`/approval/mylist?status=${selectedFilter}&page=${pageInfo.cri.pageNum-1}`);
-    }else if(title === '참조문서'){
-      navigate(`/approval/reflist?status=${selectedFilter}&page=${pageInfo.cri.pageNum-1}`);
-    }
+    searchParams.set("status", selectedFilter);
+    setSearchParams(searchParams);
   };
 
   const pageNumber = [];
@@ -34,8 +34,8 @@ function ToolbarApprovalTable({documentData, pageHandler, title, filter}) {
     <div className={ApprovalTableCss.container}>
       <ul className={ApprovalTableCss.toolbar}>
         {
-          title !== '결재대기문서' && title !== '임시저장문서' ?
-
+          path === 'temporary' || path === 'credit' ? ''
+          :
           filterState.map((value, index) =>
             <li
               key={index}
@@ -45,7 +45,7 @@ function ToolbarApprovalTable({documentData, pageHandler, title, filter}) {
             >
               {value.text}
             </li>
-          ) : ''
+          )
         }
       </ul>
       <ApprovalTable data={documents}/>

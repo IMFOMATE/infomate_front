@@ -83,6 +83,9 @@ const ScheduleDetilaCreate = () => {
         return <LoadingSpiner />; 
     }
 
+    console.log(data);
+
+
     const postOutArea = e =>{
         if(modalRef.current === e.target)
             setPostToggle(false)
@@ -398,7 +401,9 @@ const ScheduleDetilaCreate = () => {
                 <div className={styles.footer}>
                     <div>
                         {
-                            (data?.data?.calendar.memberCode !== parseInt(MEMBER_CODE) && isDataLoad()) || 
+                            ((data?.data?.calendar.memberCode !== MEMBER_CODE && isDataLoad())
+                            && (data.data?.calendar.departmentCode !== DEPARTMENT_CODE))
+                            || 
                             <ButtonInline 
                                 value={isRead ? '수정': '등록'}
                                 onClick={registScheduleHandler} 
@@ -410,13 +415,15 @@ const ScheduleDetilaCreate = () => {
                     <div>
                         <ButtonInline 
                             isCancel={true} 
-                            value={isDataLoad() && data?.data?.calendar?.memberCode !== parseInt(MEMBER_CODE)? '뒤로가기' : '취소' } 
+                            value={isDataLoad() && data?.data?.calendar?.memberCode !== MEMBER_CODE? '뒤로가기' : '취소' } 
                             onClick={registCancle} 
                             style={{width:80, height: 40}}
                         />
                     </div>
                     {   
-                        isDataLoad() && parseInt(data?.data?.calendar?.memberCode) === parseInt(MEMBER_CODE) && 
+                        (isDataLoad() && parseInt(data?.data?.calendar?.memberCode) === MEMBER_CODE
+                        || (data.data?.calendar.departmentCode === DEPARTMENT_CODE))
+                        && 
                         <div>
                             <ButtonInline 
                                 isCancel={true} 

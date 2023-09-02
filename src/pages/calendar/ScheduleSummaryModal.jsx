@@ -17,7 +17,6 @@ import { DatePicker } from 'antd';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
 import { DEPARTMENT_CODE, MEMBER_CODE } from '../../apis/APIConfig';
 import meterialIcon from '../../components/common/meterialIcon.module.css'
-import { data } from 'jquery';
 dayjs.locale('ko')
 
 export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {

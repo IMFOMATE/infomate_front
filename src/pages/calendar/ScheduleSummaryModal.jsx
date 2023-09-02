@@ -39,7 +39,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
             ...schedule,
             data: {...schedule.data, 
                 refCalendar: calendarList.data.filter(item => 
-                    item.indexNo === 1 && item.memberCode === MEMBER_CODE && item.departmentCode === null)[0].id
+                    item.defaultCalendar && item.memberCode === MEMBER_CODE && item.departmentCode === null)[0].id
                 }
         })
     },[])
@@ -210,8 +210,11 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                                     item.departmentCode !== 1 && 
                                     (item.memberCode === MEMBER_CODE || item.departmentCode === DEPARTMENT_CODE)
                                 )).sort((prev, next) => prev.indexNo - next.indexNo
-                                ).map(item => (
-                                    {value: item.id, text: item.name, color: item.labelColor})
+                                ).map(item => ({
+                                    value: item.id,
+                                    text: item.defaultCalendar? `${item.name} (기본)` : item.name,
+                                    color: item.labelColor
+                                    })
                                 )}
                                 onChange={scheduleChangeHanlder}
                                 style={{width: '100%', padding: 0, color: 'gray'}}

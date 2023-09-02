@@ -107,11 +107,13 @@ const CalendarNav = () => {
                     )).map(item => (
                          <CalendarNavItem 
                             key={item.id}
-                            calendarName={item.name}
+                            calendarName={item.defaultCalendar? `${item.name} (기본)`: item.name}
                             color={item.labelColor}
                             id={item.id}
                             isCheck={!filter?.includes(parseInt(item.id))}
-                        onChange={calendarFilterChange} />
+                            onChange={calendarFilterChange}
+
+                        />
                     ))
                 }
             </div>

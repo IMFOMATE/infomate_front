@@ -53,7 +53,7 @@ const ScheduleDetilaCreate = () => {
                 ...data,
                 data: {...schedule.data, 
                     refCalendar: getCalednarReducer.data.filter(item => 
-                        item.indexNo === 1 && item.memberCode === MEMBER_CODE && item.departmentCode === null)[0].id
+                        item.defaultCalendar && item.memberCode === MEMBER_CODE && item.departmentCode === null)[0].id
                     }
             })    
         }
@@ -325,8 +325,11 @@ const ScheduleDetilaCreate = () => {
                                 item.departmentCode !== 1 && 
                                 (item.memberCode === MEMBER_CODE || item.departmentCode === DEPARTMENT_CODE)
                             )).sort((prev, next) => prev.indexNo - next.indexNo
-                            ).map(item => (
-                                {value: item.id, text: item.name, color: item.labelColor})
+                            ).map(item => ({
+                                value: item.id, 
+                                text: item.defaultCalendar? `${item.name} (기본)` : item.name, 
+                                color: item.labelColor
+                                })
                             )}
                             value={isRead === 'true' ? data.data.refCalendar : schedule?.data?.refCalendar}
                             onChange={scheduleChangeHanlder}

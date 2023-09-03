@@ -6,8 +6,6 @@ import CalendarMagnageFavoriteFollowerHeader from '../../../components/calendar/
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_CALENDAR_FIND_ALL_PUBLIC } from '../../../modules/CalendarMoudule';
 import { getCalendarPublicListAPI } from '../../../apis/CalendarAPICalls';
-import { FadeLoader } from 'react-spinners';
-import StylesLoading from '../loadingStyle.module.css';
 import { POST_FAV_CALENDAR_REGIT } from '../../../modules/FavCalendarMoudule';
 import { NotResultData } from '../../common/Error';
 import { Pagenation } from '../../../components/common/other/Pagenation';
@@ -55,7 +53,7 @@ const FavoriteCalendarPublic = () => {
     return (
         <>
             
-            <CalendarMagnageFavoriteFollowerHeader chk={selectAll} setchk={selectItemChange} />
+            <CalendarMagnageFavoriteFollowerHeader chk={selectAll} setChk={selectItemChange} />
             <br />
             {
                 publicCalendarList.data.map((item)=> <CalendarMagnageFavoriteItem

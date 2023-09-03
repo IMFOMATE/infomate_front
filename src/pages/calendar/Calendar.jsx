@@ -87,8 +87,6 @@ const Calendar = () =>{
 
     ])
 
-
-    console.log(data);
     const calenderClickHandler = data => {
         
         setSchedule({

@@ -17,7 +17,10 @@ export const ManageChkList = createContext({
 
 const FavoriteCalendarLayout = () => {
 
-    const [chk, setChk] = useState(false);
+    const [chk, setChk] = useState({
+        itemAll: false,
+        selectList: [],
+    });
     
     return (
         <>

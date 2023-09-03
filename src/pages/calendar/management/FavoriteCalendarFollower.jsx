@@ -36,7 +36,7 @@ const FavoriteCalendarFollower = () => {
     },[favCalendarReducer[PATCH_FAV_CALENDAR_STATE_UPDATE], favCalendarReducer[DELETE_FAV_CALENDAR], search])
 
     if(!calendarFollowerList) return <LoadingSpiner />
-    if(calendarFollowerList.data.length === 0) return <NotResultData />
+    if(calendarFollowerList.data.length === 0 || calendarFollowerList === null) return <NotResultData />
 
     const selectItemChange = (e)=> {
         if(e.target.checked){
@@ -51,10 +51,10 @@ const FavoriteCalendarFollower = () => {
     return (
         <>
             
-            <CalendarMagnageFavoriteFollowerHeader chk={selectAll} setchk={selectItemChange} />
+            <CalendarMagnageFavoriteFollowerHeader chk={selectAll} setChk={selectItemChange} />
             <br />
             {
-                calendarFollowerList.data.map((item, index)=> <CalendarMagnageFavoriteItem
+                calendarFollowerList.data.map((item)=> <CalendarMagnageFavoriteItem
                                             key={item.id}
                                             id={item.id}
                                             memberName={item.member.memberName}

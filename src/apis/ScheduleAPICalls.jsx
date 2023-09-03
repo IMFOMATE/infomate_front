@@ -15,7 +15,7 @@ dayjs.extend(utc);
 
 export const getScheduleDetail = ({scheduleId}) => {
 
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/${scheduleId}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/${MEMBER_CODE}/${scheduleId}`;
 
     return async (dispatch, getState) => {
         const result = await axios.get(requestURL)
@@ -33,7 +33,7 @@ export const getScheduleDetail = ({scheduleId}) => {
 
 export const postScheduleRegist = ({data}) => {
     data = {...data, memberCode: MEMBER_CODE}    
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/regist`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/regist/${MEMBER_CODE}`;
     
     data = {...data, startDate: dayjs(data.startDate).format('YYYY-MM-DDTHH:MM:ss'), endDate: dayjs(data.endDate).format('YYYY-MM-DDTHH:MM:ss')}
     return async (dispatch, getState) => {
@@ -56,14 +56,14 @@ export const postScheduleRegist = ({data}) => {
 export const patchScheduleUpdate = ({data}) => {
     data = {...data, memberCode: MEMBER_CODE}
 
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/update`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/update/${MEMBER_CODE}`;
     
     return async (dispatch, getState) => {
         const result = await axios.patch(requestURL, data, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
                         .then(res => res)
                         .catch(err => console.log(err));
 
-        if(result.status === 200){
+        if(result?.status === 200){
             dispatch({ type: PATCH_SCHEDULE,  payload: result});
             return message.success("일정이 변경 되었습니다.");  
         }
@@ -74,19 +74,19 @@ export const patchScheduleUpdate = ({data}) => {
 }
 
 
-export const deleteSchedule = ({data}) => {
+export const deleteSchedule = ({scheduleId}) => {
 
-    console.log(data);
+    console.log(scheduleId);
     
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/delete`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/delete/${scheduleId}/${MEMBER_CODE}`;
     
     
     return async (dispatch, getState) => {
-        const result = await axios.delete(requestURL, {data}, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
+        const result = await axios.delete(requestURL, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
                         .then(res => res)
                         .catch(err => err);
 
-        if(result.status === 200){
+        if(result?.status === 200){
             message.success("일정이 삭제 되었습니다.")
             dispatch({ type: DELETE_SCHEDULE,  payload: result});
             return ;

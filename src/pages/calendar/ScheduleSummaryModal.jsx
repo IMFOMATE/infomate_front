@@ -280,7 +280,7 @@ export const SummaryViewModal = ({setIsModal, data}) => {
     }
 
     const deleteScheduleHandler = () => {
-        dispatch(deleteSchedule({data: [parseInt(data.event.extendedProps.id)]}));
+        dispatch(deleteSchedule({scheduleId: data.event.extendedProps.id}));
         setIsModal(false);
     }
     const addressLinkClickHandler = () => {

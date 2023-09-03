@@ -214,7 +214,7 @@ const ScheduleDetilaCreate = () => {
     }
 
     const deleteScheduleHandler = () => {
-        dispatch(deleteSchedule({data: [parseInt(data.data.id)]}))
+        dispatch(deleteSchedule({scheduleId: data.data.id}))
         navigate('../')
     }
     
@@ -401,8 +401,9 @@ const ScheduleDetilaCreate = () => {
                 <div className={styles.footer}>
                     <div>
                         {
-                            ((data?.data?.calendar.memberCode !== MEMBER_CODE && isDataLoad())
-                            && (data.data?.calendar.departmentCode !== DEPARTMENT_CODE))
+                            // ((data?.data?.calendar.memberCode !== MEMBER_CODE && isDataLoad())
+                            // && (data.data?.calendar.departmentCode !== DEPARTMENT_CODE))
+                            (isDataLoad() && !data?.expendsProps.compare)
                             || 
                             <ButtonInline 
                                 value={isRead ? '수정': '등록'}
@@ -421,8 +422,10 @@ const ScheduleDetilaCreate = () => {
                         />
                     </div>
                     {   
-                        (isDataLoad() && parseInt(data?.data?.calendar?.memberCode) === MEMBER_CODE
-                        || (data.data?.calendar.departmentCode === DEPARTMENT_CODE))
+                        // (isDataLoad() && parseInt(data?.data?.calendar?.memberCode) === MEMBER_CODE
+                        // || (data.data?.calendar.departmentCode === DEPARTMENT_CODE))
+                        (isDataLoad() && data.expendsProps.compare)
+
                         && 
                         <div>
                             <ButtonInline 

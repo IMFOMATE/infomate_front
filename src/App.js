@@ -74,8 +74,8 @@ function App() {
                 <Route path="management" element={<CalendarManegeLayout/>}>
                 <Route index element={<MyCalendar />}/>
                 <Route path="myPage" element={<MyCalendar />}/> 
-                <Route path="favorite">
-                  <Route index element={<FavoriteCalendarLayout />} />
+                <Route path="favorite" element={<FavoriteCalendarLayout />}>
+                  <Route index element={<FavoriteCalendarFollowing />} />
                   <Route path="following" element={<FavoriteCalendarFollowing />} />
                   <Route path="follower" element={<FavoriteCalendarFollower />} />
                   <Route path="public" element={<FavoriteCalendarPublic />} />

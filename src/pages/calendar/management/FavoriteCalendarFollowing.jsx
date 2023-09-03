@@ -22,7 +22,7 @@ const FavoriteCalendarFollowing = () => {
     const dispatch = useDispatch();
 
     useEffect(()=>{
-        setChk({...chk, selectList:[]})
+        setChk({...chk, selectList: []})
         
         dispatch(getFavCalendarfollowAllAPI({page: {
             number:search.get('page'),
@@ -57,7 +57,7 @@ const FavoriteCalendarFollowing = () => {
         <>
             <CalendarMagnageFavoriteFollowerHeader
                 chk={selectAll}
-                setchk={selectItemChange}
+                setChk={selectItemChange}
             />
             <br />
 

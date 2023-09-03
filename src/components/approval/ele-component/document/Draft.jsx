@@ -13,8 +13,7 @@ import {useDraftDataContext} from "../../../../context/approval/DraftDataContext
 import {treeviewAPI} from "../../../../apis/DepartmentAPI";
 import {useDispatch, useSelector} from "react-redux";
 import {draftRegistAPI} from "../../../../apis/DocumentAPICalls";
-import Swal from "sweetalert2";
-import {isValid, showValidationAndConfirm} from "../common/dataUtils";
+import {handleCancel, isValid, showValidationAndConfirm} from "../common/dataUtils";
 
 
 function Draft() {
@@ -27,18 +26,12 @@ function Draft() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // 모달이 열릴 때 fetch GET 조직도 가지고옴 -> modalData
+  // 모달이 열릴 때 fetch GET 조직도 가지고옴
   useEffect(()=>{
     if (isModalOpen){
       dispatch(treeviewAPI());
     }
   },[isModalOpen]);
-
-  useEffect(
-      ()=>{
-      },
-      []
-  );
 
   // 데이터 핸들러
   const onChangeHandler = (e) => {
@@ -86,6 +79,7 @@ function Draft() {
     formData.append("content", data.content);
     formData.append("emergency", data.emergency ?? "N");
     formData.append("coDept", data.coDept);
+    formData.append("startDate", data.startDate);
 
     return formData;
   };
@@ -93,11 +87,11 @@ function Draft() {
   //유효성 및 결재 요청
   const handleRequest = () => {
 
-    const validationResult = isValid(data);
+    const validationResult = isValid(data,true);
 
     showValidationAndConfirm(
-        validationResult, '결재자를 선택하지 않았습니다, 계속 진행하시겠습니까?',
-        ()=>{
+        validationResult, data.approvalList.length,
+        () => {
           const formData = createFormData();
           requestApproval(formData);
         }
@@ -108,7 +102,8 @@ function Draft() {
   const handleTemp = () => {};
 
   const handleChoice = toggleModal;  //결재선 지정 모달
-  const handleCancel = () => navigate("/approval"); // 결제 취소
+  const cancelAction = () => navigate("/approval");
+
 
   // 파일 저장
   const handleFileChange = (event) => {
@@ -127,7 +122,7 @@ function Draft() {
   const url = {
     request: handleRequest,
     temp: handleTemp,
-    cancel: handleCancel,
+    cancel: () => {handleCancel(cancelAction)},
     choice: handleChoice
   }
 

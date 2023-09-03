@@ -9,7 +9,7 @@ export const useVacationDataContext = () => {
 export const VacationProvider = ({children}) => {
 
   const [data, setData] = useState({
-    title: '',
+    title: '휴가신청서',
     content: '',
     emergency: '',
     refList: [],
@@ -18,7 +18,6 @@ export const VacationProvider = ({children}) => {
     sort:'연차',
     startDate: '',
     endDate: '',
-    reason:''
   });
 
   return(

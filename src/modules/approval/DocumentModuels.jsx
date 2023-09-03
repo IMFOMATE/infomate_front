@@ -6,6 +6,8 @@ export const GET_DOCUMENT_MAIN = 'document/GET_DOCUMENT_MAIN';
 export const GET_DOCUMENT_APRPROVALLIST = 'document/GET_DOCUMENT_APRPROVALLIST';
 export const GET_DOCUMENT_REFLIST = 'document/GET_DOCUMENT_REFLIST';
 export const GET_DOCUMENT_CREDIT = 'document/GET_DOCUMENT_CREDIT';
+
+export const GET_DOCUMENT_LIST = 'document/GET_DOCUMENT_LIST';
 export const POST_DRAFT = 'document/POST_DRAFT';
 export const POST_VACATION = 'document/POST_VACATION';
 export const POST_PAYMENT = 'document/POST_PAYMENT';
@@ -18,6 +20,7 @@ const actions = createActions({
   [GET_DOCUMENT_APRPROVALLIST] : () => {},
   [GET_DOCUMENT_REFLIST] : () => {},
   [GET_DOCUMENT_CREDIT] : () => {},
+  [GET_DOCUMENT_LIST] : () => {},
   [POST_DRAFT] : () => {},
   [POST_VACATION] : () => {},
   [POST_PAYMENT] : () => {},
@@ -36,6 +39,9 @@ const documentsReducer = handleActions(
         return payload;
       },
       [GET_DOCUMENT_CREDIT] : (state, { payload }) => {
+        return payload;
+      },
+      [GET_DOCUMENT_LIST] : (state, { payload }) => {
         return payload;
       },
       [POST_DRAFT] : (state, { payload }) => {

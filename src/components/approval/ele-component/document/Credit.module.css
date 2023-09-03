@@ -14,7 +14,6 @@
 .credit p {
   width: 100%;
   padding: 5px 0px;
-  flex: 0.5;
 }
 
 .credit p:first-child, .credit p:nth-child(2){
@@ -27,6 +26,11 @@
   justify-content: center;
   align-items: center;
 }
+
+.credit p:nth-child(3){
+  min-height: 34px;
+}
+
 
 .credit_name{
   padding: 2px 0px;

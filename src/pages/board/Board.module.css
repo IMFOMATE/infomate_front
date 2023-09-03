@@ -42,8 +42,10 @@
     /* border-bottom: 1px solid #ddd;
     border-top: 1px solid #ddd; */
     text-align: left;
-    width: 60px;
-    height: flex;
+    /* width: 60px; */
+    /* height: flex; */
+    /* display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr; */
     border-collapse: collapse;
     width: 100%;
     /* border: 1px solid #ddd; */
@@ -92,16 +94,21 @@
     
     /* 페이지 */
     .pagination {
-    display: inline-block;
-    padding-top: 40px;
+    /* padding-top: 40px; */
     /* position: absolute; */
-    width: 100%;
     display: flex;
     justify-content: center; /* 가로 가운데 정렬 */
     align-items: center; /* 세로 가운데 정렬 */
+    color: black;
+    float: left;
+    padding: 11px 15px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border-radius: 100px;
+    margin-top: 20px;
     }
     
-    .pagination a {
+    .pagination2 {
     color: black;
     float: left;
     padding: 8px 16px;
@@ -110,15 +117,16 @@
     border-radius: 100px;
     }
     
-    .pagination a.active {
+    .pagination.active {
     background-color: #9e88fe;
     color: white;
     border-radius: 100px;
     }
       
-    .pagination a:hover:not(.active) {
+    .pagination:hover:not(.active) {
     background-color: #ddd;
     border-radius: 100px;
+    color: white;
     }
     
     /* 검색창 */
@@ -235,6 +243,7 @@
   margin-top: 20px;
   margin-left: 45px;
   margin-bottom: 7px;
+  font-size: 13px;
 }
 
 .newpost:hover {

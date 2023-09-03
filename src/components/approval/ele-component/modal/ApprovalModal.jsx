@@ -47,7 +47,7 @@ function ApprovalModal({contextType, modalData , toggleModal}) {
         fontWeight: '700'
     }
 
-    console.log(!!modalData?.data)
+    console.log(modalData)
     return(
         <>
             <div className={styles.container}>

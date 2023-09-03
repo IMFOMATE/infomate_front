@@ -45,11 +45,9 @@ const noticeLink = [
   {text:'월간 식단표', link:'/board/menu'},
 ]
 const boardLink = [
-  {text:'최근 게시글', link:'/board/newpost'},
   {text:'일반 게시판', link:'/board/common'},
   {text:'익명 게시판', link:'/board/anony'},
 ]
 const deptLink = [
   {text:'부서 게시판', link:'/board/brddept'},
-  {text:'보고사항', link:'/board/report'},
 ]

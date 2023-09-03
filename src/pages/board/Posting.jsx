@@ -10,7 +10,7 @@ import{
     callPostPostAPI
 } from '../../apis/BoardAPICalls'
 
-function Posting() {
+function Posting() {  
 
     // 디스패치.. 근데 밑에 두 개는 왜 있는지 모르겠음
     const dispatch = useDispatch();
@@ -22,25 +22,78 @@ function Posting() {
     const [form, setForm] = useState({
         postCode: 0,
         postTitle: '',
-        postDate: '',
+        postDate: new Date().toLocaleDateString(),
         postContents: '',
         boardCategory: 0, 
         boardCode: '',
-        // memberName: ''
+        memberName: '',
         memberCode: 0
 
     });
 
+ const changeContent = (editor) => {
+    
+    
+ }
+
+
     /* form 데이터 세팅 */   
-     const onChangeHandler = (e) => {
-        setForm({
+    const onChangeHandler = (e) => {
+        const { name, value } = e.target;
+    
+        if (name === 'boardCategory') {
+          const boardCode = setBoardCode(value);
+          setForm({
             ...form,
-            [e.target.name]: e.target.value
-        });
-    };
+            [name]: value,
+            boardCode: boardCode
+          });
+        } else {
+          setForm({
+            ...form,
+            [name]: value
+          });
+        }
+      };
+
+      const setBoardCode = (category) => {  // 카테고리명으로 게시판 코드 조회하기
+        switch (category) {
+          case '공지사항':
+            return 101;
+          case '일반게시판':
+            return 102;
+          case '익명게시판':
+            return 103;
+          case '부서게시판':
+            return 104;
+          default:
+            return '';
+        }
+      };
+
+
+      useEffect(() => {
+        async function fetchMemberInfo() {
+          try {
+            const response = await callPostPostAPI(form.memberCode);
+    
+            if (response.success) {
+              setForm((prev) => ({ ...prev, memberName: response.data.memberName }));
+            } else {
+              console.error('멤버 정보 조회 실패:', response.error);
+            }
+          } catch (error) {
+            console.error('API 호출 중 오류 발생:', error);
+          }
+        }
+    
+        fetchMemberInfo();
+      }, [form.memberCode]);
+    
+
 
     /* form 데이터 */
-    const postPostHandler = () => {
+    const postPostHandler = async () => {
         console.log('postPostHandler');
 
         const formData = new FormData();
@@ -52,6 +105,12 @@ function Posting() {
         formData.append("boardCategory", form.boardCategory);
         formData.append("boardCode", form.boardCode);
         formData.append("memberCode", form.memberCode);
+
+        for(let [name, value] of formData ) {
+            console.log("========",name)
+            console.log("==============",value)
+
+        }
         // append : 필드와 값을 추가하는 메서드 (필드, 값);
 
 
@@ -59,8 +118,8 @@ function Posting() {
             form: formData
         }));
 
-        alert('게시판 목록으로 이동합니다.');
-        navigate('/board/common', { replace:true});
+        alert('작성완료');
+        navigate('/board/common', { replace: true});
         window.location.reload();
 
         
@@ -68,8 +127,6 @@ function Posting() {
 
 
     //=====================================
-
-
 
     //
     const [image, setImage] = useState(null);
@@ -90,7 +147,7 @@ function Posting() {
       ]; 
  
       const quillRef = useRef(null);
-    //   
+    //   ============================
 
     return (
         <>
@@ -100,7 +157,9 @@ function Posting() {
         </div>
         
             <div>
-                <select id="category" className={PostingCSS.category}>
+                <select name="boardCategory" 
+                        className={PostingCSS.category}
+                        onChange={onChangeHandler}>
                     <option value="" >게시판을 선택해주세요</option>
                     <option value="일반게시판" className={PostingCSS.drdown}>일반게시판</option>
                     <option value="익명게시판" className={PostingCSS.drdown}>익명게시판</option>
@@ -112,11 +171,13 @@ function Posting() {
 
         {/* 작성 폼 */}
 
+        
         <input 
         className={PostingCSS.title} 
         placeholder="제목을 입력해주세요."
-        name='postTitle'>
-            
+        name='postTitle'
+        onChange={onChangeHandler}>
+        
         </input>
         <div className={PostingCSS.postmargin}>
             <ReactQuill
@@ -128,8 +189,11 @@ function Posting() {
                         
                     }}
                     theme="snow"
+                    onChange={(value, delta, source,editor)=>{
+                        setForm((prev)=> ({...prev, postContents:editor.getHTML()}))
+                    }}
                     />
-            
+                    
         </div>
         {/*  */}
 
@@ -148,7 +212,6 @@ function Posting() {
         </button>
     </div>
         {/*  */}
-        
         
         </>
     )

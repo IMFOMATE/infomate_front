@@ -3,22 +3,23 @@ import BoardCSS from './Board.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState, useRef } from "react";
+import PostTable from '../../components/board/Post';
 
 import{
     callhBoardViewAPI
 } from '../../apis/BoardAPICalls'
+import NewButton from '../../components/board/NewButton';
 
-function Notice() {
+function NewPost() {
     
-    // 연결
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const boards  = useSelector(state => state.boardReducer);      
-    const boardList = boards?.data; 
+    const board  = useSelector(state => state.boardReducer);      
+    const boardList = board?.data; 
     console.log('boardManagement', boardList);
 
-    // 페이징 
-    const pageInfo = boards.pageInfo;
+    // 페이징
+    const pageInfo = board.pageInfo;
 
     const [start, setStart] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
@@ -34,22 +35,16 @@ function Notice() {
     useEffect(
         () => {
             setStart((currentPage - 1) * 5);            
-            dispatch(callhBoardViewAPI());            
+            dispatch(callhBoardViewAPI({ 
+                currentPage: currentPage} ));
         }
-        ,[]
+        ,[currentPage]
     );
-    // 페이징
-    
-    // 페이지 이동
-    const onClickBoardInsert = () => {
-        console.log('[BoardManagement] onClickBoardInsert');
-        navigate("/board-registration", { replace: false })
-    }
 
-    const onClickTableTr = (boardCode) => {
-        navigate(`/board-update/${boardCode}`, { replace: false });
+    // 게시글페이지
+    const postHandler = (postCode) => {
+        navigate(`/board/post/${postCode}`, { replace: false });
     }
-    //
 
     return (
         <>
@@ -57,36 +52,17 @@ function Notice() {
         <div className={mainCSS.maintitle}>
         <h2>최근 게시글</h2>
         </div>
-
             
-                <button onClick={ onClickBoardInsert }>
-                    <div className={ BoardCSS.newpost }>
-                        글쓰기
-                    </div>  
-                </button>
+            <NewButton />
                       
-            <div className={BoardCSS.bdtable}>
-                <colgroup>
-                    <col width="10%" />
-                    <col width="50%" />
-                    <col width="20%" />
-                    <col width="20%" />
-                    <col width="10%" />
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th className={BoardCSS.bdtable_th}>No.</th>
-                        <th className={BoardCSS.bdtable_th}>제목</th>
-                        <th className={BoardCSS.bdtable_th}>작성자</th>
-                        <th className={BoardCSS.bdtable_th}>작성일</th>
-                        <th className={BoardCSS.bdtable_th}>조회</th>
-                    </tr>
-                </thead>
+            <table className={BoardCSS.bdtable}>
+                <PostTable />
                 <tbody>
-                    { Array.isArray(boardList) && boardList.map((b) => (
+                    { Array.isArray(boardList) && boardList.map((b, index) => (
                         <tr className={BoardCSS.bdtable_tr}
                             key={ b.boardCode }
-                            onClick={ () => onClickTableTr(b.boardCode) }
+                            // key={index}
+                            onClick={ () => postHandler(b.postCode) }
                         >
                             <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postTitle }</td>
@@ -96,22 +72,43 @@ function Notice() {
                         </tr>
                     )) 
                     }
-                </tbody>           
-                         
-            </div>         
+                </tbody>
+            </table>
+                <div style={{ listStyleType: "none", display: "flex", justifyContent: "center"}} >
+                    { Array.isArray(boardList) &&
+                    <button
+                        onClick={() => setCurrentPage(currentPage -1)}
+                        dsabled={currentPage === 1}
+                        className={ BoardCSS.pagination }
+                    >
+                    &lt;
+                    </button>
+                    }
+                    { pageNumber.map((num) => (
+                    <li key={num} onClick={() => setCurrentPage(num)} >
+                        <button
+                            style={ currentPage === num ? { backgroundColor : '#9e88fe', color : 'white'} : null }
+                            className={ BoardCSS.pagination }
+                        >
+                            {num}
+                        </button>
+                    </li>
+                    ))}
+                    { Array.isArray(boardList) &&
+                    <button
+                        className={ BoardCSS.pagination }
+                        onClick={() => setCurrentPage(currentPage +1)}
+                        disabled={ currentPage === pageInfo.pageEnd || pageInfo.total == 0}
+                    >
+                        &gt;
+                        </button>
+                        }
+                </div>
+            
+       
 
-            <div className={BoardCSS.pagination}>
-            <a href="#">&laquo;</a>
-            <a href="#" className={BoardCSS.active}>1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">&raquo;</a>
-            </div>
-                    
         </>
     );
 }
 
-export default Notice;
+export default NewPost;

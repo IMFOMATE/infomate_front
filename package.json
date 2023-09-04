@@ -25,6 +25,7 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^5.8.4",
     "axios": "^1.4.0",
+    "base-64": "^1.0.0",
     "dayjs": "^1.11.9",
     "jquery": "^3.7.0",
     "localforage": "^1.10.0",

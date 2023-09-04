@@ -32,15 +32,26 @@ margin-left: 68%;
 
 
 .uploadBox{
+
+    display: flex;
+
     
-    height: 50px;
     border:1px solid gray;
     
     padding:10px;
-   
-    width: 81%;
+
+    width: 91%;
+
+    height: 100px; /* 텍스트와 파일 드래그 영역을 모두 포함하도록 높이 설정 */
+    overflow-y: auto;
+
+}
+.uploadBox>p {
+
+    display: inline-block;
     
 }
+
 
 .writeContent {
 
@@ -72,32 +83,10 @@ margin-left: 68%;
 
 }
 
-/* .receiver{
-    margin-top: 20px;
-}
-
-.receiver>input {
-    width: 100%;
-    margin-left: 28px;
-    height: 20px;
-    
-}
-
-.reference>input {
-    width: 100%;
-    margin-left: 57px;
-    height: 20px;
-    margin-top: 15px;
-}
-
-.mailTitle>input {
-    width: 100%;
-    margin-left: 57px;
-    height: 20px;
-    margin-top: 15px;
-} */
-
 .attachedFile {
+    display: flex;
+    justify-content: space-between;
+
     margin-top: 20px;
     
 }
@@ -128,13 +117,15 @@ margin-left: 68%;
 
 .titleButton {
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+    
     
 }
 
 
 .content>div {
-    width: 30%;
+    width: 90%;
     padding: 20px;
 }
 
@@ -152,9 +143,57 @@ margin-left: 68%;
 .inputText {
     width: 80%;
     height: 25px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
+.receiver>input {
+    width: 80%;
+}
 
+.receiver{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.reference {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.reference>input {
+    margin-left: 33px;
+}
+
+.mailTitle {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.mailTitle>input {
+    width: 90.5%;
+    margin-left: 0%;    
+
+}
+
+.addressBook {
+
+    width: 79px;
+    height: 33px;
+    justify-content: center;
+    align-items: center;
+    color: bl;
+    font-weight: 600;
+    /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+
+
+
+}
 
 
 

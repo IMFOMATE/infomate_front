@@ -17,16 +17,7 @@ export const callRegistAPI = ({form}) => {
                 "Accept": "*/*",
             },
             body: form
-                // photo: form.contactPhoto,
-                // contactName: form.name,
-                // company: form.company,
-                // department: form.department,
-                // contactEmail: form.email,
-                // contactPhone: form.phone,
-                // companyPhone: form.companyPhone,
-                // companyAddress: form.companyAddress,
-                // memo: form.memo,
-                // contactLike: form.like,
+                
                 
             
         }).then(response => response.json());
@@ -52,11 +43,8 @@ export const callSelectAPI = () => {
             method: "GET",
 
         })
-        .then(response => response.json());
+        .then(response => response.json())
         
-
-        
-
         console.log('[ContactAPICalls] callSelectAPI RESULT  {} : ', result);
 
         dispatch({type: GET_ADDRESSBOOK, payload: result});

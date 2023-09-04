@@ -66,6 +66,8 @@ function AddContact({title}) {
 
     const onClickRegisterHandler = () => {
 
+        console.log('ㅎㅇㅎㅇㅎㅇㅎㅇ');
+
         const formData = new FormData();
         console.log("form", form);
         
@@ -82,15 +84,16 @@ function AddContact({title}) {
         formData.append('contactLike', form.like);  
 
 
-        for(let [name,value] of formData){
-            
-        }
         console.log("ddfsaf",formData);
         
         if(image){
             formData.append("contactPhoto", image);
         }
-
+        
+        for(let [name,value] of formData){
+            console.log('name',name);
+            console.log('vlaue',value);
+        }
 
         navigate("/addressBook");
         dispatch(callRegistAPI({

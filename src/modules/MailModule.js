@@ -5,10 +5,12 @@ const initialState = [];
 
 /* 액션 */
 export const GET_MAIL = 'contact/GET_SELECTMAIL';
+export const POST_MAIL = 'contact/POST_POSTMAIL';
 
 
 const actions = createActions({
     [GET_MAIL]: () => {},
+    [POST_MAIL]: () => {}
    
 })
 
@@ -21,8 +23,10 @@ const mailReducer = handleActions (
 
             return payload
         },
+        [POST_MAIL]: (state, {payload}) => {
 
-  
+            return payload
+        }
     },
     initialState
 

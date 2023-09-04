@@ -37,6 +37,7 @@ import BrdDept from "./pages/board/BrdDept";
 import BrdAdmin from "./pages/board/BrdAdmin";
 import Anony from "./pages/board/Anony";
 import NewPost from "./pages/board/NewPost";
+import MailContactModal from './components/approval/ele-component/contact/MailContactModal';
 
 function App() {
   return (
@@ -65,6 +66,8 @@ function App() {
                 <Route path='readMail' element={<Mail title={"읽은 메일함"} />}/>
                 <Route path='outBox' element={<Mail title={"임시 보관함"} />}/>
                 <Route path='mailWrite' element={<MailWrite />}/>
+                <Route path='asd' element={<MailContactModal />}/>
+
 
                 {/* <Route path='trach' element={<MailTrach} /> */}
 

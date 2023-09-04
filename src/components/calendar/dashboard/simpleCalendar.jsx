@@ -1,4 +1,4 @@
-import styles from './day.module.css'
+import styles from './day.module.css';
 
 export const Day = ({today, value, data, isHeader, isCurMonth, isSun, isSur}) => {
     return (

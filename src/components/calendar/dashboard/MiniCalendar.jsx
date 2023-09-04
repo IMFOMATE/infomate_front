@@ -1,13 +1,13 @@
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 import 'dayjs/locale/ko';
-import { Day } from '../../components/calendar/simpleCalendar/simpleCalendar';
+import { Day } from './simpleCalendar';
 import { useEffect, useState } from "react";
 import styles from './miniCalendar.module.css';
 import { useDispatch, useSelector } from "react-redux";
-import { GET_SCHEDULE_COUNT } from "../../modules/ScheduleMoudule";
-import { getScheduleDayPerCount } from "../../apis/ScheduleAPICalls";
-import { LoadingSpiner } from "../../components/common/other/LoadingSpiner";
+import { GET_SCHEDULE_COUNT } from "../../../modules/ScheduleMoudule";
+import { getScheduleDayPerCount } from "../../../apis/ScheduleAPICalls";
+import { LoadingSpiner } from "../../common/other/LoadingSpiner";
 
 dayjs.locale('ko');
 dayjs.extend(utc);
@@ -17,6 +17,7 @@ const MiniCalendar = () => {
     const [ calendar, setCalendar] = useState([]);
     const [ curMonth, setMonth ] = useState(dayjs());
     const data = useSelector(state => state.scheduleReducer[GET_SCHEDULE_COUNT]);
+    // const scheduleReducer = useSelector(state => state.scheduleReducer);
     const dispatch = useDispatch();
     const startDate = curMonth.startOf("month").startOf('week');
     const endDate = dayjs().clone().endOf("month").endOf('week');

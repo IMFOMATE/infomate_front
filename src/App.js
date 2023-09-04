@@ -38,6 +38,7 @@ import Posting from './pages/board/Posting';
 import UpdateMember from './pages/manage/UpdateMember';
 import DocumentDetail from "./components/approval/ele-component/document/detail/DocumentDetail";
 import PostView from './pages/board/PostView';
+import Main from './pages/home/Main';
 
 function App() {
   return (
@@ -45,13 +46,12 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout/>}>
+            <Route index element={<Main/>}/>
             <Route path="/addressBook" element={<AddressBook />} />
             <Route path="/addContact" element={<AddContact />} />
             {/* <Route path="/mailWrite" element={<MailWrite />} /> */}
             <Route path="/mail" element={<Mail />} />
             {/* <Route path="/board" element={<BoardMain />}></Route> */}
-
-
             
             <Route path="approval">
               <Route index element={<ApprovalMain/>}/>
@@ -66,12 +66,10 @@ function App() {
               </Route>
             </Route>
 
-
             <Route path="calendar" element={<CalendarLayout />}>
               <Route index element={<Calendar/>}/>
               <Route path="reminder" element={<ReminderList />} />  
               <Route path="regist" element={<ScheduleDetailCreate/>} />
-              <Route path="test" element={<ReminderList/>} />
                 <Route path="management" element={<CalendarManegeLayout/>}>
                 <Route index element={<MyCalendar />}/>
                 <Route path="myPage" element={<MyCalendar />}/> 

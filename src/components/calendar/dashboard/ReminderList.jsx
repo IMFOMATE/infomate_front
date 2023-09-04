@@ -16,7 +16,7 @@ const ReminderList = () => {
 
     const data = useSelector(state => state.scheduleReducer[GET_SCHEDULE_REMINDER]);
     const dispath = useDispatch();
-    const today = dayjs();
+
     useEffect(()=>{
         if(data) return;
         dispath(getScheduleReminder());
@@ -25,28 +25,25 @@ const ReminderList = () => {
 
     if(!data) return <LoadingSpiner />
 
-    console.log(data.data.length);
-
-    
     return (
-        <div style={{margin:100}}>
         <div className={styles.container}>
-            {
-                data.data?.map((item, index) => 
-                    <ReminderSchedule 
-                        key={index} 
-                        toDay={dayjs(item.startDate)} 
-                        title={item.title} 
-                        date={`${dayjs(item.startDate).format('MM-DD HH:mm')} ~ ${dayjs(item.endDate).format('MM-DD HH:mm')}`}
-                    />
-                )
-            }
-            {
-                Array(3 - data.data.length).fill(0).map((item, index)=>
-                    <ReminderSchedule key={index} toDay={dayjs().add(index+1,'day')} />
-                )
-            }
-        </div>
+            <div>
+                {
+                    data.data?.map((item, index) => 
+                        <ReminderSchedule 
+                            key={index} 
+                            toDay={dayjs(item.startDate)} 
+                            title={item.title} 
+                            date={`${dayjs(item.startDate).format('MM-DD HH:mm')} ~ ${dayjs(item.endDate).format('MM-DD HH:mm')}`}
+                        />
+                    )
+                }
+                {
+                    Array(3 - data.data.length).fill(0).map((item, index)=>
+                        <ReminderSchedule key={index} toDay={dayjs().add(index+1,'day')} />
+                    )
+                }
+            </div>
         </div>
     )
 }

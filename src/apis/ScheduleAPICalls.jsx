@@ -5,6 +5,7 @@ import {
     PATCH_SCHEDULE,
     DELETE_SCHEDULE,
     GET_SCHEDULE_COUNT,
+    GET_SCHEDULE_REMINDER,
 } from '../modules/ScheduleMoudule';
 import { PROTOCOL, SERVER_IP, SERVER_PORT, MEMBER_CODE} from './APIConfig';
 import dayjs from 'dayjs';
@@ -25,6 +26,24 @@ export const getScheduleDayPerCount = ({startDay, endDay}) => {
 
         if(result?.status === 200) {
             dispatch({ type: GET_SCHEDULE_COUNT,  payload: result });
+            return ;
+        }
+        
+        message.error("알수 없는 에러가 발생했습니다.")    
+    };
+}
+
+export const getScheduleReminder = () => {
+
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/reminder/${MEMBER_CODE}`;
+
+    return async (dispatch, getState) => {
+        const result = await axios.get(requestURL)
+                    .then(res => res.data)
+                    .catch(err => err);
+
+        if(result?.status === 200) {
+            dispatch({ type: GET_SCHEDULE_REMINDER,  payload: result });
             return ;
         }
         

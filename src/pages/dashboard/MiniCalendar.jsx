@@ -51,14 +51,6 @@ const MiniCalendar = () => {
                 <div>
                     { curMonth.format('YYYY. MM') }
                 </div>
-                {/* <div>
-                    <button onClick={prevOnClickHandler}>
-                        <span className={meterialIcon.meterialIcon}>navigate_before</span>
-                    </button>
-                    <button onClick={nextOnClickHandler}>
-                        <span className={meterialIcon.meterialIcon}>navigate_next</span>
-                    </button>
-                </div> */}
             </div>
 
             <table>

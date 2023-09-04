@@ -1,0 +1,19 @@
+.container {
+    /* width: 200px;
+    height: 300px; */
+    /* border: 1px solid black; */
+    display: inline-block;
+    padding: 10px;
+    margin: 50px;
+    box-shadow: 0 0 5px 5px rgba(200, 200, 200, 0.3);
+}
+
+.header{
+    display: flex;
+    justify-content: center;
+}
+
+.header > div:nth-child(2){
+    text-align: right;
+}
+

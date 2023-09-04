@@ -1,0 +1,53 @@
+.dayContainer {
+    /* min-width: 30px; */
+    min-width: 35px;
+    /* max-width: 30px;
+    max-height: 30px; */
+    height: 40px;
+    /* min-height: 30px; */
+    /* border: 1px solid black; */
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+}
+
+.dayContainer > button {
+    font-size: 0.9rem;
+}
+
+.notCurMonth > button {
+    color: grey;
+}
+
+.today{
+    width: 100%;
+    height: 90%;
+    color: white;
+    font-weight: 600;
+    background-color: var(--color-middle);
+    border-radius: 40px;
+}
+
+.count {
+    background-color: rgb(220, 220, 220);
+    width: 15px;
+    font-size: 0.5rem;
+    border-radius: 20px;
+    z-index: 99;
+    position: absolute;
+    top: 3.5px;
+    right: 3px;
+}
+
+.countToday{
+    background-color: white;
+}
+
+.sun {
+    color: red !important;
+}
+.sur {
+    color: blue !important;
+}

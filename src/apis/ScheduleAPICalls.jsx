@@ -4,6 +4,7 @@ import {
     POST_SCHEDULE_REGIT,
     PATCH_SCHEDULE,
     DELETE_SCHEDULE,
+    GET_SCHEDULE_COUNT,
 } from '../modules/ScheduleMoudule';
 import { PROTOCOL, SERVER_IP, SERVER_PORT, MEMBER_CODE} from './APIConfig';
 import dayjs from 'dayjs';
@@ -11,6 +12,25 @@ import utc from 'dayjs/plugin/utc';
 import { message } from 'antd';
 
 dayjs.extend(utc);
+
+
+export const getScheduleDayPerCount = ({startDay, endDay}) => {
+
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/dayCount/${MEMBER_CODE}?startDay=${startDay.format('YYYY-MM-DD')}&endDay=${endDay.format('YYYY-MM-DD')}`;
+
+    return async (dispatch, getState) => {
+        const result = await axios.get(requestURL)
+                    .then(res => res.data)
+                    .catch(err => err);
+
+        if(result?.status === 200) {
+            dispatch({ type: GET_SCHEDULE_COUNT,  payload: result });
+            return ;
+        }
+        
+        message.error("알수 없는 에러가 발생했습니다.")    
+    };
+}
 
 export const getScheduleDetail = ({scheduleId}) => {
 
@@ -92,6 +112,5 @@ export const deleteSchedule = ({scheduleId}) => {
         } 
         
         message.error("변경에 실패 했습니다")
-    
     };
 }

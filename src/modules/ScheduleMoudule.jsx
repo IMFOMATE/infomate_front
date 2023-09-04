@@ -4,6 +4,7 @@ const initialState = [];
 
 export const GET_SCHEDULE_FINDALL = 'SCHEDULE/GET_FINDALL'
 export const GET_SCHEDULE_DETAIL = 'SCHEDULE/GET_DETAIL'
+export const GET_SCHEDULE_COUNT = 'SCHEDULE/GET_DAYCOUNT'
 export const POST_SCHEDULE_REGIT = 'SCHEDULE/POST_REGIT'
 export const PATCH_SCHEDULE = 'SCHEDULE/PATCH'
 export const PUT_SCHEDULE = 'SCHEDULE/PUT'
@@ -21,6 +22,9 @@ const scheduleReducer = handleActions({
         [GET_SCHEDULE_DETAIL]: (state, { payload }) => ({
            ...state, [GET_SCHEDULE_DETAIL] : payload
         }),
+        [GET_SCHEDULE_COUNT]: (state, { payload }) => ({
+            ...state, [GET_SCHEDULE_COUNT] : payload
+         }),
         [POST_SCHEDULE_REGIT]: (state, { payload }) => ({
             ...state, [POST_SCHEDULE_REGIT] : payload
         }),

@@ -38,6 +38,7 @@ import Posting from './pages/board/Posting';
 import UpdateMember from './pages/manage/UpdateMember';
 import DocumentDetail from "./components/approval/ele-component/document/detail/DocumentDetail";
 import PostView from './pages/board/PostView';
+import MiniCalendar from './pages/dashboard/MiniCalendar';
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function App() {
               <Route index element={<Calendar/>}/>
               <Route path="reminder" element={<ReminderList />} />  
               <Route path="regist" element={<ScheduleDetailCreate/>} />
+              <Route path="test" element={<MiniCalendar/>} />
                 <Route path="management" element={<CalendarManegeLayout/>}>
                 <Route index element={<MyCalendar />}/>
                 <Route path="myPage" element={<MyCalendar />}/> 

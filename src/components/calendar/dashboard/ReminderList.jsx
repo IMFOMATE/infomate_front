@@ -37,12 +37,15 @@ const ReminderList = () => {
                     Array(3).fill(0).map((item, index) => {
                     const day = dayjs().add(index,'day')     
                     const isSameItem = data.data
-                    .filter(item => dayjs(dayjs(item.startDate).format('YYYY-MM-DD')).isSame(dayjs(day).format('YYYY-MM-DD')))
-                    .map(item => item)[0];
+                            .filter(item => 
+                                dayjs(dayjs(item.startDate).format('YYYY-MM-DD')).isSame(dayjs(day).format('YYYY-MM-DD')))
+                            .map(item => item)[0];
                     return <ReminderSchedule 
                             toDay={day} 
                             title={isSameItem?.title} 
-                            date={ (isSameItem?.startDate || isSameItem?.endDate) && `${dayjs(isSameItem?.startDate).format('MM-DD HH:mm')} ~ ${dayjs(isSameItem?.endDate).format('MM-DD HH:mm')}`}
+                            date={ (isSameItem?.startDate || isSameItem?.endDate) 
+                                && `${dayjs(isSameItem?.startDate).format('MM-DD HH:mm')} 
+                                ~ ${dayjs(isSameItem?.endDate).format('MM-DD HH:mm')}`}
                         />
                 })
                 }

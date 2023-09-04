@@ -16,7 +16,7 @@ const ApprovalMain = () => {
 
 
   useEffect(() => {
-        dispatch(getMainAPI({memberCode:process.env.REACT_APP_TEST_MEMBER_CODE}));
+        dispatch(getMainAPI({memberCode:43}));
       },[]
   );
 

@@ -18,7 +18,7 @@ function VacationDetail({data}) {
               <div className={style.inline}>
                 {
                   data.approvalList.length !== 0 ?
-                      data.approvalList.map((data, index) => <Credit key={index} text={data.memberName} rank={data.rankName} approvalDate={data?.approvalDate} />)
+                      data.approvalList.map((data, index) => <Credit key={index} text={data.memberName} rank={data.rankName} approvalDate={data?.approvalDate} approvalStatus={data.approvalStatus} />)
                       : ""
                 }
               </div>

@@ -21,7 +21,7 @@ function CreditModal({documentId, doctitle, title, content, isOpen, onClose}) {
   };
 
   const handleRejection = () => {
-    dispatch(rejectAPI(fetchData));
+    dispatch(rejectAPI({fetchData}));
     onClose();
   };
 

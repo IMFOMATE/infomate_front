@@ -4,7 +4,7 @@ import btCss from '../common/DocButtons.module.css';
 import {useNavigate} from "react-router-dom";
 
 
-function DetailButton({condition, isOpen}) {
+function DetailButton({condition, isOpen, reapply}) {
   const navigate = useNavigate();
 
 
@@ -31,7 +31,7 @@ function DetailButton({condition, isOpen}) {
         )}
         {condition.isDept && (
             <>
-              <ButtonOutline value="재기안" style={style} onClick={() => {}} />
+              <ButtonOutline value="재기안" style={style} onClick={reapply} />
             </>
         )}
         <ButtonOutline value="목록" style={style} onClick={() => {}}/>

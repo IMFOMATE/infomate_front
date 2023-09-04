@@ -2,7 +2,7 @@ import axios from "axios";
 import {POST_APPROVE, POST_REJECT} from "../modules/approval/ApprovalModuels";
 
 
-export const rejectAPI = ({comment}) => {
+export const rejectAPI = ({fetchData}) => {
 
   const requestURL = `http://localhost:8989/approval/reject`;
   const headers = {
@@ -11,7 +11,7 @@ export const rejectAPI = ({comment}) => {
 
     return async (dispatch, getState)  => {
 
-    const result = await axios.patch(requestURL,comment, {
+    const result = await axios.patch(requestURL,fetchData, {
       headers:headers
     })
         .then(res => res.data)

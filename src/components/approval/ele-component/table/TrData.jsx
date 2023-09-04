@@ -1,6 +1,6 @@
 import React from 'react';
 import ApprovalTableCss from "./ApprovalTable.module.css";
-import {formatStatus} from "../common/dataUtils";
+import {formatApprovalDate, formatStatus} from "../common/dataUtils";
 import {Link} from "react-router-dom";
 import Status from "./Status";
 
@@ -15,7 +15,7 @@ function TrData({list}) {
       <td className={`${ApprovalTableCss.list_td} ${ApprovalTableCss.t_title}`}>
         <Link to={`/approval/document/${list.id}`}>{list.title}</Link>
       </td>
-      <td className={`${ApprovalTableCss.list_td} ${ApprovalTableCss.last}`}>{list.createdDate}</td>
+      <td className={`${ApprovalTableCss.list_td} ${ApprovalTableCss.last}`}>{formatApprovalDate(list.createdDate)}</td>
     </tr>
   );
 }

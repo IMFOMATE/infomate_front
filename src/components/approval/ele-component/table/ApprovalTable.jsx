@@ -38,9 +38,6 @@ function ApprovalTable({title, data}) {
     );
   }
 
-  console.log(data.length)
-
-
 
   return (
     <section>
@@ -61,9 +58,6 @@ function ApprovalTable({title, data}) {
           }
           </tbody>
         </table>
-        {
-
-        }
       </div>
     </section>
   );

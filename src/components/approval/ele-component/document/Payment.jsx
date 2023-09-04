@@ -24,12 +24,10 @@ import {
   showValidationAndConfirm
 } from "../common/dataUtils";
 
-function Payment() {
+function Payment({documentData}) {
   const treeview = useSelector(state => state.departmentReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
-  const {name, type} = location.state;
   const { data, setData } = usePaymentDataContext();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -110,7 +108,10 @@ function Payment() {
   };
 
   // 임시저장 api
-  const handleTemp = () => {};
+  const handleTemp = () => {
+    const formData = createFormData();
+    requestApproval(formData);
+  };
 
   const handleChoice = toggleModal;  //결재선 지정 모달
   const cancelAction = () => navigate("/approval");
@@ -172,14 +173,13 @@ function Payment() {
         <div className={style.container}>
           <div className={style.docs}>
             <div className={style.doc}>
-              <h2 className={style.doc_title}>{name}</h2>
+              <h2 className={style.doc_title}></h2>
               <div className={style.doc_top}>
                 <WriterInfo writer={writer} start={new Date()}/>
                 <div className={style.inline}>
                   {
                     data.approvalList.length !== 0 ?
-                        data.approvalList.map((data, index) => <Credit key={data.memberCode} text={data?.text} rank={data.data.rank} approvalDate={data?.approvalDate} />)
-                        : ""
+                        data.approvalList.map((data, index) => <Credit key={data.memberCode} text={data?.text} rank={data.data.rank} approvalDate={data?.approvalDate} approvalStatus={data?.approvalStatus} />)                        : ""
                   }
                 </div>
               </div>

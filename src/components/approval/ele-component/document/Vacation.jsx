@@ -167,8 +167,7 @@ function Vacation() {
                 <div className={style.inline}>
                   {
                     data.approvalList.length !== 0 ?
-                        data.approvalList.map((data, index) => <Credit key={data.memberCode} text={data.text} rank={data.data.rank} approvalDate={data?.approvalDate} />)
-                        : ""
+                        data.approvalList.map((data, index) => <Credit key={data.memberCode} text={data?.text} rank={data.data.rank} approvalDate={data?.approvalDate} approvalStatus={data?.approvalStatus} />)                        : ""
                   }
                 </div>
               </div>

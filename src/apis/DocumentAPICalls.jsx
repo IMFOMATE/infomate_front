@@ -77,9 +77,9 @@ export const vacationRegistAPI = (form)=>{
 };
 
 //지출승인서
-export const paymentRegistAPI = (form)=>{
+export const paymentRegistAPI = (form, temp)=>{
 
-  const requestURL = `http://localhost:8989/document/regist/payment`;
+  const requestURL = `http://localhost:8989/document/regist/payment?temp=${temp}`;
 
   return async (dispatch, getState)  => {
 
@@ -89,7 +89,6 @@ export const paymentRegistAPI = (form)=>{
     if(result.status === 200){
       dispatch({type: POST_PAYMENT, payload: result.data});
     }
-
 
   };
 };

@@ -59,6 +59,7 @@ function App() {
               <Route path="ref" element={<MyDocList />}/> {/*참조문서리스트*/}
               <Route path="temporary" element={<MyDocList />} /> {/*임시저장문서리스트*/}
               <Route path="credit" element={<MyDocList/>}/> {/*결재 대기문서리스트*/}
+              <Route path="dept" element={<MyDocList/>}/>
               <Route path="document">
                 <Route path="new" element={<DocumentMain/>}/>
                 <Route path=":documentId" element={<DocumentDetail/>}/> {/* 문서 조회 */}

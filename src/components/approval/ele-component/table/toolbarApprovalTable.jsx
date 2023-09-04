@@ -2,6 +2,7 @@ import React from 'react';
 import ApprovalTableCss from "./ApprovalTable.module.css";
 import ApprovalTable from "./ApprovalTable";
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
+import Pagenation from "../common/Pagenation";
 
 
 
@@ -11,30 +12,23 @@ function ToolbarApprovalTable({documentData, pageHandler, filter}) {
   const {pathname} = useLocation()
   const path = pathname.split("/")[2];
 
-  const navigate = useNavigate();
   const pageInfo = documentData?.pageInfo;
   const documents = documentData?.data;
 
+  console.log(documents);
+  console.log(pageInfo);
   const handleFilterChange = (event) => {
     const selectedFilter = event.target.dataset.type;
     searchParams.set("status", selectedFilter);
     setSearchParams(searchParams);
   };
 
-  const pageNumber = [];
-
-  if(pageInfo){
-    for(let i = 1; i <= pageInfo.pageEnd ; i++){
-      pageNumber.push(i);
-    }
-  }
-
 
   return (
     <div className={ApprovalTableCss.container}>
       <ul className={ApprovalTableCss.toolbar}>
         {
-          path === 'temporary' || path === 'credit' ? ''
+          path === 'temporary' || path === 'credit' || path === 'dept'? ''
           :
           filterState.map((value, index) =>
             <li
@@ -49,34 +43,7 @@ function ToolbarApprovalTable({documentData, pageHandler, filter}) {
         }
       </ul>
       <ApprovalTable data={documents}/>
-      <div style={{ listStyleType: "none", display: "flex", justifyContent: "center" }}>
-        { Array.isArray(documents) &&
-            <button
-                onClick={() => navigate()}
-                disabled={pageInfo.cri.pageNum === 1}
-            >
-              &lt;
-            </button>
-        }
-        {pageNumber.map((num) => (
-            <li key={num} onClick={() => pageHandler(num)}>
-              <button
-                  style={ pageInfo.cri.pageNum === num ? {backgroundColor : 'orange' } : null}
-              >
-                {num}
-              </button>
-            </li>
-        ))}
-        { Array.isArray(documents) &&
-            <button
-                // className={ ReviewCSS.pagingBtn }
-                onClick={() => pageHandler(pageInfo.cri.pageNum + 1)}
-                disabled={pageInfo.cri.pageNum === pageInfo.pageEnd || pageInfo.total === 0}
-            >
-              &gt;
-            </button>
-        }
-      </div>
+      <Pagenation pageInfo={pageInfo} onPageChange={pageHandler} />
     </div>
   );
 }

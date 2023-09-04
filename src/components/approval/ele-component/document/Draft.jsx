@@ -16,12 +16,11 @@ import {draftRegistAPI} from "../../../../apis/DocumentAPICalls";
 import {handleCancel, isValid, showValidationAndConfirm} from "../common/dataUtils";
 
 
-function Draft() {
+function Draft({documentData}) {
   const treeview = useSelector(state => state.departmentReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const {name} = location.state;
   const { data, setData } = useDraftDataContext();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,7 +30,13 @@ function Draft() {
     if (isModalOpen){
       dispatch(treeviewAPI());
     }
-  },[isModalOpen]);
+    if(documentData){
+      setData(documentData);
+    }
+
+  },[documentData, isModalOpen]);
+
+  console.log(data)
 
   // 데이터 핸들러
   const onChangeHandler = (e) => {
@@ -99,7 +104,9 @@ function Draft() {
   };
   
   // 임시저장 api
-  const handleTemp = () => {};
+  const handleTemp = () => {
+
+  };
 
   const handleChoice = toggleModal;  //결재선 지정 모달
   const cancelAction = () => navigate("/approval");
@@ -135,13 +142,13 @@ function Draft() {
         <div className={style.container}>
           <div className={style.docs}>
             <div className={style.doc}>
-              <h2 className={style.doc_title}>{name}</h2>
+              <h2 className={style.doc_title}>{}</h2>
               <div className={style.doc_top}>
                 <WriterInfo writer={writer} start={new Date()}/>
                 <div className={style.inline}>
                   {
                     data.approvalList.length !== 0 ?
-                        data.approvalList.map((data, index) => <Credit key={data.memberCode} text={data?.text} rank={data.data.rank} approvalDate={data?.approvalDate} />)
+                        data.approvalList.map((data, index) => <Credit key={data.memberCode} text={data?.text} rank={data.data.rank} approvalDate={data?.approvalDate} approvalStatus={data.approvalStatus} />)
                         : ""
                   }
                 </div>

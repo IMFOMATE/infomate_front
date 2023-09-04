@@ -60,6 +60,17 @@ function DocumentDetail() {
   // console.log(documentData)
 
 
+  const reApprove = () => {
+
+    navigate(`/approval/document/${documentId}/reapply`,{
+      state:{
+        name: '',
+        type: documentData.documentKind.toLowerCase(),
+        documentData: documentData
+      }
+    });
+
+  };
 
   // 문서 종류별 세부 컴포넌트를 매핑하는 객체
   const documentComponents = {
@@ -72,9 +83,9 @@ function DocumentDetail() {
 
 
   //임시저장상태면 input 태그여야하니까
-  // if(documentData.documentStatus === "TEMPORARY"){
-  //
-  // }
+  if(documentData?.documentStatus === "TEMPORARY"){
+
+  }
 
 
   return (
@@ -91,7 +102,11 @@ function DocumentDetail() {
                 <h2>{documentData.title}</h2>
               </div>
               <div className={styles.doc_wrapper}>
-                  <DetailButton condition={documentData.condition} isOpen={handleApproval} />
+                  <DetailButton
+                      condition={documentData.condition}
+                      isOpen={handleApproval}
+                      reapply={reApprove}
+                  />
                 {selectedComponent}
               </div>
               {modalData.isOpen && (

@@ -7,9 +7,8 @@ dayjs.locale('ko');
 dayjs.extend(utc);
 
 const RemiderSchedule = ({toDay, title, date}) => {
-
     const week = ['일','월','화','수','목','금','토'];
-    const dayOfWeek = week[toDay.format('D')];
+    const dayOfWeek = toDay.format('dddd')
     const className = [
         styles.container,
         dayjs(dayjs().format('YYYY-MM-DD')).isSame(toDay.format('YYYY-MM-DD')) && styles.today
@@ -22,7 +21,7 @@ const RemiderSchedule = ({toDay, title, date}) => {
                 <div>
                     <div className={styles.day}>
                         <div style={{fontSize:'1rem'}}>{toDay.format('D')}</div>
-                        <div>{dayOfWeek+'요일'}</div>
+                        <div>{dayOfWeek}</div>
                     </div>
                     <div className={styles.content}>
                         <div style={{fontWeight:700}}>{title}</div>

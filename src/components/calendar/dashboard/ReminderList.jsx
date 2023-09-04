@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './reminderList.module.css';
 import ReminderSchedule from './ReminderSchedule';
-import { GET_SCHEDULE_REMINDER } from '../../../modules/ScheduleMoudule';
+import { DELETE_SCHEDULE, GET_SCHEDULE_REMINDER, PATCH_SCHEDULE, POST_SCHEDULE_REGIT } from '../../../modules/ScheduleMoudule';
 import { useEffect } from 'react';
 import { getScheduleReminder } from '../../../apis/ScheduleAPICalls';
 import { LoadingSpiner } from '../../common/other/LoadingSpiner';
@@ -15,13 +15,18 @@ dayjs.extend(utc);
 const ReminderList = () => {
 
     const data = useSelector(state => state.scheduleReducer[GET_SCHEDULE_REMINDER]);
+    const scheduleReducer = useSelector(state => state.scheduleReducer);
     const dispath = useDispatch();
 
     useEffect(()=>{
-        if(data) return;
+        // if(data) return;
         dispath(getScheduleReminder());
 
-    },[data])
+    },[
+        scheduleReducer[POST_SCHEDULE_REGIT],
+        scheduleReducer[PATCH_SCHEDULE],
+        scheduleReducer[DELETE_SCHEDULE],
+    ])
 
     if(!data) return <LoadingSpiner />
 
@@ -29,19 +34,17 @@ const ReminderList = () => {
         <div className={styles.container}>
             <div>
                 {
-                    data.data?.map((item, index) => 
-                        <ReminderSchedule 
-                            key={index} 
-                            toDay={dayjs(item.startDate)} 
-                            title={item.title} 
-                            date={`${dayjs(item.startDate).format('MM-DD HH:mm')} ~ ${dayjs(item.endDate).format('MM-DD HH:mm')}`}
+                    Array(3).fill(0).map((item, index) => {
+                    const day = dayjs().add(index,'day')     
+                    const isSameItem = data.data
+                    .filter(item => dayjs(dayjs(item.startDate).format('YYYY-MM-DD')).isSame(dayjs(day).format('YYYY-MM-DD')))
+                    .map(item => item)[0];
+                    return <ReminderSchedule 
+                            toDay={day} 
+                            title={isSameItem?.title} 
+                            date={ (isSameItem?.startDate || isSameItem?.endDate) && `${dayjs(isSameItem?.startDate).format('MM-DD HH:mm')} ~ ${dayjs(isSameItem?.endDate).format('MM-DD HH:mm')}`}
                         />
-                    )
-                }
-                {
-                    Array(3 - data.data.length).fill(0).map((item, index)=>
-                        <ReminderSchedule key={index} toDay={dayjs().add(index+1,'day')} />
-                    )
+                })
                 }
             </div>
         </div>

@@ -114,7 +114,7 @@ function Vacation() {
 
 
     console.log(data);
-    const validationResult = isValid(data);
+    const validationResult = isValid(data,true,true);
 
     showValidationAndConfirm(
         validationResult, data.approvalList.length,

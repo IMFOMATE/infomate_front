@@ -26,6 +26,10 @@
     flex-basis: 700px;
 }
 
+.modal_downsize{
+    height: 400px;
+}
+
 .close {
     position: absolute;
     right: 10px;
@@ -62,4 +66,20 @@
 
 .open{
     display: block;
+}
+
+.textarea{
+    resize: none;
+    width: 100%;
+    border-radius: 10px;
+    border: 2px var(--color-hard) solid;
+    padding: 10px;
+}
+
+.title > span:first-child{
+    margin-right: 20px;
+}
+
+.title > p:first-child{
+    padding-bottom: 5px;
 }

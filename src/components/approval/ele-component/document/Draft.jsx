@@ -79,7 +79,7 @@ function Draft() {
     formData.append("content", data.content);
     formData.append("emergency", data.emergency ?? "N");
     formData.append("coDept", data.coDept);
-    formData.append("startDate", data.startDate);
+    formData.append("startDate", data.startDate + ' 00:00:00');
 
     return formData;
   };
@@ -87,7 +87,7 @@ function Draft() {
   //유효성 및 결재 요청
   const handleRequest = () => {
 
-    const validationResult = isValid(data,true);
+    const validationResult = isValid(data,true, false);
 
     showValidationAndConfirm(
         validationResult, data.approvalList.length,

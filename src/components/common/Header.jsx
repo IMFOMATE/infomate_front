@@ -15,7 +15,6 @@ import WorkNav from '../../pages/work/WorkNav';
 
 
 function Header() {
-    const {currentTitle, toggleTitle } = useContext(CurrentTitleContext);
     const {menuState, toggleMenu} = useContext(MenuContext);
 
 

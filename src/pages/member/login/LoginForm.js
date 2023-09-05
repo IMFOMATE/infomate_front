@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from "react-router-dom";
 import { callLoginAPI } from '../../../apis/MemberAPICalls';
+import { POST_LOGIN } from '../../../modules/MemberModule';
 
 function LoginForm() {
     const navigate = useNavigate();
@@ -11,8 +12,8 @@ function LoginForm() {
     const loginMember = useSelector(state => state.memberReducer);
 
     const [form, setForm] = useState({
-        memberID: '',
-        memberPassword: ''
+        memberId: '',
+        memberPassword: '',
     });
 
     useEffect(() => {
@@ -20,6 +21,21 @@ function LoginForm() {
         if (loginMember.status === 200) {
             console.log("[Login] Login SUCCESS", loginMember);
             navigate("/main", { replace: true });
+            
+            alert(loginMember.data.memberName + "님 환영합니다.");
+
+            // console.log(loginMember.data);
+
+            localStorage.setItem('authToken', loginMember.data.token);
+
+            // dispatch({
+            //     type: POST_LOGIN,
+            //     payload: loginMember.data,
+            // });
+
+        } else if (loginMember.status === 400) {
+            console.log("[Login] Login FAILED: Incorrect id or password");
+            alert(loginMember.message);
         }
     }, [loginMember]);
 
@@ -44,6 +60,12 @@ function LoginForm() {
         }));
     };
 
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            onClickLoginHandler();
+        }
+    }
+
     return (
         <div className={LoginStyle.wrapper}>
             <div className={LoginStyle.alignForm}>
@@ -58,6 +80,7 @@ function LoginForm() {
                         required
                         placeholder="사번"
                         onChange={onChangeHandler}
+                        onKeyUp={handleKeyPress}
                     />
                 </div>
                 <div>
@@ -69,6 +92,7 @@ function LoginForm() {
                         required
                         placeholder="비밀번호"
                         onChange={onChangeHandler}
+                        onKeyUp={handleKeyPress}
                     />
                 </div>
                 <div>

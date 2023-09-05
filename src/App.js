@@ -41,6 +41,7 @@ import Posting from './pages/board/Posting';
 import DocumentDetail from "./components/approval/ele-component/document/detail/DocumentDetail";
 import LoginForm from "./pages/member/login/LoginForm";
 import Main from './pages/home/Main';
+import Register from './pages/member/login/Register';
 
 function App() {
   return (
@@ -52,8 +53,9 @@ function App() {
 
           <Route path="/" element={<Layout/>}>
 
-            <Route path='main'>
+            <Route path="main">
               <Route index element={<Main/>}/>
+              <Route path="regist-member" element={<Register/>}/>
             </Route>
 
             <Route path="/addressBook" element={<AddressBook />} />

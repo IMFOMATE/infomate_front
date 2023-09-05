@@ -1,8 +1,7 @@
 import React from 'react';
 import style from "../../../../pages/approval/DocumentMain.module.css";
 
-function PaymentList({key, payment, onUpdate }) {
-
+export function PaymentList({key, payment, onUpdate }) {
 
   return (
       <tr key={key}>

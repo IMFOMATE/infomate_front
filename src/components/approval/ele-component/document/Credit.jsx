@@ -4,7 +4,6 @@ import {formatApprovalDate, shortFormatApprovalDate} from "../common/dataUtils";
 function Credit({key, text, rank, approvalDate, approvalStatus}) {
   const formattedDate = approvalDate ? formatApprovalDate(approvalDate) : null;
 
-  console.log(approvalStatus)
   return (
       <div key={key} className={style.credit} >
         <p>{rank }</p>

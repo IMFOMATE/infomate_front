@@ -7,6 +7,7 @@ import ButtonInline from "../../../../common/button/ButtonInline";
 import PaymentList from "../PaymentList";
 import DocFile, {DocFileSpan} from "../../common/DocFile";
 import DocumentSide from "../DocumentSide";
+import PaymentSpan from "../PaymentSpan";
 
 function PaymentDetail({data}) {
   return (
@@ -60,7 +61,11 @@ function PaymentDetail({data}) {
                 <tr>
                   <td className={style.tds}>지출사유</td>
                   <td colSpan={3}>
-                    {/*<textarea className={style.textarea} name="content" cols="30" rows="10" onChange={onChangeHandler}/>*/}
+                    <textarea
+                        className={style.textarea}
+                        name="content" cols="30" rows="10"
+                        value={data.content || ''}
+                    />
                   </td>
                 </tr>
                 </tbody>
@@ -82,14 +87,12 @@ function PaymentDetail({data}) {
                   </tr>
                   </thead>
                   <tbody>
-                  {/*{*/}
-                  {/*  data.paymentList.map((value, index)=>*/}
-                  {/*      <PaymentList*/}
-                  {/*          key={index}*/}
-                  {/*          payment={value}*/}
-                  {/*          onUpdate={(field, value)=> handleInputChange(index, field, value)}*/}
-                  {/*      />)*/}
-                  {/*}*/}
+                  {
+                    data.paymentList.map((value, index)=>
+                        <PaymentSpan paymentList={value}/>
+
+                    )
+                  }
                   </tbody>
                   <tfoot>
                   {/*<tr>*/}

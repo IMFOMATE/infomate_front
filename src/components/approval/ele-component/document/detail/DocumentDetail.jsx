@@ -6,19 +6,21 @@ import DraftDetail from "./DraftDetail";
 import VacationDetail from "./VacationDetail";
 import PaymentDetail from "./PaymentDetail";
 import {useDispatch, useSelector} from "react-redux";
-import {getDocumentDetailAPI} from "../../../../../apis/DocumentAPICalls";
+import {deleteDocumentAPI, getDocumentDetailAPI} from "../../../../../apis/DocumentAPICalls";
 import { FadeLoader } from "react-spinners";
 import loadingCss from '../../../../../pages/calendar/loadingStyle.module.css';
 import DetailButton from "../../buttons/DetailButton";
 import CreditModal from "../../modal/CreditModal";
 import {POST_APPROVE, POST_REJECT, POST_TEMP} from "../../../../../modules/approval/ApprovalModuels";
-import {GET_DETAIL} from "../../../../../modules/approval/DocumentModuels";
+import {DELETE_DOCUMENT, GET_DETAIL} from "../../../../../modules/approval/DocumentModuels";
+import {handleDelete} from "../../common/dataUtils";
 
 function DocumentDetail() {
   let { documentId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const documentData = useSelector(state => state.documentsReducer[GET_DETAIL]);
+  const deleteData = useSelector(state => state.documentsReducer[DELETE_DOCUMENT]);
   const approvalReducer = useSelector(state => state.approvalReducer);
 
   const [modalData, setModalData] = useState({
@@ -69,8 +71,14 @@ function DocumentDetail() {
         documentData: documentData
       }
     });
-
   };
+
+
+  const deleteDocument = () => {
+    dispatch(deleteDocumentAPI({documentCode: documentId}));
+    navigate('/approval');
+
+  }
 
   // 문서 종류별 세부 컴포넌트를 매핑하는 객체
   const documentComponents = {
@@ -106,6 +114,7 @@ function DocumentDetail() {
                       condition={documentData.condition}
                       isOpen={handleApproval}
                       reapply={reApprove}
+                      deleteDoc={()=> handleDelete(deleteDocument)}
                   />
                 {selectedComponent}
               </div>

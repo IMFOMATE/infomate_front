@@ -18,3 +18,7 @@
   background-color: var(--color-hard);
   color: #ffffff;
 }
+
+.page{
+  cursor: pointer;
+}

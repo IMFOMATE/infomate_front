@@ -2,12 +2,12 @@ import {NavigateBefore, NavigateNext} from "@mui/icons-material";
 import styles from './Pagenation.module.css';
 
 function Pagenation({ pageInfo, onPageChange }) {
-  const currentPage = pageInfo?.cri.pageNum;
+  const currentPage = pageInfo?.cri.pageNum-1;
   const size = pageInfo?.cri.amount;
 
   console.log(currentPage)
   const handlePageChange = (pageNum) => {
-    if (pageNum >= 0 && pageNum <= pageInfo?.pageEnd && pageNum > pageInfo?.pageStart) {
+    if (pageNum >= 0 && pageNum <= pageInfo?.pageEnd-1) {
       onPageChange(pageNum,size);
     }
   };
@@ -19,7 +19,7 @@ function Pagenation({ pageInfo, onPageChange }) {
       pageNumbers.push(
           <li
               key={i}
-              className={i === currentPage-1 ? styles.active : null }
+              className={`${styles.page} ${i === currentPage ? styles.active : null}`}
               onClick={() => handlePageChange(i)}
           >
             {i+1}
@@ -39,7 +39,7 @@ function Pagenation({ pageInfo, onPageChange }) {
         </button>
         <ul className={styles.ul}>{renderPageNumbers()}</ul>
         <button
-            className={currentPage === pageInfo?.pageEnd ? 'disabled' : ''}
+            className={currentPage === pageInfo?.pageEnd-1 ? 'disabled' : ''}
             onClick={() => handlePageChange(currentPage + 1)}
         >
           <NavigateNext/>

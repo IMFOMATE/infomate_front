@@ -1,5 +1,4 @@
 import React from 'react';
-import mainCss from "../../components/common/main.module.css";
 import {useLocation, useParams} from "react-router-dom";
 import Payment from "../../components/approval/ele-component/document/Payment";
 import Vacation from "../../components/approval/ele-component/document/Vacation";
@@ -15,7 +14,6 @@ function DocumentMain() {
   const location = useLocation();
   const {name, type, documentData} = location.state || {};
 
-  console.log(documentData)
 
   const title = {
     draft: "업무기안",
@@ -23,15 +21,15 @@ function DocumentMain() {
     vacation: "휴가신청서"
   }
 
-  console.log(type)
+  console.log("DocumentData in DocumentMain:", documentData);
   return (
       <>
         <DocumentHeader name={name || title[type]}/>
         <div className={styles.doc_wrapper}>
           {
-              (type === 'payment' && <PaymentDataProvider><Payment /></PaymentDataProvider>) ||
-              (type === 'draft' && <DraftDataProvider><Draft data={documentData}/></DraftDataProvider>) ||
-              (type === 'vacation' && <VacationProvider><Vacation/></VacationProvider>)
+              (type === 'payment' && <PaymentDataProvider><Payment documentData={documentData} /></PaymentDataProvider>) ||
+              (type === 'draft' && <DraftDataProvider><Draft documentData={documentData}/></DraftDataProvider>) ||
+              (type === 'vacation' && <VacationProvider><Vacation documentData={documentData}/></VacationProvider>)
           }
         </div>
       </>

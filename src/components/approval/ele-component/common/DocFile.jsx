@@ -2,7 +2,7 @@ import React from 'react';
 import style from "./DocFile.module.css";
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import DownloadButton from "./DownLoadButton";
-function DocFile({handleFileChange}) {
+function DocFile({handleFileChange, value}) {
   return (
       <div className={style.files}>
         <label htmlFor="docFile">파일 첨부</label>
@@ -13,6 +13,12 @@ function DocFile({handleFileChange}) {
                onChange={handleFileChange}
                multiple
         />
+        <div>
+          {
+              value && value.map(f=><DownloadButton filename={f.fileName}>{f.fileName}</DownloadButton>)
+          }
+        </div>
+
       </div>
   );
 }

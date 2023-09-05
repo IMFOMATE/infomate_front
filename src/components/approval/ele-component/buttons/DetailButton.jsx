@@ -4,7 +4,7 @@ import btCss from '../common/DocButtons.module.css';
 import {useNavigate} from "react-router-dom";
 
 
-function DetailButton({condition, isOpen, reapply}) {
+function DetailButton({condition, isOpen, reapply, deleteDoc}) {
   const navigate = useNavigate();
 
 
@@ -26,7 +26,7 @@ function DetailButton({condition, isOpen, reapply}) {
         )}
         {condition.isCancel && (
             <>
-              <ButtonOutline value="삭제" style={style} onClick={() => {}} />
+              <ButtonOutline value="삭제" style={style} onClick={deleteDoc} />
             </>
         )}
         {condition.isDept && (

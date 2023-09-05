@@ -6,12 +6,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {getMainAPI} from "../../apis/DocumentAPICalls";
 import { FadeLoader } from "react-spinners";
 import loadingCss from '../../pages/calendar/loadingStyle.module.css';
+import {GET_DOCUMENT_MAIN} from "../../modules/approval/DocumentModuels";
 
 
 const ApprovalMain = () => {
 
   const dispatch = useDispatch();
-  const documentData = useSelector(state => state.documentsReducer);
+  const documentData = useSelector(state => state.documentsReducer[GET_DOCUMENT_MAIN]);
   const data = documentData?.data;
 
 
@@ -20,8 +21,7 @@ const ApprovalMain = () => {
       },[]
   );
 
-  console.log(data?.length)
-
+  console.log(documentData)
   return (
     <>
       <div className={mainCss.maintitle}>

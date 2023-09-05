@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {
+  DELETE_DOCUMENT,
   GET_DETAIL,
   GET_DOCUMENT_LIST,
   GET_DOCUMENT_MAIN, POST_DRAFT, POST_PAYMENT, POST_VACATION,
@@ -96,7 +97,6 @@ export const paymentRegistAPI = (form, temp)=>{
 
 
 
-
 //문서세부내용
 export const getDocumentDetailAPI = ({documentCode})=>{
 
@@ -114,3 +114,19 @@ export const getDocumentDetailAPI = ({documentCode})=>{
 
   };
 };
+
+export const deleteDocumentAPI = ({documentCode})=>{
+  const requestURL = `http://localhost:8989/document/delete/${documentCode}`;
+
+  return async (dispatch, getState)  => {
+
+    const result = await axios.delete(requestURL)
+        .then(res => res.data)
+        .catch(err => console.log(err));
+
+    if(result.status === 200){
+      dispatch({type: DELETE_DOCUMENT, payload: result.data});
+    }
+
+  }
+}

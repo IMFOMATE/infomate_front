@@ -39,15 +39,28 @@ import UpdateMember from './pages/manage/UpdateMember';
 import DocumentDetail from "./components/approval/ele-component/document/detail/DocumentDetail";
 import PostView from './pages/board/PostView';
 import PostUpdate from './pages/board/PostUpdate';
+import LoginForm from "./pages/member/login/LoginForm";
 import Main from './pages/home/Main';
+import Register from './pages/member/login/Register';
 
 function App() {
+
+  
   return (
     <>
       <BrowserRouter>
         <Routes>
+          
+          <Route index element={<LoginForm />} />
+
           <Route path="/" element={<Layout/>}>
-            <Route index element={<Main/>}/>
+
+            <Route path="main">
+              <Route index element={<Main/>}/>
+              <Route path="regist-member" element={<Register/>}/>
+            </Route>
+
+
             <Route path="/addressBook" element={<AddressBook />} />
             <Route path="/addContact" element={<AddContact />} />
             {/* <Route path="/mailWrite" element={<MailWrite />} /> */}

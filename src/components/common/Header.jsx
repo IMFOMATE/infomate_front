@@ -16,6 +16,7 @@ import WorkNav from '../../pages/work/WorkNav';
 
 function Header() {
     const {menuState, toggleMenu} = useContext(MenuContext);
+    const isLogin = window.localStorage.getItem('accessToken');
 
 
     const menu = useLocation().pathname.split('/')[1];

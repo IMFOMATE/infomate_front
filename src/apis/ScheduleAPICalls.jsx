@@ -4,6 +4,8 @@ import {
     POST_SCHEDULE_REGIT,
     PATCH_SCHEDULE,
     DELETE_SCHEDULE,
+    GET_SCHEDULE_COUNT,
+    GET_SCHEDULE_REMINDER,
 } from '../modules/ScheduleMoudule';
 import { PROTOCOL, SERVER_IP, SERVER_PORT, MEMBER_CODE} from './APIConfig';
 import dayjs from 'dayjs';
@@ -12,9 +14,46 @@ import { message } from 'antd';
 
 dayjs.extend(utc);
 
+
+export const getScheduleDayPerCount = ({startDay, endDay}) => {
+
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/dayCount/${MEMBER_CODE}?startDay=${startDay.format('YYYY-MM-DD')}&endDay=${endDay.format('YYYY-MM-DD')}`;
+
+    return async (dispatch, getState) => {
+        const result = await axios.get(requestURL)
+                    .then(res => res.data)
+                    .catch(err => err);
+
+        if(result?.status === 200) {
+            dispatch({ type: GET_SCHEDULE_COUNT,  payload: result });
+            return ;
+        }
+        
+        message.error("알수 없는 에러가 발생했습니다.")    
+    };
+}
+
+export const getScheduleReminder = () => {
+
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/reminder/${MEMBER_CODE}`;
+
+    return async (dispatch, getState) => {
+        const result = await axios.get(requestURL)
+                    .then(res => res.data)
+                    .catch(err => err);
+
+        if(result?.status === 200) {
+            dispatch({ type: GET_SCHEDULE_REMINDER,  payload: result });
+            return ;
+        }
+        
+        message.error("알수 없는 에러가 발생했습니다.")    
+    };
+}
+
 export const getScheduleDetail = ({scheduleId}) => {
 
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/${scheduleId}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/${MEMBER_CODE}/${scheduleId}`;
 
     return async (dispatch, getState) => {
         const result = await axios.get(requestURL)
@@ -32,7 +71,7 @@ export const getScheduleDetail = ({scheduleId}) => {
 
 export const postScheduleRegist = ({data}) => {
     data = {...data, memberCode: MEMBER_CODE}    
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/regist`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/regist/${MEMBER_CODE}`;
     
     data = {...data, startDate: dayjs(data.startDate).format('YYYY-MM-DDTHH:MM:ss'), endDate: dayjs(data.endDate).format('YYYY-MM-DDTHH:MM:ss')}
     return async (dispatch, getState) => {
@@ -55,17 +94,16 @@ export const postScheduleRegist = ({data}) => {
 export const patchScheduleUpdate = ({data}) => {
     data = {...data, memberCode: MEMBER_CODE}
 
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/update`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/update/${MEMBER_CODE}`;
     
     return async (dispatch, getState) => {
         const result = await axios.patch(requestURL, data, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
                         .then(res => res)
                         .catch(err => console.log(err));
 
-        if(result.status === 200){
-            message.success("일정이 변경 되었습니다.")
+        if(result?.status === 200){
             dispatch({ type: PATCH_SCHEDULE,  payload: result});
-            return;
+            return message.success("일정이 변경 되었습니다.");  
         }
     
         message.error("변경에 실패 했습니다")
@@ -74,25 +112,24 @@ export const patchScheduleUpdate = ({data}) => {
 }
 
 
-export const deleteSchedule = ({data}) => {
+export const deleteSchedule = ({scheduleId}) => {
 
-    console.log(data);
+    console.log(scheduleId);
     
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/delete`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/delete/${scheduleId}/${MEMBER_CODE}`;
     
     
     return async (dispatch, getState) => {
-        const result = await axios.delete(requestURL, {data}, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
+        const result = await axios.delete(requestURL, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
                         .then(res => res)
                         .catch(err => err);
 
-        if(result.status === 200){
+        if(result?.status === 200){
             message.success("일정이 삭제 되었습니다.")
             dispatch({ type: DELETE_SCHEDULE,  payload: result});
             return ;
         } 
         
         message.error("변경에 실패 했습니다")
-    
     };
 }

@@ -15,7 +15,7 @@ import locale from 'antd/es/date-picker/locale/ko_KR';
 import antdStyels from './antd.module.css';
 import { DatePicker } from 'antd';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
-import { MEMBER_CODE } from '../../apis/APIConfig';
+import { DEPARTMENT_CODE, MEMBER_CODE } from '../../apis/APIConfig';
 import meterialIcon from '../../components/common/meterialIcon.module.css'
 dayjs.locale('ko')
 
@@ -37,20 +37,51 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
         setSchedule({
             ...schedule,
             data: {...schedule.data, 
-                refCalendar: calendarList.data.filter(item => item.indexNo === 1 && item.memberCode === MEMBER_CODE)[0].id}
+                refCalendar: calendarList.data.filter(item => 
+                    item.defaultCalendar && item.memberCode === MEMBER_CODE && item.departmentCode === null)[0].id
+                }
         })
     },[])
+
+    console.log(schedule);
 
     const scheduleChangeHanlder = e => {
         const eleName = e.target.name;
 
         // 수정 예정
         if(e.target.type === 'checkbox'){
-            setSchedule({...schedule, data: {...schedule.data, [eleName]: e.target.checked}})         
+            setSchedule({
+                ...schedule, 
+                data: {
+                    ...schedule.data, 
+                    [eleName]: e.target.checked
+                }
+            })         
+            if(eleName === 'allDay'){
+                setSchedule({
+                    ...schedule, 
+                    data:{...schedule.data, 
+                        [eleName]: e.target.checked,
+                        endDate: schedule.data.startDate,
+                    }
+                });
+            }
         }else if(eleName === 'calendar') {
-            setSchedule({...schedule, data: {...schedule.data, [eleName]: parseInt(e.target.value)}})
+            setSchedule({
+                ...schedule, 
+                data: {
+                    ...schedule.data, 
+                    [eleName]: parseInt(e.target.value)
+                }
+            })
         }else{
-            setSchedule({...schedule, data: {...schedule.data, [eleName]: e.target.value}})
+            setSchedule({
+                ...schedule, 
+                data: {
+                    ...schedule.data, 
+                    [eleName]: e.target.value
+                }
+            })
         }
     }
     
@@ -70,6 +101,15 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
     }
 
     const changeDateHandler = (e) => {
+        if(e === null){
+            return setSchedule({
+                ...schedule, 
+                data:{...schedule.data,  
+                    startDate: dayjs().format('YYYY-MM-DDTHH:mm:ss'), 
+                    endDate: dayjs().format('YYYY-MM-DDTHH:mm:ss')
+                }
+            });
+        }
         if(schedule.data.allDay){
             setSchedule({
                 ...schedule, 
@@ -87,7 +127,8 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
             });
         }
     }
-    
+
+
     return (
         <>
             <div className={[styles.container, modal && styles.active].join(' ')}>
@@ -163,12 +204,16 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                         <div>
                             <SelectEle
                                 name='refCalendar'
-                                value={schedule?.calendar}
+                                value={schedule.data.refCalendar}
                                 options={calendarList.data.filter(item => (
-                                    item.departmentCode !== 0 && item.memberCode === MEMBER_CODE
+                                    item.departmentCode !== 1 && 
+                                    (item.memberCode === MEMBER_CODE || item.departmentCode === DEPARTMENT_CODE)
                                 )).sort((prev, next) => prev.indexNo - next.indexNo
-                                ).map(item => (
-                                    {value: item.id, text: item.name, color: item.labelColor})
+                                ).map(item => ({
+                                    value: item.id,
+                                    text: item.defaultCalendar? `${item.name} (기본)` : item.name,
+                                    color: item.labelColor
+                                    })
                                 )}
                                 onChange={scheduleChangeHanlder}
                                 style={{width: '100%', padding: 0, color: 'gray'}}
@@ -183,7 +228,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                             onChange={scheduleChangeHanlder}
                         />
 
-                        <label>전사일정</label>
+                        {/* <label>전사일정</label>
                         <div style={{textAlign: 'left'}}>
                             <CheckBox
                                 name='corpSchdl'
@@ -192,12 +237,12 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                                 style={{position: 'relative', top: '2px'}}
                                 onChange={scheduleChangeHanlder}
                             />
-                        </div>
+                        </div> */}
                     </div>
                     <div className={styles.footer}>
                         {
                             mode === 'read' ||
-                            <NavLink to='./regist'>
+                            <NavLink to='./regist?new=true'>
                                 <ButtonOutline value={'상세일정등록'} onClick={sidebarToggle} style={{margin: '5px'}}/>
                             </NavLink>
                         }
@@ -235,7 +280,7 @@ export const SummaryViewModal = ({setIsModal, data}) => {
     }
 
     const deleteScheduleHandler = () => {
-        dispatch(deleteSchedule({data: [parseInt(data.event.extendedProps.id)]}));
+        dispatch(deleteSchedule({scheduleId: data.event.extendedProps.id}));
         setIsModal(false);
     }
     const addressLinkClickHandler = () => {

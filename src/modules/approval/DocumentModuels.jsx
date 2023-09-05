@@ -53,9 +53,9 @@ const documentsReducer = handleActions(
       [POST_PAYMENT] : (state, { payload }) => {
         return payload;
       },
-      [GET_DETAIL] : (state, { payload }) => {
-        return payload;
-      },
+      [GET_DETAIL] : (state, { payload }) => ({
+           ...state, [GET_DETAIL]: payload
+          }),
     },
     initialState
 );

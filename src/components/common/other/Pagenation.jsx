@@ -41,7 +41,7 @@ export const Pagenation = ({total, pageNum}) => {
                 .map(pageNo => pageNo + pageNum - 3)
                 .filter(pageNo => pageNo > 0 && pageNo <= total)
                 .map(pageNo => 
-                    <button onClick={()=>pageMove(pageNo)} disabled={pageNum === pageNo}>
+                    <button key={pageNo} onClick={()=>pageMove(pageNo)} disabled={pageNum === pageNo}>
                         <span className={pageNum === pageNo && styles.active}>
                             {pageNo}
                         </span>

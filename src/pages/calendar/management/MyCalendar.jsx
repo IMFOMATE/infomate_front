@@ -10,6 +10,7 @@ import { MEMBER_CODE } from '../../../apis/APIConfig';
 import { NotResultData } from '../../common/Error';
 import { FadeLoader } from 'react-spinners';
 import StylesLoading from '../loadingStyle.module.css';
+import { LoadingSpiner } from '../../../components/common/other/LoadingSpiner';
 
 const MyCalendar = () => {
 
@@ -27,6 +28,9 @@ const MyCalendar = () => {
         calendarReducer[PATCH_CALENDAR_UPDATE], 
         calendarReducer[DELETE_CALENDAR],
     ])
+
+    if(!calendarList) return <LoadingSpiner />
+    if(calendarList === null) return <NotResultData />
 
     const CalendarAddHandler = e =>{
         if(e.target !== undefined){
@@ -62,11 +66,7 @@ const MyCalendar = () => {
                     <div className={styles.delete}>
                     </div>
                     {
-                        !calendarList 
-                        ? <div className={StylesLoading.loading}> <FadeLoader color="#9F8AFB" /></div>
-                        : calendarList.data === null 
-                        ? <NotResultData />
-                        : calendarList?.data.filter(item => item.memberCode === parseInt(MEMBER_CODE)
+                        calendarList?.data.filter(item => item.memberCode === parseInt(MEMBER_CODE)
                         ).sort((prev, next) => (
                             prev.indexNo - next.indexNo
                         )).map((item,index) => <MyCalendarItem 

@@ -2,6 +2,7 @@ export const SERVER_IP = process.env.REACT_APP_SPRINGBOOT_SERVER_IP;
 export const SERVER_PORT = process.env.REACT_APP_SPRINGBOOT_SERVER_PORT;
 export const PROTOCOL = process.env.REACT_APP_SPRINGBOOT_SERVER_PROTOCOL;
 export const MEMBER_CODE = parseInt(process.env.REACT_APP_TEST_MEMBER_CODE);
+export const DEPARTMENT_CODE = parseInt(process.env.REACT_APP_TEST_DEPARTMENT_CODE);
 
 export const Pageable = ({page, size, sortId, sortDirection}) => {
     console.log(page,size,sortId,sortDirection);

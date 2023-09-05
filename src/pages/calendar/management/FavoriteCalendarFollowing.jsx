@@ -4,11 +4,11 @@ import { ManageChkList } from '../../../layouts/FavoriteCalendarLayout';
 import { useSearchParams } from 'react-router-dom';
 import CalendarMagnageFavoriteFollowerHeader from '../../../components/calendar/manage/CalendarMagnageFavoriteFollowerHeader';
 import { useDispatch, useSelector } from 'react-redux';
-import { FadeLoader } from 'react-spinners';
-import StylesLoading from '../loadingStyle.module.css';
 import { DELETE_FAV_CALENDAR, GET_FAV_CALENDAR_FINDALL } from '../../../modules/FavCalendarMoudule';
 import { getFavCalendarfollowAllAPI } from '../../../apis/FavCalendarAPICalls';
 import { Pagenation } from '../../../components/common/other/Pagenation';
+import { LoadingSpiner } from '../../../components/common/other/LoadingSpiner';
+import { NotResultData } from '../../common/Error';
 
 const FavoriteCalendarFollowing = () => {
     const [search] = useSearchParams();
@@ -22,18 +22,22 @@ const FavoriteCalendarFollowing = () => {
     const dispatch = useDispatch();
 
     useEffect(()=>{
-        setChk({...chk, selectList:[]})
+        setChk({...chk, selectList: []})
+        
         dispatch(getFavCalendarfollowAllAPI({page: {
             number:search.get('page'),
             size:search.get('size'), 
             sortId:search.get('sort'), 
             sortDirection:search.get('direction')}
         }));
+
         return () => {
             setChk({});
         }   
     },[search, favCalendarReducer[DELETE_FAV_CALENDAR]])
 
+    if(!favCalendarFollowList) return <LoadingSpiner />
+    if(favCalendarFollowList.data.length === 0) <NotResultData />
 
     const selectItemChange = (e)=> {
         if(e.target.checked){
@@ -51,17 +55,14 @@ const FavoriteCalendarFollowing = () => {
     
     return (
         <>
-            
             <CalendarMagnageFavoriteFollowerHeader
                 chk={selectAll}
-                setchk={selectItemChange}
+                setChk={selectItemChange}
             />
             <br />
 
             {
-                !favCalendarFollowList
-                ? <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
-                : favCalendarFollowList.data.map((item, index) => 
+                favCalendarFollowList.data.map((item, index) => 
                                     <CalendarMagnageFavoriteItem
                                             key={item.id}
                                             id={item.id}
@@ -75,7 +76,6 @@ const FavoriteCalendarFollowing = () => {
                 
             }
             {
-                favCalendarFollowList?.pageInfo &&
                 <Pagenation
                     prev={favCalendarFollowList.pageInfo.prev}
                     next={favCalendarFollowList.pageInfo.next}

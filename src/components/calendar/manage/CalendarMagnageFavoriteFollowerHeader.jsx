@@ -2,7 +2,7 @@ import CheckBox from '../../common/input/CheckBox';
 import CalendarManagefavoriteModifyMenu from './CalendarManagefavoriteModifyMenu';
 import styles from './calendarMagnageFavoriteFollowerHeader.module.css'
 
-const CalendarMagnageFavoriteFollowerHeader = ({chk, setchk}) => {
+const CalendarMagnageFavoriteFollowerHeader = ({chk, setChk}) => {
     const className  = [styles.fowHdGrid].join(' ');
 
     return(
@@ -16,7 +16,7 @@ const CalendarMagnageFavoriteFollowerHeader = ({chk, setchk}) => {
                         <CheckBox 
                             isChangeColor={true} 
                             checked={chk}  
-                            onChange={setchk} 
+                            onChange={setChk} 
                         />
                     </div>
                     <div>직원 이름(직함)</div>

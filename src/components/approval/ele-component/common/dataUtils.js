@@ -30,7 +30,7 @@ export const formatNumberWithCommas = (number) => {
   return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-export const isValid = (data, checkStartDate= false) => {
+export const isValid = (data, checkStartDate= false, checkEndDate=false) => {
   console.log(data.content)
   if (data?.title?.length < 5) {
     return '제목은 5자 이상 작성해주세요.';
@@ -38,7 +38,7 @@ export const isValid = (data, checkStartDate= false) => {
   if (checkStartDate && !data?.startDate) {
     return '시행일자를 입력해주세요.';
   }
-  if(!data?.endDate){
+  if(checkEndDate && !data?.endDate){
     return "종료일을 선택헤주세요";
   }
   if(data?.content?.length < 1) {

@@ -45,7 +45,7 @@ function Navbar() {
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             calendar_today
                         </span>
-                        <span>스케쥴</span>
+                        <span>일정</span>
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Approval")}>

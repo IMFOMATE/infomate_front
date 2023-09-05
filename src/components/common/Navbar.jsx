@@ -16,7 +16,7 @@ function Navbar() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const loginMember = useSelector(state => state.memberReducer);
-        
+        console.log(loginMember);
     const isLogin = window.localStorage.getItem('accessToken');
     const [userInfo, setUserInfo ]= useState({});
 
@@ -46,8 +46,8 @@ function Navbar() {
                 </a>
                 <div className={NavStyle.profileInfo}>
                     {console.log(userInfo)} 
-                    <p>{loginMember.data.department} 부서</p>
-                    <p>{loginMember.data.memberName} {loginMember.data.rank}</p>
+                    <p>{loginMember?.data?.department} 부서</p>
+                    <p>{loginMember?.data?.memberName} {loginMember?.data?.rank}</p>
                 </div>
             </div>
             <ul className=''>

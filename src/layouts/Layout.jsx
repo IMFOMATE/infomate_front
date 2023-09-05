@@ -19,9 +19,9 @@ export default function Layout() {
     const dispatch = useDispatch();
 
     const token = decodeJwt(window.localStorage.getItem("accessToken"));
-    console.log(token.exp);
+    console.log(token?.exp);
 
-    if(token.exp * 1000 < Date.now()) {
+    if(token?.exp * 1000 < Date.now()) {
         
         window.localStorage.removeItem("accessToken");
         dispatch(callLogoutAPI());

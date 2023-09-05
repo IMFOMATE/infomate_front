@@ -16,7 +16,6 @@
     margin-left: 3%;
     padding-inline: 20px;
     padding-bottom: 10px;
-    margin-bottom: 20px;
 }
 
 /* 아래 선 */
@@ -24,7 +23,6 @@
     border-top: 1px solid rgba(98, 95, 95, 0.592);
     width: 93%;
     margin-left: 3%;
-    margin-top: 20px;
     padding-inline: 20px;
 }
 
@@ -85,4 +83,14 @@
 
 .naranhe {
     display: flex;
+}
+
+.postcont {
+  margin-left: 3%;
+  /* margin-top: 20px;
+  margin-bottom: 20px; */
+  width: 93%;
+  padding: 20px;
+  padding-bottom: 80px;
+  /* background-color: #ddddddd7; */
 }

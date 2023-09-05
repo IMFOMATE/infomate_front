@@ -14,3 +14,62 @@
     background-color: var(--color-middle);
 }
 
+.container {
+    position: relative;
+}
+
+.selectContainer {
+    position: absolute;
+    z-index: 99;
+    top: 50px;
+    left: 10px;
+    display: grid;
+    box-shadow: 0 0 7px 2px rgba(200, 200, 200, 0.3);
+}
+.selectCol2 {
+    grid-template-columns: 1fr 1.5fr;
+    width: 250px;
+}
+.selectCol1{
+    grid-template-columns: 1fr;
+    max-width: 100px;
+}
+
+.hoverContainer {
+    background-color: white;
+    /* border: 1px solid black; */
+    /* height: 100px; */
+    width: 100%;
+    padding: 10px 0px 10px 15px;
+    z-index: 100;
+    
+}
+
+.selectListLabel {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    width: 100%;
+    font-size: 0.85rem;
+    padding: 1px 3px;
+}
+
+.selectMemberListContainer {
+    background-color: white;
+    width: 100%;
+    padding: 5px;
+}
+.selectMember {
+    display: grid;
+    grid-template-columns: 1.5fr 8fr;
+    font-size: 0.85rem;
+}
+
+.selectMember > div {    
+    padding: 4px;
+}
+.selectMember > div:nth-child(1){
+    text-align: center;
+}
+.selectMember > div:nth-child(2){
+    text-align: left;
+}

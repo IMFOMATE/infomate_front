@@ -70,7 +70,9 @@ export const getScheduleDetail = ({scheduleId}) => {
 }
 
 export const postScheduleRegist = ({data}) => {
-    data = {...data, memberCode: MEMBER_CODE}    
+    data = {...data, memberCode: MEMBER_CODE}  
+    
+    console.log(data);
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/regist/${MEMBER_CODE}`;
     
     data = {...data, startDate: dayjs(data.startDate).format('YYYY-MM-DDTHH:MM:ss'), endDate: dayjs(data.endDate).format('YYYY-MM-DDTHH:MM:ss')}
@@ -82,7 +84,7 @@ export const postScheduleRegist = ({data}) => {
         if(result?.status === 200){
             message.success("일정이 등록 되었습니다.")
             dispatch({ type: POST_SCHEDULE_REGIT,  payload: result});
-            console.log('1');
+
             return ;
         } 
         

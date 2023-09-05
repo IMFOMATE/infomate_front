@@ -16,7 +16,7 @@ export const getMainAPI = ({memberCode}) => {
         .then(res => res.data)
         .catch(err => console.log(err));
 
-    if(result.status === 200){
+    if(result?.status === 200){
       dispatch({type: GET_DOCUMENT_MAIN, payload: result});
     }
 

@@ -39,6 +39,7 @@ import UpdateMember from './pages/manage/UpdateMember';
 import DocumentDetail from "./components/approval/ele-component/document/detail/DocumentDetail";
 import PostView from './pages/board/PostView';
 import Main from './pages/home/Main';
+import TreeView from './components/approval/ele-component/treeview/TreeView';
 
 function App() {
   return (

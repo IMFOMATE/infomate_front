@@ -2,15 +2,41 @@ import * as React from 'react';
 import NavStyle from './Nav.module.css';
 import {useContext, useEffect, useState} from "react";
 import {CurrentTitleContext} from "../../context/CurrentTitleContext";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {MenuContext} from "../../context/MenuContext";
+import { callLogoutAPI } from '../../apis/MemberAPICalls';
+import { useDispatch, useSelector } from 'react-redux';
+import { decodeJwt } from '../../util/tokenUtils';
 
 
 
 function Navbar() {
     const { toggleTitle } = useContext(CurrentTitleContext);
     const { menuState } = useContext(MenuContext);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const loginMember = useSelector(state => state.memberReducer);
+        
+    const isLogin = window.localStorage.getItem('accessToken');
+    const [userInfo, setUserInfo ]= useState({});
 
+    const onClickLogoutHandler = () => {
+        window.localStorage.removeItem('accessToken');  
+        //로그아웃
+        dispatch(callLogoutAPI());
+        
+        alert('로그아웃이 되어 로그인 화면으로 이동합니다.');
+        navigate("/", { replace: true })
+        window.location.reload();
+    }
+
+
+    useEffect(() => {
+        const storedTitle = localStorage.getItem('currentTitle') || 'Home';
+        toggleTitle(storedTitle);
+
+        console.log('check ---->',loginMember.data.department)
+    }, []);
 
     return (
         <nav className={`${NavStyle.nav} ${menuState ? '' : NavStyle.close }`}>
@@ -19,13 +45,14 @@ function Navbar() {
                     <img className={NavStyle.profileImg} alt='profileImg' src='img/user.jpg'/>
                 </a>
                 <div className={NavStyle.profileInfo}>
-                    <p>하이미디어 부서</p>
-                    <p>홍길동 사원</p>
+                    {console.log(userInfo)} 
+                    <p>{loginMember.data.department} 부서</p>
+                    <p>{loginMember.data.memberName} {loginMember.data.rank}</p>
                 </div>
             </div>
             <ul className=''>
                 <li className='' onClick={()=>toggleTitle("Home")}>
-                    <NavLink to="/" >
+                    <NavLink to="/main" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             home
                         </span>
@@ -106,7 +133,7 @@ function Navbar() {
                 </li>
             </ul>
             <div className={NavStyle.logout}>
-                <a href='/'>
+                <a href='/' onClick={onClickLogoutHandler}>
                     로그아웃
                 </a>
             </div>

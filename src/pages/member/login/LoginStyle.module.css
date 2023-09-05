@@ -5,13 +5,14 @@
     font-size: 40px;
     border-radius: 10px;
     background: #D9D9D9;
+    margin-bottom: 40px;
 }
 
 .wrapper {
     justify-content: center;
     align-items: center;
     display: flex;
-    width: 1280px;
+    width: auto;
     height: 800px;
 }
 

@@ -44,6 +44,8 @@ import Main from './pages/home/Main';
 import Register from './pages/member/login/Register';
 
 function App() {
+
+  
   return (
     <>
       <BrowserRouter>

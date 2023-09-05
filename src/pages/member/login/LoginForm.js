@@ -20,10 +20,9 @@ function LoginForm() {
         // 로그인이 성공하면 메인 페이지로 이동
         if (loginMember.status === 200) {
             console.log("[Login] Login SUCCESS", loginMember);
-            navigate("/main", { replace: true });
-            
             alert(loginMember.data.memberName + "님 환영합니다.");
 
+            navigate("/main", { replace: true });
             // console.log(loginMember.data);
 
             localStorage.setItem('authToken', loginMember.data.token);
@@ -42,7 +41,7 @@ function LoginForm() {
     // 이미 로그인된 경우 홈 화면으로 이동
     if (loginMember.length > 0) {
         console.log("[Login] Login is already authenticated by the server");
-        return <Navigate to="/" />;
+        return <Navigate to="/main" />;
     }
 
     // 입력 필드 변경 시

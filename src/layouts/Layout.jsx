@@ -11,20 +11,26 @@ import { CalendarFilterProvider } from '../context/CalendarContext';
 import Modal from "../components/approval/ele-component/common/Modal";
 import DragAndDropWrapper from "../components/approval/ele-component/treeview/DragAndDropWrapper";
 import { decodeJwt } from '../util/tokenUtils';
+import { callLogoutAPI } from '../apis/MemberAPICalls';
+import { useDispatch } from 'react-redux';
 
 export default function Layout() {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const token = decodeJwt(window.localStorage.getItem("accessToken"));
-    console.log(token);
+    console.log(token.exp);
 
     if(token.exp * 1000 < Date.now()) {
-
-        alert("로그인 세션이 만료되었습니다. 다시 로그인하여주십시오.")
-
+        
         window.localStorage.removeItem("accessToken");
+        dispatch(callLogoutAPI());
+
+        alert("로그인 세션이 만료되었습니다. 다시 로그인하여주십시오.");
+
         navigate("/", {replace: true});
+        window.location.reload();
     }
 
 

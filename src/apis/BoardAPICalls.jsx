@@ -2,7 +2,7 @@ import {
     GET_BOARD,
     POST_POST,
     GET_POST,
-    // PUT_POST,
+    PUT_POST,
     GET_NOTICE,
     GET_COMMON,
     GET_ANONY,
@@ -69,24 +69,28 @@ export const callPostPostAPI = () => {   // 게시글 생성
 }
 
 
-// export const callPostUpdateAPI = () => {   // 게시글 수정 쓸 때 맨 위에 주석 풀어야 됨 !!!
-//     console.log('[BoardeAPICalls] callPostUpdateAPI Call');
+export const callPostUpdateAPI = ({postCode}) => {   // 게시글 수정
+    console.log('[BoardeAPICalls] callPostUpdateAPI Call');
 
-//     const requestURL = `http://localhost:8989/board/post`;
+    const requestURL = `http://localhost:8989/brd/board/${postCode}/update`;
 
-//     return async (dispatch, getState) => {
+    return async (dispatch, getState) => {
 
-//         const result = await fetch(requestURL, {
-//             method: "PUT",
-//         })
-//         .then(response => response.json());
+        const result = await fetch(requestURL, {
+            method: "PUT",
+            "Content-Type": "application/json",
+                "Accept": "*/*",
+        })
+        .then(response => response.json());
 
-//         console.log('[BoardAPICalls] callPostUpdateAPI RESULT : ', result);
+        console.log('[BoardAPICalls] callPostUpdateAPI RESULT : ', result);
 
-//         dispatch({ type: PUT_POST,  payload: result });
+        dispatch({ type: PUT_POST,  payload: result.data });
         
-//     };    
-// }
+    };    
+}
+
+
 
 export const callPostViewAPI = ({postCode}) => { // 게시글 보기
     const requestURL = `http://localhost:8989/brd/board/post/${postCode}`;
@@ -95,6 +99,8 @@ export const callPostViewAPI = ({postCode}) => { // 게시글 보기
 
         const result = await fetch(requestURL, {
             method: "GET",
+            "Content-Type": "application/json",
+                "Accept": "*/*",
         })
         .then(response => response.json());
 

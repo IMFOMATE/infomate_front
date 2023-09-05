@@ -149,6 +149,10 @@ function Posting() {
       const quillRef = useRef(null);
     //   ============================
 
+     const postHandler = (postCode) => {
+        navigate(`/board/post/${postCode}`, { replace: false });
+    }
+
     return (
         <>
     

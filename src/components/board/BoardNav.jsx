@@ -15,7 +15,7 @@ function BoardNav() {
     const dispatch = useDispatch();
     const boards  = useSelector(state => state.boardReducer);      
     const boardList = boards?.data; 
-    console.log('boardManagement', boardList);
+    console.log("boardManagement", boardList);
 
 
     const onClickBoardInsert = () => {
@@ -42,12 +42,11 @@ export default BoardNav;
 
 const noticeLink = [
   {text:'공지사항', link:'/board/notice'},
-  {text:'월간 식단표', link:'/board/menu'},
 ]
 const boardLink = [
-  {text:'일반 게시판', link:'/board/common'},
-  {text:'익명 게시판', link:'/board/anony'},
+  {text:'일반게시판', link:'/board/common'},
+  {text:'익명게시판', link:'/board/anony'},
 ]
 const deptLink = [
-  {text:'부서 게시판', link:'/board/brddept'},
+  {text:'부서게시판', link:'/board/brddept'},
 ]

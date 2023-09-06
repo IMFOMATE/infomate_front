@@ -1,4 +1,4 @@
-
+import { PROTOCOL, SERVER_IP, SERVER_PORT} from './APIConfig';
 import {
     GET_MEMBER
     , POST_LOGIN
@@ -6,7 +6,7 @@ import {
 } from '../modules/MemberModule';
 
 export const callGetMemberAPI = ({ memberId }) => {
-    const requestURL = `http://${process.env.REACT_APP_SPRINGBOOT_SERVER_IP}:${process.env.REACT_APP_SPRINGBOOT_SERVER_PORT}/api/v1/members/${memberId}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/api/v1/members/${memberId}`;
 
     return async (dispatch, getState) => {
 
@@ -29,7 +29,7 @@ export const callGetMemberAPI = ({ memberId }) => {
 }
 
 export const callLoginAPI = ({ form }) => {
-    const requestURL = `http://${process.env.REACT_APP_SPRINGBOOT_SERVER_IP}:${process.env.REACT_APP_SPRINGBOOT_SERVER_PORT}/auth/login`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/auth/login`;
 
     return async (dispatch, getState) => {
 
@@ -72,7 +72,7 @@ export const callLogoutAPI = () => {
 
 
 export const callRegisterAPI = ({ form }) => {
-    const requestURL = `http://${process.env.REACT_APP_SPRINGBOOT_SERVER_IP}:${process.env.REACT_APP_SPRINGBOOT_SERVER_PORT}/auth/signup`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/auth/regist`;
 
     return async (dispatch, getState) => {
 
@@ -86,10 +86,7 @@ export const callRegisterAPI = ({ form }) => {
                 "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
             },
             body: JSON.stringify({
-                memberId: form.memberId,
-                memberPassword: form.memberPassword,
-                memberName: form.memberName,
-                memberEmail: form.memberEmail
+                form
             })
         })
             .then(response => response.json());

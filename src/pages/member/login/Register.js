@@ -12,7 +12,7 @@ function Register() {
     // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
     const dispatch = useDispatch();
     const member = useSelector(state => state.memberReducer);  // API 요청하여 가져온 loginMember 정보
-    // console.log(member)
+    console.log(member)
 
     const navigate = useNavigate();
 
@@ -21,6 +21,7 @@ function Register() {
     const imageInput = useRef();
 
     const [form, setForm] = useState({
+        memberPic: 'img/user.jpg',
         memberId: '',
         memberPassword: '',
         memberName: '',
@@ -49,6 +50,8 @@ function Register() {
         }
     },
         [image]);
+
+        console.log(image);
 
     const onChangeImageUpload = (e) => {
 

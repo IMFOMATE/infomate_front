@@ -37,7 +37,7 @@ const MyCalendarItem = ({id, memberCode, name,
     }
 
     const deleteHandler = e => {
-        dispatch(deleteCalendar({data: [parseInt(e.target.id)]}));
+        dispatch(deleteCalendar({scheduleId: parseInt(e.target.id)}));
     }
 
     const changeIndexNo = (direction) =>{

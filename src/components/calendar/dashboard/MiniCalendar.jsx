@@ -84,8 +84,8 @@ const MiniCalendar = () => {
                 </thead>
                 <tbody>
                     {
-                        calendar.map(item1 => 
-                            <tr>{item1.map((item2,index) => 
+                        calendar.map((item1, index) => 
+                            <tr key={index}>{item1.map((item2,index) => 
                                 <Day 
                                     key={index}
                                     value={item2.format('D')} 

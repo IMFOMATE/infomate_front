@@ -72,23 +72,23 @@ function Posting() {
       };
 
 
-      useEffect(() => {
-        async function fetchMemberInfo() {
-          try {
-            const response = await callPostPostAPI(form.memberCode);
+      // useEffect(() => {
+      //   async function fetchMemberInfo() {
+      //     try {
+      //       const response = await callPostPostAPI(form.memberCode);
     
-            if (response.success) {
-              setForm((prev) => ({ ...prev, memberName: response.data.memberName }));
-            } else {
-              console.error('멤버 정보 조회 실패:', response.error);
-            }
-          } catch (error) {
-            console.error('API 호출 중 오류 발생:', error);
-          }
-        }
+      //       if (response.success) {
+      //         setForm((prev) => ({ ...prev, memberName: response.data.memberName }));
+      //       } else {
+      //         console.error('멤버 정보 조회 실패:', response.error);
+      //       }
+      //     } catch (error) {
+      //       console.error('API 호출 중 오류 발생:', error);
+      //     }
+      //   }
     
-        fetchMemberInfo();
-      }, [form.memberCode]);
+      //   fetchMemberInfo();
+      // }, [form.memberCode]);
     
 
 

@@ -8,18 +8,21 @@ import {
     PATCH_FAV_CALENDAR_STATE_UPDATE
 } from '../modules/FavCalendarMoudule';
 
-import { PROTOCOL, SERVER_IP, SERVER_PORT, MEMBER_CODE, Pageable} from './APIConfig';
+import { PROTOCOL, SERVER_IP, SERVER_PORT, Pageable} from './APIConfig';
 import { message } from 'antd';
 
 export const getFavCalendarfollowAllAPI = ({page}) => {
 
     const {pageOption, sort} = Pageable({page:page.number, size:page.size, sortId: page.sortId, sortDirection: page. sortDirection});
 
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/favorite/follow/${MEMBER_CODE}?${pageOption}&${sort}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/favorite/follow?${pageOption}&${sort}`;
 
     return async (dispatch, getState) => {
         
-        const result = await axios.get(requestURL)
+        const result = await axios.get(requestURL,{headers: {
+            "Accept": "*/*",
+            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+        }})
                     .then(res => res.data);
         
         if(result.status === 200) 
@@ -31,10 +34,13 @@ export const getFavCalendarFollwerAPI = ({page}) => {
 
     const {pageOption, sort} = Pageable({page:page.number, size:page.size, sortId: page.sortId, sortDirection: page. sortDirection});
     
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/favorite/followerList/${MEMBER_CODE}?${pageOption}&${sort}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/favorite/followerList?${pageOption}&${sort}`;
 
     return async (dispatch, getState) => {
-        const result = await axios.get(requestURL)
+        const result = await axios.get(requestURL,{headers: {
+            "Accept": "*/*",
+            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+        }})
                     .then(res => res.data)
                     
         if(result.status === 200) {
@@ -49,7 +55,10 @@ export const postFavCalendarRegit = ({data}) => {
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/favorite/follwer/regist`;
 
     return async (dispatch, getState) => {
-        const result = await axios.post(requestURL, data, {headers:{"Content-Type":'application/json',Accept:'*/*'}})
+        const result = await axios.post(requestURL, data, {headers: {
+            "Accept": "*/*",
+            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+        }})
                     .then(res => res.data)
                     .catch(err => err);
         
@@ -71,7 +80,10 @@ export const patchFavCalendarStateUpdate = ({data}) => {
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/favorite/follower`;
     
     return async (dispatch, getState) => {
-        const result = await axios.patch(requestURL, data, {headers:{"Content-Type":'application/json',Accept:'*/*'}})
+        const result = await axios.patch(requestURL, data, {headers: {
+            "Accept": "*/*",
+            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+        }})
                     .then(res => res.data)
                     .catch(e => console.log(e));
         
@@ -90,7 +102,10 @@ export const deleteFavCalendar = ({data}) => {
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/favorite/DeleteFollowCalendar`;
 
     return async (dispatch, getState) => {
-        const result = await axios.delete(requestURL, {data}, {headers:{"Content-Type":'application/json',Accept:'*/*'}})
+        const result = await axios.delete(requestURL, {data}, {headers: {
+            "Accept": "*/*",
+            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+        }})
                     .then(res => res.data)
                     .catch(e => console.log(e));
         

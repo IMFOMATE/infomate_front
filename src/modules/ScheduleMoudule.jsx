@@ -11,6 +11,8 @@ export const PATCH_SCHEDULE = 'SCHEDULE/PATCH'
 export const PUT_SCHEDULE = 'SCHEDULE/PUT'
 export const DELETE_SCHEDULE = 'SCHEDULE/DELETE'
 
+export const GET_PART_LIST = 'DEPARTMENT/GET_PART_LIST'
+
 
 const actions = createActions({
     [GET_SCHEDULE_DETAIL]: () => {},
@@ -37,6 +39,9 @@ const scheduleReducer = handleActions({
         }),
         [DELETE_SCHEDULE]: (state, { payload }) => ({
             ...state, [DELETE_SCHEDULE] : payload
+        }),
+        [GET_PART_LIST]: (state, { payload }) => ({
+            ...state, [GET_PART_LIST] : payload
         }),
     }, initialState
 );

@@ -10,13 +10,13 @@ import { MenuContext } from '../../context/MenuContext';
 import { getCalendarListAPI } from '../../apis/CalendarAPICalls';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
-import { DEPARTMENT_CODE, MEMBER_CODE } from '../../apis/APIConfig';
 import { LoadingSpiner } from '../../components/common/other/LoadingSpiner';
 
 const CalendarNav = () => {
 
     const {menuState, toggleMenu} = useContext(MenuContext);
     const {filter, setFilter} = useContext(CalendarFilterContext);
+    const member = useSelector(state => state.memberReducer);
     
     const dispatch = useDispatch();
 
@@ -55,10 +55,12 @@ const CalendarNav = () => {
     if(data && filter.includes(0)){ // 나은 방법 구상중 
         setFilter([
         ...data.data.filter(item => 
-            item.memberCode !== MEMBER_CODE && item.departmentCode === null
+            item.memberCode !== member.data.memberCode && item.departmentCode === null
             ).map(item => parseInt(item.id))])
     }
 
+    console.log(member);
+    console.log(data);
     const calendarFilterChange = e => {
         if(e.target.checked){
             setFilter([...filter.filter(item => 
@@ -85,7 +87,7 @@ const CalendarNav = () => {
             <div className={NavStyle.sideTop}>
                 <h1 className={NavStyle.title}>일정</h1>
                 <NavLink 
-                    to='/calendar/regist' 
+                    to='/calendar/regist?new=true' 
                     className={NavStyle.new} 
                     onClick={toggleMenu}>
                     일정등록
@@ -97,7 +99,7 @@ const CalendarNav = () => {
             <div className={myClassName}>
                 {
                     data.data.filter(item => (
-                        item.departmentCode === null && item.memberCode === MEMBER_CODE // memberCode 수정
+                        item.departmentCode === null && item.memberCode === member.data.memberCode // memberCode 수정
                     )).sort((prev , next) =>
                         prev.indexNo - next.indexNo
                     ).filter((item, index)=> (
@@ -117,7 +119,7 @@ const CalendarNav = () => {
             </div>
             {
                 data.data.filter(item => (
-                    item.departmentCode === null && item.memberCode === MEMBER_CODE // memberCode 수정
+                    item.departmentCode === null && item.memberCode === member.data.memberCode // memberCode 수정
                 )).length > 3 &&
                 <ButtonSimple
                     name='my'
@@ -133,7 +135,7 @@ const CalendarNav = () => {
             <div className={corpClassName}>
                 {
                     data.data.filter(item => (
-                        item.departmentCode === DEPARTMENT_CODE || item.departmentCode  === 1 // 조건 수정 예정
+                        item.departmentCode === member.data.deptCode || item.departmentCode  === 1 // 조건 수정 예정
                     )).sort((prev , next) =>
                         prev.indexNo - next.indexNo
                     ).filter((item, index) => (
@@ -159,7 +161,7 @@ const CalendarNav = () => {
             <div className={favClassName}>
                 {
                     data.data.filter(item => (
-                        item.memberCode !== MEMBER_CODE && item.departmentCode === null // membercode조건 수정 예정
+                        item.memberCode !== member.data.memberCode && item.departmentCode === null // membercode조건 수정 예정
                     )).sort((prev , next) =>
                         prev.indexNo - next.indexNo
                     ).filter((item, index)=> (
@@ -178,7 +180,7 @@ const CalendarNav = () => {
             </div>
             {
                 data.data.filter(item => (
-                    item.memberCode !== MEMBER_CODE && item.departmentCode === null // membercode조건 수정 예정
+                    item.memberCode !== member.data.memberCode && item.departmentCode === null // membercode조건 수정 예정
                 )).length > 3 &&
                 <ButtonSimple
                     name='fav'

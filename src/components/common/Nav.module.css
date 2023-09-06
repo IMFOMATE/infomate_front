@@ -91,6 +91,7 @@ main{
 }
 
 
+
 .nav ul{
     overflow-x: hidden;
     flex: 1 1 auto;
@@ -152,6 +153,11 @@ main{
     flex: 1 0 240px;
     background-color: #fff;
     border-right: 1px solid var(--color-border);
+}
+
+.hideSidemenu{  /* ?? */
+    flex: 1 0 0;
+    display: hidden;
 }
 
 .sideTop{

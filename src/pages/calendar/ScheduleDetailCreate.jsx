@@ -1,40 +1,35 @@
 import styles from './scheduleDetailCreate.module.css'
 import InputEle from '../../components/common/input/Input'
 import ButtonInline from '../../components/common/button/ButtonInline';
-import ButtonOutline from '../../components/common/button/ButtonOutline';
-import AttendUser from '../../components/calendar/AttendUser';
+import { AttendUser, AddUser } from '../../components/calendar/AttendUser';
 import CheckBox from '../../components/common/input/CheckBox';
 import TextareaEl from '../../components/common/input/Textarea';
 import SelectEle from '../../components/common/select/SelectEle';
 import DaumPostcode from 'react-daum-postcode';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ScheduleModalProvider, ScheduleProvider } from '../../layouts/CalendarLayout';
+import { ScheduleProvider } from '../../layouts/CalendarLayout';
 import { useDispatch, useSelector } from 'react-redux';
 import { postScheduleRegist, getScheduleDetail, patchScheduleUpdate, deleteSchedule } from '../../apis/ScheduleAPICalls';
 import antdStyels from './antd.module.css';
-import { MenuContext } from '../../context/MenuContext';
 import 'dayjs/locale/ko';
 import utc from 'dayjs/plugin/utc';
 import dayjs from 'dayjs';
 import locale from 'antd/es/date-picker/locale/ko_KR';
 import { DatePicker, message } from 'antd';
-import { FadeLoader } from 'react-spinners';
-import StylesLoading from './loadingStyle.module.css';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
-import { MEMBER_CODE } from '../../apis/APIConfig';
-import { DELETE_SCHEDULE, GET_SCHEDULE_DETAIL, PATCH_SCHEDULE, POST_SCHEDULE_REGIT, scheduleActions } from '../../modules/ScheduleMoudule';
+import { GET_SCHEDULE_DETAIL } from '../../modules/ScheduleMoudule';
+import { LoadingSpiner } from '../../components/common/other/LoadingSpiner';
 
 dayjs.extend(utc);
+
+export const AttendUserContext = createContext([{}]);
 
 const ScheduleDetilaCreate = () => {
     
     const { RangePicker } = DatePicker;
     const {schedule, setSchedule} = useContext(ScheduleProvider);
-    // const {isModal, setIsModal} = useContext(ScheduleModalProvider);
-    // const {isMobile, setIsMobile} = useContext(ScheduleProvider);
-    // const {menuState, toggleMenu} = useContext(MenuContext);
-    
+    const [attendUsers, setAttendUsers ] = useState([])    
     const [postToggle, setPostToggle] = useState(false);
     const [search] = useSearchParams();
     const modalRef = useRef(); // 다음 우편번호 검색 
@@ -42,81 +37,60 @@ const ScheduleDetilaCreate = () => {
 
     const getCalednarReducer = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
     const data = useSelector(state => state.scheduleReducer[GET_SCHEDULE_DETAIL]);
-    // const deleteState = useSelector(state => state.scheduleReducer[DELETE_SCHEDULE])
-    // const scheduleRegist = useSelector(state => state.scheduleReducer[POST_SCHEDULE_REGIT])
-    // const scheduleUpdate = useSelector(state => state.scheduleReducer[PATCH_SCHEDULE])
+    const member = useSelector(state => state.memberReducer);
     
     const scheduleId = search.get('scheduleId');
     const isRead = search.get('isread');
+    const newSchedule = search.get('new');
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(()=>{
-        
+        // if(!schedule && newSchedule === 'true') {
+        //     setSchedule({data:{participantList:[]}})
+        // }
+
         if(!isDataLoad()) {
             if(!getCalednarReducer) return;
             if(!schedule) return;
             return setSchedule({
                 ...data,
                 data: {...schedule.data, 
-                    refCalendar: getCalednarReducer.data.filter(item => 
-                        item.indexNo === 1 && item.memberCode === MEMBER_CODE)[0].id
+                        refCalendar: getCalednarReducer.data
+                        .filter(item => 
+                            item.defaultCalendar 
+                            && item.memberCode === member.data.memberCode 
+                            && item.departmentCode === null)[0].id,
+                        participantList: []
                     }
-            })
-            
+            })    
         }
         
         if(data) return;
         dispatch(getScheduleDetail({scheduleId:scheduleId}));
         if(schedule?.data) return;
 
-        // if(isDataLoad()){
-        //     if(isRead === null || !data?.data)
-        //         navigate(`?scheduleId=${scheduleId}&isread=true`);
-        //     if(isRead === 'true'){
-        //         dispatch(getScheduleDetail({scheduleId:scheduleId}));
-        //     }else{
-        //         setSchedule({...data, data : {...data?.data, refCalendar: data?.data?.calendar.id}})
-        //     }
-        // }else{
-        //     setSchedule({
-        //         ...data,
-        //         data: {...schedule?.data, 
-        //             refCalendar: getCalednarReducer?.data?.filter(item => item.indexNo === 1 && item.memberCode === MEMBER_CODE)[0].id}
-        //     })
-
-        //     if(!schedule.data?.startDate){
-        //         setSchedule({
-        //             ...schedule,
-        //             data: {
-        //                 ...schedule.data,
-        //                 startDate: dayjs().format('YYYY-MM-DDTHH:mm:ss'),
-        //                 endDate: dayjs().format('YYYY-MM-DDTHH:mm:ss'),
-        //                 refCalendar: parseInt(getCalednarReducer?.data.filter(item => item.indexNo === 1 && item.memberCode === MEMBER_CODE)[0].id)}
-        //         })
-        //     }   
-        // }
     },[
         isRead,
         search,
         dispatch,
         data,
-        getCalednarReducer
+        getCalednarReducer,
+        schedule?.data?.allDay
     ])
 
     const isDataLoad = () => {
-        return scheduleId !== null && scheduleId !== undefined && scheduleId !== ''
-    }
-    const loadingSpiner = () => {
-        return  <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>;
+        return scheduleId !== null 
+        && scheduleId !== undefined 
+        && scheduleId !== ''
     }
 
-    if(!getCalednarReducer) return loadingSpiner();
+    if(!getCalednarReducer) return <LoadingSpiner />
 
-    if(!schedule?.data){          
-        if(!data) return loadingSpiner();
+    if(!schedule?.data && isDataLoad()){           
+        if(!data) return <LoadingSpiner />;
         setSchedule(data);
-        return loadingSpiner(); 
+        return <LoadingSpiner />; 
     }
 
     const postOutArea = e =>{
@@ -131,12 +105,14 @@ const ScheduleDetilaCreate = () => {
 
     const daumPostHandler = (e) => {
         setPostToggle(false);
-        navigate(`?scheduleId=${scheduleId}&isread=${false}`)
+        if(!newSchedule === 'true')
+            navigate(`?scheduleId=${scheduleId}&isread=${false}`);
         setSchedule({...schedule, data: {...schedule.data, address: e.address}})
         addressRef.current.focus();
     }
 
     const isReadConfirm = () => {
+        if(newSchedule === 'true') return;
         if(isDataLoad() && isRead === 'true') {
             navigate(`?scheduleId=${scheduleId}&isread=${false}`)       
         };
@@ -154,6 +130,15 @@ const ScheduleDetilaCreate = () => {
                      [eleName]: e.target.checked
                     }
                 })
+            if(eleName === 'allDay'){
+                setSchedule({
+                    ...schedule, 
+                    data:{...schedule.data, 
+                        [eleName]: e.target.checked,
+                        endDate: schedule.data.startDate,
+                    }
+                });
+            }
         }else if(eleName === 'participantList'){
             setSchedule({
                 ...schedule, 
@@ -178,18 +163,30 @@ const ScheduleDetilaCreate = () => {
     }
 
     const changeDateHandler = (e) => {
-        
-        if(schedule.data.allDay){
+        console.log(e);
+        // 일정 초기화
+        if(e === null || e === undefined){
+            return setSchedule({
+                ...schedule, 
+                data:{...schedule.data,  
+                    startDate: dayjs().format('YYYY-MM-DDTHH:mm:ss'), 
+                    endDate: dayjs().format('YYYY-MM-DDTHH:mm:ss')
+                }
+            });
+        }
+
+        if(schedule?.data.allDay){
             setSchedule({
                 ...schedule, 
                 data:{...schedule.data, 
-                    startDate: dayjs(e).format('YYYY-MM-DDTHH:mm:ss')
+                    startDate: dayjs(e).format('YYYY-MM-DDTHH:mm:ss'),
+                    endDate: dayjs(e).format('YYYY-MM-DDTHH:mm:ss'),
                 }
             });
         }else{
             setSchedule({
                 ...schedule, 
-                data:{...schedule.data,  
+                data:{...schedule?.data,  
                     startDate: dayjs(e[0]).format('YYYY-MM-DDTHH:mm:ss'), 
                     endDate: dayjs(e[1]).format('YYYY-MM-DDTHH:mm:ss')
                 }
@@ -197,28 +194,22 @@ const ScheduleDetilaCreate = () => {
         }
     }
 
-
     const registScheduleHandler = () => {
         
         if(isRead === 'true') {
             return navigate(`?scheduleId=${scheduleId}&isread=${false}`)
-        }
-        
+        }   
         if(schedule.data.title === undefined || schedule.data.title === null || schedule.data.title === '')
             return message.error('제목 또는 날짜를 입력하세요')
-        if(isDataLoad()){
-            dispatch(patchScheduleUpdate({data: schedule.data}));
+
+        
+        if(isDataLoad()){       
+            dispatch(patchScheduleUpdate({data: schedule.data,}));
         }else{
             dispatch(postScheduleRegist({data: schedule.data}));
         }
 
-    }
-
-    const removeParticipant = e => {
-        setSchedule({...schedule, participantList:
-            schedule.participantList.filter(item =>
-                parseInt(item.memberCode) !== parseInt(e.target.id))
-        });
+        navigate('../');
     }
     
     const registCancle = () => {
@@ -226,10 +217,10 @@ const ScheduleDetilaCreate = () => {
     }
 
     const deleteScheduleHandler = () => {
-        dispatch(deleteSchedule({data: [parseInt(data.data.id)]}))
+        dispatch(deleteSchedule({scheduleId: data.data.id}))
         navigate('../')
     }
-    
+
     return (
         <>
         {
@@ -243,21 +234,17 @@ const ScheduleDetilaCreate = () => {
                             name='title'
                             type="text"
                             placeholder='제목을 입력하세요'
-                            value={isRead === 'true' ? data.data.title : schedule.data?.title}
+                            value={isRead === 'true' ? data.data.title : schedule?.data?.title}
                             onChange={scheduleChangeHanlder}
                         />
                         <div className={styles.optionItem}>
                             <div style={{marginRight: 10, verticalAlign:'middle'}}>
-                                {/* 사용여부 재 결정
-                                 <CheckBox id="private" name={schedule.} isChangeColor={true}/>
-                                <label className={styles.chkLabel} for="private">비공개</label> 
-                                */}
                             </div>
                             <div>
                                 <CheckBox 
                                     name="important"
                                     isChangeColor={true}
-                                    checked={isRead === 'true' ? data.data.important : schedule.data?.important}
+                                    checked={isRead === 'true' ? data.data.important : schedule?.data?.important}
                                     onChange={scheduleChangeHanlder}
                                 />
                                 <label className={styles.chkLabel}>중요</label>
@@ -270,7 +257,7 @@ const ScheduleDetilaCreate = () => {
                         <div className={[styles.subItem, styles.subCol3].join(' ')}>
                             <div className={styles.date}>
                                 {
-                                    (isRead === 'true' ? data.data.allDay : schedule.data?.allDay) ? 
+                                    (isRead === 'true' ? data.data.allDay : schedule?.data?.allDay) ? 
                                     <DatePicker 
                                         className={antdStyels['ant-picker-focused']}
                                         name='RangeDate'
@@ -280,11 +267,10 @@ const ScheduleDetilaCreate = () => {
                                         style={{width:'100%', borderRadius:5 }}
                                         showTime={{ format: 'HH:mm' }}
                                         value={isRead === 'true' ? 
-                                            dayjs(data.data.startDate) : dayjs(schedule.data?.startDate)
+                                            dayjs(data.data.startDate) : dayjs(schedule?.data?.startDate)
                                         }
                                         onClick={isReadConfirm}
                                         onChange={changeDateHandler}
-
                                     /> :
                                     <RangePicker className={[antdStyels['ant-picker-focused'], 
                                                             antdStyels['ant-picker-active-bar']].join(' ')}
@@ -296,7 +282,7 @@ const ScheduleDetilaCreate = () => {
                                         showTime={{ format: 'HH:mm' }}
                                         value={isRead === 'true' ? 
                                             [dayjs(data.data.startDate), dayjs(data.data.endDate)] : 
-                                            [dayjs(schedule.data?.startDate), dayjs(schedule.data?.endDate)]
+                                            [dayjs(schedule?.data?.startDate), dayjs(schedule?.data?.endDate)]
                                         }
                                         onClick={isReadConfirm}
                                         onChange={changeDateHandler}
@@ -308,46 +294,50 @@ const ScheduleDetilaCreate = () => {
                                     <CheckBox
                                         name='allDay'
                                         isChangeColor={true}
-                                        checked={isRead === 'true' ? data.data.allDay : schedule.data?.allDay}
+                                        checked={isRead === 'true' ? data.data.allDay : schedule?.data?.allDay}
                                         onChange={scheduleChangeHanlder} 
                                     />
                                     <label className={styles.chkLabel}>종일</label>
                                 </div>
-                                <div>
+                                {/* <div>
                                     <CheckBox 
                                         name="repeat" 
                                         isChangeColor={true} 
-                                        checked={isRead === 'true' ? data.data.repeat : schedule.data?.repeat}
+                                        checked={isRead === 'true' ? data.data.repeat : schedule?.data?.repeat}
                                         onChange={scheduleChangeHanlder} 
                                     />
                                     <label className={styles.chkLabel}>반복</label>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
                     
                 </div>
                 <div className={styles.container}>
-                    <label>전사일정</label>
+                    {/* <label>전사일정</label>
                     <div className={styles.extendEle}>
                         <CheckBox 
                             name="corpSchdl" 
                             isChangeColor={true} 
-                            checked={isRead === 'true' ? data.data.corpSchdl : schedule.data?.corpSchdl}
+                            checked={isRead === 'true' ? data.data.corpSchdl : schedule?.data?.corpSchdl}
                             onChange={scheduleChangeHanlder} 
                         />
-                    </div>
+                    </div> */}
                     <label>캘린더</label>
                     <div className={styles.extendEle}>
                         <SelectEle 
                             name='refCalendar' 
                             options={getCalednarReducer.data.filter(item => (
-                                item.departmentCode !== 0 && item.memberCode === MEMBER_CODE
+                                item.departmentCode !== 1 && 
+                                (item.memberCode === member.data.memberCode || item.departmentCode === member.data.deptCode )
                             )).sort((prev, next) => prev.indexNo - next.indexNo
-                            ).map(item => (
-                                {value: item.id, text: item.name})
+                            ).map(item => ({
+                                value: item.id, 
+                                text: item.defaultCalendar? `${item.name} (기본)` : item.name, 
+                                color: item.labelColor
+                                })
                             )}
-                            value={isRead === 'true' ? data.data.refCalendar : schedule.data?.refCalendar}
+                            value={isRead === 'true' ? data.data.refCalendar : schedule?.data?.refCalendar}
                             onChange={scheduleChangeHanlder}
                             onClick={isReadConfirm}
                             style={{padding: 0}}
@@ -355,22 +345,27 @@ const ScheduleDetilaCreate = () => {
                     </div>
                     <label>참석자</label>
                     <div style={{margin:'10px 0 10px 0'}}>
-                        {
-                            schedule.participantList?.map((item, index)=>(
-                                <AttendUser
-                                    key={index} 
-                                    id={item.memberCode} 
-                                    value={item.memberName}
-                                    onClick={removeParticipant} 
-                                />
-                            ))
-                        }
-                        
-                        <ButtonOutline 
-                            value='+' 
-                            onClick={()=>{}} 
-                            style={{borderRadius:'50px'}}
-                        />
+                        <AttendUserContext.Provider value={{attendUsers, setAttendUsers}} >
+                            {
+                                isRead === 'true'
+                                ? data?.data?.participantList?.map((item,index) => (
+                                    <AttendUser
+                                        key={index}
+                                        id={item?.member?.memberCode} 
+                                        value={item?.member?.memberName}
+                                    />
+                                ))
+                                : schedule?.data?.participantList?.map((item, index)=>(
+                                    <AttendUser
+                                        key={index} 
+                                        id={item.member.memberCode} 
+                                        value={item.member.memberName}
+                                        
+                                    />
+                                ))
+                            }
+                            <AddUser onClick={isReadConfirm} />
+                        </AttendUserContext.Provider>
                     </div>
                     
                     <label>장소</label>
@@ -379,7 +374,7 @@ const ScheduleDetilaCreate = () => {
                             ref={addressRef} 
                             name='address' 
                             type="text" 
-                            value={isRead === 'true' ? data.data.address : schedule.data?.address}
+                            value={isRead === 'true' ? data.data.address : schedule?.data?.address}
                             onChange={scheduleChangeHanlder} 
                             // disabled={isEleDisabled()}
                         />
@@ -414,7 +409,9 @@ const ScheduleDetilaCreate = () => {
                 <div className={styles.footer}>
                     <div>
                         {
-                            (data?.data?.calendar.memberCode !== parseInt(MEMBER_CODE) && isDataLoad()) || 
+                            
+                            (isDataLoad() && !data?.expendsProps.compare)
+                            || 
                             <ButtonInline 
                                 value={isRead ? '수정': '등록'}
                                 onClick={registScheduleHandler} 
@@ -426,13 +423,16 @@ const ScheduleDetilaCreate = () => {
                     <div>
                         <ButtonInline 
                             isCancel={true} 
-                            value={isDataLoad() && data?.data?.calendar?.memberCode !== parseInt(MEMBER_CODE)? '뒤로가기' : '취소' } 
+                            value={isDataLoad() && data?.data?.calendar?.memberCode !== member.data.memberCode? '뒤로가기' : '취소' } 
                             onClick={registCancle} 
                             style={{width:80, height: 40}}
                         />
                     </div>
                     {   
-                        isDataLoad() && parseInt(data?.data?.calendar?.memberCode) === parseInt(MEMBER_CODE) && 
+
+                        (isDataLoad() && data.expendsProps.compare)
+
+                        && 
                         <div>
                             <ButtonInline 
                                 isCancel={true} 

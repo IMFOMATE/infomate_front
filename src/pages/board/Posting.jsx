@@ -10,7 +10,7 @@ import{
     callPostPostAPI
 } from '../../apis/BoardAPICalls'
 
-function Posting() {
+function Posting() {  
 
     // 디스패치.. 근데 밑에 두 개는 왜 있는지 모르겠음
     const dispatch = useDispatch();
@@ -22,11 +22,11 @@ function Posting() {
     const [form, setForm] = useState({
         postCode: 0,
         postTitle: '',
-        postDate: '',
+        postDate: new Date().toLocaleDateString(),
         postContents: '',
         boardCategory: 0, 
         boardCode: '',
-        // memberName: ''
+        memberName: '',
         memberCode: 0
 
     });
@@ -38,25 +38,65 @@ function Posting() {
 
 
     /* form 데이터 세팅 */   
-     const onChangeHandler = (e) => {
-        setForm({
+    const onChangeHandler = (e) => {
+        const { name, value } = e.target;
+    
+        if (name === 'boardCategory') {
+          const boardCode = setBoardCode(value);
+          setForm({
             ...form,
-            [e.target.name]: e.target.value
-        });
-    };
+            [name]: value,
+            boardCode: boardCode
+          });
+        } else {
+          setForm({
+            ...form,
+            [name]: value
+          });
+        }
+      };
+
+      const setBoardCode = (category) => {  // 카테고리명으로 게시판 코드 조회하기
+        switch (category) {
+          case '공지사항':
+            return 101;
+          case '일반게시판':
+            return 102;
+          case '익명게시판':
+            return 103;
+          case '부서게시판':
+            return 104;
+          default:
+            return '';
+        }
+      };
+
+
+      // useEffect(() => {
+      //   async function fetchMemberInfo() {
+      //     try {
+      //       const response = await callPostPostAPI(form.memberCode);
+    
+      //       if (response.success) {
+      //         setForm((prev) => ({ ...prev, memberName: response.data.memberName }));
+      //       } else {
+      //         console.error('멤버 정보 조회 실패:', response.error);
+      //       }
+      //     } catch (error) {
+      //       console.error('API 호출 중 오류 발생:', error);
+      //     }
+      //   }
+    
+      //   fetchMemberInfo();
+      // }, [form.memberCode]);
+    
+
 
     /* form 데이터 */
     const postPostHandler = async () => {
         console.log('postPostHandler');
 
         const formData = new FormData();
-
-        // const currentDate = new Date();
-        // const year = currentDate.getFullYear();
-        // const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-        // const day = String(currentDate.getDate()).padStart(2, '0');
-        // const formattedDate = `${year}-${month}-${day}`;
-        // formData.append("postDate", formattedDate);
 
         formData.append("postCode", form.postCode);
         formData.append("postTitle", form.postTitle);
@@ -79,7 +119,7 @@ function Posting() {
         }));
 
         alert('작성완료');
-        navigate('/board/common', { replace:true});
+        navigate('/board/common', { replace: true});
         window.location.reload();
 
         
@@ -87,8 +127,6 @@ function Posting() {
 
 
     //=====================================
-
-
 
     //
     const [image, setImage] = useState(null);
@@ -110,6 +148,10 @@ function Posting() {
  
       const quillRef = useRef(null);
     //   ============================
+
+     const postHandler = (postCode) => {
+        navigate(`/board/post/${postCode}`, { replace: false });
+    }
 
     return (
         <>
@@ -133,12 +175,13 @@ function Posting() {
 
         {/* 작성 폼 */}
 
+        
         <input 
         className={PostingCSS.title} 
         placeholder="제목을 입력해주세요."
         name='postTitle'
         onChange={onChangeHandler}>
-            
+        
         </input>
         <div className={PostingCSS.postmargin}>
             <ReactQuill
@@ -173,7 +216,6 @@ function Posting() {
         </button>
     </div>
         {/*  */}
-        
         
         </>
     )

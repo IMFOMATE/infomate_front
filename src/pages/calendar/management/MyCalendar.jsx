@@ -6,10 +6,8 @@ import styles from './myCalendar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { DELETE_CALENDAR, GET_CALENDAR_LIST, PATCH_CALENDAR_UPDATE, POST_CALENDAR_REGIT } from '../../../modules/CalendarMoudule';
 import { getCalendarListAPI, patchCalendarUpdate, patchDefaultCalendarUpdate, postCalendarRegit } from '../../../apis/CalendarAPICalls';
-import { MEMBER_CODE } from '../../../apis/APIConfig';
 import { NotResultData } from '../../common/Error';
-import { FadeLoader } from 'react-spinners';
-import StylesLoading from '../loadingStyle.module.css';
+import { LoadingSpiner } from '../../../components/common/other/LoadingSpiner';
 
 const MyCalendar = () => {
 
@@ -17,6 +15,7 @@ const MyCalendar = () => {
     
     const calendarList = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
     const calendarReducer = useSelector(state => state.calendarReducer);
+    const member = useSelector(state => state.memberReducer);
     const dispatch = useDispatch();
 
     useEffect(()=> {
@@ -27,6 +26,9 @@ const MyCalendar = () => {
         calendarReducer[PATCH_CALENDAR_UPDATE], 
         calendarReducer[DELETE_CALENDAR],
     ])
+
+    if(!calendarList) return <LoadingSpiner />
+    if(calendarList === null) return <NotResultData />
 
     const CalendarAddHandler = e =>{
         if(e.target !== undefined){
@@ -62,18 +64,14 @@ const MyCalendar = () => {
                     <div className={styles.delete}>
                     </div>
                     {
-                        !calendarList 
-                        ? <div className={StylesLoading.loading}> <FadeLoader color="#9F8AFB" /></div>
-                        : calendarList.data === null 
-                        ? <NotResultData />
-                        : calendarList?.data.filter(item => item.memberCode === parseInt(MEMBER_CODE)
+                        calendarList?.data.filter(item => item.memberCode === parseInt(member.data.memberCode)
                         ).sort((prev, next) => (
                             prev.indexNo - next.indexNo
                         )).map((item,index) => <MyCalendarItem 
                                                     key={item.id}
                                                     id={item.id}
                                                     min={index === 0}
-                                                    max={index === (calendarList.data.filter(item => item.memberCode === parseInt(MEMBER_CODE)).length - 1)}
+                                                    max={index === (calendarList.data.filter(item => item.memberCode === parseInt(member.data.memberCode)).length - 1)}
                                                     memberCode={item.memberCode}
                                                     defaultCalendar={item.defaultCalendar}
                                                     name={item.name}

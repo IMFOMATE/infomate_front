@@ -14,15 +14,15 @@ const actions = createActions({
 
 const approvalReducer = handleActions(
     {
-      [POST_APPROVE] : (state, { payload }) => {
-        return payload;
-      },
-      [POST_REJECT] : (state, { payload }) => {
-        return payload;
-      },
-      [POST_TEMP] : (state, { payload }) => {
-        return payload;
-      },
+      [POST_APPROVE] : (state, { payload }) => ({
+        ...state, [POST_APPROVE]:payload
+      }),
+      [POST_REJECT] : (state, { payload }) => ({
+        ...state, [POST_REJECT]:payload
+      }),
+      [POST_TEMP] : (state, { payload }) => ({
+        ...state, [POST_TEMP]:payload
+      }),
     },
     initialState
 );

@@ -14,7 +14,7 @@ function PaymentList({key, payment, onUpdate }) {
           />
         </td>
         <td className={style.td}>
-          <select className={style.input} onChange={(e) => onUpdate('paymentSort', e.target.value)} >
+          <select className={style.input} onChange={(e) => onUpdate('paymentSort', e.     target.value)} >
             <option value=""></option>
             <option value="물품구입비">물품구입비</option>
             <option value="식비">식비</option>
@@ -27,7 +27,9 @@ function PaymentList({key, payment, onUpdate }) {
             className={style.input}
             type="number"
             value={payment.paymentPrice.toLocaleString()}
-            onChange={(e) => onUpdate('paymentPrice', e.target.value)}
+            onChange={(e) => {
+              onUpdate('paymentPrice', e.target.value);
+            }}
           />
         </td>
         <td className={style.td}>

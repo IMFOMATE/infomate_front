@@ -9,6 +9,10 @@ function Credit({key, text, rank, approvalDate}) {
         <p>{rank }</p>
         <p className={style.credit_name}>
           {
+            approvalDate ?
+                <img className={style.stamp} src="/img/stamp.png" />
+                :
+                ''
              // <img className={style.stamp} src="/img/user.jpg" />
           }
           <span>{text}</span>

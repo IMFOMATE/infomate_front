@@ -61,19 +61,21 @@ const Calendar = () =>{
     }) 
     
     useEffect(()=>{
+        
+        // if(data) return;
+        dispatch(dispatch => dispatch({ type: GET_SCHEDULE_DETAIL,  payload: undefined }))
+
         setIsModal(false);
         setViewModal(false);
         setSchedule(undefined);
-        dispatch(dispatch => dispatch({ type: GET_SCHEDULE_DETAIL,  payload: undefined }))
         changeIsMobile();
 
         sizeObserver.observe(containerRef.current);
 
         dispatch(getCalendarFindAllAPI())
-        // setSchedule(data);
-        
-
+    
         return () => {
+            console.log(1);
             sizeObserver.disconnect();
         }
     },[
@@ -91,25 +93,27 @@ const Calendar = () =>{
             ...schedule, 
             data : {...schedule?.data,
                 startDate: dayjs(data.startStr).format('YYYY-MM-DDTHH:mm'),
-                endDate: data.view.type === 'dayGridMonth'? dayjs(data.endStr).subtract(1,'d').format('YYYY-MM-DDTHH:mm') : dayjs(data.endStr).format('YYYY-MM-DDTHH:mm'),
+                endDate: data.view.type === 'dayGridMonth'
+                ? dayjs(data.endStr).subtract(1,'d').format('YYYY-MM-DDTHH:mm') 
+                : dayjs(data.endStr).format('YYYY-MM-DDTHH:mm'),
             }
         })
-        isMobile? navigate('./regist') : setIsModal(true);
+        isMobile? navigate('./regist?new=true') : setIsModal(true);
         
         ChangeModalOffset(data.jsEvent || data, {x: 275, y: 180})
     };
 
-    const hoverEventHandler = (data, param) => {
-        if(param === viewModal || param === isMobile) return;
-        if(param) {
-            setViewModalData(false)
-            ChangeModalOffset(data.jsEvent, {x: 180, y: 80})
-            setViewModalData(data)
-        }else{
-            setViewModalData({})
-        }
-        setViewModal(param);
-    }
+    // const hoverEventHandler = (data, param) => {
+    //     if(param === viewModal || param === isMobile) return;
+    //     if(param) {
+    //         setViewModalData(false)
+    //         ChangeModalOffset(data.jsEvent, {x: 180, y: 80})
+    //         setViewModalData(data)
+    //     }else{
+    //         setViewModalData({})
+    //     }
+    //     setViewModal(param);
+    // }
     
     const ChangeModalOffset = (offset, plusOffset) =>{
         setOffset({...offset, 
@@ -135,14 +139,12 @@ const Calendar = () =>{
     const eventClickHandler = e => {  
         menuState && toggleMenu();
         ChangeModalOffset(e.jsEvent, {x:270 , y: 180});
-        console.log(isMobile);
         if(!isMobile){
             setViewModalData(false)
             ChangeModalOffset(e.jsEvent, {x: 180, y: 80})
             setViewModalData(e)
             setViewModal(true);
         }else{
-            // navigate(`./regist?scheduleId=${e.event.extendedProps.id}&isread=true`);
             navigate(`./regist?scheduleId=${e.event.extendedProps.id}&isread=true`);
         }
     }
@@ -161,13 +163,15 @@ const Calendar = () =>{
         const event = [];
             data.filter(item => !filter.includes(item.id))
             .forEach(item1 => {
-                item1 && item1.scheduleList && item1.scheduleList.forEach(item => 
+                item1.scheduleList.forEach(item => 
                         event.push({
                             title: item.title,
                             start: dayjs(item.startDate).format('YYYY-MM-DDTHH:mm:ss'),
                             end: dayjs(item.endDate).format('YYYY-MM-DDTHH:mm:ss'), allDay: item.allDay,
                             color: item1.labelColor,
-                            textColor: 'black',
+                            textColor: (item.allDay 
+                                || dayjs(item.startDate).format('YYYY-MM-DD') !== dayjs(item.endDate).format('YYYY-MM-DD'))
+                                ? 'white': 'black',
                             extendedProps: {
                                 id: item.id,
                                 address: item.address,

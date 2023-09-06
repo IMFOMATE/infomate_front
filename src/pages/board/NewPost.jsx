@@ -74,39 +74,36 @@ function NewPost() {
                     }
                 </tbody>
             </table>
-            
-            <div style={{ listStyleType: "none", display: "flex", justifyContent: "center" }}>
-                { Array.isArray(boardList) &&
-                <button
-                    onClick={() => setCurrentPage(currentPage -1)}
-                    dsabled={currentPage === 1}
-                    className={ BoardCSS.pagination }
-                >
-                &laquo;
-                </button>
-                }
-                { pageNumber.map((num) => (
-                <li key={num} onClick={() => setCurrentPage(num)}>
+                <div style={{ listStyleType: "none", display: "flex", justifyContent: "center"}} >
+                    { Array.isArray(boardList) &&
                     <button
-                        style={ currentPage === num ? { backgroundColor : '#9e88fe'} : null }
+                        onClick={() => setCurrentPage(currentPage -1)}
+                        dsabled={currentPage === 1}
                         className={ BoardCSS.pagination }
                     >
-                        {num}
-                    </button>
-                </li>
-                ))}
-                { Array.isArray(boardList) &&
-                <button
-                    className={ BoardCSS.pagination }
-                    onClick={() => setCurrentPage(currentPage +1)}
-                    disabled={ currentPage === pageInfo.pageEnd || pageInfo.total == 0}
-                >
-                    &raquo;
+                    &lt;
                     </button>
                     }
-            </div>
-
-
+                    { pageNumber.map((num) => (
+                    <li key={num} onClick={() => setCurrentPage(num)} >
+                        <button
+                            style={ currentPage === num ? { backgroundColor : '#9e88fe', color : 'white'} : null }
+                            className={ BoardCSS.pagination }
+                        >
+                            {num}
+                        </button>
+                    </li>
+                    ))}
+                    { Array.isArray(boardList) &&
+                    <button
+                        className={ BoardCSS.pagination }
+                        onClick={() => setCurrentPage(currentPage +1)}
+                        disabled={ currentPage === pageInfo.pageEnd || pageInfo.total == 0}
+                    >
+                        &gt;
+                        </button>
+                        }
+                </div>
             
        
 

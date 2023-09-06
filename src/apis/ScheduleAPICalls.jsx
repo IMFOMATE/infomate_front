@@ -4,20 +4,68 @@ import {
     POST_SCHEDULE_REGIT,
     PATCH_SCHEDULE,
     DELETE_SCHEDULE,
+    GET_SCHEDULE_COUNT,
+    GET_SCHEDULE_REMINDER,
 } from '../modules/ScheduleMoudule';
-import { PROTOCOL, SERVER_IP, SERVER_PORT, MEMBER_CODE} from './APIConfig';
+import { PROTOCOL, SERVER_IP, SERVER_PORT } from './APIConfig';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { message } from 'antd';
 
 dayjs.extend(utc);
 
+
+export const getScheduleDayPerCount = ({startDay, endDay}) => {
+
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/dayCount?startDay=${startDay.format('YYYY-MM-DD')}&endDay=${endDay.format('YYYY-MM-DD')}`;
+
+    return async (dispatch, getState) => {
+        const result = await axios.get(requestURL,{headers: {
+            "Accept": "*/*",
+            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+        }})
+                    .then(res => res.data)
+                    .catch(err => err);
+
+        if(result?.status === 200) {
+            dispatch({ type: GET_SCHEDULE_COUNT,  payload: result });
+            return ;
+        }
+        
+        message.error("알수 없는 에러가 발생했습니다.")    
+    };
+}
+
+export const getScheduleReminder = () => {
+
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/reminder`;
+
+    return async (dispatch, getState) => {
+        const result = await axios.get(requestURL,{headers: {
+            "Accept": "*/*",
+            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+        }})
+                    .then(res => res.data)
+                    .catch(err => err);
+
+        if(result?.status === 200) {
+            dispatch({ type: GET_SCHEDULE_REMINDER,  payload: result });
+            return ;
+        }
+        
+        message.error("알수 없는 에러가 발생했습니다.")    
+    };
+}
+
 export const getScheduleDetail = ({scheduleId}) => {
 
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/${scheduleId}`;
 
     return async (dispatch, getState) => {
-        const result = await axios.get(requestURL)
+        const result = await axios.get(requestURL, {headers: {
+            "Accept": "*/*",
+            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+        }})
                     .then(res => res.data)
                     .catch(err => err);
 
@@ -31,19 +79,26 @@ export const getScheduleDetail = ({scheduleId}) => {
 }
 
 export const postScheduleRegist = ({data}) => {
-    data = {...data, memberCode: MEMBER_CODE}    
+
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/regist`;
     
     data = {...data, startDate: dayjs(data.startDate).format('YYYY-MM-DDTHH:MM:ss'), endDate: dayjs(data.endDate).format('YYYY-MM-DDTHH:MM:ss')}
+    if(data?.participantList?.length > 0) 
+        data = {...data, participantList: [...data.participantList?.map(item => ({memberCode: item.member.memberCode}))]}
+
+        console.log(data);
     return async (dispatch, getState) => {
-        const result = await axios.post(requestURL, data, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
+        const result = await axios.post(requestURL, data, {headers: {
+            "Accept": "*/*",
+            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+        }})
                         .then(res => res)
                         .catch(err => err);
 
         if(result?.status === 200){
             message.success("일정이 등록 되었습니다.")
             dispatch({ type: POST_SCHEDULE_REGIT,  payload: result});
-            console.log('1');
+
             return ;
         } 
         
@@ -53,19 +108,23 @@ export const postScheduleRegist = ({data}) => {
 }
 
 export const patchScheduleUpdate = ({data}) => {
-    data = {...data, memberCode: MEMBER_CODE}
 
+    if(data?.participantList?.length > 0) 
+        data = {...data, participantList: [...data.participantList.map(item => ({memberCode: item.member.memberCode, scheduleCode: data.id}))]}
+    
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/update`;
     
     return async (dispatch, getState) => {
-        const result = await axios.patch(requestURL, data, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
+        const result = await axios.patch(requestURL, data,{headers: {
+            "Accept": "*/*",
+            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+        }})
                         .then(res => res)
                         .catch(err => console.log(err));
 
-        if(result.status === 200){
-            message.success("일정이 변경 되었습니다.")
+        if(result?.status === 200){
             dispatch({ type: PATCH_SCHEDULE,  payload: result});
-            return;
+            return message.success("일정이 변경 되었습니다.");  
         }
     
         message.error("변경에 실패 했습니다")
@@ -74,25 +133,27 @@ export const patchScheduleUpdate = ({data}) => {
 }
 
 
-export const deleteSchedule = ({data}) => {
+export const deleteSchedule = ({scheduleId}) => {
 
-    console.log(data);
+    console.log(scheduleId);
     
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/delete`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/delete/${scheduleId}`;
     
     
     return async (dispatch, getState) => {
-        const result = await axios.delete(requestURL, {data}, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
+        const result = await axios.delete(requestURL, {headers:{
+            "Accept": "*/*",
+            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+        }})
                         .then(res => res)
                         .catch(err => err);
 
-        if(result.status === 200){
+        if(result?.status === 200){
             message.success("일정이 삭제 되었습니다.")
             dispatch({ type: DELETE_SCHEDULE,  payload: result});
             return ;
         } 
         
         message.error("변경에 실패 했습니다")
-    
     };
 }

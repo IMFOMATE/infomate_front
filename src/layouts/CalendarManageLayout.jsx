@@ -8,7 +8,7 @@ const CalendarManegeLayout = () => {
     return (
         <div style={{margin: '10px 30px 10px 30px'}}>
             <CalendarManageHeader 
-                value={'스케쥴 관리'} 
+                value={'캘린더 설정'} 
                 style={{marginBottom:10}}
             />
             <CalendarManageNavbar />
@@ -22,9 +22,7 @@ const CalendarManegeLayout = () => {
                         style={{width:'15%', minWidth:150, height:40}}
                     />
                 </NavLink>
-            </div>
-
-            
+            </div>            
         </div>
     )
 }

@@ -42,31 +42,47 @@ import UpdateDept from './pages/manage/admin/UpdateDept';
 import Department from './pages/manage/Department';
 import UpdateList from './pages/manage/admin/UpdateList';
 import DeptItems from './pages/manage/admin/DeptItems';
+import PostUpdate from './pages/board/PostUpdate';
+import LoginForm from "./pages/member/login/LoginForm";
+import Main from './pages/home/Main';
+import Register from './pages/member/login/Register';
 
 function App() {
+
+  
   return (
     <>
       <BrowserRouter>
         <Routes>
+          
+          <Route index element={<LoginForm />} />
+
           <Route path="/" element={<Layout/>}>
+
+            <Route path="main">
+              <Route index element={<Main/>}/>
+              <Route path="regist-member" element={<Register/>}/>
+            </Route>
+
+
             <Route path="/addressBook" element={<AddressBook />} />
             <Route path="/addContact" element={<AddContact />} />
             {/* <Route path="/mailWrite" element={<MailWrite />} /> */}
             <Route path="/mail" element={<Mail />} />
             {/* <Route path="/board" element={<BoardMain />}></Route> */}
-
-
             
             <Route path="approval">
               <Route index element={<ApprovalMain/>}/>
-              <Route path="mylist" element={<MyDocList title='기안문서'/>}/> {/*내 기안 리스트*/}
-              <Route path="reflist" element={<MyDocList title='참조문서'/>}/> {/*참조문서리스트*/}
-              <Route path="temp" element={<MyDocList title='임시저장문서'/>} /> {/*임시저장문서리스트*/}
-              <Route path="approving" element={<MyDocList title='결재대기문서'/>}/> {/*결재 대기문서리스트*/}
-              <Route path="approved" element={<MyDocList title='결재완료문서'/>}/> {/*결재 완료 리스트*/}
-              <Route path="document" element={<DocumentMain/>}/>
+              <Route path="approval" element={<MyDocList />}/> {/*내 기안 리스트*/}
+              <Route path="ref" element={<MyDocList />}/> {/*참조문서리스트*/}
+              <Route path="temporary" element={<MyDocList />} /> {/*임시저장문서리스트*/}
+              <Route path="credit" element={<MyDocList/>}/> {/*결재 대기문서리스트*/}
+              <Route path="document">
+                <Route path="new" element={<DocumentMain/>}/>
+                <Route path=":documentId" element={<DocumentDetail/>}/> {/* 문서 조회 */}
+                <Route path=":documentId/reapply" element={<DocumentMain/>}/>
+              </Route>
             </Route>
-
 
             <Route path="calendar" element={<CalendarLayout />}>
               <Route index element={<Calendar/>}/>
@@ -75,15 +91,14 @@ function App() {
                 <Route path="management" element={<CalendarManegeLayout/>}>
                 <Route index element={<MyCalendar />}/>
                 <Route path="myPage" element={<MyCalendar />}/> 
-                <Route path="favorite">
-                  <Route index element={<FavoriteCalendarLayout />} />
+                <Route path="favorite" element={<FavoriteCalendarLayout />}>
+                  <Route index element={<FavoriteCalendarFollowing />} />
                   <Route path="following" element={<FavoriteCalendarFollowing />} />
                   <Route path="follower" element={<FavoriteCalendarFollower />} />
                   <Route path="public" element={<FavoriteCalendarPublic />} />
                 </Route>
               </Route>          
             </Route>
-
 
 
             <Route path='group'>
@@ -118,6 +133,8 @@ function App() {
             <Route path="/board/anony" element={ <Anony />}/>
             <Route path="/board/posting" element={ <Posting />}/>
             <Route path="/board/post/:postCode" element={ <PostView />}/>
+            <Route path="/board/:postCode/update" element={ <PostUpdate />}/>
+
             {/* <Route path="/board" element={<BoardMain/>}></Route> */}
           
           </Route>  

@@ -1,44 +1,72 @@
 import mainCSS from '../../components/common/main.module.css';
-import boardCSS from '../board/Board.module.css'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import PostCSS from './PostView.module.css';
+import {LoadingSpiner} from '../../components/common/other/LoadingSpiner'
 
-import {
+import{
     callPostViewAPI
 } from '../../apis/BoardAPICalls'
 
 function PostView() {
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const params = useParams();
-    const product  = useSelector(state => state.productReducer);  
+    const post  = useSelector(state => state.boardReducer); 
+    const postCode = params.postCode;
 
-    useEffect(
-        () => {
-            dispatch(callPostViewAPI({
-                postCode: params.postCode
-            }));
-        }
-    )
+    console.log('postCode', postCode);
+    console.log('-------',post);
+    
+    useEffect(() => {
+      if(post.length > 0) return ;
+      console.log('PostView 컴포넌트가 렌더링 됨'); // 컴포넌트가 렌더링될 때 로그 출력
+
+      dispatch(callPostViewAPI({
+          postCode: postCode
+      }))
+      
+  }, [dispatch, postCode]);
+
+
+  
+
+  if(post.length < 1) return <LoadingSpiner />
 
     
+    const onClickPostUpdate = (postCode) => {
+      console.log(postCode);
+      navigate(`/board/${postCode}/update`, {replace: false});
+    }
+
+    console.log(post);
+
 
     return (
-
-    <div>
+<>
         <div className={mainCSS.maintitle}>
-        <h2>일반 게시판</h2>
+        <h2>{post.boardCategory}</h2>
         </div>
 
-        <h3>제목</h3>
-        <h6>작성자 작성일 게시글코드 조회수 </h6>
-        <h5>---------------------------------------------</h5>
-        <h4>내용</h4>
-        <h5>완전 밑에 수정하기, 삭제하기</h5>
-    </div>
-
+              <div className={ PostCSS.boardtitle }>{post.postTitle}</div>
+              <div className={ PostCSS.actfnt}>작성자 | {post.postDate} | {post.postCode} | 조회수 </div>
+              <div className={ PostCSS.postcont}>{post.postContents}</div>
+           
+                <div className={ PostCSS.boardcontentsline}></div>
+        
+        <div className={ PostCSS.naranhe}>
+          <button 
+            className={ PostCSS.boardupload} 
+            onClick={onClickPostUpdate}>
+              수정하기
+          </button>
+        <div className={ PostCSS.boarddelete}>삭제하기</div>
+        </div>
+    
+                
+    </>
     );
 }
 

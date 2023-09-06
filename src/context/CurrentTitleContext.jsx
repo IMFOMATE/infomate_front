@@ -7,7 +7,6 @@ export function CurrentTitleProvider({children}){
 
     const toggleTitle = (newTitle) => {
         setCurrentTitle(newTitle);
-        localStorage.setItem('currentTitle',newTitle);
     };
 
     return(

@@ -8,18 +8,30 @@ import style from "../../../../pages/approval/DocumentMain.module.css";
 import WriterInfo from "./WriterInfo";
 import Credit from "./Credit";
 import DocFile from "../common/DocFile";
+import {useDispatch, useSelector} from "react-redux";
 import DocumentSide from "./DocumentSide";
 import Swal from "sweetalert2";
+import {treeviewAPI} from "../../../../apis/DepartmentAPI";
+import {formatApprovalDate, handleCancel, isValid, showValidationAndConfirm} from "../common/dataUtils";
+import {vacationRegistAPI} from "../../../../apis/DocumentAPICalls";
 
 function Vacation() {
-
+  const treeview = useSelector(state => state.departmentReducer);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const {name, type} = location.state;
   const { data, setData } = useVacationDataContext();
   const { sort, startDate, endDate} = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalData, setModalData] = useState(null);
+
+
+  // 모달이 열릴 때 fetch GET 조직도 가지고옴 -> modalData
+  useEffect(()=>{
+    if (isModalOpen){
+      dispatch(treeviewAPI());
+    }
+  },[isModalOpen]);
 
   // form 데이터
   const onChangeHandler = (e) => {
@@ -61,14 +73,38 @@ function Vacation() {
     setData({...data, endDate:e.target.value + ' 18:00:00'})
   }
 
+  const requestApproval = (formData) => {
+    dispatch(vacationRegistAPI(formData));
+  };
 
 
-  // 모달이 열릴 때 fetch GET 조직도 가지고옴 -> modalData
-  useEffect(()=>{
-    if (isModalOpen){
+  const createFormData = () => {
+    const formData = new FormData();
 
-    }
-  },[isModalOpen]);
+    data.fileList.forEach((file) => {
+      formData.append("fileList", file); // 각 파일을 formData에 추가
+    });
+
+    data.approvalList.forEach((app, index) => {
+      formData.append(`approvalList[${index}].id`, app.data.memberCode);
+      formData.append(`approvalList[${index}].order`, index + 1);
+    });
+
+    data.refList.forEach((app, index) => {
+      formData.append(`refList[${index}].id`, app.data.memberCode);
+    });
+
+    formData.append("title", data.title);
+    formData.append("content", data.content);
+    formData.append("emergency", data.emergency ?? "N");
+    formData.append("sort", data.sort);
+    formData.append("startDate", data.startDate);
+    formData.append("endDate", data.endDate);
+    formData.append("reason", data.reason);
+
+    return formData;
+  };
+
 
   //모달 토글 버튼
   const toggleModal = () => setIsModalOpen(prev => !prev);
@@ -76,12 +112,17 @@ function Vacation() {
   //결제 요청 api
   const handleRequest = () => {
 
+
     console.log(data);
+    const validationResult = isValid(data,true,true);
 
-    // 여기서 폼작업 해줘야한다./
-
-    // 유효성 검사도 하자
-
+    showValidationAndConfirm(
+        validationResult, data.approvalList.length,
+        () => {
+          const formData = createFormData();
+          requestApproval(formData);
+        }
+    )
   };
 
   // 임시저장 api
@@ -89,7 +130,7 @@ function Vacation() {
 
   //
   const handleChoice = toggleModal;  //결재선 지정 모달
-  const handleCancel = () => navigate("/approval"); // 결제 취소
+  const cancelAction = () => navigate("/approval");
 
   // 파일 저장
   const handleFileChange = (event) => {
@@ -99,26 +140,22 @@ function Vacation() {
 
   //현재 문서작성자 -> 로컬스토리지에서 가져오기
   const writer= {
-    name : '주진선',
-    dept : '개발부서',
-    date : `${new Date().toISOString().substring(0,10)}`
+    memberName : '주진선',
+    deptName : '개발부서',
   }
 
   //버튼에 함수 넘겨주기
   const url = {
     request: handleRequest,
     temp: handleTemp,
-    cancel: handleCancel,
+    cancel: () => {handleCancel(cancelAction)},
     choice: handleChoice
   }
-
-
-
 
   return (
       <>
         {
-            isModalOpen && <ApprovalModal contextType='vacation' modalData={modalData} toggleModal={toggleModal}/>
+            isModalOpen && <ApprovalModal contextType='vacation' modalData={treeview} toggleModal={toggleModal}/>
         }
         <DocButtons button={<InsertButton url={url}/>}/>
         <div className={style.container}>
@@ -126,11 +163,11 @@ function Vacation() {
             <div className={style.doc}>
               <h2 className={style.doc_title}>{name}</h2>
               <div className={style.doc_top}>
-                <WriterInfo writer={writer}/>
+                <WriterInfo writer={writer} start={new Date()}/>
                 <div className={style.inline}>
                   {
                     data.approvalList.length !== 0 ?
-                        data.approvalList.map((data, index) => <Credit key={index} text={data.memberName} rank={data.rankName} approvalDate={data?.approvalDate} />)
+                        data.approvalList.map((data, index) => <Credit key={data.memberCode} text={data.text} rank={data.data.rank} approvalDate={data?.approvalDate} />)
                         : ""
                   }
                 </div>
@@ -141,13 +178,13 @@ function Vacation() {
                   <tbody>
                   <tr className={style.none}>
                     <td>
-                      <input name='title' value={name} type="text"/>
+                      <input name='title' defaultValue={name} type="text"/>
                     </td>
                   </tr>
                   <tr className={style.tr}>
                     <td className={style.td}>작성일자</td>
                     <td className={style.td}>
-                      <input name="startDate" type="date" className={style.input} onChange={onChangeHandler}/>
+                      <span>{formatApprovalDate(new Date())}</span>
                     </td>
                     <td className={`${style.tds} ${style.td}`} >긴급여부</td>
                     <td className={style.td} >
@@ -171,7 +208,7 @@ function Vacation() {
                     </td>
                   </tr>
                   <tr>
-                    <td className={style.tds}>기간 사유</td>
+                    <td className={style.tds}>기간</td>
                     <td colSpan={3} className={style.td}>
                       <input className={style.td} name='startDate' type="date" onChange={onStartDateChange} />
                       {
@@ -184,7 +221,7 @@ function Vacation() {
                       }
                       <span>
                       {/*{*/}
-                      {/*  new Date(data.endDate) - new Date(data.startDate)/ (1000 * 60 * 60 * 24) + 1*/}
+                      {/*  diffDate(data.startDate, data.endDate)*/}
                       {/*} 일*/}
                       </span>
                     </td>
@@ -192,14 +229,12 @@ function Vacation() {
                   <tr>
                     <td className={style.tds}>휴가 사유</td>
                     <td colSpan={3}>
-                      <textarea className={style.textarea} name="content" id="reason" cols="30" rows="10" onChange={onChangeHandler}/>
+                      <textarea className={style.textarea} name="content" cols="30" rows="10" onChange={onChangeHandler}/>
                     </td>
                   </tr>
 
                   </tbody>
                 </table>
-
-
               </div>
               {/* 파일컴포넌트 */}
               <DocFile handleFileChange={handleFileChange}/>

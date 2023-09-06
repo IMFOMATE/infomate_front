@@ -38,6 +38,10 @@ function ApprovalTable({title, data}) {
     );
   }
 
+  console.log(data.length)
+
+
+
   return (
     <section>
       {
@@ -48,10 +52,18 @@ function ApprovalTable({title, data}) {
           <TableHeader/>
           <tbody>
           {
+            data.length === 0 ?
+                <tr>
+                  <td className={ApprovalTableCss.data_null} colSpan={5}>해당 문서가 없습니다</td>
+                </tr>
+                :
               data?.map((list, index)=> <TrData key={index} list={list}/>)
           }
           </tbody>
         </table>
+        {
+
+        }
       </div>
     </section>
   );

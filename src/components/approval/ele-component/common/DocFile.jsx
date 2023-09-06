@@ -1,6 +1,7 @@
 import React from 'react';
 import style from "./DocFile.module.css";
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import DownloadButton from "./DownLoadButton";
 function DocFile({handleFileChange}) {
   return (
       <div className={style.files}>
@@ -19,11 +20,17 @@ function DocFile({handleFileChange}) {
 export default DocFile;
 
 export const DocFileSpan = ({fileList}) => {
+
   return (
       <>
         <div className={style.files}>
-          <p className={style.file_title}><AttachFileIcon/> 첨부파일 {fileList.length}개</p>
-           {fileList ?? ''}
+          <p className={style.file_title}><AttachFileIcon/> 첨부파일
+            { fileList.length}개
+          </p>
+          {
+            fileList.length < 0 ? '' :
+                fileList.map(f=><DownloadButton filename={f.fileName}>{f.fileName}</DownloadButton>)
+          }
         </div>
       </>
   );

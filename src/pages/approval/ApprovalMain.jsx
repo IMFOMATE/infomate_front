@@ -12,11 +12,11 @@ const ApprovalMain = () => {
 
   const dispatch = useDispatch();
   const documentData = useSelector(state => state.documentsReducer);
-  const data = documentData.data;
+  const data = documentData?.data;
 
 
   useEffect(() => {
-        dispatch(getMainAPI({memberCode:2}));
+        dispatch(getMainAPI({memberCode:process.env.REACT_APP_TEST_MEMBER_CODE}));
       },[]
   );
 

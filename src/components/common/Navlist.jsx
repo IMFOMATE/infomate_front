@@ -1,8 +1,10 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import NavListCss from './Navlist.module.css';
 
 function Navlist({title, data}) {
+
+  const active = {color: 'var(--color-hard)', fontWeight:'bold'};
   return (
     <>
       <div className={NavListCss.title}>{title}</div>
@@ -10,9 +12,9 @@ function Navlist({title, data}) {
         {
           data.map((d, index) =>
             <li key={index} className={NavListCss.list}>
-              <Link to={d.link} className={NavListCss.list_link}>
+              <NavLink to={d.link} className={NavListCss.list_link} style={({isActive}) => isActive ? active : Navlist.list} >
                 {d.text}
-              </Link>
+              </NavLink>
             </li>
           )
         }

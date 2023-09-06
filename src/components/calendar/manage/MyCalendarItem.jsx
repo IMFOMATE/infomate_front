@@ -37,7 +37,7 @@ const MyCalendarItem = ({id, memberCode, name,
     }
 
     const deleteHandler = e => {
-        dispatch(deleteCalendar({data: [parseInt(e.target.id)]}));
+        dispatch(deleteCalendar({scheduleId: parseInt(e.target.id)}));
     }
 
     const changeIndexNo = (direction) =>{
@@ -45,6 +45,7 @@ const MyCalendarItem = ({id, memberCode, name,
         
     }
 
+    
     return (
     <>
         <div className={styles.item}>
@@ -71,7 +72,8 @@ const MyCalendarItem = ({id, memberCode, name,
                 <div className={styles.itemFont}>
                     <InputEle
                         name='name'
-                        value={ data?.name !== undefined? data?.name : textValue}
+                        
+                        value={ data?.name !== undefined? data?.name : defaultCalendar ? `${textValue} (기본)`: textValue}
                         onChange={changeNameHandler}
                         style={{display:'inline-block', marginRight:10, minWidth:100}}
                         disabled={!textModify}

@@ -35,10 +35,10 @@ const boardReducer = handleActions(
             
             return payload;
         },
-        [POST_POST]: (state, { payload }) => {
-
-            return payload;
-        },
+        [POST_POST]: (state, { payload }) => ({
+            ...state, [POST_POST]: payload
+        }),
+        
         [PUT_POST]: (state, { payload }) => {
 
             return payload;

@@ -1,5 +1,5 @@
 import "./visitRec.css"
-import trachbinImg from "../img/trashbin.png";
+import trashbinImg from "../img/trashbin.png";
 
 function VisitRec() {
 
@@ -37,7 +37,7 @@ function VisitRec() {
                         <h4>2023-01-01</h4>
                     </div>
                     <button class="delete" type="button">
-                        <img src={trachbinImg} alt="삭제"/>
+                        <img src={trashbinImg} alt="삭제"/>
                     </button>
                 </div>
 

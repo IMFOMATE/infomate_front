@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import mainCss from "../../../../common/main.module.css";
 import styles from '../../../../../pages/approval/DocumentMain.module.css';
@@ -9,21 +9,57 @@ import {useDispatch, useSelector} from "react-redux";
 import {getDocumentDetailAPI} from "../../../../../apis/DocumentAPICalls";
 import { FadeLoader } from "react-spinners";
 import loadingCss from '../../../../../pages/calendar/loadingStyle.module.css';
+import DetailButton from "../../buttons/DetailButton";
+import CreditModal from "../../modal/CreditModal";
+import {POST_APPROVE, POST_REJECT, POST_TEMP} from "../../../../../modules/approval/ApprovalModuels";
+import {GET_DETAIL} from "../../../../../modules/approval/DocumentModuels";
 
 function DocumentDetail() {
   let { documentId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const documentData = useSelector(state => state.documentsReducer);
+  const documentData = useSelector(state => state.documentsReducer[GET_DETAIL]);
+  const approvalReducer = useSelector(state => state.approvalReducer);
 
+  const [modalData, setModalData] = useState({
+    isOpen: false,
+    title: '',
+    content: '',
+  });
 
+  console.log(documentData)
   useEffect(
       ()=>{
         dispatch(getDocumentDetailAPI({documentCode: documentId}));
       },
-      []
+      [
+          approvalReducer[POST_REJECT],
+          approvalReducer[POST_APPROVE],
+          approvalReducer[POST_TEMP],
+      ]
   );
-  console.log(documentData)
+
+
+  const handleApproval = (title, content) => {
+    setModalData({
+      isOpen: !modalData.isOpen,
+      title: title,
+      content: content,
+    });
+  };
+
+  const handleCloseModal = () => {
+    // 모달 데이터 업데이트
+    setModalData({
+      ...modalData,
+      title:'',
+      isOpen: false,
+    });
+  };
+
+  // console.log(documentData)
+
+
 
   // 문서 종류별 세부 컴포넌트를 매핑하는 객체
   const documentComponents = {
@@ -32,34 +68,43 @@ function DocumentDetail() {
     payment: <PaymentDetail data={documentData}/>,
   };
 
-  const selectedComponent = documentComponents[documentData.documentKind];
+  const selectedComponent = documentComponents[documentData?.documentKind];
 
 
   //임시저장상태면 input 태그여야하니까
-  if(documentData.documentStatus === "TEMPORARY"){
-
-
-  }
+  // if(documentData.documentStatus === "TEMPORARY"){
+  //
+  // }
 
 
   return (
       <>
-        {!documentData.id && (
+        {!documentData && (
             <div className={loadingCss.loading}>
               <FadeLoader color="#9F8AFB" />
             </div>
         )}
 
-        {/* Use documentData.id instead of documentId.id */}
-        {documentData.id && (
+        {documentData && (
             <>
               <div className={mainCss.maintitle}>
                 <h2>{documentData.title}</h2>
               </div>
               <div className={styles.doc_wrapper}>
-                <div>버튼들</div>
+                  <DetailButton condition={documentData.condition} isOpen={handleApproval} />
                 {selectedComponent}
               </div>
+              {modalData.isOpen && (
+                  /* 모달 이름, 종료시, */
+                  <CreditModal
+                      documentId={documentData.id}
+                      doctitle={documentData.title}
+                      title={modalData.title}
+                      content={modalData.content}
+                      isOpen={modalData.isOpen}
+                      onClose={handleCloseModal}
+                  />
+              )}
             </>
         )}
       </>

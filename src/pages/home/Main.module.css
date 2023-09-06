@@ -17,12 +17,12 @@ body {
     color: #535353;
 }
 
-.header > button {
+.regist {
     margin-right: 30px;
     border: 1px solid #7758FA;
     border-radius: 5px;
 }
 
-.header > button:hover {
+.regist:hover {
     background: #7758FA;
 }

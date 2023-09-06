@@ -1,12 +1,14 @@
 import axios from 'axios';
 import {
   GET_DETAIL,
-  GET_DOCUMENT_APRPROVALLIST, GET_DOCUMENT_CREDIT, GET_DOCUMENT_LIST,
-  GET_DOCUMENT_MAIN, GET_DOCUMENT_REFLIST, POST_DRAFT, POST_PAYMENT, POST_VACATION,
+  GET_DOCUMENT_LIST,
+  GET_DOCUMENT_MAIN, POST_DRAFT, POST_PAYMENT, POST_VACATION,
 } from '../modules/approval/DocumentModuels';
 
 // 결재 메인 화면
 export const getMainAPI = ({memberCode}) => {
+
+
 
   const requestURL = `http://localhost:8989/document/main/${memberCode}`;
 

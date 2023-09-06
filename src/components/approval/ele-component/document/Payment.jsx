@@ -101,7 +101,7 @@ function Payment() {
     console.log(validationResult);
 
     showValidationAndConfirm(
-      validationResult,data.approvalList.length,
+      validationResult, data.approvalList.length,
       () => {
         const formData = createFormData();
         requestApproval(formData);

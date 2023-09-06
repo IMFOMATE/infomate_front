@@ -17,10 +17,9 @@ function ApprovalTreeView({modalData, contextType}) {
   const { data, setData } = selectedContext;
   const { approvalList } = data;
 
-  // console.log(modalData)
+  console.log(data)
   const handleSelect = (node) => {
     const item = approvalList.find((n) => n.memberCode === node.data.memberCode);
-    console.log(item)
 
     if (!item) {
       setData(prev => ({...prev, approvalList:([...prev.approvalList, transformNode(node)])}))
@@ -28,7 +27,6 @@ function ApprovalTreeView({modalData, contextType}) {
       setData(prev=> ({...prev, approvalList:approvalList.filter((n) => n.id !== node.id)}))
     }
   };
-  console.log(approvalList)
 
   const handleClick= (index) => {
       const updatedList = [...approvalList];

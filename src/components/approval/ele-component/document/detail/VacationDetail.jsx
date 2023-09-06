@@ -70,15 +70,8 @@ function VacationDetail({data}) {
                   <td colSpan={3} className={style.td}>
                     {/*<input className={style.td} name='startDate' type="date" onChange={onStartDateChange} />*/}
                     <span>{data.startDate}</span>
-                    {
-                      data.sort === '연차' ?
-                          <>
-                            <span> ~ </span>
-                            {/*<input className={style.td} name='endDate' type="date" onChange={onEndDateChange}/>*/}
-                            <span>{data.endDate}</span>
-                          </>
-                          : ''
-                    }
+                    <span> ~ </span>
+                    <span>{data.endDate}</span>
                     <span>
                       {/*{*/}
                       {/*  new Date(data.endDate) - new Date(data.startDate)/ (1000 * 60 * 60 * 24) + 1*/}
@@ -95,7 +88,7 @@ function VacationDetail({data}) {
                         name="content"
                         id="reason"
                         cols="30" rows="10"
-                        value={data.reason}
+                        value={data.content}
                     />
                   </td>
                 </tr>

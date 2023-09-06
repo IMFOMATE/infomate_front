@@ -14,6 +14,7 @@ import {treeviewAPI} from "../../../../apis/DepartmentAPI";
 import {useDispatch, useSelector} from "react-redux";
 import {draftRegistAPI} from "../../../../apis/DocumentAPICalls";
 import {handleCancel, isValid, showValidationAndConfirm} from "../common/dataUtils";
+import {decodeJwt} from "../../../../util/tokenUtils";
 
 
 function Draft({documentData}) {
@@ -26,10 +27,6 @@ function Draft({documentData}) {
   const { data, setData } = useDraftDataContext();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const [getData, setGetData] = useState(null);
-
-
 
 
   // 모달이 열릴 때 fetch GET 조직도 가지고옴
@@ -44,7 +41,12 @@ function Draft({documentData}) {
 
   useEffect(() => {
     if(isReapply === 'reapply'){
-      setData({...documentData, fileList:[], existList:[...documentData.fileList] });
+      const modifiedApprovalList = documentData.approvalList.map(approval => ({
+        ...approval,
+        approvalStatus: '',
+        approvalDate: ''
+      }));
+      setData({...documentData, fileList:[], existList:[...documentData.fileList], approvalList:modifiedApprovalList });
     }
   },[isReapply]);
 
@@ -134,11 +136,11 @@ function Draft({documentData}) {
     setData({...data, fileList: newFiles});
   };
 
-
+  const token = decodeJwt(window.localStorage.getItem('accessToken'));
   //현재 문서작성자 -> 로컬스토리지에서 가져오기
   const writer= {
-    memberName : '주진선',
-    deptName : '개발부서',
+    memberName : token.memberName,
+    deptName : token.department,
   }
 
   //버튼에 함수 넘겨주기
@@ -158,7 +160,7 @@ function Draft({documentData}) {
         <div className={style.container}>
           <div className={style.docs}>
             <div className={style.doc}>
-              <h2 className={style.doc_title}>{}</h2>
+              <h2 className={style.doc_title}>업무기안</h2>
               <div className={style.doc_top}>
                 <WriterInfo writer={writer} start={new Date()}/>
                 <div className={style.inline}>
@@ -169,8 +171,8 @@ function Draft({documentData}) {
                                 key={data.memberCode}
                                 text={data?.text || (data.memberName)}
                                 rank={data?.data?.rank || data.rankName}
-                                approvalDate={data?.approvalDate}
-                                approvalStatus={data.approvalStatus}
+                                approvalDate={data?.approvalDate || ''}
+                                approvalStatus={data.approvalStatus || ''}
                             />)
                         : ""
                   }

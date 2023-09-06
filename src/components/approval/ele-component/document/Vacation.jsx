@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
 import {treeviewAPI} from "../../../../apis/DepartmentAPI";
 import {formatApprovalDate, handleCancel, isValid, showValidationAndConfirm} from "../common/dataUtils";
 import {vacationRegistAPI} from "../../../../apis/DocumentAPICalls";
+import {decodeJwt} from "../../../../util/tokenUtils";
 
 function Vacation({documentData}) {
   const treeview = useSelector(state => state.departmentReducer);
@@ -37,10 +38,17 @@ function Vacation({documentData}) {
 
   useEffect(() => {
     if(isReapply === 'reapply'){
-      setData({...documentData, fileList:[], existList:[...documentData.fileList] });
+      const modifiedApprovalList = documentData.approvalList.map(approval => ({
+        ...approval,
+        approvalStatus: '',
+        approvalDate: ''
+      }));
+
+      setData({...documentData, fileList:[], existList:[...documentData.fileList], approvalList:modifiedApprovalList});
     }
   },[isReapply]);
 
+  console.log(data)
 
   // form 데이터
   const onChangeHandler = (e) => {
@@ -59,7 +67,7 @@ function Vacation({documentData}) {
     });
   };
 
-  const onStartDateChange =(e) => {
+  const onStartDateChange = (e) => {
     if(sort === '오전반차'){
       setData({...data, startDate:e.target.value + ' 09:00:00',endDate: e.target.value + ' 13:00:00'});
       return;
@@ -128,7 +136,6 @@ function Vacation({documentData}) {
   //결제 요청 api
   const handleRequest = () => {
 
-
     console.log(data);
     const validationResult = isValid(data,true,true);
 
@@ -155,9 +162,11 @@ function Vacation({documentData}) {
   };
 
   //현재 문서작성자 -> 로컬스토리지에서 가져오기
+  const token = decodeJwt(window.localStorage.getItem('accessToken'));
+  //현재 문서작성자 -> 로컬스토리지에서 가져오기
   const writer= {
-    memberName : '주진선',
-    deptName : '개발부서',
+    memberName : token.memberName,
+    deptName : token.department,
   }
 
   //버튼에 함수 넘겨주기
@@ -188,8 +197,8 @@ function Vacation({documentData}) {
                                 key={data.memberCode}
                                 text={data?.text || (data.memberName)}
                                 rank={data?.data?.rank || data.rankName}
-                                approvalDate={data?.approvalDate}
-                                approvalStatus={data.approvalStatus}
+                                approvalDate={data?.approvalDate || ''}
+                                approvalStatus={data?.approvalStatus || ''}
                             />)
                         : ""
                   }
@@ -249,7 +258,7 @@ function Vacation({documentData}) {
                           name='startDate'
                           type="date"
                           onChange={onStartDateChange}
-                          value={data.startDate || ''}
+                          // value={data.startDate || ''}
                       />
                       {
                         sort === '연차' ?

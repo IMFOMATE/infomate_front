@@ -10,6 +10,10 @@ import DocumentSide from "../DocumentSide";
 import PaymentSpan from "../PaymentSpan";
 
 function PaymentDetail({data}) {
+  const totalPaymentPrice = data.paymentList.reduce((total, payment) => {
+    return total + payment.paymentPrice;
+  }, 0);
+
   return (
       <div className={style.container}>
         <div className={style.docs}>
@@ -49,13 +53,12 @@ function PaymentDetail({data}) {
                   <td className={style.td}>제목</td>
                   <td className={style.td} >
                     <span>{data.title}</span>
-                    {/*<input name="title" type="text" placeholder="제목을 입력해주세요" className={style.input} onChange={onChangeHandler}/>*/}
                   </td>
                   <td className={style.tds}>
                     총금액
                   </td>
                   <td className={style.td}>
-                    {/*{calculateTotal()}원*/}
+                    {totalPaymentPrice}원
                   </td>
                 </tr>
                 <tr>
@@ -90,16 +93,15 @@ function PaymentDetail({data}) {
                   {
                     data.paymentList.map((value, index)=>
                         <PaymentSpan paymentList={value}/>
-
                     )
                   }
                   </tbody>
                   <tfoot>
-                  {/*<tr>*/}
-                  {/*  <td colSpan="1" className={style.sum}></td>*/}
-                  {/*  <td className={style.sum}>합계 : </td>*/}
-                  {/*  <td colSpan="1">{calculateTotal()}원</td>*/}
-                  {/*</tr>*/}
+                  <tr>
+                    <td colSpan="1" className={style.sum}></td>
+                    <td className={style.sum}>합계 : </td>
+                    <td colSpan="1">{totalPaymentPrice}원</td>
+                  </tr>
                   </tfoot>
                 </table>
               </div>

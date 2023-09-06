@@ -2,9 +2,10 @@ import React from 'react';
 import ButtonOutline from "../../../common/button/ButtonOutline";
 import btCss from '../common/DocButtons.module.css';
 import {useNavigate} from "react-router-dom";
+import { useReactToPrint } from 'react-to-print';
 
 
-function DetailButton({condition, isOpen, reapply, deleteDoc}) {
+function DetailButton({condition, isOpen, reapply, deleteDoc, downDoc}) {
   const navigate = useNavigate();
 
 
@@ -35,7 +36,7 @@ function DetailButton({condition, isOpen, reapply, deleteDoc}) {
             </>
         )}
         <ButtonOutline value="목록" style={style} onClick={() => {}}/>
-        <ButtonOutline value="미리보기" style={style} onClick={() => {}}/>
+        <ButtonOutline value="미리보기" style={style} onClick={downDoc}/>
       </div>
   );
 

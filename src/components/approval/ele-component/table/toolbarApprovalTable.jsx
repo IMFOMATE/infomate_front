@@ -15,8 +15,11 @@ function ToolbarApprovalTable({documentData, pageHandler, filter}) {
   const pageInfo = documentData?.pageInfo;
   const documents = documentData?.data;
 
-  console.log(documents);
-  console.log(pageInfo);
+  console.log(documentData)
+  console.log(pageInfo)
+  console.log(documents)
+
+
   const handleFilterChange = (event) => {
     const selectedFilter = event.target.dataset.type;
     searchParams.set("status", selectedFilter);

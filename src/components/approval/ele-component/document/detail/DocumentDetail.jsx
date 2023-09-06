@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import mainCss from "../../../../common/main.module.css";
 import styles from '../../../../../pages/approval/DocumentMain.module.css';
@@ -8,12 +8,14 @@ import PaymentDetail from "./PaymentDetail";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteDocumentAPI, getDocumentDetailAPI} from "../../../../../apis/DocumentAPICalls";
 import { FadeLoader } from "react-spinners";
+// import from '../../../../common/other/LoadingSpiner.module.css';
 import loadingCss from '../../../../../pages/calendar/loadingStyle.module.css';
 import DetailButton from "../../buttons/DetailButton";
 import CreditModal from "../../modal/CreditModal";
 import {POST_APPROVE, POST_REJECT, POST_TEMP} from "../../../../../modules/approval/ApprovalModuels";
 import {DELETE_DOCUMENT, GET_DETAIL} from "../../../../../modules/approval/DocumentModuels";
 import {handleDelete} from "../../common/dataUtils";
+import {useReactToPrint} from "react-to-print";
 
 function DocumentDetail() {
   let { documentId } = useParams();
@@ -22,6 +24,13 @@ function DocumentDetail() {
   const documentData = useSelector(state => state.documentsReducer[GET_DETAIL]);
   const deleteData = useSelector(state => state.documentsReducer[DELETE_DOCUMENT]);
   const approvalReducer = useSelector(state => state.approvalReducer);
+  const componentRef = useRef();
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
+  console.log(componentRef.current)
 
   const [modalData, setModalData] = useState({
     isOpen: false,
@@ -29,7 +38,6 @@ function DocumentDetail() {
     content: '',
   });
 
-  console.log(documentData)
   useEffect(
       ()=>{
         dispatch(getDocumentDetailAPI({documentCode: documentId}));
@@ -59,9 +67,6 @@ function DocumentDetail() {
     });
   };
 
-  // console.log(documentData)
-
-
   const reApprove = () => {
 
     navigate(`/approval/document/${documentId}/reapply`,{
@@ -74,6 +79,8 @@ function DocumentDetail() {
   };
 
 
+
+
   const deleteDocument = () => {
     dispatch(deleteDocumentAPI({documentCode: documentId}));
     navigate('/approval');
@@ -82,7 +89,7 @@ function DocumentDetail() {
 
   // 문서 종류별 세부 컴포넌트를 매핑하는 객체
   const documentComponents = {
-    Draft: <DraftDetail data={documentData}/>,
+    Draft: <DraftDetail data={documentData} ref={componentRef}/>,
     vacation: <VacationDetail data={documentData} />,
     payment: <PaymentDetail data={documentData}/>,
   };
@@ -115,6 +122,7 @@ function DocumentDetail() {
                       isOpen={handleApproval}
                       reapply={reApprove}
                       deleteDoc={()=> handleDelete(deleteDocument)}
+                      downDoc={handlePrint}
                   />
                 {selectedComponent}
               </div>

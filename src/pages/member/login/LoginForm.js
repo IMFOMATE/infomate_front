@@ -23,7 +23,7 @@ function LoginForm() {
             alert(loginMember.data.memberName + "님 환영합니다.");
 
             navigate("/main", { replace: true });
-            // console.log(loginMember.data);
+            console.log('asdfasdfasdfsfsfsfsf',loginMember.data);
 
             localStorage.setItem('authToken', loginMember.data.token);
 

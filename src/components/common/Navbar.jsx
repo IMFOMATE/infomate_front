@@ -2,7 +2,7 @@ import * as React from 'react';
 import NavStyle from './Nav.module.css';
 import {useContext, useEffect, useState} from "react";
 import {CurrentTitleContext} from "../../context/CurrentTitleContext";
-import {NavLink, useNavigate} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import {MenuContext} from "../../context/MenuContext";
 import { callLogoutAPI } from '../../apis/MemberAPICalls';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,7 +27,6 @@ function Navbar() {
         
         alert('로그아웃이 되어 로그인 화면으로 이동합니다.');
         navigate("/", { replace: true })
-        window.location.reload();
     }
 
 
@@ -35,7 +34,6 @@ function Navbar() {
         const storedTitle = localStorage.getItem('currentTitle') || 'Home';
         toggleTitle(storedTitle);
 
-        console.log('check ---->',loginMember.data.department)
     }, []);
 
     return (
@@ -45,7 +43,6 @@ function Navbar() {
                     <img className={NavStyle.profileImg} alt='profileImg' src='img/user.jpg'/>
                 </a>
                 <div className={NavStyle.profileInfo}>
-                    {console.log(userInfo)} 
                     <p>{loginMember?.data?.department} 부서</p>
                     <p>{loginMember?.data?.memberName} {loginMember?.data?.rank}</p>
                 </div>
@@ -133,9 +130,9 @@ function Navbar() {
                 </li>
             </ul>
             <div className={NavStyle.logout}>
-                <a href='/' onClick={onClickLogoutHandler}>
+                <Link to={'/'} onClick={onClickLogoutHandler}>
                     로그아웃
-                </a>
+                </Link>
             </div>
         </nav>
     );

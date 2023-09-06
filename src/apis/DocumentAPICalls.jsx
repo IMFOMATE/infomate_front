@@ -7,15 +7,18 @@ import {
 } from '../modules/approval/DocumentModuels';
 
 // 결재 메인 화면
-export const getMainAPI = ({memberCode}) => {
+export const getMainAPI = () => {
+  const token = localStorage.getItem("accessToken");
+  const requestURL = `http://localhost:8989/document/main`;
 
-
-
-  const requestURL = `http://localhost:8989/document/main/${memberCode}`;
 
   return async (dispatch, getState)  => {
 
-    const result = await axios.get(requestURL)
+    const result = await axios.get(requestURL, {
+      headers : {
+        Authorization :  "Bearer " + token
+      }
+    })
         .then(res => res.data)
         .catch(err => console.log(err));
 
@@ -29,15 +32,20 @@ export const getMainAPI = ({memberCode}) => {
 export const getList = ({ docStatus ,filter, page, size}) => {
 
   const requestURL = `http://localhost:8989/document/approval/${docStatus}?status=${filter}&page=${page}&size=${size}`;
+  const token = localStorage.getItem("accessToken");
 
   return async (dispatch, getState)  => {
 
-    const result = await axios.get(requestURL)
+    const result = await axios.get(requestURL,{
+      headers : {
+        Authorization :  "Bearer " + token
+      }
+    })
         .then(res => res.data)
         .catch(err => console.log(err));
 
     if(result.status === 200){
-      dispatch({type: GET_DOCUMENT_LIST, payload: result.data});
+      dispatch({type: GET_DOCUMENT_LIST, payload: result});
     }
   };
 }
@@ -45,12 +53,16 @@ export const getList = ({ docStatus ,filter, page, size}) => {
 
 // 기안문서등록
 export const draftRegistAPI = (form)=>{
-
+  const token = localStorage.getItem("accessToken");
   const requestURL = `http://localhost:8989/document/regist/draft`;
 
   return async (dispatch, getState)  => {
 
-    const result = await axios.post(requestURL, form)
+    const result = await axios.post(requestURL, form,{
+      headers : {
+        Authorization :  "Bearer " + token
+      }
+    })
         .then(res => res.data);
 
     if(result.status === 200){
@@ -62,12 +74,17 @@ export const draftRegistAPI = (form)=>{
 // 휴가 문서 등록
 
 export const vacationRegistAPI = (form)=>{
+  const token = localStorage.getItem("accessToken");
 
   const requestURL = `http://localhost:8989/document/regist/vacation`;
 
   return async (dispatch, getState)  => {
 
-    const result = await axios.post(requestURL, form)
+    const result = await axios.post(requestURL, form,{
+      headers : {
+        Authorization :  "Bearer " + token
+      }
+    })
         .then(res => res.data);
 
     if(result.status === 200){
@@ -79,12 +96,17 @@ export const vacationRegistAPI = (form)=>{
 
 //지출승인서
 export const paymentRegistAPI = (form, temp)=>{
+  const token = localStorage.getItem("accessToken");
 
   const requestURL = `http://localhost:8989/document/regist/payment?temp=${temp}`;
 
   return async (dispatch, getState)  => {
 
-    const result = await axios.post(requestURL, form)
+    const result = await axios.post(requestURL, form,{
+      headers : {
+        Authorization :  "Bearer " + token
+      }
+    })
         .then(res => res.data);
 
     if(result.status === 200){
@@ -99,12 +121,16 @@ export const paymentRegistAPI = (form, temp)=>{
 
 //문서세부내용
 export const getDocumentDetailAPI = ({documentCode})=>{
-
+  const token = localStorage.getItem("accessToken");
   const requestURL = `http://localhost:8989/document/${documentCode}`;
 
   return async (dispatch, getState)  => {
 
-    const result = await axios.get(requestURL)
+    const result = await axios.get(requestURL,{
+      headers : {
+        Authorization :  "Bearer " + token
+      }
+    })
         .then(res => res.data)
         .catch(err => console.log(err));
 

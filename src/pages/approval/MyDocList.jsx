@@ -4,6 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {getList} from "../../apis/DocumentAPICalls";
 import ToolbarApprovalTable from "../../components/approval/ele-component/table/toolbarApprovalTable";
 import {useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {GET_DOCUMENT_LIST} from "../../modules/approval/DocumentModuels";
+import {LoadingSpiner} from "../../components/common/other/LoadingSpiner";
 
 
 function MyDocList() {
@@ -46,6 +48,9 @@ function MyDocList() {
     credit: "결재대기문서",
     dept: "기안완료문서"
   };
+  console.log(document)
+
+  if(document === null) return <LoadingSpiner />
 
   return (
     <>

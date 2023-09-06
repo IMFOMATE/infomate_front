@@ -3,10 +3,13 @@ import {POST_APPROVE, POST_REJECT} from "../modules/approval/ApprovalModuels";
 
 
 export const rejectAPI = ({fetchData}) => {
+  const token = localStorage.getItem("accessToken");
 
   const requestURL = `http://localhost:8989/approval/reject`;
   const headers = {
     'Content-Type' : 'application/json',
+    Authorization :  "Bearer " + token
+
   }
 
     return async (dispatch, getState)  => {
@@ -24,11 +27,11 @@ export const rejectAPI = ({fetchData}) => {
 }
 
 export const approvalAPI = ({fetchData}) => {
-
-  console.log(fetchData)
+  const token = localStorage.getItem("accessToken");
   const requestURL = `http://localhost:8989/approval/approve`;
   const headers = {
     'Content-Type' : 'application/json',
+    Authorization :  "Bearer " + token
   }
   return async (dispatch, getState)  => {
 

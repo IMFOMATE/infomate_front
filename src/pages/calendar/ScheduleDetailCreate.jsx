@@ -192,8 +192,9 @@ const ScheduleDetilaCreate = () => {
         }   
         if(schedule.data.title === undefined || schedule.data.title === null || schedule.data.title === '')
             return message.error('제목 또는 날짜를 입력하세요')
-        if(isDataLoad()){
-            
+
+        
+        if(isDataLoad()){       
             dispatch(patchScheduleUpdate({data: schedule.data,}));
         }else{
             dispatch(postScheduleRegist({data: schedule.data}));

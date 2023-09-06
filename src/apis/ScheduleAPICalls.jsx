@@ -71,13 +71,14 @@ export const getScheduleDetail = ({scheduleId}) => {
 
 export const postScheduleRegist = ({data}) => {
     data = {...data, memberCode: MEMBER_CODE}  
+
     
-    console.log(data);
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/regist/${MEMBER_CODE}`;
     
     data = {...data, startDate: dayjs(data.startDate).format('YYYY-MM-DDTHH:MM:ss'), endDate: dayjs(data.endDate).format('YYYY-MM-DDTHH:MM:ss')}
+    const tempdata = {...data, participantList: [...data.participantList.map(item => ({memberCode: item.member.memberCode}))]}
     return async (dispatch, getState) => {
-        const result = await axios.post(requestURL, data, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
+        const result = await axios.post(requestURL, tempdata, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
                         .then(res => res)
                         .catch(err => err);
 
@@ -95,11 +96,13 @@ export const postScheduleRegist = ({data}) => {
 
 export const patchScheduleUpdate = ({data}) => {
     data = {...data, memberCode: MEMBER_CODE}
-
+    
+    const tempdata = {...data, participantList: [...data.participantList.map(item => ({memberCode: item.member.memberCode, scheduleCode: data.id}))]}
+    console.log(tempdata);
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/update/${MEMBER_CODE}`;
     
     return async (dispatch, getState) => {
-        const result = await axios.patch(requestURL, data, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
+        const result = await axios.patch(requestURL, tempdata, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
                         .then(res => res)
                         .catch(err => console.log(err));
 

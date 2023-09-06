@@ -25,7 +25,15 @@ function LoginForm() {
             navigate("/main", { replace: true });
             // console.log(loginMember.data);
 
-            localStorage.setItem('authToken', loginMember.data.token);
+            localStorage.setItem('authToken',
+                                    loginMember.data.memberName, 
+                                    loginMember.data.deptNameCode,
+                                    loginMember.data.deptName, 
+                                    loginMember.data.rank, 
+                                    loginMember.data.memberCode, 
+                                );
+            
+            console.log('authToken');
 
             // dispatch({
             //     type: POST_LOGIN,

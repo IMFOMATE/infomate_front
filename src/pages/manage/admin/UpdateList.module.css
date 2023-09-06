@@ -31,26 +31,7 @@
 }
 
 
-/* 조회부분 스타일 */
-.sc > span {
-    padding-right: 14px;
-}
 
-.sc > input {
-    width: 150px;
-    height: 26px;
-    border: 1px solid #A2A3A3;
-    border-radius: 6px;
-    margin-right: 8px;
-}
-
-.sc > button {
-    width: 60px;
-    height: 26px;
-    background-color: #333333;
-    border-radius: 6px;
-    color: white;
-}
 
 
 /* 리스트 부분 스타일 */
@@ -90,43 +71,18 @@
     text-align: center;
 }
 
+.tr > td {
+    height: 40px;
+}
 
 
-
-
-
-.tr > button {
-    width: 56px;
+.tr > td > button {
+    width: 76px;
     height: 26px;
     background-color: #333333;
     color: white;
     border-radius: 6px;
 }
-
-.tb {
-    border-bottom: 1px solid #333333;
-}
-
-.board_link{
-    color: #333333;
-    padding: 8px 0px;
-    font-size: 16px;
-    /* font-weight: 500; */
-    /* text-decoration: none; */
-}
-
-
-.bnt {
-    width: 100px;
-    height: 30px;
-    color: white;
-    background-color: #333333;
-    border-radius: 4px;
-}
-
-/* .tb {
-    width: 90%;
-} */
 
 
 

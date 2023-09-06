@@ -27,5 +27,7 @@ const GroupLink = [
     {text:'부서조회', link:'/searchDept'},
     {text:'직원정보확인', link:'memberInfo'},
     {text:'직원입력', link:'memberupdate'},
+    {text:'조직도수정', link:'updateDept'},
+
 
 ]

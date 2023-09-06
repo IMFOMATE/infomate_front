@@ -31,7 +31,7 @@ function DeptList() {
                         <td>{mamber.data.empName}</td>  
                         <td>{mamber.data.empNum}</td>   
                         <td>{mamber.data.deptName}</td>   
-                        <td><Link to={mamber.link} className={SdeptCss.board_link}>
+                        <td><Link to='/memberInfo' className={SdeptCss.board_link}>
                             <button className={SdeptCss.bnt}>정보</button>
                             </Link></td>
                     </tr>

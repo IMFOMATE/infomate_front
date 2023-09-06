@@ -38,6 +38,10 @@ import Posting from './pages/board/Posting';
 import UpdateMember from './pages/manage/UpdateMember';
 import DocumentDetail from "./components/approval/ele-component/document/detail/DocumentDetail";
 import PostView from './pages/board/PostView';
+import UpdateDept from './pages/manage/admin/UpdateDept';
+import Department from './pages/manage/Department';
+import UpdateList from './pages/manage/admin/UpdateList';
+import DeptItems from './pages/manage/admin/DeptItems';
 
 function App() {
   return (
@@ -87,13 +91,21 @@ function App() {
             </Route>
             <Route path='memberInfo' element={<MemberInfo />}/>
             <Route path='memberupdate' element={<UpdateMember/>}/>
-            <Route path='/searchDept' element={<SearchDept/>}/>
+            <Route path='searchDept' element={<SearchDept/>}/>
+            <Route path='updateDept' element={<UpdateDept/>}/>
+            <Route path='department' element={<Department/>}/>
+            <Route path='updateList' element={<UpdateList/>}/>
+            <Route path='deptItems' element={<DeptItems/>}/>
+
+
+
             
             <Route path="/work" element={ <Work />}/>
             <Route path="/work/admin" element={ <WkAdmin /> }/>
             <Route path="/work/mywork" element={ <MyWork /> }/>
             <Route path="/work/mydept" element={ <MyDept />}/>
             <Route path="/work/dept" element={ <Dept />}/>
+
             
 
             

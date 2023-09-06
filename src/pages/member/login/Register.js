@@ -2,7 +2,7 @@ import RegisterCSS from './Register.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-
+import { RESET_REGIST} from "../../../modules/MemberModule"
 import {
     callRegisterAPI
 } from '../../../apis/MemberAPICalls'
@@ -11,8 +11,10 @@ function Register() {
 
     // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
     const dispatch = useDispatch();
+
+
     const member = useSelector(state => state.memberReducer);  // API 요청하여 가져온 loginMember 정보
-    console.log(member)
+    console.log("member : " ,member)
 
     const navigate = useNavigate();
 
@@ -21,7 +23,6 @@ function Register() {
     const imageInput = useRef();
 
     const [form, setForm] = useState({
-        memberPic: 'img/user.jpg',
         memberId: '',
         memberPassword: '',
         memberName: '',
@@ -31,9 +32,9 @@ function Register() {
         memberStatus: '',
         memberAddress: '',
         hireDate: '',
-        department: '',
+        deptCode: '',
         rankCode: '',
-        memberOff: ''
+        memberOff: '',
     });
 
     useEffect(() => {
@@ -51,7 +52,7 @@ function Register() {
     },
         [image]);
 
-        console.log(image);
+        console.log("image : ", image);
 
     const onChangeImageUpload = (e) => {
 
@@ -87,7 +88,7 @@ function Register() {
         formData.append("memberStatus", form.memberStatus);
         formData.append("memberAddress", form.memberAddress);
         formData.append("hireDate", form.hireDate);
-        formData.append("department", form.department);
+        formData.append("deptCode", form.deptCode);
         formData.append("rankCode", form.rankCode);
         formData.append("memberOff", form.memberOff);
 
@@ -95,18 +96,21 @@ function Register() {
             formData.append("memberPic", image);
         }
         
+        
+        dispatch(callRegisterAPI({
+            form: form,
+            image: image,
+        }));
     }
-
-    dispatch(callRegisterAPI({
-        form: form
-    }));
 
     useEffect(() => {
         if (member.status === 201) {
             alert('회원이 등록되었습니다.');
             console.log("[Login] Register SUCCESS {}", member);
-            navigate("/main", { replace: true })
-            window.location.reload();
+            dispatch({ type: RESET_REGIST});
+
+            // navigate("/main", { replace: true })
+            // window.location.reload();
         }
     },
         [member]);
@@ -227,6 +231,7 @@ function Register() {
                                     <td>
                                         
                                         <select
+                                            onChange={onChangeHandler}
                                             className={RegisterCSS.registInfoInput}
                                             name='memberStatus'
                                             defaultValue={0}>
@@ -278,8 +283,9 @@ function Register() {
                                     <td><label>부서</label></td>
                                     <td>
                                         <select
+                                            onChange={onChangeHandler}
                                             className={RegisterCSS.registInfoInput}
-                                            name='department.deptCode'
+                                            name='deptCode'
                                             defaultValue={0}
                                         >
                                             <option value={0} disabled>부서</option>
@@ -296,13 +302,14 @@ function Register() {
                                     <td><label>직급</label></td>
                                     <td>
                                         <select
+                                            onChange={onChangeHandler}
                                             className={RegisterCSS.registInfoInput}
-                                            name='rank.rankCode'
+                                            name='rankCode'
                                             defaultValue={-1}
                                         >
                                             <option value={-1} disabled>직급</option>
                                             <option value={1}>대표이사</option>
-                                            <option value={2}>상부</option>
+                                            <option value={2}>상무</option>
                                             <option value={3}>부장</option>
                                             <option value={4}>차장</option>
                                             <option value={5}>과장</option>

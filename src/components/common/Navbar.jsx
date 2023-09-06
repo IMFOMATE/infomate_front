@@ -35,7 +35,7 @@ function Navbar() {
         const storedTitle = localStorage.getItem('currentTitle') || 'Home';
         toggleTitle(storedTitle);
 
-        console.log('check ---->',loginMember.data.department)
+        // console.log('check ---->',loginMember.data);
     }, []);
 
     return (
@@ -46,7 +46,7 @@ function Navbar() {
                 </a>
                 <div className={NavStyle.profileInfo}>
                     {console.log(userInfo)} 
-                    <p>{loginMember?.data?.department} 부서</p>
+                    <p>{loginMember?.data?.deptName} 부서</p>
                     <p>{loginMember?.data?.memberName} {loginMember?.data?.rank}</p>
                 </div>
             </div>

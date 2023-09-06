@@ -66,10 +66,10 @@ export const callLogoutAPI = () => {
     return async (dispatch, getState) => {
 
         dispatch({ type: POST_LOGIN, payload: '' });
+        dispatch({ type: POST_LOGIN, payload: '' });
         console.log('[MemberAPICalls] callLogoutAPI RESULT : SUCCESS');
     };
 }
-
 
 export const callRegisterAPI = ({ form }) => {
     const requestURL = `http://${process.env.REACT_APP_SPRINGBOOT_SERVER_IP}:${process.env.REACT_APP_SPRINGBOOT_SERVER_PORT}/auth/signup`;

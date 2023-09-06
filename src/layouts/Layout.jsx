@@ -25,7 +25,7 @@ export default function Layout() {
         
         window.localStorage.removeItem("accessToken");
         dispatch(callLogoutAPI());
-
+        
         alert("로그인 세션이 만료되었습니다. 다시 로그인하여주십시오.");
 
         navigate("/", {replace: true});

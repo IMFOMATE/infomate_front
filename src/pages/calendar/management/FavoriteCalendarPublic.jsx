@@ -20,6 +20,7 @@ const FavoriteCalendarPublic = () => {
     
     const publicCalendarList = useSelector(state => state.calendarReducer[GET_CALENDAR_FIND_ALL_PUBLIC]);
     const favCalendarReducer = useSelector(state => state.favCalendarReducer);
+    const member = useSelector(state => state.memberReducer);
     const dispatch = useDispatch();
 
     useEffect(()=>{
@@ -49,7 +50,7 @@ const FavoriteCalendarPublic = () => {
         }
         setSelectAll(e.target.checked)
     }
-
+    console.log(publicCalendarList);
 
     return (
         <>
@@ -66,8 +67,8 @@ const FavoriteCalendarPublic = () => {
                                             calendarName={item?.name}
                                             requestDate={item?.requestDate}
                                             createDate={item?.createDate}
-                                            favState={item?.favoriteCalendar.filter(member => 
-                                                member.member.memberCode === member.data.memberCode
+                                            favState={item?.favoriteCalendar.filter(mem => 
+                                                mem.member.memberCode === member.data.memberCode
                                             )[0]?.approvalStatus}
                                     />)  
             }

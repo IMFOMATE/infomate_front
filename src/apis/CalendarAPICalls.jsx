@@ -35,10 +35,9 @@ export const getCalendarListAPI = () => {
 
     return async (dispatch, getState) => {
         const result = await axios.get(requestURL,{headers: {
-            "Accept": "*/*",
-            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-        }})
-                    .then(res => res.data)
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data)
                     
         if(result.status === 200) {
             dispatch({ type: GET_CALENDAR_LIST,  payload: result });
@@ -168,10 +167,10 @@ export const patchChangeCalendarIndexNo = ({data}) => {
 }
 
 
-export const deleteCalendar = ({data}) => {    
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/delete`;
+export const deleteCalendar = ({scheduleId}) => {    
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/delete/${scheduleId}`;
     return async (dispatch, getState) => {
-        const result = await axios.delete(requestURL, {data}, {headers: {
+        const result = await axios.delete(requestURL, {headers: {
             "Accept": "*/*",
             "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
         }})

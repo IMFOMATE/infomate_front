@@ -59,6 +59,8 @@ const CalendarNav = () => {
             ).map(item => parseInt(item.id))])
     }
 
+    console.log(member);
+    console.log(data);
     const calendarFilterChange = e => {
         if(e.target.checked){
             setFilter([...filter.filter(item => 

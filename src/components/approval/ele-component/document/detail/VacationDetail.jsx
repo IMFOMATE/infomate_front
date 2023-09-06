@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import style from "../../../../../pages/approval/DocumentMain.module.css";
 import WriterInfo from "../WriterInfo";
 import Credit from "../Credit";
@@ -6,11 +6,11 @@ import DocFile, {DocFileSpan} from "../../common/DocFile";
 import DocumentSide from "../DocumentSide";
 import {formatApprovalDate} from "../../common/dataUtils";
 
-function VacationDetail({data}) {
+const VacationDetail = forwardRef(({data}, ref) =>{
 
   return (
       <div className={style.container}>
-        <div className={style.docs}>
+        <div className={style.docs} ref={ref}>
           <div className={style.doc}>
             <h2 className={style.doc_title}>{data.title}</h2>
             <div className={style.doc_top}>
@@ -107,6 +107,6 @@ function VacationDetail({data}) {
       </div>
 
   );
-}
+});
 
 export default VacationDetail;

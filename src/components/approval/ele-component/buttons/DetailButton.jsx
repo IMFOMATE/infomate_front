@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import ButtonOutline from "../../../common/button/ButtonOutline";
 import btCss from '../common/DocButtons.module.css';
 import {useNavigate} from "react-router-dom";
-import { useReactToPrint } from 'react-to-print';
+import ReactToPrint, { useReactToPrint } from 'react-to-print';
 
 
-function DetailButton({condition, isOpen, reapply, deleteDoc, downDoc}) {
+const DetailButton = forwardRef(({condition, isOpen, reapply, deleteDoc}, ref) =>{
   const navigate = useNavigate();
 
+  const handlePrint = useReactToPrint({
+    content: ()=>ref.current, // 프린트할 컴포넌트를 지정합니다.
+  });
 
   const style = {
     padding: '10px',
@@ -36,10 +39,10 @@ function DetailButton({condition, isOpen, reapply, deleteDoc, downDoc}) {
             </>
         )}
         <ButtonOutline value="목록" style={style} onClick={() => {}}/>
-        <ButtonOutline value="미리보기" style={style} onClick={downDoc}/>
+        <ButtonOutline value="미리보기" style={style} onClick={handlePrint}/>
       </div>
   );
 
-}
+})
 
 export default DetailButton;

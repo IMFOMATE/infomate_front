@@ -52,9 +52,11 @@ export const getList = ({ docStatus ,filter, page, size}) => {
 
 
 // 기안문서등록
-export const draftRegistAPI = (form)=>{
+export const draftRegistAPI = (form, temp)=>{
   const token = localStorage.getItem("accessToken");
-  const requestURL = `http://localhost:8989/document/regist/draft`;
+  const tempParam = temp ? `?temp=${temp}` : '';
+
+  const requestURL = `http://localhost:8989/document/regist/draft${tempParam}`;
 
   return async (dispatch, getState)  => {
 
@@ -73,10 +75,10 @@ export const draftRegistAPI = (form)=>{
 };
 // 휴가 문서 등록
 
-export const vacationRegistAPI = (form)=>{
+export const vacationRegistAPI = (form, temp)=>{
   const token = localStorage.getItem("accessToken");
-
-  const requestURL = `http://localhost:8989/document/regist/vacation`;
+  const tempParam = temp ? `?temp=${temp}` : '';
+  const requestURL = `http://localhost:8989/document/regist/vacation${tempParam}`;
 
   return async (dispatch, getState)  => {
 
@@ -97,9 +99,9 @@ export const vacationRegistAPI = (form)=>{
 //지출승인서
 export const paymentRegistAPI = (form, temp)=>{
   const token = localStorage.getItem("accessToken");
-
-  const requestURL = `http://localhost:8989/document/regist/payment?temp=${temp}`;
-
+  const tempParam = temp ? `?temp=${temp}` : '';
+  const requestURL = `http://localhost:8989/document/regist/payment${tempParam}`;
+  console.log(tempParam)
   return async (dispatch, getState)  => {
 
     const result = await axios.post(requestURL, form,{

@@ -7,27 +7,27 @@ function PaymentSpan({paymentList}) {
       <tr>
         <td className={style.td}>
           <span>
-            {paymentList.paymentDate}
+            {paymentList.paymentDate || ''}
           </span>
         </td>
         <td className={style.td}>
           <span>
-            {paymentList.paymentSort}
+            {paymentList.paymentSort || ''}
           </span>
         </td>
         <td className={style.td}>
           <span>
-            {paymentList.paymentPrice}
+            {paymentList.paymentPrice || ''}
           </span>
         </td>
         <td className={style.td}>
           <span>
-            {paymentList.paymentContent}
+            {paymentList.paymentContent || ''}
           </span>
         </td>
         <td className={style.td}>
           <span>
-            {paymentList.remarks}
+            {paymentList.remarks || ''}
           </span>
         </td>
       </tr>

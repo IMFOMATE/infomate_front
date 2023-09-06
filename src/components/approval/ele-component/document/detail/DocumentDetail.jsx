@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import mainCss from "../../../../common/main.module.css";
 import styles from '../../../../../pages/approval/DocumentMain.module.css';
 import DraftDetail from "./DraftDetail";
@@ -8,7 +8,6 @@ import PaymentDetail from "./PaymentDetail";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteDocumentAPI, getDocumentDetailAPI} from "../../../../../apis/DocumentAPICalls";
 import { FadeLoader } from "react-spinners";
-// import from '../../../../common/other/LoadingSpiner.module.css';
 import loadingCss from '../../../../../pages/calendar/loadingStyle.module.css';
 import DetailButton from "../../buttons/DetailButton";
 import CreditModal from "../../modal/CreditModal";
@@ -21,16 +20,14 @@ function DocumentDetail() {
   let { documentId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state?.state;
   const documentData = useSelector(state => state.documentsReducer[GET_DETAIL]);
   const deleteData = useSelector(state => state.documentsReducer[DELETE_DOCUMENT]);
   const approvalReducer = useSelector(state => state.approvalReducer);
-  const componentRef = useRef();
+  const ref = useRef();
 
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
-
-  console.log(componentRef.current)
+  console.log("state", state);
 
   const [modalData, setModalData] = useState({
     isOpen: false,
@@ -89,9 +86,9 @@ function DocumentDetail() {
 
   // 문서 종류별 세부 컴포넌트를 매핑하는 객체
   const documentComponents = {
-    Draft: <DraftDetail data={documentData} ref={componentRef}/>,
-    vacation: <VacationDetail data={documentData} />,
-    payment: <PaymentDetail data={documentData}/>,
+    Draft: <DraftDetail data={documentData} ref={ref}/>,
+    vacation: <VacationDetail data={documentData} ref={ref}/>,
+    payment: <PaymentDetail data={documentData} ref={ref}/>,
   };
 
   const selectedComponent = documentComponents[documentData?.documentKind];
@@ -122,7 +119,7 @@ function DocumentDetail() {
                       isOpen={handleApproval}
                       reapply={reApprove}
                       deleteDoc={()=> handleDelete(deleteDocument)}
-                      downDoc={handlePrint}
+                      ref={ref}
                   />
                 {selectedComponent}
               </div>

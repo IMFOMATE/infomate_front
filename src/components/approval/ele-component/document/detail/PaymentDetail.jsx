@@ -1,24 +1,25 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import style from "../../../../../pages/approval/DocumentMain.module.css";
 import WriterInfo from "../WriterInfo";
 import Credit from "../Credit";
-import {formatApprovalDate} from "../../common/dataUtils";
-import ButtonInline from "../../../../common/button/ButtonInline";
-import PaymentList from "../PaymentList";
+import {formatApprovalDate, formatNumberWithCommas} from "../../common/dataUtils";
 import DocFile, {DocFileSpan} from "../../common/DocFile";
 import DocumentSide from "../DocumentSide";
 import PaymentSpan from "../PaymentSpan";
 
-function PaymentDetail({data}) {
-  const totalPaymentPrice = data.paymentList.reduce((total, payment) => {
-    return total + payment.paymentPrice;
-  }, 0);
+const PaymentDetail = forwardRef(({data}, ref) =>{
+  const calculateTotal = () => {
+    const totalPaymentPrice = data.paymentList.reduce((total, payment) => {
+      return parseInt(total) + parseInt(payment.paymentPrice);
+    }, 0);
+    return Math.floor(totalPaymentPrice);
+  }
 
   return (
       <div className={style.container}>
-        <div className={style.docs}>
+        <div className={style.docs} ref={ref}>
           <div className={style.doc}>
-            <h2 className={style.doc_title}>{}</h2>
+            <h2 className={style.doc_title}>지출결의서</h2>
             <div className={style.doc_top}>
               <WriterInfo writer={data.member} id={data.id} start={data.createdDate}/>
               <div className={style.inline}>
@@ -45,6 +46,7 @@ function PaymentDetail({data}) {
                         className={style.left}
                         name='emergency'
                         type="checkbox"
+                        checked={data.emergency === 'Y'}
                         value={data.emergency === 'Y'}
                     />
                   </td>
@@ -58,7 +60,7 @@ function PaymentDetail({data}) {
                     총금액
                   </td>
                   <td className={style.td}>
-                    {totalPaymentPrice}원
+                    {formatNumberWithCommas(calculateTotal().toString()) || ''}원
                   </td>
                 </tr>
                 <tr>
@@ -100,7 +102,7 @@ function PaymentDetail({data}) {
                   <tr>
                     <td colSpan="1" className={style.sum}></td>
                     <td className={style.sum}>합계 : </td>
-                    <td colSpan="1">{totalPaymentPrice}원</td>
+                    <td colSpan="1">{formatNumberWithCommas(calculateTotal().toString()) || ''}원</td>
                   </tr>
                   </tfoot>
                 </table>
@@ -115,6 +117,6 @@ function PaymentDetail({data}) {
         </aside>
       </div>
   );
-}
+});
 
 export default PaymentDetail;

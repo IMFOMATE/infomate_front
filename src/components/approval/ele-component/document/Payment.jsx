@@ -108,12 +108,12 @@ function Payment({documentData}) {
 
     return formData;
   };
+
   //결제 요청 api
   const handleRequest = () => {
 
     console.log(data);
     const validationResult = isPaymentValid(data, false);
-    console.log(validationResult);
 
     showValidationAndConfirm(
       validationResult, data.approvalList.length,
@@ -126,8 +126,15 @@ function Payment({documentData}) {
 
   // 임시저장 api
   const handleTemp = () => {
-    const formData = createFormData();
-    requestApproval(formData);
+
+    const validationResult = isPaymentValid(data, false);
+    showValidationAndConfirm(
+        validationResult, data.approvalList.length,
+        () => {
+          const formData = createFormData();
+
+        }
+    )
   };
 
   const handleChoice = toggleModal;  //결재선 지정 모달

@@ -9,14 +9,14 @@ export function PaymentList({key, payment, onUpdate }) {
           <input
               className={style.input}
               type="date"
-              value={payment.paymentDate}
+              value={payment.paymentDate || ''}
               onChange={(e) => onUpdate('paymentDate', e.target.value)}
           />
         </td>
         <td className={style.td}>
           <select
               className={style.input}
-              value={payment.paymentSort}
+              value={payment.paymentSort || ''}
               onChange={(e) => onUpdate('paymentSort', e.target.value)} >
             <option value=""></option>
             <option value="물품구입비">물품구입비</option>
@@ -29,7 +29,7 @@ export function PaymentList({key, payment, onUpdate }) {
           <input
             className={style.input}
             type="number"
-            value={payment.paymentPrice}
+            value={payment.paymentPrice || ''}
             onChange={(e) => {
               onUpdate('paymentPrice', e.target.value);
             }}
@@ -39,7 +39,7 @@ export function PaymentList({key, payment, onUpdate }) {
           <input
               className={style.input}
               type="text"
-              value={payment.paymentContent}
+              value={payment.paymentContent || ''}
               onChange={(e) => onUpdate('paymentContent', e.target.value)}
           />
         </td>
@@ -47,7 +47,7 @@ export function PaymentList({key, payment, onUpdate }) {
           <input
               className={style.input}
               type="text"
-              value={payment.remarks}
+              value={payment.remarks || ''}
               onChange={(e) => onUpdate('remarks', e.target.value)}
           />
         </td>

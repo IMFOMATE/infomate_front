@@ -17,10 +17,13 @@ dayjs.extend(utc);
 
 export const getScheduleDayPerCount = ({startDay, endDay}) => {
 
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/dayCount/${MEMBER_CODE}?startDay=${startDay.format('YYYY-MM-DD')}&endDay=${endDay.format('YYYY-MM-DD')}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/dayCount?startDay=${startDay.format('YYYY-MM-DD')}&endDay=${endDay.format('YYYY-MM-DD')}`;
 
     return async (dispatch, getState) => {
-        const result = await axios.get(requestURL)
+        const result = await axios.get(requestURL,{headers: {
+            "Accept": "*/*",
+            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+        }})
                     .then(res => res.data)
                     .catch(err => err);
 
@@ -35,10 +38,13 @@ export const getScheduleDayPerCount = ({startDay, endDay}) => {
 
 export const getScheduleReminder = () => {
 
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/reminder/${MEMBER_CODE}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/reminder`;
 
     return async (dispatch, getState) => {
-        const result = await axios.get(requestURL)
+        const result = await axios.get(requestURL,{headers: {
+            "Accept": "*/*",
+            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+        }})
                     .then(res => res.data)
                     .catch(err => err);
 
@@ -53,10 +59,13 @@ export const getScheduleReminder = () => {
 
 export const getScheduleDetail = ({scheduleId}) => {
 
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/${MEMBER_CODE}/${scheduleId}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/${scheduleId}`;
 
     return async (dispatch, getState) => {
-        const result = await axios.get(requestURL)
+        const result = await axios.get(requestURL, {headers: {
+            "Accept": "*/*",
+            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+        }})
                     .then(res => res.data)
                     .catch(err => err);
 
@@ -70,15 +79,19 @@ export const getScheduleDetail = ({scheduleId}) => {
 }
 
 export const postScheduleRegist = ({data}) => {
-    data = {...data, memberCode: MEMBER_CODE}  
 
-    
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/regist/${MEMBER_CODE}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/regist`;
     
     data = {...data, startDate: dayjs(data.startDate).format('YYYY-MM-DDTHH:MM:ss'), endDate: dayjs(data.endDate).format('YYYY-MM-DDTHH:MM:ss')}
-    const tempdata = {...data, participantList: [...data.participantList.map(item => ({memberCode: item.member.memberCode}))]}
+    if(data?.participantList?.length > 0) 
+        data = {...data, participantList: [...data.participantList?.map(item => ({memberCode: item.member.memberCode}))]}
+
+        console.log(data);
     return async (dispatch, getState) => {
-        const result = await axios.post(requestURL, tempdata, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
+        const result = await axios.post(requestURL, data, {headers: {
+            "Accept": "*/*",
+            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+        }})
                         .then(res => res)
                         .catch(err => err);
 
@@ -95,14 +108,17 @@ export const postScheduleRegist = ({data}) => {
 }
 
 export const patchScheduleUpdate = ({data}) => {
-    data = {...data, memberCode: MEMBER_CODE}
+
+    if(data?.participantList?.length > 0) 
+        data = {...data, participantList: [...data.participantList.map(item => ({memberCode: item.member.memberCode, scheduleCode: data.id}))]}
     
-    const tempdata = {...data, participantList: [...data.participantList.map(item => ({memberCode: item.member.memberCode, scheduleCode: data.id}))]}
-    console.log(tempdata);
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/update/${MEMBER_CODE}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/update`;
     
     return async (dispatch, getState) => {
-        const result = await axios.patch(requestURL, tempdata, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
+        const result = await axios.patch(requestURL, data,{headers: {
+            "Accept": "*/*",
+            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+        }})
                         .then(res => res)
                         .catch(err => console.log(err));
 
@@ -121,11 +137,14 @@ export const deleteSchedule = ({scheduleId}) => {
 
     console.log(scheduleId);
     
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/delete/${scheduleId}/${MEMBER_CODE}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/delete/${scheduleId}`;
     
     
     return async (dispatch, getState) => {
-        const result = await axios.delete(requestURL, {headers:{"Content-Type":'application/json','Accept':'*/*'}})
+        const result = await axios.delete(requestURL, {headers:{
+            "Accept": "*/*",
+            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+        }})
                         .then(res => res)
                         .catch(err => err);
 

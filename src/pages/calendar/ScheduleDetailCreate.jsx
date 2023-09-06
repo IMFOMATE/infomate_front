@@ -46,15 +46,21 @@ const ScheduleDetilaCreate = () => {
     const navigate = useNavigate();
 
     useEffect(()=>{
-        
+        // if(!schedule && newSchedule === 'true') {
+        //     setSchedule({data:{participantList:[]}})
+        // }
+
         if(!isDataLoad()) {
             if(!getCalednarReducer) return;
             if(!schedule) return;
             return setSchedule({
                 ...data,
                 data: {...schedule.data, 
-                        refCalendar: getCalednarReducer.data.filter(item => 
-                            item.defaultCalendar && item.memberCode === MEMBER_CODE && item.departmentCode === null)[0].id,
+                        refCalendar: getCalednarReducer.data
+                        .filter(item => 
+                            item.defaultCalendar 
+                            && item.memberCode === MEMBER_CODE 
+                            && item.departmentCode === null)[0].id,
                         participantList: []
                     }
             })    
@@ -74,7 +80,9 @@ const ScheduleDetilaCreate = () => {
     ])
 
     const isDataLoad = () => {
-        return scheduleId !== null && scheduleId !== undefined && scheduleId !== ''
+        return scheduleId !== null 
+        && scheduleId !== undefined 
+        && scheduleId !== ''
     }
 
     if(!getCalednarReducer) return <LoadingSpiner />
@@ -155,8 +163,9 @@ const ScheduleDetilaCreate = () => {
     }
 
     const changeDateHandler = (e) => {
+        console.log(e);
         // 일정 초기화
-        if(e === null){
+        if(e === null || e === undefined){
             return setSchedule({
                 ...schedule, 
                 data:{...schedule.data,  
@@ -166,7 +175,7 @@ const ScheduleDetilaCreate = () => {
             });
         }
 
-        if(schedule.data.allDay){
+        if(schedule?.data.allDay){
             setSchedule({
                 ...schedule, 
                 data:{...schedule.data, 
@@ -177,7 +186,7 @@ const ScheduleDetilaCreate = () => {
         }else{
             setSchedule({
                 ...schedule, 
-                data:{...schedule.data,  
+                data:{...schedule?.data,  
                     startDate: dayjs(e[0]).format('YYYY-MM-DDTHH:mm:ss'), 
                     endDate: dayjs(e[1]).format('YYYY-MM-DDTHH:mm:ss')
                 }
@@ -339,7 +348,7 @@ const ScheduleDetilaCreate = () => {
                         <AttendUserContext.Provider value={{attendUsers, setAttendUsers}} >
                             {
                                 isRead === 'true'
-                                ? data?.data?.participantList.map((item,index) => (
+                                ? data?.data?.participantList?.map((item,index) => (
                                     <AttendUser
                                         key={index}
                                         id={item?.member?.memberCode} 

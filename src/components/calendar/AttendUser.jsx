@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'react';
 import styles from './attendUser.module.css';
 import meterialIcon from '../../components/common/meterialIcon.module.css';
 import CheckBox from '../common/input/CheckBox';
-import { AttendUserContext } from '../../pages/calendar/ScheduleDetailCreate';
 import { ScheduleProvider } from '../../layouts/CalendarLayout';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_PART_LIST } from '../../modules/ScheduleMoudule';
@@ -124,9 +123,14 @@ export const SelectMember = ({departmentCode, data}) => {
 
     const AttendUsersChangeHanlder = (e) => {
         if(e.target.checked){
-            setSchedule({...schedule, data:{...schedule.data, participantList: [...schedule.data.participantList, {member: {memberCode: parseInt(e.target.value), memberName: e.target.name}}]}})
+            // if(!schedule) {
+            //     setSchedule({data:{participantList: [{member: {memberCode: parseInt(e.target.value), memberName: e.target.name}}]}});
+            // }else{
+            //     setSchedule({...schedule, data:{...schedule?.data, participantList: [...schedule?.data?.participantList, {member: {memberCode: parseInt(e.target.value), memberName: e.target.name}}]}})
+            // }
+            setSchedule({...schedule, data:{...schedule?.data, participantList: [...schedule?.data?.participantList, {member: {memberCode: parseInt(e.target.value), memberName: e.target.name}}]}})
         }else{
-            setSchedule({...schedule, data:{...schedule.data, participantList: [...schedule?.data?.participantList?.filter(item => item.member.memberCode !== parseInt(e.target.value))]}})
+            setSchedule({...schedule, data:{...schedule?.data, participantList: [...schedule?.data?.participantList?.filter(item => item.member.memberCode !== parseInt(e.target.value))]}})
         }
     }
     

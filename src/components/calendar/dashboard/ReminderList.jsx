@@ -12,7 +12,7 @@ import 'dayjs/locale/ko';
 dayjs.locale('ko');
 dayjs.extend(utc);
 
-const ReminderList = () => {
+const  ReminderList = () => {
 
     const data = useSelector(state => state.scheduleReducer[GET_SCHEDULE_REMINDER]);
     const scheduleReducer = useSelector(state => state.scheduleReducer);
@@ -40,13 +40,14 @@ const ReminderList = () => {
                             .filter(item => 
                                 dayjs(dayjs(item.startDate).format('YYYY-MM-DD')).isSame(dayjs(day).format('YYYY-MM-DD')))
                             .map(item => item)[0];
-                    return <ReminderSchedule 
-                            toDay={day} 
-                            title={isSameItem?.title} 
-                            date={ (isSameItem?.startDate || isSameItem?.endDate) 
-                                && `${dayjs(isSameItem?.startDate).format('MM-DD HH:mm')} 
-                                ~ ${dayjs(isSameItem?.endDate).format('MM-DD HH:mm')}`}
-                        />
+                    return <ReminderSchedule
+                                key={index}
+                                toDay={day} 
+                                title={isSameItem?.title} 
+                                date={ (isSameItem?.startDate || isSameItem?.endDate) 
+                                    && `${dayjs(isSameItem?.startDate).format('MM-DD HH:mm')} 
+                                    ~ ${dayjs(isSameItem?.endDate).format('MM-DD HH:mm')}`}
+                            />
                 })
                 }
             </div>

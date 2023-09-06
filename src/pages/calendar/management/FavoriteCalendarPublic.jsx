@@ -10,6 +10,7 @@ import { POST_FAV_CALENDAR_REGIT } from '../../../modules/FavCalendarMoudule';
 import { NotResultData } from '../../common/Error';
 import { Pagenation } from '../../../components/common/other/Pagenation';
 import { LoadingSpiner } from '../../../components/common/other/LoadingSpiner'
+import { MEMBER_CODE } from '../../../apis/APIConfig';
 
 const FavoriteCalendarPublic = () => {
     const [search] = useSearchParams();
@@ -50,6 +51,7 @@ const FavoriteCalendarPublic = () => {
         setSelectAll(e.target.checked)
     }
 
+    console.log(publicCalendarList);
     return (
         <>
             
@@ -60,11 +62,13 @@ const FavoriteCalendarPublic = () => {
                                             key={item.id}
                                             id={item.id}
                                             memberName={item.member.memberName}
-                                            // rank={item?.refMember?.refRank?.name} // 직위 수정 예정
+                                            rank={item?.member.rank.rankName} // 직위 수정 예정
                                             calendarName={item?.name}
                                             requestDate={item?.requestDate}
                                             createDate={item?.createDate}
-                                            favState={item?.favoriteCalendar[0]?.approvalStatus}
+                                            favState={item?.favoriteCalendar.filter(member => 
+                                                member.member.memberCode === MEMBER_CODE
+                                            )[0]?.approvalStatus}
                                     />)  
             }
             {

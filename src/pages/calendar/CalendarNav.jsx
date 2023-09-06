@@ -85,7 +85,7 @@ const CalendarNav = () => {
             <div className={NavStyle.sideTop}>
                 <h1 className={NavStyle.title}>일정</h1>
                 <NavLink 
-                    to='/calendar/regist' 
+                    to='/calendar/regist?new=true' 
                     className={NavStyle.new} 
                     onClick={toggleMenu}>
                     일정등록

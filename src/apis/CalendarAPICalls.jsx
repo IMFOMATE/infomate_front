@@ -31,7 +31,6 @@ export const getCalendarFindAllAPI = () => {
 
 export const getCalendarListAPI = () => {
 
-    console.log(DEPARTMENT_CODE);
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/mylist`;
 
     return async (dispatch, getState) => {
@@ -82,7 +81,7 @@ export const getCalendarPublicListAPI = ({page}) => {
 
 export const postCalendarRegit = ({data}) => {
 
-    data = {...data, memberCode: MEMBER_CODE};
+    // data = {...data, memberCode: MEMBER_CODE};
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/regist`;
 
     return async (dispatch, getState) => {
@@ -102,7 +101,7 @@ export const postCalendarRegit = ({data}) => {
 }
 
 export const patchCalendarUpdate = ({data}) => {
-    data = {...data, memberCode: MEMBER_CODE}
+    // data = {...data, memberCode: MEMBER_CODE}
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/update`;
 
     return async (dispatch, getState) => {
@@ -125,7 +124,7 @@ export const patchCalendarUpdate = ({data}) => {
 
 
 export const patchDefaultCalendarUpdate = ({data}) => {
-    data = {...data, memberCode: MEMBER_CODE}
+    // data = {...data, memberCode: MEMBER_CODE}
     
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/updateDafault`;
     return async (dispatch, getState) => {
@@ -147,7 +146,7 @@ export const patchDefaultCalendarUpdate = ({data}) => {
 }
 
 export const patchChangeCalendarIndexNo = ({data}) => {
-    data = {...data, memberCode: MEMBER_CODE}
+    // data = {...data, memberCode: MEMBER_CODE}
     
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/changeIndexNo`;
     return async (dispatch, getState) => {

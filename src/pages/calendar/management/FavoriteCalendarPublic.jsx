@@ -10,7 +10,6 @@ import { POST_FAV_CALENDAR_REGIT } from '../../../modules/FavCalendarMoudule';
 import { NotResultData } from '../../common/Error';
 import { Pagenation } from '../../../components/common/other/Pagenation';
 import { LoadingSpiner } from '../../../components/common/other/LoadingSpiner'
-import { MEMBER_CODE } from '../../../apis/APIConfig';
 
 const FavoriteCalendarPublic = () => {
     const [search] = useSearchParams();
@@ -51,14 +50,15 @@ const FavoriteCalendarPublic = () => {
         setSelectAll(e.target.checked)
     }
 
-    console.log(publicCalendarList);
+
     return (
         <>
             
             <CalendarMagnageFavoriteFollowerHeader chk={selectAll} setChk={selectItemChange} />
             <br />
             {
-                publicCalendarList.data.map((item)=> <CalendarMagnageFavoriteItem
+                publicCalendarList.data.map((item)=> 
+                                    <CalendarMagnageFavoriteItem
                                             key={item.id}
                                             id={item.id}
                                             memberName={item.member.memberName}
@@ -67,13 +67,13 @@ const FavoriteCalendarPublic = () => {
                                             requestDate={item?.requestDate}
                                             createDate={item?.createDate}
                                             favState={item?.favoriteCalendar.filter(member => 
-                                                member.member.memberCode === MEMBER_CODE
+                                                member.member.memberCode === member.data.memberCode
                                             )[0]?.approvalStatus}
                                     />)  
             }
             {
-                publicCalendarList.pageInfo &&
-                <Pagenation 
+                publicCalendarList.pageInfo 
+                && <Pagenation 
                     prev={publicCalendarList.pageInfo.prev}
                     next={publicCalendarList.pageInfo.next}
                     total={publicCalendarList.pageInfo.total} 

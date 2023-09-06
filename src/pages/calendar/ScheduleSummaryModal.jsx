@@ -15,7 +15,6 @@ import locale from 'antd/es/date-picker/locale/ko_KR';
 import antdStyels from './antd.module.css';
 import { DatePicker } from 'antd';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
-import { DEPARTMENT_CODE, MEMBER_CODE } from '../../apis/APIConfig';
 import meterialIcon from '../../components/common/meterialIcon.module.css'
 dayjs.locale('ko')
 
@@ -27,6 +26,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
     const {menuState, toggleMenu} = useContext(MenuContext);
     
     const calendarList = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
+    const member = useSelector(state => state.memberReducer);
     
     const sc = useSelector(state => state.scheduleReducer);
     const dispatch = useDispatch();
@@ -38,7 +38,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
             ...schedule,
             data: {...schedule.data, 
                 refCalendar: calendarList.data.filter(item => 
-                    item.defaultCalendar && item.memberCode === MEMBER_CODE && item.departmentCode === null)[0].id
+                    item.defaultCalendar && item.memberCode === member.data.memberCode && item.departmentCode === null)[0].id
                 }
         })
     },[])
@@ -207,7 +207,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                                 value={schedule.data.refCalendar}
                                 options={calendarList.data.filter(item => (
                                     item.departmentCode !== 1 && 
-                                    (item.memberCode === MEMBER_CODE || item.departmentCode === DEPARTMENT_CODE)
+                                    (item.memberCode === member.data.memberCode || item.departmentCode === member.data.deptCode )
                                 )).sort((prev, next) => prev.indexNo - next.indexNo
                                 ).map(item => ({
                                     value: item.id,

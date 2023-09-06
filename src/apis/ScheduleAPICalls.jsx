@@ -7,7 +7,7 @@ import {
     GET_SCHEDULE_COUNT,
     GET_SCHEDULE_REMINDER,
 } from '../modules/ScheduleMoudule';
-import { PROTOCOL, SERVER_IP, SERVER_PORT, MEMBER_CODE} from './APIConfig';
+import { PROTOCOL, SERVER_IP, SERVER_PORT } from './APIConfig';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { message } from 'antd';

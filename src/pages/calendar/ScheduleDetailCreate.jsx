@@ -18,7 +18,6 @@ import dayjs from 'dayjs';
 import locale from 'antd/es/date-picker/locale/ko_KR';
 import { DatePicker, message } from 'antd';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
-import { DEPARTMENT_CODE, MEMBER_CODE } from '../../apis/APIConfig';
 import { GET_SCHEDULE_DETAIL } from '../../modules/ScheduleMoudule';
 import { LoadingSpiner } from '../../components/common/other/LoadingSpiner';
 
@@ -38,6 +37,7 @@ const ScheduleDetilaCreate = () => {
 
     const getCalednarReducer = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
     const data = useSelector(state => state.scheduleReducer[GET_SCHEDULE_DETAIL]);
+    const member = useSelector(state => state.memberReducer);
     
     const scheduleId = search.get('scheduleId');
     const isRead = search.get('isread');
@@ -59,7 +59,7 @@ const ScheduleDetilaCreate = () => {
                         refCalendar: getCalednarReducer.data
                         .filter(item => 
                             item.defaultCalendar 
-                            && item.memberCode === MEMBER_CODE 
+                            && item.memberCode === member.data.memberCode 
                             && item.departmentCode === null)[0].id,
                         participantList: []
                     }
@@ -329,7 +329,7 @@ const ScheduleDetilaCreate = () => {
                             name='refCalendar' 
                             options={getCalednarReducer.data.filter(item => (
                                 item.departmentCode !== 1 && 
-                                (item.memberCode === MEMBER_CODE || item.departmentCode === DEPARTMENT_CODE)
+                                (item.memberCode === member.data.memberCode || item.departmentCode === member.data.deptCode )
                             )).sort((prev, next) => prev.indexNo - next.indexNo
                             ).map(item => ({
                                 value: item.id, 
@@ -409,8 +409,7 @@ const ScheduleDetilaCreate = () => {
                 <div className={styles.footer}>
                     <div>
                         {
-                            // ((data?.data?.calendar.memberCode !== MEMBER_CODE && isDataLoad())
-                            // && (data.data?.calendar.departmentCode !== DEPARTMENT_CODE))
+                            
                             (isDataLoad() && !data?.expendsProps.compare)
                             || 
                             <ButtonInline 
@@ -424,14 +423,13 @@ const ScheduleDetilaCreate = () => {
                     <div>
                         <ButtonInline 
                             isCancel={true} 
-                            value={isDataLoad() && data?.data?.calendar?.memberCode !== MEMBER_CODE? '뒤로가기' : '취소' } 
+                            value={isDataLoad() && data?.data?.calendar?.memberCode !== member.data.memberCode? '뒤로가기' : '취소' } 
                             onClick={registCancle} 
                             style={{width:80, height: 40}}
                         />
                     </div>
                     {   
-                        // (isDataLoad() && parseInt(data?.data?.calendar?.memberCode) === MEMBER_CODE
-                        // || (data.data?.calendar.departmentCode === DEPARTMENT_CODE))
+
                         (isDataLoad() && data.expendsProps.compare)
 
                         && 

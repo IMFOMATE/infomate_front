@@ -8,7 +8,7 @@ import {
     PATCH_FAV_CALENDAR_STATE_UPDATE
 } from '../modules/FavCalendarMoudule';
 
-import { PROTOCOL, SERVER_IP, SERVER_PORT, MEMBER_CODE, Pageable} from './APIConfig';
+import { PROTOCOL, SERVER_IP, SERVER_PORT, Pageable} from './APIConfig';
 import { message } from 'antd';
 
 export const getFavCalendarfollowAllAPI = ({page}) => {

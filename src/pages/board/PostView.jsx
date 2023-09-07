@@ -22,27 +22,20 @@ function PostView() {
     
     useEffect(() => {
       if(post.length > 0) return ;
-      console.log('PostView 컴포넌트가 렌더링 됨'); // 컴포넌트가 렌더링될 때 로그 출력
+      console.log('PostView 컴포넌트가 렌더링 됨');
 
       dispatch(callPostViewAPI({
           postCode: postCode
       }))
       
   }, [dispatch, postCode]);
-
-
-  
-
   if(post.length < 1) return <LoadingSpiner />
 
     
-    const onClickPostUpdate = (postCode) => {
+    const onClickPostUpdate = () => {
       console.log(postCode);
-      navigate(`/board/${postCode}/update`, {replace: false});
+      navigate(`/board/update/${postCode}`, {replace: false});
     }
-
-    console.log(post);
-
 
     return (
 <>

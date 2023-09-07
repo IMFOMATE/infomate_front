@@ -1,21 +1,37 @@
-import React from "react";
+import  { React, useEffect } from "react";
 import {Link} from "react-router-dom";
 import SdeptCss from "./SearchDept.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    callDeptListAPI
+} from '../../apis/EmployeeAPI';
+// import { FadeLoader } from "react-spinners";
+// import StylesLoading from '../calendar/loadingStyle.module.css';
 
+function DeptList() {
 
-function DeptList({data}) {
+    const dispatch = useDispatch();
+    const deptList = useSelector(state => state.employeeReducer);
 
+    useEffect(
+        () => {
+            dispatch(callDeptListAPI());
+        },
+        []
+    )
+    
+    // if(deptList.data === 0) return <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
 
 
     return(
         <>
                 {
-                    data.map((m, index) =>
+                    deptList.map((mamber, index) =>
                     <tr key={index} className={SdeptCss.tr}>
-                        <td>{m.name}</td>  
-                        <td>{m.num}</td>   
-                        <td>{m.dept}</td>   
-                        <td><Link to={m.link} className={SdeptCss.board_link}>
+                        <td>{mamber.data.empName}</td>  
+                        <td>{mamber.data.empNum}</td>   
+                        <td>{mamber.data.deptName}</td>   
+                        <td><Link to='/memberInfo' className={SdeptCss.board_link}>
                             <button className={SdeptCss.bnt}>정보</button>
                             </Link></td>
                     </tr>
@@ -24,6 +40,26 @@ function DeptList({data}) {
 
         </>
     );
+
+
+
+    // return(
+    //     <>
+    //             {
+    //                 deptList.map((mamber, index) =>
+    //                 <tr key={index} className={SdeptCss.tr}>
+    //                     <td>{mamber.empName}</td>  
+    //                     <td>{mamber.empNum}</td>   
+    //                     <td>{mamber.deptName}</td>   
+    //                     <td><Link to={mamber.link} className={SdeptCss.board_link}>
+    //                         <button className={SdeptCss.bnt}>정보</button>
+    //                         </Link></td>
+    //                 </tr>
+    //                 )            
+    //             }
+
+    //     </>
+    // );
 }
 
 

@@ -15,13 +15,23 @@ function Navbar() {
     const { menuState } = useContext(MenuContext);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
     const loginMember = useSelector(state => state.memberReducer);
-        console.log(loginMember);
+    console.log(loginMember);
+
     const isLogin = window.localStorage.getItem('accessToken');
+
     const [userInfo, setUserInfo ]= useState({});
 
     const onClickLogoutHandler = () => {
-        window.localStorage.removeItem('accessToken');  
+        window.localStorage.removeItem('accessToken');
+
+        const authTokenJSON = window.localStorage.getItem("authToken");
+        if(authTokenJSON) {
+            const authToken = JSON.parse(authTokenJSON);
+
+            window.localStorage.removeItem("authToken");
+        }
         //로그아웃
         dispatch(callLogoutAPI());
         
@@ -43,7 +53,7 @@ function Navbar() {
                     <img className={NavStyle.profileImg} alt='profileImg' src='img/user.jpg'/>
                 </a>
                 <div className={NavStyle.profileInfo}>
-                    <p>{loginMember?.data?.department} 부서</p>
+                    <p>{loginMember?.data?.deptName} 부서</p>
                     <p>{loginMember?.data?.memberName} {loginMember?.data?.rank}</p>
                 </div>
             </div>

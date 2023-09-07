@@ -111,7 +111,7 @@ export const patchCalendarUpdate = ({data}) => {
                     .then(res => res.data)
                     .catch(e => console.log(e));
         
-        if(result.status === 200){
+        if(result?.status === 200){
             message.success(result.message);
             dispatch({ type: PATCH_CALENDAR_UPDATE,  payload: result });
             return ;
@@ -144,9 +144,9 @@ export const patchDefaultCalendarUpdate = ({data}) => {
     };
 }
 
-export const patchChangeCalendarIndexNo = ({data}) => {
-    // data = {...data, memberCode: MEMBER_CODE}
-    
+export const patchChangeCalendarIndexNo = ({data}) => {    
+
+    console.log(data);
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/changeIndexNo`;
     return async (dispatch, getState) => {
         const result = await axios.patch(requestURL, data, {headers: {
@@ -156,7 +156,7 @@ export const patchChangeCalendarIndexNo = ({data}) => {
                     .then(res => res.data)
                     .catch(e => console.log(e));
         
-        if(result.status === 200){
+        if(result?.status === 200){
             message.success(result.message);
             dispatch({ type: PATCH_CALENDAR_UPDATE,  payload: result });
             return ;

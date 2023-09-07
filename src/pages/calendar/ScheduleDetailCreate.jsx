@@ -18,8 +18,9 @@ import dayjs from 'dayjs';
 import locale from 'antd/es/date-picker/locale/ko_KR';
 import { DatePicker, message } from 'antd';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
-import { GET_SCHEDULE_DETAIL } from '../../modules/ScheduleMoudule';
+import { GET_SCHEDULE_DETAIL, POST_SCHEDULE_REGIT } from '../../modules/ScheduleMoudule';
 import { LoadingSpiner } from '../../components/common/other/LoadingSpiner';
+
 
 dayjs.extend(utc);
 
@@ -46,15 +47,6 @@ const ScheduleDetilaCreate = () => {
     const navigate = useNavigate();
 
     useEffect(()=>{
-        if(!schedule && newSchedule === 'true') {
-            setSchedule({data:{
-                refCalendar: getCalednarReducer.data
-                    .filter(item => 
-                        item.defaultCalendar 
-                        && item.memberCode === member.data.memberCode 
-                        && item.departmentCode === null)[0].id,
-                participantList:[]}})
-        }
 
         if(!isDataLoad()) {
             if(!getCalednarReducer) return;
@@ -72,6 +64,20 @@ const ScheduleDetilaCreate = () => {
             })    
         }
         
+        if(!schedule && newSchedule === 'true') {
+            setSchedule({data:{
+                    refCalendar: getCalednarReducer.data
+                        .filter(item => 
+                            item.defaultCalendar 
+                            && item.memberCode === member.data.memberCode 
+                            && item.departmentCode === null)[0].id,
+                    participantList:[]
+                }
+            })
+        }
+        
+
+
         if(data) return;
         dispatch(getScheduleDetail({scheduleId:scheduleId}));
         if(schedule?.data) return;
@@ -84,7 +90,6 @@ const ScheduleDetilaCreate = () => {
         getCalednarReducer,
         schedule?.data?.allDay
     ])
-
     const isDataLoad = () => {
         return scheduleId !== null 
         && scheduleId !== undefined 
@@ -93,8 +98,10 @@ const ScheduleDetilaCreate = () => {
 
     if(!getCalednarReducer) return <LoadingSpiner />
 
+    if(isDataLoad() && !data) return <LoadingSpiner />
+
     if(!schedule?.data && isDataLoad()){           
-        if(!data) return <LoadingSpiner />;
+        if(!data?.data) return <LoadingSpiner />;
         setSchedule(data);
         return <LoadingSpiner />; 
     }

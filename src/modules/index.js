@@ -13,6 +13,7 @@ import fileReducer from "./FileModule";
 import employeeReducer from "./EmployeeModule";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import homeMainReducer from "./HomeModules";
 
 const rootReducer = combineReducers({
     favCalendarReducer,
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
     fileReducer,
     employeeReducer,
     memberReducer,
+    homeMainReducer
 });
 
 const persistConfig = {

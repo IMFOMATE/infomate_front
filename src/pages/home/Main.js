@@ -3,6 +3,7 @@ import MiniCalendar from '../../components/calendar/dashboard/MiniCalendar';
 import { decodeJwt } from '../../util/tokenUtils';
 import MainStyle from './Main.module.css';
 import { NavLink, Navigate, useNavigate } from 'react-router-dom';
+import ApprovalMain from "../approval/ApprovalMain";
 
 function Main() {
 
@@ -38,11 +39,11 @@ function Main() {
                         {/*다른컴포넌트*/}
                     </div>
                     <div className={MainStyle.calendar}>
-                        <ReminderList />
                         <MiniCalendar />
+                        <ReminderList />
                     </div>
                     <div>
-                        {/*다른 컴포넌트*/}
+                        {/*<ApprovalMain/>*/}
                     </div>
                     <div>
                         {/*다른 컴포넌트*/}

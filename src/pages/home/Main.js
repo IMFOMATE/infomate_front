@@ -45,7 +45,7 @@ function Main() {
         <>
             <div className={MainStyle.home_wrap}>
                 <div className={styles.maintitle}>
-                    <h3>메인페이지</h3>
+                    <h2>메인페이지</h2>
                     {/* { decoded === "ROLE_ADMIN" && <div className={MainStyle.regist}><NavLink to="/main/regist-member">회원 등록</NavLink></div> } */}
                 { decoded === "ROLE_ADMIN" && <button className={MainStyle.regist} onClick={() => {navigate("regist-member", { replace: false })}}>회원 등록</button> }
                 </div>

@@ -22,12 +22,15 @@ function Posting() {
     const [form, setForm] = useState({
         postCode: 0,
         postTitle: '',
-        postDate: new Date().toLocaleDateString(),
+        postDate: new Date().toISOString().slice(0, 19).replace('T', ' '),
         postContents: '',
         boardCategory: 0, 
-        boardCode: '',
-        memberName: '',
-        memberCode: 0
+        board: { boardCode : ''},
+        member: {
+            memberName: '',
+            memberCode: 0
+        }
+      
 
     });
 
@@ -46,7 +49,7 @@ function Posting() {
           setForm({
             ...form,
             [name]: value,
-            boardCode: boardCode
+            board: { boardCode : boardCode}
           });
         } else {
           setForm({
@@ -93,33 +96,34 @@ function Posting() {
 
 
     /* form 데이터 */
-    const postPostHandler = async () => {
+    const postPostHandler = () => {
         console.log('postPostHandler');
 
-        const formData = new FormData();
+        // const formData = new FormData();
 
-        formData.append("postCode", form.postCode);
-        formData.append("postTitle", form.postTitle);
-        formData.append("postDate", form.postDate);
-        formData.append("postContents", form.postContents);
-        formData.append("boardCategory", form.boardCategory);
-        formData.append("boardCode", form.boardCode);
-        formData.append("memberCode", form.memberCode);
+        // formData.append("postCode", form.postCode);
+        // formData.append("postTitle", form.postTitle);
+        // formData.append("postDate", form.postDate);
+        // formData.append("postContents", form.postContents);
+        // formData.append("boardCategory", form.boardCategory);
+        // formData.append("board", { "boardCode": form.boardCode});
+        // formData.append("member", { "memberCode": '22'});
 
-        for(let [name, value] of formData ) {
-            console.log("========",name)
-            console.log("==============",value)
+        // for(let [name, value] of formData ) {
+        //     console.log("========",name)
+        //     console.log("==============",value)
 
-        }
+        // }
         // append : 필드와 값을 추가하는 메서드 (필드, 값);
 
-
+        // console.dir(formData);
+        
         dispatch(callPostPostAPI({
-            form: formData
+            form
         }));
 
         alert('작성완료');
-        navigate('/board/common', { replace: true});
+        navigate('/board/common', { replace: false});
         window.location.reload();
 
         

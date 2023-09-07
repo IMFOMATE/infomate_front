@@ -1,0 +1,148 @@
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import mainCSS from '../../components/common/main.module.css';
+import PostingCSS from './Posting.module.css';
+import ReactQuill from "react-quill";
+
+import { callPostUpdateAPI } from '../../apis/BoardAPICalls';
+
+function PostUpdate() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const params = useParams();
+  const post  = useSelector(state => state.boardReducer); 
+  const postCode = params.postCode;
+  
+  const [form, setForm] = useState({
+    postTitle: '',
+    postContents: '',
+    boardCategory: '',
+  });
+
+  const toolbarOptions = [
+    [{ header: [1, 2, 3, false] }],
+    ["bold", "italic", "underline", "strike"],
+    ["blockquote"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    [{ color: [] }, { background: [] }],
+    [{ align: [] }],
+    ['link', "image", "video"]
+  ];
+
+  const quillRef = React.useRef(null);
+
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setForm({
+      ...form,
+      [name]: value
+    });
+  };
+
+  const postPostHandler = () => {
+    console.log('[PostUpdate] onClickPostUpdateHandler');
+        // dispatch(callPostUpdateAPI(form));
+
+        const formData = new FormData();
+        formData.append("postCode", form.postCode);
+        formData.append("postTitle", form.postTitle);
+        formData.append("postDate", form.postDate);
+        formData.append("postContents", form.postContents);
+        formData.append("boardCategory", form.boardCategory);
+        formData.append("boardCode", form.boardCode);
+        formData.append("memberCode", form.memberCode);
+
+        // if(image){
+        //     formData.append("postImage", image);
+        // }
+
+        dispatch(callPostUpdateAPI({	// 상품 정보 업데이트
+            form: formData
+        }));         
+        navigate(`/board/post/${postCode}`); // 경로는 실제 프로젝트에 맞게 수정
+  };
+
+        useEffect(() => {
+          // 게시물 정보를 가져오는 API 호출
+          if (postCode) {
+            dispatch(callPostUpdateAPI({ postCode })).then((response) => {
+              if (response.success) {
+                const postInfo = response.data;
+                setForm({
+                  postCode: postInfo.postCode,
+                  postTitle: postInfo.postTitle,
+                  postContents: postInfo.postContents,
+                  boardCategory: postInfo.boardCategory,
+                  // 다른 필드들도 추가하세요
+                });
+              } else {
+                console.error('게시물 정보를 불러오는데 실패했습니다.', response.error);
+              }
+            });
+          }
+  }, [dispatch, postCode]);
+
+  return (
+    <>
+        <div className={mainCSS.maintitle}>
+        <h2>dd</h2>
+        </div>
+
+      <div>
+        <select
+          name="boardCategory"
+          className={PostingCSS.category}
+          onChange={onChangeHandler}
+        >
+          <option value="">게시판을 선택해주세요</option>
+          <option value="일반게시판" className={PostingCSS.drdown}>
+            일반게시판
+          </option>
+          <option value="익명게시판" className={PostingCSS.drdown}>
+            익명게시판
+          </option>
+          <option value="부서게시판" className={PostingCSS.drdown}>
+            부서게시판
+          </option>
+          <option value="보고사항" className={PostingCSS.drdown}>
+            보고사항
+          </option>
+        </select>
+      </div>
+
+      <input
+        className={PostingCSS.title}
+        placeholder="제목을 입력해주세요."
+        name="postTitle"
+        onChange={(e) => onChangeHandler(e)}
+        value={form.postTitle}
+      />
+
+      <div className={PostingCSS.postmargin}>
+        <ReactQuill
+          name="postContents"
+          placeholder="내용을 입력해주세요."
+          ref={quillRef}
+          modules={{
+            toolbar: toolbarOptions
+          }}
+          theme="snow"
+          value={form.postContents}
+          onChange={(value) => setForm({ ...form, postContents: value })}
+        />
+      </div>
+
+      
+      <div className={PostingCSS.postside}>
+        <button onClick={postPostHandler}>
+            <div className={PostingCSS.postpost}>
+            수정완료
+            </div>
+        </button>
+    </div>
+    </>
+  );
+}
+
+export default PostUpdate;

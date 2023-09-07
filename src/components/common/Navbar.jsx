@@ -21,7 +21,14 @@ function Navbar() {
     const [userInfo, setUserInfo ]= useState({});
 
     const onClickLogoutHandler = () => {
-        window.localStorage.removeItem('accessToken');  
+        window.localStorage.removeItem('accessToken'); 
+        
+        const authTokenJSON = window.localStorage.getItem("authToken");
+        if(authTokenJSON) {
+            const authToken = JSON.parse(authTokenJSON);
+
+            window.localStorage.removeItem("authToken");
+        }
         //로그아웃
         dispatch(callLogoutAPI());
         

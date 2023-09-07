@@ -35,7 +35,7 @@ function Navbar() {
         const storedTitle = localStorage.getItem('currentTitle') || 'Home';
         toggleTitle(storedTitle);
 
-        console.log('check ---->',loginMember.data.department)
+        // console.log('check ---->',loginMember.data.department)
     }, []);
 
     return (

@@ -12,10 +12,10 @@ function BoardNav() {
     const {modalOpen , toggleModal } = useModal();
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const boards  = useSelector(state => state.boardReducer);      
-    const boardList = boards?.data; 
-    console.log("boardManagement", boardList);
+    // const dispatch = useDispatch();
+    // const boards  = useSelector(state => state.boardReducer);      
+    // const boardList = boards?.data; 
+    // console.log("boardManagement", boardList);
 
 
     const onClickBoardInsert = () => {

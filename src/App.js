@@ -121,7 +121,7 @@ function App() {
             <Route path="/board/anony" element={ <Anony />}/>
             <Route path="/board/posting" element={ <Posting />}/>
             <Route path="/board/post/:postCode" element={ <PostView />}/>
-            <Route path="/board/:postCode/update" element={ <PostUpdate />}/>
+            <Route path="/board/update/:postCode" element={ <PostUpdate />}/>
 
             {/* <Route path="/board" element={<BoardMain/>}></Route> */}
           

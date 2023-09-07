@@ -43,9 +43,10 @@ export const callhBoardViewAPI = ({currentPage}) => {   // 게시판 조회
 }
 
 
-export const callPostPostAPI = () => {   // 게시글 생성
-    console.log('[BoardAPICalls] callPostPostAPI Call');
+export const callPostPostAPI = ({form}) => {   // 게시글 생성
+    console.log('[BoardAPICalls] callPostPostAPI Call ==== {}', JSON.stringify(form));
 
+    form.member.memberCode = 22;
     const requestURL = `http://localhost:8989/brd/board/posting`;
 
     return async (dispatch, getState) => {
@@ -53,11 +54,11 @@ export const callPostPostAPI = () => {   // 게시글 생성
         const result = await fetch(requestURL, {
             method: "POST",
             headers: {
-                "Content-Type": "multipart/form-data",
-                // "Accept": "*/*",
-                // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                "Accept": "*/*",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
             },
-            
+            body: JSON.stringify(form)
         })
         .then(response => response.json());
 
@@ -69,21 +70,24 @@ export const callPostPostAPI = () => {   // 게시글 생성
 }
 
 
-export const callPostUpdateAPI = ({postCode}) => {   // 게시글 수정
+export const callPostUpdateAPI = ({postCode, form}) => {   // 게시글 수정
     console.log('[BoardeAPICalls] callPostUpdateAPI Call');
 
-    const requestURL = `http://localhost:8989/brd/board/${postCode}/update`;
+    const requestURL = `http://localhost:8989/brd/board/update/${postCode}`;
 
     return async (dispatch, getState) => {
 
         const result = await fetch(requestURL, {
             method: "PUT",
-            "Content-Type": "application/json",
+            headers: {
                 "Accept": "*/*",
+                "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+            },
+            body: form
         })
         .then(response => response.json());
 
-        console.log('[BoardAPICalls] callPostUpdateAPI RESULT : ', result);
+        console.log('[BoardAPICalls] callPostUpdateAPI RESULT : ', result.data);
 
         dispatch({ type: PUT_POST,  payload: result.data });
         
@@ -93,6 +97,7 @@ export const callPostUpdateAPI = ({postCode}) => {   // 게시글 수정
 
 
 export const callPostViewAPI = ({postCode}) => { // 게시글 보기
+    
     const requestURL = `http://localhost:8989/brd/board/post/${postCode}`;
 
     return async (dispatch) => {

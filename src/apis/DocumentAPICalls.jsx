@@ -64,11 +64,10 @@ export const draftRegistAPI = (form, temp)=>{
       headers : {
         Authorization :  "Bearer " + token
       }
-    })
-        .then(res => res.data);
+    }).then(res => res.data);
 
     if(result.status === 200){
-      dispatch({type: POST_DRAFT, payload: result.data});
+      dispatch({type: POST_DRAFT, payload: result});
     }
 
   };

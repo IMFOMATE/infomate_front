@@ -27,14 +27,27 @@ function Main() {
 
     return (
         <>
-            <div className={MainStyle.header}>
-                <h3>메인페이지</h3>
-                {/* { decoded === "ROLE_ADMIN" && <div className={MainStyle.regist}><NavLink to="/main/regist-member">회원 등록</NavLink></div> } */}
-            { decoded === "ROLE_ADMIN" && <button className={MainStyle.regist} onClick={() => {navigate("regist-member", { replace: false })}}>회원 등록</button> }
-            </div>
-            <div style={{display:'flex'}}>
-                <ReminderList />
-                <MiniCalendar />
+            <div className={MainStyle.home_wrap}>
+                <div className={MainStyle.header}>
+                    <h3>메인페이지</h3>
+                    {/* { decoded === "ROLE_ADMIN" && <div className={MainStyle.regist}><NavLink to="/main/regist-member">회원 등록</NavLink></div> } */}
+                { decoded === "ROLE_ADMIN" && <button className={MainStyle.regist} onClick={() => {navigate("regist-member", { replace: false })}}>회원 등록</button> }
+                </div>
+                <div className={MainStyle.content}>
+                    <div>
+                        {/*다른컴포넌트*/}
+                    </div>
+                    <div className={MainStyle.calendar}>
+                        <ReminderList />
+                        <MiniCalendar />
+                    </div>
+                    <div>
+                        {/*다른 컴포넌트*/}
+                    </div>
+                    <div>
+                        {/*다른 컴포넌트*/}
+                    </div>
+                </div>
             </div>
         </>
     )

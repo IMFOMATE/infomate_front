@@ -32,7 +32,7 @@ const documentsReducer = handleActions(
         return payload;
       },
       [POST_DRAFT] : (state, { payload }) => {
-        return payload;
+         return {[POST_DRAFT]: payload}
       },
       [POST_VACATION] : (state, { payload }) => {
         return payload;

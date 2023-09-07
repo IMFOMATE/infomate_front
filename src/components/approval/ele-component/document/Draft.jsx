@@ -15,10 +15,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {draftRegistAPI} from "../../../../apis/DocumentAPICalls";
 import {handleCancel, isValid, showValidationAndConfirm} from "../common/dataUtils";
 import {decodeJwt} from "../../../../util/tokenUtils";
+import {POST_DRAFT} from "../../../../modules/approval/DocumentModuels";
 
 
 function Draft({documentData}) {
   const treeview = useSelector(state => state.departmentReducer);
+  const documentReducer = useSelector(state => state.documentsReducer[POST_DRAFT]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -48,7 +50,13 @@ function Draft({documentData}) {
       }));
       setData({...documentData, fileList:[], existList:[...documentData.fileList], approvalList:modifiedApprovalList });
     }
-  },[isReapply]);
+
+    if(documentReducer?.status === 200){
+      console.log(documentReducer)
+      navigate('/approval');
+    }
+
+  },[documentReducer]);
 
   // 데이터 핸들러
   const onChangeHandler = (e) => {

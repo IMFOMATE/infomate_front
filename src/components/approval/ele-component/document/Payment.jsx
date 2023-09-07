@@ -182,8 +182,8 @@ function Payment({documentData}) {
   const token = decodeJwt(window.localStorage.getItem('accessToken'));
   //현재 문서작성자 -> 로컬스토리지에서 가져오기
   const writer= {
-    memberName : token.memberName,
-    deptName : token.department,
+    memberName : token?.memberName,
+    deptName : token?.department,
   }
 
   //버튼에 함수 넘겨주기
@@ -210,9 +210,9 @@ function Payment({documentData}) {
                     data.approvalList.length !== 0 ?
                         data.approvalList.map((data, index) =>
                             <Credit
-                                key={data.memberCode}
-                                text={data?.text || (data.memberName)}
-                                rank={data?.data?.rank || data.rankName}
+                                key={data?.memberCode}
+                                text={data?.text || (data?.memberName)}
+                                rank={data?.data?.rank || data?.rankName}
                                 approvalDate={data?.approvalDate || ''}
                                 approvalStatus={data?.approvalStatus || ''}
                             />)

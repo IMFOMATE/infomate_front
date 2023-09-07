@@ -32,7 +32,6 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
-
     useEffect(()=>{
         setSchedule({
             ...schedule,
@@ -42,8 +41,6 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                 }
         })
     },[])
-
-    console.log(schedule);
 
     const scheduleChangeHanlder = e => {
         const eleName = e.target.name;
@@ -62,7 +59,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                     ...schedule, 
                     data:{...schedule.data, 
                         [eleName]: e.target.checked,
-                        endDate: schedule.data.startDate,
+                        endDate: dayjs(schedule.data.startDate).format('YYYY-MM-DD HH:mm'),
                     }
                 });
             }
@@ -86,6 +83,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
     }
     
     const scheduleResitClickHandler = (e) => {
+        console.log(schedule);
         dispatch(postScheduleRegist({data: schedule.data}))
         sc.status === 200 && navigate('.')
         setIsModal(false);

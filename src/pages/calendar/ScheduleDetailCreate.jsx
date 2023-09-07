@@ -46,9 +46,15 @@ const ScheduleDetilaCreate = () => {
     const navigate = useNavigate();
 
     useEffect(()=>{
-        // if(!schedule && newSchedule === 'true') {
-        //     setSchedule({data:{participantList:[]}})
-        // }
+        if(!schedule && newSchedule === 'true') {
+            setSchedule({data:{
+                refCalendar: getCalednarReducer.data
+                    .filter(item => 
+                        item.defaultCalendar 
+                        && item.memberCode === member.data.memberCode 
+                        && item.departmentCode === null)[0].id,
+                participantList:[]}})
+        }
 
         if(!isDataLoad()) {
             if(!getCalednarReducer) return;

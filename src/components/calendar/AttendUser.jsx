@@ -119,6 +119,8 @@ export const SelectMember = ({departmentCode, data}) => {
 
     const {schedule, setSchedule} = useContext(ScheduleProvider);
 
+    console.log(schedule);
+
     const isChecked = schedule?.data?.participantList?.length > 0 && schedule.data.participantList.filter(item => parseInt(item.memberCode) === data.memberCode)[0];
 
     const AttendUsersChangeHanlder = (e) => {

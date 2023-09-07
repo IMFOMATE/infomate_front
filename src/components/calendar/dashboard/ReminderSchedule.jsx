@@ -7,7 +7,6 @@ dayjs.locale('ko');
 dayjs.extend(utc);
 
 const RemiderSchedule = ({toDay, title, date}) => {
-    const week = ['일','월','화','수','목','금','토'];
     const dayOfWeek = toDay.format('dddd')
     const className = [
         styles.container,

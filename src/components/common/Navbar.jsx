@@ -15,9 +15,12 @@ function Navbar() {
     const { menuState } = useContext(MenuContext);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
     const loginMember = useSelector(state => state.memberReducer);
-        console.log(loginMember);
+    console.log(loginMember);
+
     const isLogin = window.localStorage.getItem('accessToken');
+    
     const [userInfo, setUserInfo ]= useState({});
 
     const onClickLogoutHandler = () => {

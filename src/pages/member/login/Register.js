@@ -2,7 +2,8 @@ import RegisterCSS from './Register.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { RESET_REGIST} from "../../../modules/MemberModule"
+import { POST_LOGIN } from "../../../modules/MemberModule"
+import { RESET_REGIST } from '../../../modules/MemberRegisterModule';
 import {
     callRegisterAPI
 } from '../../../apis/MemberAPICalls'
@@ -12,9 +13,11 @@ function Register() {
     // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
     const dispatch = useDispatch();
 
+    const loginMember = useSelector(state => state.memberReducer);
+    console.log("loginMember : ", loginMember);
 
-    const member = useSelector(state => state.memberReducer);  // API 요청하여 가져온 loginMember 정보
-    console.log("member : " ,member)
+    const member = useSelector(state => state.registMemberReducer); 
+    console.log("member : ", member);
 
     const navigate = useNavigate();
 
@@ -110,7 +113,7 @@ function Register() {
             dispatch({ type: RESET_REGIST});
 
             // navigate("/main", { replace: true })
-            // window.location.reload();
+            window.location.reload();
         }
     },
         [member]);

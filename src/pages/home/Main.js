@@ -3,6 +3,7 @@ import MiniCalendar from '../../components/calendar/dashboard/MiniCalendar';
 import { decodeJwt } from '../../util/tokenUtils';
 import MainStyle from './Main.module.css';
 import { NavLink, Navigate, useNavigate } from 'react-router-dom';
+import AnonyMini from '../../components/board/AnonyMini';
 
 function Main() {
 
@@ -27,14 +28,30 @@ function Main() {
 
     return (
         <>
-            <div className={MainStyle.header}>
-                <h3>메인페이지</h3>
-                {/* { decoded === "ROLE_ADMIN" && <div className={MainStyle.regist}><NavLink to="/main/regist-member">회원 등록</NavLink></div> } */}
-            { decoded === "ROLE_ADMIN" && <button className={MainStyle.regist} onClick={() => {navigate("regist-member", { replace: false })}}>회원 등록</button> }
-            </div>
-            <div style={{display:'flex'}}>
-                <ReminderList />
-                <MiniCalendar />
+            <div className={MainStyle.home_wrap}>
+                <div className={MainStyle.header}>
+                    <h3>메인페이지</h3>
+                { decoded === "ROLE_ADMIN" && <button className={MainStyle.regist} onClick={() => {navigate("regist-member", { replace: false })}}>회원 등록</button> }
+                </div>
+                <div className={MainStyle.content}>
+                    
+                    <div>
+                        {/*다른컴포넌트*/}a
+                    </div>
+                    
+                    <div className={MainStyle.calendar}>
+                        <ReminderList />
+                        <MiniCalendar />
+                    </div>
+                    
+                    <div style={{ width: '550px', height: '300px', marginTop: '20px', marginLeft: '20px' }}>
+                        {/* <AnonyMini /> */}
+                    </div>
+                    
+                    <div>
+                        {/*다른 컴포넌트*/}c
+                    </div>
+                </div>
             </div>
         </>
     )

@@ -4,6 +4,7 @@ import {
     , POST_LOGIN
     , POST_REGISTER
 } from '../modules/MemberModule';
+import { MEMBER_REGISTER } from '../modules/MemberRegisterModule';
 
 export const callGetMemberAPI = ({ memberId }) => {
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/api/v1/members/${memberId}`;
@@ -102,7 +103,7 @@ export const callRegisterAPI = ({ form, image }) => {
         console.log('[MemberAPICalls] callRegisterAPI RESULT : ', result);
 
         if (result.status === 201) {
-            dispatch({ type: POST_REGISTER, payload: result });
+            dispatch({ type: MEMBER_REGISTER, payload: result });
         }
     };
 }

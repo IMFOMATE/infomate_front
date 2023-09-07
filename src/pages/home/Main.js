@@ -69,7 +69,7 @@ function Main() {
                             <h2>결재대기</h2>
                             <Link to={'/approval'}>더보기</Link>
                         </div>
-                        <ApprovalTop data={documentData.data}/>
+                        <ApprovalTop data={documentData?.data}/>
                     </div>
                     <div className={MainStyle.home_content}>
                         <div className={MainStyle.home_title_wrap}>

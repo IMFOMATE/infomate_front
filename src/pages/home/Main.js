@@ -45,7 +45,7 @@ function Main() {
                     </div>
                     
                     <div style={{ width: '550px', height: '300px', marginTop: '20px', marginLeft: '20px' }}>
-                        <AnonyMini />
+                        {/* <AnonyMini /> */}
                     </div>
                     
                     <div>

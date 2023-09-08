@@ -48,7 +48,7 @@ export const getCalendarListAPI = () => {
 
 export const getCalendarPublicListAPI = ({page}) => {
 
-    const {pageOption, sort} = Pageable({page:page.number, size:page.size, sortId: page.sortId, sortDirection: page. sortDirection});
+    const {pageOption, sort} = Pageable({page:page.number, size:page.size, sortId: page.sortId, sortDirection: page.sortDirection});
     
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/openCalendarList?${pageOption}&${sort}`;
     

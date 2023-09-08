@@ -1,21 +1,12 @@
 import * as React from 'react';
 // import Default from '../../component/Default.css';
 import GroupCss from './Group.module.css';
-import TreeView from '@mui/lab/TreeView';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import TreeItem from '@mui/lab/TreeItem';
-// import MemberInfo from './MemberInfo';
-// import { withStyles } from '@mui/material';
+// import styles from "../../components/approval/ele-component/treeview/nodes/CustomNode.module.css";
+// import treeStyle from "./TreeView.module.css"
+// import {
+//     Tree,
+//   } from "@minoru/react-dnd-treeview";
 
-
-// const MyTreeItem = withStyles({
-//     root: {
-//         "&.MuiTreeItem-root > .MuiTreeItem-content:hover": {
-//             background: "blue",
-//         }
-//     }
-// })(TreeItem);
 
 
 
@@ -33,7 +24,27 @@ function Group () {
                             
                         </div>
                     </div>
-                    {/* <MemberInfo/> */}
+                        {/* <div className={treeStyle.doc_wrap}>
+                        <Tree
+                            tree={treeData}
+                            rootId={0}
+                            render={(node, { depth, isOpen, onToggle }) => (
+                                <CustomNode
+                                    node={node}
+                                    depth={depth}
+                                    isOpen={isOpen}
+                                    onToggle={onToggle}
+                                />
+                            )}
+                            initialOpen={true}
+                            canDrop={()=> false}
+                            classes={{
+                                root: styles.treeRoot,
+                                draggingSource: styles.draggingSource,
+                                dropTarget: styles.dropTarget
+                            }}
+                        />
+                        </div> */}
                 </div>
             </main>
             

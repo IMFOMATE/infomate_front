@@ -46,6 +46,8 @@ import PostUpdate from './pages/board/PostUpdate';
 import LoginForm from "./pages/member/login/LoginForm";
 import Main from './pages/home/Main';
 import Register from './pages/member/login/Register';
+import SearchList from './pages/manage/SearchList';
+
 
 function App() {
 
@@ -104,13 +106,15 @@ function App() {
             <Route path='group'>
               <Route index element={<Group/>}/>
             </Route>
-            <Route path='memberInfo' element={<MemberInfo />}/>
+            <Route path='memberInfo/:memberCode' element={<MemberInfo />}/>
             <Route path='memberupdate' element={<UpdateMember/>}/>
             <Route path='searchDept' element={<SearchDept/>}/>
             <Route path='updateDept' element={<UpdateDept/>}/>
             <Route path='department' element={<Department/>}/>
             <Route path='updateList' element={<UpdateList/>}/>
             <Route path='deptItems' element={<DeptItems/>}/>
+            <Route path='search' element={<SearchList/>}/>
+
 
 
 

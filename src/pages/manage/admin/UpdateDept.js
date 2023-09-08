@@ -5,6 +5,8 @@ import UpdateList from './UpdateList';
 import 
 { callDeptAlltAPI } from '../../../apis/EmployeeAPI';
 import { useDispatch, useSelector } from "react-redux";
+import { LoadingSpiner } from "../../../components/common/other/LoadingSpiner";
+
 
 function UpdateDept(){
 
@@ -17,9 +19,6 @@ function UpdateDept(){
         },
         []
     )
-
-
-
 
     return(
         <>
@@ -39,7 +38,11 @@ function UpdateDept(){
                                 </thead>   
                                 <tbody className={`tb ${UpdateCss.tb}`}>
                                     {
-                                        <UpdateList />
+                                        deptItems.data.map((item, index) => 
+                                        <UpdateList 
+                                        key={index}
+                                        deptItems={item}
+                                        />) 
                                     }
                                 </tbody>
                             </table>

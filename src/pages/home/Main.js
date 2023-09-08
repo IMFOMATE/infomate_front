@@ -12,12 +12,13 @@ import {getMainCredit} from "../../apis/HomeAPICalls";
 import {LoadingSpiner} from "../../components/common/other/LoadingSpiner";
 import {NavLink, Navigate, useNavigate, Link} from 'react-router-dom';
 import AnonyMini from '../../components/board/AnonyMini';
+import Weather from "./Weather";
 
 function Main() {
     const dispatch = useDispatch();
     const documentData = useSelector(state => state.homeMainReducer[GET_CREDIT]);
     const navigate = useNavigate();
-
+    
     const isLogin = window.localStorage.getItem('accessToken');
     let decoded = null;
 
@@ -53,6 +54,9 @@ function Main() {
                 <div className={MainStyle.content}>
                     <div className={MainStyle.home_content}>
                         <Clock/>
+                        <div>
+                        <Weather/>
+                        </div>
                     </div>
                     <div className={MainStyle.home_content}>
                         <div className={MainStyle.home_title_wrap}>

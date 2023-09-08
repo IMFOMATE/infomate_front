@@ -1,9 +1,19 @@
 import Swal from "sweetalert2";
 
+
+
+
 export function formatApprovalDate(approvalDate) {
   const date = new Date(approvalDate);
   return `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}`;
 }
+
+export function shortFormatApprovalDate(approvalDate){
+  const date = new Date(approvalDate);
+  return `${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}`;
+
+}
+
 
 export function diffDate(date1, date2){
   const startDate = new Date(date1).getTime();
@@ -129,4 +139,20 @@ export const handleCancel = (callback) => {
     }
   });
 };
+
+
+export const handleDelete = (callback)=>{
+  Swal.fire({
+    title: '문서 삭제',
+    text: '문서를 삭제하시겠습니까?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: '예',
+    cancelButtonText: '아니요',
+  }).then((result) =>{
+    if (result.isConfirmed) {
+      callback();
+    }
+  })
+}
 

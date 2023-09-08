@@ -8,6 +8,7 @@ import {
 import {SelectCustomNode} from "./nodes/SelectCustomNode";
 import {CustomDragPreview} from "./CustomDragPreview";
 import {contextMappings} from "../../../../context/contextMappings";
+import {transformNode} from "./TreeTransform";
 
 
 function RefTreeView({modalData, contextType}) {
@@ -18,14 +19,20 @@ function RefTreeView({modalData, contextType}) {
   const { refList } = data;
 
   const handleSelect = (node) => {
-    const item = refList.find((n) => n.id === node.id);
+    const item = refList.find((n) => n.memberCode === node.data.memberCode);
 
     if (!item) {
-      setData(prev => ({...prev, refList:([...prev.refList, node])}))
+      setData(prev => ({...prev, refList:([...prev.refList, transformNode(node)])}))
     } else {
       setData(prev=> ({...prev, refList:refList.filter((n) => n.id !== node.id)}))
     }
   };
+
+  const handleClick= (index) => {
+    const updatedList = [...refList];
+    updatedList.splice(index, 1);
+    setData(prev => ({...prev, refList:updatedList}));
+  }
 
 
   return (
@@ -39,7 +46,7 @@ function RefTreeView({modalData, contextType}) {
                       node={node}
                       depth={depth}
                       isOpen={isOpen}
-                      isSelected={!!refList.find((n) => n.id === node.id)}
+                      isSelected={!!refList.find((n) => n.memberCode === node.data?.memberCode)}
                       canDrop={()=> false}
                       onToggle={onToggle}
                       onSelect={handleSelect}
@@ -59,7 +66,6 @@ function RefTreeView({modalData, contextType}) {
                 <tr className={tableStyle.list_tr1}>
                   <td className={tableStyle.list_td2}>이름</td>
                   <td>부서</td>
-                  <td>결재 순서</td>
                   <td><RemoveCircleOutlineIcon/></td>
                 </tr>
               </thead>
@@ -67,9 +73,9 @@ function RefTreeView({modalData, contextType}) {
                 {
                     (refList.length !== 0) &&
                     refList.map((value, index) => <tr key={index} className={`${styles.center} ${tableStyle.list_tr}`}>
-                    <td className={tableStyle.list_td2}>{value.text}</td>
-                    <td>{value.data.rank}</td>
-                    <td>{index+1}</td>
+                          <td className={tableStyle.list_td2}>{value.memberName}</td>
+                          <td>{value.rankName}</td>
+                          <td><RemoveCircleOutlineIcon onClick={() => handleClick(index)} className={styles.alert}/></td>
                   </tr>
                   )
                 }

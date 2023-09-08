@@ -39,3 +39,7 @@
 .stamp{
   width: 40px;
 }
+
+.reject{
+  color: var(--color-alert);
+}

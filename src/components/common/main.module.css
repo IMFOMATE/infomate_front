@@ -5,6 +5,7 @@
 
 @media (max-width: 480px){
 	.maintitle{
+		z-index: 1;
 		position: fixed;
 		width: 100vw;
 		height: 85px;

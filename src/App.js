@@ -79,6 +79,7 @@ function App() {
               <Route path="ref" element={<MyDocList />}/> {/*참조문서리스트*/}
               <Route path="temporary" element={<MyDocList />} /> {/*임시저장문서리스트*/}
               <Route path="credit" element={<MyDocList/>}/> {/*결재 대기문서리스트*/}
+              <Route path="dept" element={<MyDocList/>}/>
               <Route path="document">
                 <Route path="new" element={<DocumentMain/>}/>
                 <Route path=":documentId" element={<DocumentDetail/>}/> {/* 문서 조회 */}
@@ -137,7 +138,7 @@ function App() {
             <Route path="/board/anony" element={ <Anony />}/>
             <Route path="/board/posting" element={ <Posting />}/>
             <Route path="/board/post/:postCode" element={ <PostView />}/>
-            <Route path="/board/:postCode/update" element={ <PostUpdate />}/>
+            <Route path="/board/update/:postCode" element={ <PostUpdate />}/>
 
             {/* <Route path="/board" element={<BoardMain/>}></Route> */}
           

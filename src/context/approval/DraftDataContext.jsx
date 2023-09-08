@@ -15,6 +15,7 @@ export const DraftDataProvider = ({children}) =>{
     refList: [],
     approvalList: [],
     fileList: [],
+    existList:[],
     coDept: '',
     startDate: ''
   });

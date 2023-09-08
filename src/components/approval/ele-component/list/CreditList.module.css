@@ -71,17 +71,9 @@
 .list_approval{
     width: 100%;
 }
-/*th{*/
-/*    padding: 10px;*/
-/*    background-color: var(--color-border);*/
-/*    text-align: left;*/
-/*    min-width: 50px;*/
-/*}*/
-/*th:last-child{*/
-/*    text-align: right;*/
-/*}*/
 
-@media screen and (max-width: 1280px){
+
+@media screen and (max-width:768px){
     .approval{
         flex-direction: column;
     }

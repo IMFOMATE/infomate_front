@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import style from "../../../../../pages/approval/DocumentMain.module.css";
 import WriterInfo from "../WriterInfo";
 import Credit from "../Credit";
@@ -6,11 +6,11 @@ import DocFile, {DocFileSpan} from "../../common/DocFile";
 import DocumentSide from "../DocumentSide";
 import {formatApprovalDate} from "../../common/dataUtils";
 
-function VacationDetail({data}) {
+const VacationDetail = forwardRef(({data}, ref) =>{
 
   return (
       <div className={style.container}>
-        <div className={style.docs}>
+        <div className={style.docs} ref={ref}>
           <div className={style.doc}>
             <h2 className={style.doc_title}>{data.title}</h2>
             <div className={style.doc_top}>
@@ -18,7 +18,7 @@ function VacationDetail({data}) {
               <div className={style.inline}>
                 {
                   data.approvalList.length !== 0 ?
-                      data.approvalList.map((data, index) => <Credit key={index} text={data.memberName} rank={data.rankName} approvalDate={data?.approvalDate} />)
+                      data.approvalList.map((data, index) => <Credit key={index} text={data.memberName} rank={data.rankName} approvalDate={data?.approvalDate} approvalStatus={data.approvalStatus} />)
                       : ""
                 }
               </div>
@@ -70,15 +70,8 @@ function VacationDetail({data}) {
                   <td colSpan={3} className={style.td}>
                     {/*<input className={style.td} name='startDate' type="date" onChange={onStartDateChange} />*/}
                     <span>{data.startDate}</span>
-                    {
-                      data.sort === '연차' ?
-                          <>
-                            <span> ~ </span>
-                            {/*<input className={style.td} name='endDate' type="date" onChange={onEndDateChange}/>*/}
-                            <span>{data.endDate}</span>
-                          </>
-                          : ''
-                    }
+                    <span> ~ </span>
+                    <span>{data.endDate}</span>
                     <span>
                       {/*{*/}
                       {/*  new Date(data.endDate) - new Date(data.startDate)/ (1000 * 60 * 60 * 24) + 1*/}
@@ -95,7 +88,7 @@ function VacationDetail({data}) {
                         name="content"
                         id="reason"
                         cols="30" rows="10"
-                        value={data.reason}
+                        value={data.content}
                     />
                   </td>
                 </tr>
@@ -114,6 +107,6 @@ function VacationDetail({data}) {
       </div>
 
   );
-}
+});
 
 export default VacationDetail;

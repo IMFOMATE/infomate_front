@@ -8,7 +8,7 @@ import {
     POST_CALENDAR_REGIT,
 } from '../modules/CalendarMoudule';
 
-import { PROTOCOL, SERVER_IP, SERVER_PORT, MEMBER_CODE, PageURI, Pageable, DEPARTMENT_CODE} from './APIConfig';
+import { PROTOCOL, SERVER_IP, SERVER_PORT, Pageable} from './APIConfig';
 import { message } from 'antd';
 
 export const getCalendarFindAllAPI = () => {
@@ -80,7 +80,7 @@ export const getCalendarPublicListAPI = ({page}) => {
 
 export const postCalendarRegit = ({data}) => {
 
-    // data = {...data, memberCode: MEMBER_CODE};
+    
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/regist`;
 
     return async (dispatch, getState) => {
@@ -100,7 +100,7 @@ export const postCalendarRegit = ({data}) => {
 }
 
 export const patchCalendarUpdate = ({data}) => {
-    // data = {...data, memberCode: MEMBER_CODE}
+    
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/update`;
 
     return async (dispatch, getState) => {
@@ -123,7 +123,6 @@ export const patchCalendarUpdate = ({data}) => {
 
 
 export const patchDefaultCalendarUpdate = ({data}) => {
-    // data = {...data, memberCode: MEMBER_CODE}
     
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/updateDafault`;
     return async (dispatch, getState) => {

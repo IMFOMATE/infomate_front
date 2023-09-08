@@ -28,7 +28,7 @@ const RemiderSchedule = ({toDay, title, date, id }) => {
                         <div>{dayOfWeek}</div>
                     </div>
                     <div className={styles.content}>
-                        <div style={{fontWeight:700}}>{title}</div>
+                        <div style={{fontWeight:700, textAlign:'left'}}>{title}</div>
                         <div style={{color:'gray'}}>
                              <span>{date || '등록된 일정이 없습니다.'}</span>
                         </div>

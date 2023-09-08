@@ -30,7 +30,7 @@ const Calendar = () =>{
 
     const containerRef = createRef();
     const [search] = useSearchParams();
-    console.log(search.get('date'));
+
 
     const [mode, setMode] = useState('create');
     const [offset, setOffset] = useState({x:0, y:0, yName:'top', xName:'left'})

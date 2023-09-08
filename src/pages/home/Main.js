@@ -94,23 +94,23 @@ function Main() {
                                     <h3>
                                         결재대기문서
                                     </h3>
-                                    <p>0</p>
+                                    <p>{documentData?.data?.creditCount || 0}</p>
                                 </div>
                                 <div className={MainStyle.line}>
                                     <h3>
                                         기안문서
                                     </h3>
-                                    <p>0</p>
+                                    <p>{documentData?.data?.approvalCount || 0}</p>
                                 </div>
                                 <div>
                                     <h3>
                                         결재완료문서
                                     </h3>
-                                    <p>0</p>
+                                    <p>{documentData?.data?.doneList || 0}</p>
                                 </div>
                             </div>
                             <div className={MainStyle.approval}>
-                                <ApprovalTop data={documentData?.data}/>
+                                <ApprovalTop data={documentData?.data?.creditList}/>
                             </div>
                         </div>
                     </div>

@@ -1,25 +1,33 @@
-import React, {useEffect, useState} from 'react';
-import {useNavigate, useParams} from "react-router-dom";
+import React, {useEffect, useRef, useState} from 'react';
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import mainCss from "../../../../common/main.module.css";
 import styles from '../../../../../pages/approval/DocumentMain.module.css';
 import DraftDetail from "./DraftDetail";
 import VacationDetail from "./VacationDetail";
 import PaymentDetail from "./PaymentDetail";
 import {useDispatch, useSelector} from "react-redux";
-import {getDocumentDetailAPI} from "../../../../../apis/DocumentAPICalls";
+import {deleteDocumentAPI, getDocumentDetailAPI} from "../../../../../apis/DocumentAPICalls";
 import { FadeLoader } from "react-spinners";
 import loadingCss from '../../../../../pages/calendar/loadingStyle.module.css';
 import DetailButton from "../../buttons/DetailButton";
 import CreditModal from "../../modal/CreditModal";
 import {POST_APPROVE, POST_REJECT, POST_TEMP} from "../../../../../modules/approval/ApprovalModuels";
-import {GET_DETAIL} from "../../../../../modules/approval/DocumentModuels";
+import {DELETE_DOCUMENT, GET_DETAIL} from "../../../../../modules/approval/DocumentModuels";
+import {handleDelete} from "../../common/dataUtils";
+import {useReactToPrint} from "react-to-print";
 
 function DocumentDetail() {
   let { documentId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state?.state;
   const documentData = useSelector(state => state.documentsReducer[GET_DETAIL]);
+  const deleteData = useSelector(state => state.documentsReducer[DELETE_DOCUMENT]);
   const approvalReducer = useSelector(state => state.approvalReducer);
+  const ref = useRef();
+
+  console.log("state", state);
 
   const [modalData, setModalData] = useState({
     isOpen: false,
@@ -27,7 +35,6 @@ function DocumentDetail() {
     content: '',
   });
 
-  console.log(documentData)
   useEffect(
       ()=>{
         dispatch(getDocumentDetailAPI({documentCode: documentId}));
@@ -57,24 +64,40 @@ function DocumentDetail() {
     });
   };
 
-  // console.log(documentData)
+  const reApprove = () => {
+
+    navigate(`/approval/document/${documentId}/reapply`,{
+      state:{
+        name: '',
+        type: documentData.documentKind.toLowerCase(),
+        documentData: documentData
+      }
+    });
+  };
 
 
+
+
+  const deleteDocument = () => {
+    dispatch(deleteDocumentAPI({documentCode: documentId}));
+    navigate('/approval');
+
+  }
 
   // 문서 종류별 세부 컴포넌트를 매핑하는 객체
   const documentComponents = {
-    Draft: <DraftDetail data={documentData}/>,
-    vacation: <VacationDetail data={documentData} />,
-    payment: <PaymentDetail data={documentData}/>,
+    Draft: <DraftDetail data={documentData} ref={ref}/>,
+    vacation: <VacationDetail data={documentData} ref={ref}/>,
+    payment: <PaymentDetail data={documentData} ref={ref}/>,
   };
 
   const selectedComponent = documentComponents[documentData?.documentKind];
 
 
   //임시저장상태면 input 태그여야하니까
-  // if(documentData.documentStatus === "TEMPORARY"){
-  //
-  // }
+  if(documentData?.documentStatus === "TEMPORARY"){
+
+  }
 
 
   return (
@@ -91,7 +114,13 @@ function DocumentDetail() {
                 <h2>{documentData.title}</h2>
               </div>
               <div className={styles.doc_wrapper}>
-                  <DetailButton condition={documentData.condition} isOpen={handleApproval} />
+                  <DetailButton
+                      condition={documentData.condition}
+                      isOpen={handleApproval}
+                      reapply={reApprove}
+                      deleteDoc={()=> handleDelete(deleteDocument)}
+                      ref={ref}
+                  />
                 {selectedComponent}
               </div>
               {modalData.isOpen && (

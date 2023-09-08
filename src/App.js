@@ -38,6 +38,10 @@ import Posting from './pages/board/Posting';
 import UpdateMember from './pages/manage/UpdateMember';
 import DocumentDetail from "./components/approval/ele-component/document/detail/DocumentDetail";
 import PostView from './pages/board/PostView';
+import UpdateDept from './pages/manage/admin/UpdateDept';
+import Department from './pages/manage/Department';
+import UpdateList from './pages/manage/admin/UpdateList';
+import DeptItems from './pages/manage/admin/DeptItems';
 import PostUpdate from './pages/board/PostUpdate';
 import LoginForm from "./pages/member/login/LoginForm";
 import Main from './pages/home/Main';
@@ -73,6 +77,7 @@ function App() {
               <Route path="ref" element={<MyDocList />}/> {/*참조문서리스트*/}
               <Route path="temporary" element={<MyDocList />} /> {/*임시저장문서리스트*/}
               <Route path="credit" element={<MyDocList/>}/> {/*결재 대기문서리스트*/}
+              <Route path="dept" element={<MyDocList/>}/>
               <Route path="document">
                 <Route path="new" element={<DocumentMain/>}/>
                 <Route path=":documentId" element={<DocumentDetail/>}/> {/* 문서 조회 */}
@@ -102,7 +107,14 @@ function App() {
             </Route>
             <Route path='memberInfo' element={<MemberInfo />}/>
             <Route path='memberupdate' element={<UpdateMember/>}/>
-            <Route path='/searchDept' element={<SearchDept/>}/>
+            <Route path='searchDept' element={<SearchDept/>}/>
+            <Route path='updateDept' element={<UpdateDept/>}/>
+            <Route path='department' element={<Department/>}/>
+            <Route path='updateList' element={<UpdateList/>}/>
+            <Route path='deptItems' element={<DeptItems/>}/>
+
+
+
             
             <Route path="/work" element={ <Work />}/>
             <Route path="/work/admin" element={ <WkAdmin /> }/>
@@ -110,6 +122,7 @@ function App() {
             <Route path="/work/mydept" element={ <MyDept />}/>
             <Route path="/work/dept" element={ <Dept />}/>
 
+            
 
             
             <Route path="/board" element={<NewPost/>}/>
@@ -121,7 +134,7 @@ function App() {
             <Route path="/board/anony" element={ <Anony />}/>
             <Route path="/board/posting" element={ <Posting />}/>
             <Route path="/board/post/:postCode" element={ <PostView />}/>
-            <Route path="/board/:postCode/update" element={ <PostUpdate />}/>
+            <Route path="/board/update/:postCode" element={ <PostUpdate />}/>
 
             {/* <Route path="/board" element={<BoardMain/>}></Route> */}
           

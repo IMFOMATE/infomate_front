@@ -2,16 +2,19 @@ import axios from "axios";
 import {POST_APPROVE, POST_REJECT} from "../modules/approval/ApprovalModuels";
 
 
-export const rejectAPI = ({comment}) => {
+export const rejectAPI = ({fetchData}) => {
+  const token = localStorage.getItem("accessToken");
 
   const requestURL = `http://localhost:8989/approval/reject`;
   const headers = {
     'Content-Type' : 'application/json',
+    Authorization :  "Bearer " + token
+
   }
 
     return async (dispatch, getState)  => {
 
-    const result = await axios.patch(requestURL,comment, {
+    const result = await axios.patch(requestURL,fetchData, {
       headers:headers
     })
         .then(res => res.data)
@@ -24,11 +27,11 @@ export const rejectAPI = ({comment}) => {
 }
 
 export const approvalAPI = ({fetchData}) => {
-
-  console.log(fetchData)
+  const token = localStorage.getItem("accessToken");
   const requestURL = `http://localhost:8989/approval/approve`;
   const headers = {
     'Content-Type' : 'application/json',
+    Authorization :  "Bearer " + token
   }
   return async (dispatch, getState)  => {
 

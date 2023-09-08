@@ -23,13 +23,15 @@ import {
   isValid,
   showValidationAndConfirm
 } from "../common/dataUtils";
+import {decodeJwt} from "../../../../util/tokenUtils";
 
-function Payment() {
+function Payment({documentData}) {
   const treeview = useSelector(state => state.departmentReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const {name, type} = location.state;
+  const path = location.pathname.split("/");
+  const isReapply = path[path.length-1];
   const { data, setData } = usePaymentDataContext();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,6 +41,19 @@ function Payment() {
       dispatch(treeviewAPI());
     }
   },[isModalOpen]);
+
+  useEffect(() => {
+    if(isReapply === 'reapply'){
+      const modifiedApprovalList = documentData.approvalList.map(approval => ({
+        ...approval,
+        approvalStatus: '',
+        approvalDate: ''
+      }));
+
+      setData({...documentData, fileList:[], existList:[...documentData.fileList], approvalList:modifiedApprovalList});
+    }
+  },[isReapply]);
+
   // form 데이터
   const onChangeHandler = (e) => {
     setData({
@@ -71,12 +86,12 @@ function Payment() {
     });
 
     data.approvalList.forEach((app, index) => {
-      formData.append(`approvalList[${index}].id`, app.data.memberCode);
+      formData.append(`approvalList[${index}].id`,app.memberCode);
       formData.append(`approvalList[${index}].order`, index + 1);
     });
 
     data.refList.forEach((app, index) => {
-      formData.append(`refList[${index}].id`, app.data.memberCode);
+      formData.append(`refList[${index}].id`, app.memberCode);
     });
 
     data.paymentList.forEach((app, index) => {
@@ -93,12 +108,12 @@ function Payment() {
 
     return formData;
   };
+
   //결제 요청 api
   const handleRequest = () => {
 
     console.log(data);
     const validationResult = isPaymentValid(data, false);
-    console.log(validationResult);
 
     showValidationAndConfirm(
       validationResult, data.approvalList.length,
@@ -110,7 +125,17 @@ function Payment() {
   };
 
   // 임시저장 api
-  const handleTemp = () => {};
+  const handleTemp = () => {
+
+    const validationResult = isPaymentValid(data, false);
+    showValidationAndConfirm(
+        validationResult, data.approvalList.length,
+        () => {
+          const formData = createFormData();
+
+        }
+    )
+  };
 
   const handleChoice = toggleModal;  //결재선 지정 모달
   const cancelAction = () => navigate("/approval");
@@ -146,14 +171,19 @@ function Payment() {
 
 
   const calculateTotal = () => {
-    const total = data.paymentList.reduce((acc, payment) => acc + parseFloat(payment.paymentPrice.replace(/,/g, '')), 0);
-    return formatNumberWithCommas((Math.floor(total)).toString());
+    const totalPaymentPrice = data.paymentList.reduce((total, payment) => {
+      return parseInt(total) + parseInt(payment.paymentPrice);
+    }, 0);
+    return Math.floor(totalPaymentPrice);
   }
 
+
+  //현재 문서작성자 -> 로컬스토리지에서 가져오기
+  const token = decodeJwt(window.localStorage.getItem('accessToken'));
   //현재 문서작성자 -> 로컬스토리지에서 가져오기
   const writer= {
-    memberName : '주진선',
-    deptName : '개발부서',
+    memberName : token?.memberName,
+    deptName : token?.department,
   }
 
   //버튼에 함수 넘겨주기
@@ -172,13 +202,20 @@ function Payment() {
         <div className={style.container}>
           <div className={style.docs}>
             <div className={style.doc}>
-              <h2 className={style.doc_title}>{name}</h2>
+              <h2 className={style.doc_title}>지출결의서</h2>
               <div className={style.doc_top}>
                 <WriterInfo writer={writer} start={new Date()}/>
                 <div className={style.inline}>
                   {
                     data.approvalList.length !== 0 ?
-                        data.approvalList.map((data, index) => <Credit key={data.memberCode} text={data?.text} rank={data.data.rank} approvalDate={data?.approvalDate} />)
+                        data.approvalList.map((data, index) =>
+                            <Credit
+                                key={data?.memberCode}
+                                text={data?.text || (data?.memberName)}
+                                rank={data?.data?.rank || data?.rankName}
+                                approvalDate={data?.approvalDate || ''}
+                                approvalStatus={data?.approvalStatus || ''}
+                            />)
                         : ""
                   }
                 </div>
@@ -206,19 +243,31 @@ function Payment() {
                   <tr className={style.tr}>
                     <td className={style.td}>제목</td>
                     <td className={style.td} >
-                      <input name="title" type="text" placeholder="제목을 입력해주세요" className={style.input} onChange={onChangeHandler}/>
+                      <input
+                          name="title"
+                          type="text"
+                          placeholder="제목을 입력해주세요"
+                          className={style.input}
+                          onChange={onChangeHandler}
+                          value={data.title || ''}
+                      />
                     </td>
                     <td className={style.tds}>
                       총금액
                     </td>
                     <td className={style.td}>
-                      {calculateTotal()}원
+                      {formatNumberWithCommas(calculateTotal().toString()) || ''}원
                     </td>
                   </tr>
                   <tr>
                     <td className={style.tds}>지출사유</td>
                     <td colSpan={3}>
-                      <textarea className={style.textarea} name="content" cols="30" rows="10" onChange={onChangeHandler}/>
+                      <textarea
+                          className={style.textarea}
+                          name="content" cols="30" rows="10"
+                          onChange={onChangeHandler}
+                          value={data.content || ''}
+                      />
                     </td>
                   </tr>
                   </tbody>
@@ -253,7 +302,7 @@ function Payment() {
                       <tr>
                         <td colSpan="1" className={style.sum}></td>
                         <td className={style.sum}>합계 : </td>
-                        <td colSpan="1">{calculateTotal()}원</td>
+                        <td colSpan="1">{formatNumberWithCommas(calculateTotal().toString())}원</td>
                       </tr>
                     </tfoot>
                   </table>

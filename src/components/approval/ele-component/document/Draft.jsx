@@ -14,24 +14,49 @@ import {treeviewAPI} from "../../../../apis/DepartmentAPI";
 import {useDispatch, useSelector} from "react-redux";
 import {draftRegistAPI} from "../../../../apis/DocumentAPICalls";
 import {handleCancel, isValid, showValidationAndConfirm} from "../common/dataUtils";
+import {decodeJwt} from "../../../../util/tokenUtils";
+import {POST_DRAFT} from "../../../../modules/approval/DocumentModuels";
 
 
-function Draft() {
+function Draft({documentData}) {
   const treeview = useSelector(state => state.departmentReducer);
+  const documentReducer = useSelector(state => state.documentsReducer[POST_DRAFT]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const {name} = location.state;
+  const path = location.pathname.split("/");
+  const isReapply = path[path.length-1];
   const { data, setData } = useDraftDataContext();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   // 모달이 열릴 때 fetch GET 조직도 가지고옴
   useEffect(()=>{
     if (isModalOpen){
       dispatch(treeviewAPI());
     }
+    // if(documentData){
+    //   setData({...documentData, fileList:[], existList:[...documentData.fileList] });
+    // }
   },[isModalOpen]);
+
+  useEffect(() => {
+    if(isReapply === 'reapply'){
+      const modifiedApprovalList = documentData.approvalList.map(approval => ({
+        ...approval,
+        approvalStatus: '',
+        approvalDate: ''
+      }));
+      setData({...documentData, fileList:[], existList:[...documentData.fileList], approvalList:modifiedApprovalList });
+    }
+
+    if(documentReducer?.status === 200){
+      console.log(documentReducer)
+      navigate('/approval');
+    }
+
+  },[documentReducer]);
 
   // 데이터 핸들러
   const onChangeHandler = (e) => {
@@ -62,24 +87,30 @@ function Draft() {
   const createFormData = () => {
     const formData = new FormData();
 
+    if(data.existList){
+      data.existList.forEach((ex, index) => {
+        formData.append(`existList[${index}]`, ex.fileCode);
+      });
+    }
+
     data.fileList.forEach((file) => {
       formData.append("fileList", file); // 각 파일을 formData에 추가
     });
 
     data.approvalList.forEach((app, index) => {
-      formData.append(`approvalList[${index}].id`, app.data.memberCode);
+      formData.append(`approvalList[${index}].id`, app.memberCode);
       formData.append(`approvalList[${index}].order`, index + 1);
     });
 
     data.refList.forEach((app, index) => {
-      formData.append(`refList[${index}].id`, app.data.memberCode);
+      formData.append(`refList[${index}].id`, app.memberCode);
     });
 
     formData.append("title", data.title);
     formData.append("content", data.content);
     formData.append("emergency", data.emergency ?? "N");
     formData.append("coDept", data.coDept);
-    formData.append("startDate", data.startDate + ' 00:00:00');
+    formData.append("startDate", data.startDate.endsWith("00:00:00") ? data.startDate : data.startDate + ' 00:00:00');
 
     return formData;
   };
@@ -99,7 +130,9 @@ function Draft() {
   };
   
   // 임시저장 api
-  const handleTemp = () => {};
+  const handleTemp = () => {
+
+  };
 
   const handleChoice = toggleModal;  //결재선 지정 모달
   const cancelAction = () => navigate("/approval");
@@ -111,11 +144,11 @@ function Draft() {
     setData({...data, fileList: newFiles});
   };
 
-
+  const token = decodeJwt(window.localStorage.getItem('accessToken'));
   //현재 문서작성자 -> 로컬스토리지에서 가져오기
   const writer= {
-    memberName : '주진선',
-    deptName : '개발부서',
+    memberName : token.memberName,
+    deptName : token.department,
   }
 
   //버튼에 함수 넘겨주기
@@ -135,13 +168,20 @@ function Draft() {
         <div className={style.container}>
           <div className={style.docs}>
             <div className={style.doc}>
-              <h2 className={style.doc_title}>{name}</h2>
+              <h2 className={style.doc_title}>업무기안</h2>
               <div className={style.doc_top}>
                 <WriterInfo writer={writer} start={new Date()}/>
                 <div className={style.inline}>
                   {
                     data.approvalList.length !== 0 ?
-                        data.approvalList.map((data, index) => <Credit key={data.memberCode} text={data?.text} rank={data.data.rank} approvalDate={data?.approvalDate} />)
+                        data.approvalList.map((data, index) =>
+                            <Credit
+                                key={data.memberCode}
+                                text={data?.text || (data.memberName)}
+                                rank={data?.data?.rank || data.rankName}
+                                approvalDate={data?.approvalDate || ''}
+                                approvalStatus={data.approvalStatus || ''}
+                            />)
                         : ""
                   }
                 </div>
@@ -153,27 +193,40 @@ function Draft() {
                   <tr className={style.tr}>
                     <td className={style.td}>시행일자</td>
                     <td className={style.td}>
-                      <input name="startDate" type="date" className={style.input} onChange={onChangeHandler}/>
+                      <input
+                          name="startDate"
+                          type="date"
+                          className={style.input}
+                          onChange={onChangeHandler}
+                          value={data.startDate?.split(' ')[0] || ''}
+                      />
                     </td>
                     <td className={style.tds}>
                       협조부서
                     </td>
                     <td className={style.td}>
-                      <select onChange={onChangeHandler} name="coDept" className={style.dept}>
+                      <select onChange={onChangeHandler} name="coDept" className={style.dept} value={data.coDept || ''}>
                         <option value="협조부서선택">협조부서선택</option>
-                        <option value="경영팀">본부</option>
-                        <option value="개발팀">영업팀</option>
-                        <option value="지원팀">개발팀</option>
-                        <option value="경영팀">인사팀</option>
-                        <option value="개발팀">총무팀</option>
-                        <option value="지원팀">마케팅팀</option>
+                        <option value="본부">본부</option>
+                        <option value="영업팀">영업팀</option>
+                        <option value="개발팀">개발팀</option>
+                        <option value="인사팀">인사팀</option>
+                        <option value="총무팀">총무팀</option>
+                        <option value="마케팅팀">마케팅팀</option>
                       </select>
                     </td>
                   </tr>
                   <tr className={style.tr}>
                     <td className={style.td}>제목</td>
                     <td className={style.td} >
-                      <input name="title" type="text" placeholder="제목을 입력해주세요" className={style.input} onChange={onChangeHandler}/>
+                      <input
+                          name="title"
+                          type="text"
+                          placeholder="제목을 입력해주세요"
+                          className={style.input}
+                          onChange={onChangeHandler}
+                          value={data.title || ''}
+                      />
                     </td>
                     <td className={style.tds} >긴급여부</td>
                     <td className={style.td} >
@@ -188,14 +241,14 @@ function Draft() {
                   </tr>
                   </tbody>
                 </table>
-                <Editor handler={setData}/>
+                <Editor handler={setData} value={data.content}/>
               </div>
               {/* 파일컴포넌트 */}
-              <DocFile handleFileChange={handleFileChange}/>
+              <DocFile handleFileChange={handleFileChange} value={data.existList || ''}/>
             </div>
           </div>
           <aside className={style.doc_side}>
-            <DocumentSide approval={data.approvalList} reference={data.refList}/>
+            <DocumentSide approval={data.approvalList} reference={data.refList || ''}/>
           </aside>
         </div>
       </>

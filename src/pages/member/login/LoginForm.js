@@ -22,18 +22,18 @@ function LoginForm() {
             console.log("[Login] Login SUCCESS", loginMember);
             alert(loginMember.data.memberName + "님 환영합니다.");
 
-            navigate("/main", { replace: true });
             // console.log(loginMember.data);
 
             localStorage.setItem('authToken',
-                                    loginMember.data.memberName, 
-                                    loginMember.data.deptNameCode,
-                                    loginMember.data.deptName, 
-                                    loginMember.data.rank, 
-                                    loginMember.data.memberCode, 
-                                );
+            JSON.stringify({
+                memberName:loginMember.data.memberName,
+                deptCode:loginMember.data.deptCode,
+                deptName:loginMember.data.deptName,
+                rank:loginMember.data.rank,
+                memberCode:loginMember.data.memberCode
+            }));
             
-            console.log('authToken');
+            navigate("/main", { replace: true });
 
             // dispatch({
             //     type: POST_LOGIN,

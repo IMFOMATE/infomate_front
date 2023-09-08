@@ -72,10 +72,7 @@ function Main() {
                         <ApprovalTop data={documentData?.data}/>
                     </div>
                     <div className={MainStyle.home_content}>
-                        <div className={MainStyle.home_title_wrap}>
-                            <h2>0000</h2>
-                            <Link to={'/approval'}>더보기</Link>
-                        </div>
+                        <AnonyMini />
                     </div>
                 </div>
             </div>

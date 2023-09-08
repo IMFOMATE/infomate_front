@@ -69,7 +69,7 @@ const MiniCalendar = () => {
                 </div>
             </div>
 
-            <table>
+            <table className={styles.table}>
                 <thead>
                     {
                         dateLabel.map((item, index) => 
@@ -86,7 +86,7 @@ const MiniCalendar = () => {
                     {
                         calendar.map((item1, index) => 
                             <tr key={index}>{item1.map((item2,index) => 
-                                <Day 
+                                <Day
                                     key={index}
                                     value={item2.format('D')} 
                                     data={data.data.filter(item => item.date === item2.format('YYYY-MM-DD')).map(item=> item)}

@@ -99,7 +99,7 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Mail")}>
-                    <NavLink to="" >
+                    <NavLink to="/mail" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             mail
                         </span>
@@ -115,7 +115,8 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Address")}>
-                    <NavLink to="" >
+
+                    <NavLink to="/addressBook" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             library_books
                         </span>
@@ -124,7 +125,7 @@ function Navbar() {
                 </li>
                 <li onClick={()=>toggleTitle("Alarm")}>
                     <NavLink to="" >
-                       <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
+                        <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             notifications
                         </span>
                         <span>알림</span>
@@ -132,7 +133,7 @@ function Navbar() {
                 </li>
                 <li onClick={()=>toggleTitle("Chat")}>
                     <NavLink to="" >
-                       <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
+                        <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             mode_comment
                         </span>
                         <span>채팅</span>

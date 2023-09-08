@@ -1,6 +1,6 @@
 import style from './ReadMail.module.css'
 
-function ReadMail() {
+function ViewMail() {
 
     return (
         <>
@@ -43,4 +43,4 @@ function ReadMail() {
 }
 
 
-export default ReadMail;
+export default ViewMail;

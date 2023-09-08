@@ -13,14 +13,18 @@ import { POST_REGISTER } from '../../modules/ContactModule';
 
 
 
-function AddContact() {
+function AddContact({title}) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const member = useSelector(state => state.contactReducer); 
+    const imageInput = useRef();
+    const [image, setImage] = useState(null);
+    const [previewSrc, setPreviewSrc] = useState('');
+    
 
     const [form, setForm] = useState ({
-        photo: '',
+        contactPhoto: '',
         name: '',
         company: '',
         department: '',
@@ -29,6 +33,10 @@ function AddContact() {
         companyPhone: '',
         companyAddress: '',
         memo: '',
+        like: 'N',
+
+        
+    
     })
 
     useEffect(() => {
@@ -46,6 +54,7 @@ function AddContact() {
 
     const onChangeHandler = (e) => {
         setForm( {
+
             ...form,
             [e.target.name]: e.target.value
         })
@@ -56,15 +65,80 @@ function AddContact() {
 
 
     const onClickRegisterHandler = () => {
-        navigate("/");
-        dispatch(callRegistAPI({
-            form: form,
+
+        console.log('ㅎㅇㅎㅇㅎㅇㅎㅇ');
+
+        const formData = new FormData();
+        console.log("form", form);
         
+        formData.append("contactName", form.name);  
+        
+        
+        formData.append("company", form.company);  
+        formData.append('department', form.department);  
+        formData.append('contactEmail', form.email);  
+        formData.append('contactPhone', form.phone);  
+        formData.append('companyPhone', form.companyPhone);  
+        formData.append('companyAddress', form.companyAddress);  
+        formData.append('memo', form.memo);  
+        formData.append('contactLike', form.like);  
+
+
+        console.log("ddfsaf",formData);
+        
+        if(image){
+            formData.append("contactPhoto", image);
+        }
+        
+        for(let [name,value] of formData){
+            console.log('name',name);
+            console.log('vlaue',value);
+        }
+
+        navigate("/addressBook");
+        dispatch(callRegistAPI({
+            form: formData,
+
         }))
     }
 
+
+    const onChangeImageUpload = (e) => {
+
+        const image = e.target.files[0];
+
+        console.log("사진파일",e.target.files[0]);
+
+        setImage(image);
+    };
+
+    
+
  
 
+   function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                const previewElement = document.getElementById(style.preview);
+                if (previewElement) {
+                    previewElement.src = e.target.result;
+
+                    setPreviewSrc(e.target.result); 
+                }
+            };
+            reader.readAsDataURL(input.files[0]);
+            
+        } else {
+            const previewElement = document.getElementById(style.preview);
+            if (previewElement) {
+                previewElement.src = "";
+                setPreviewSrc('');
+            }
+        }
+
+    }
+    
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -72,15 +146,20 @@ function AddContact() {
                 const previewElement = document.getElementById(style.preview);
                 if (previewElement) {
                     previewElement.src = e.target.result;
+
+                    setPreviewSrc(e.target.result); 
                 }
             };
             reader.readAsDataURL(input.files[0]);
+            
         } else {
             const previewElement = document.getElementById(style.preview);
             if (previewElement) {
                 previewElement.src = "";
+                setPreviewSrc('');
             }
         }
+
     }
     
 
@@ -89,17 +168,25 @@ function AddContact() {
     return (
         <>
 
-        
-             <div class="wrapper">
-                    <h1 style={{ color: 'var(--color-text-title)'}}>연락처 추가</h1>
+        <div className={style.container}>
+             <div class={style.wrapper}>
+                    <h1 style={{ color: 'var(--color-text-title)', padding: '20px'}}>{title}</h1>
                     <div class={style.contactInformation}>
                         <ul>
                             <li class={style.contactFile}>
                                 <p>사진</p>
                                 <img src= {img} id={style.preview} style={{width: '100px', height: '100px'}}/>
                                 
-                                <input type="file"  id="fileInput" onChange={(e) => readURL(e.target)} style={{display: 'none'}}/>
-                                <label for="fileInput" class={style.customFileInput}>
+                                <input
+                                        type="file"
+                                        id="fileInput"
+                                        onChange={(e) => {
+                                            readURL(e.target);
+                                            onChangeImageUpload(e);
+                                        }}
+                                        style={{ display: 'none' }}
+                                    />
+                                <label htmlFor="fileInput" class={style.customFileInput} name='contactPhoto'>
                                     사진 첨부
                                 </label>
                             </li>
@@ -140,6 +227,7 @@ function AddContact() {
 
                         <button class={style.contactSave} onClick={ onClickRegisterHandler } >저장</button>
                     </div>
+                </div>
                 </div>
         </>  
     )

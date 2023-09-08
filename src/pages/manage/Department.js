@@ -8,8 +8,8 @@ function Department({ dept : {memberName, memberCode, department}}) {
 
     const navigate = useNavigate();
 
-    const onClickDeptHandler = (MEMBER_CODE) => {
-        navigate(`/emp/info/${MEMBER_CODE}`, { replace: false});
+    const onClickDeptHandler = (memberCode) => {
+        navigate(`/memberInfo/${memberCode}`, { replace: false});
     }
 
 
@@ -23,7 +23,7 @@ function Department({ dept : {memberName, memberCode, department}}) {
                         <td>
                             <button 
                             className={SdeptCss.bnt} 
-                            onClick={ () => onClickDeptHandler(MEMBER_CODE)}
+                            onClick={ () => onClickDeptHandler(memberCode)}
                             >정보</button>
                         </td>
                     </tr>

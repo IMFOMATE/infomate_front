@@ -1,5 +1,6 @@
 .container {
-    display: inline-block;
+    /*display: inline-block;*/
+    display: block;
     padding: 10px;
     margin: 10px;
     box-shadow: 0 0 7px 0 rgba(125, 125, 125, 0.3);
@@ -12,5 +13,9 @@
 
 .header > div:nth-child(2){
     text-align: right;
+}
+
+.table{
+    width: 100%;
 }
 

@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 import 'dayjs/locale/ko';
 import { Day } from './simpleCalendar';
@@ -71,7 +71,7 @@ const MiniCalendar = () => {
                 </div>
             </div>
 
-            <table>
+            <table className={styles.table}>
                 <thead>
                     {
                         dateLabel.map((item, index) => 
@@ -87,7 +87,8 @@ const MiniCalendar = () => {
                 <tbody>
                     {
                         calendar.map((item1, index) => 
-                            <tr key={index}>{item1.map((item2,index) => <Day 
+                            <tr key={index}>{item1.map((item2,index) => 
+                                <Day
                                     key={index}
                                     value={item2} 
                                     data={data.data.filter(item => item.date === item2.format('YYYY-MM-DD')).map(item=> item)}

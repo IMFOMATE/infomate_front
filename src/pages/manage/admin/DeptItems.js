@@ -3,7 +3,7 @@ import UpdateCss from './UpdateList.module.css';
 
 
 
-function DeptItems(){      // 
+function DeptItems(){      
 
     
 

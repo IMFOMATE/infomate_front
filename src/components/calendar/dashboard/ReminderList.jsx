@@ -35,7 +35,7 @@ const  ReminderList = () => {
         <div className={styles.container}>
             <div>
                 {
-                    Array(3).fill(0).map((item, index) => {
+                    Array(4).fill(0).map((item, index) => {
                     const day = dayjs().add(index,'day')     
                     const isSameItem = data.data
                             .filter(item => 

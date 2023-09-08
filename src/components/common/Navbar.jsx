@@ -107,7 +107,7 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Group")}>
-                    <NavLink to="/group" >
+                    <NavLink to="group" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             group
                         </span>

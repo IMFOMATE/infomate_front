@@ -61,7 +61,7 @@ function Main() {
                     </div>
                     <div className={`${MainStyle.home_content} ${MainStyle.item1}`}>
                         <div className={MainStyle.home_title_wrap}>
-                            <h2>Calendar</h2>
+                            <h2>일정</h2>
                             <Link to={'/calendar'}><NavigateNextIcon/></Link>
                         </div>
                         <div className={MainStyle.calendar}>
@@ -70,7 +70,7 @@ function Main() {
                             </div>
                             <div className={MainStyle.reminder}>
                                 <h3>
-                                    주요일정
+                                    부서일정
                                 </h3>
                                 <ReminderList />
                             </div>

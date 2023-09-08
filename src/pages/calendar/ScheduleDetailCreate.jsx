@@ -18,9 +18,8 @@ import dayjs from 'dayjs';
 import locale from 'antd/es/date-picker/locale/ko_KR';
 import { DatePicker, message } from 'antd';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
-import { GET_SCHEDULE_DETAIL, POST_SCHEDULE_REGIT } from '../../modules/ScheduleMoudule';
+import { GET_SCHEDULE_DETAIL } from '../../modules/ScheduleMoudule';
 import { LoadingSpiner } from '../../components/common/other/LoadingSpiner';
-import { type } from '@testing-library/user-event/dist/type';
 
 
 dayjs.extend(utc);

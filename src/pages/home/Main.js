@@ -32,7 +32,7 @@ function Main() {
     const token = decodeJwt(window.localStorage.getItem("accessToken"));
 
     useEffect(() => {
-            dispatch(getMainCredit());
+            // dispatch(getMainCredit());
         },[]
     );
 
@@ -40,7 +40,7 @@ function Main() {
         return <Navigate to="/" />;
     }
 
-    if(!documentData) return <LoadingSpiner />
+    // if(!documentData) return <LoadingSpiner />
 
     return (
         <>
@@ -69,7 +69,7 @@ function Main() {
                             <h2>결재대기</h2>
                             <Link to={'/approval'}>더보기</Link>
                         </div>
-                        <ApprovalTop data={documentData?.data}/>
+                        {/* <ApprovalTop data={documentData?.data}/> */}
                     </div>
                     <div className={MainStyle.home_content}>
                         <div className={MainStyle.home_title_wrap}>

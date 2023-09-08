@@ -20,6 +20,7 @@ import { DatePicker, message } from 'antd';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
 import { GET_SCHEDULE_DETAIL, POST_SCHEDULE_REGIT } from '../../modules/ScheduleMoudule';
 import { LoadingSpiner } from '../../components/common/other/LoadingSpiner';
+import { type } from '@testing-library/user-event/dist/type';
 
 
 dayjs.extend(utc);
@@ -81,6 +82,10 @@ const ScheduleDetilaCreate = () => {
         if(data) return;
         dispatch(getScheduleDetail({scheduleId:scheduleId}));
         if(schedule?.data) return;
+
+        return () => {
+            dispatch(dispatch => dispatch({type: GET_SCHEDULE_DETAIL, payload: '' }))
+        }
 
     },[
         isRead,
@@ -436,7 +441,7 @@ const ScheduleDetilaCreate = () => {
                     <div>
                         <ButtonInline 
                             isCancel={true} 
-                            value={isDataLoad() && data?.data?.calendar?.memberCode !== member.data.memberCode? '뒤로가기' : '취소' } 
+                            value={isDataLoad() && !data?.expendsProps.compare ? '뒤로가기' : '취소' } 
                             onClick={registCancle} 
                             style={{width:80, height: 40}}
                         />

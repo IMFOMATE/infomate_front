@@ -2,11 +2,13 @@ import styles from './reminderSchedule.module.css'
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import 'dayjs/locale/ko';
+import { useNavigate } from 'react-router-dom';
 
 dayjs.locale('ko');
 dayjs.extend(utc);
 
-const RemiderSchedule = ({toDay, title, date}) => {
+const RemiderSchedule = ({toDay, title, date, id }) => {
+    const navigate = useNavigate();
     const dayOfWeek = toDay.format('dddd')
     const className = [
         styles.container,
@@ -14,11 +16,14 @@ const RemiderSchedule = ({toDay, title, date}) => {
     ].join(' ');
 
     
+    const onClickHandler = () => {
+        id && navigate(`/calendar/regist?scheduleId=${id}&isread=true`)
+    }
     return (
-        <div className={className}>
+        <div className={className} onClick={onClickHandler}>
             <div className={styles.list}> 
                 <div>
-                    <div className={styles.day}>
+                    <div className={[styles.day, dayOfWeek === '토요일' && styles.sur, dayOfWeek ==='일요일' && styles.sun ].join(' ')}>
                         <div style={{fontSize:'1rem'}}>{toDay.format('D')}</div>
                         <div>{dayOfWeek}</div>
                     </div>

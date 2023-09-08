@@ -399,7 +399,7 @@ const ScheduleDetilaCreate = () => {
                         <ButtonInline 
                             value={'주소검색'} 
                             onClick={addressSearchHandler} 
-                            style={{height:30, width:80, display:'inline'}} 
+                            style={{height:30, width:80, display:'inline', fontSize:'0.82rem'}} 
                         />
                         {
                             postToggle && 

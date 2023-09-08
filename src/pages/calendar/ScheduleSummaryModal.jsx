@@ -287,7 +287,7 @@ export const SummaryViewModal = ({setIsModal, data}) => {
 
     return (
         <>
-            {/* <div className={[styles.container, modal && styles.active].join(' ')}> */}
+            
             <div className={[styles.container,styles.active, styles.viewContainer].join(' ')}>
                 <div className={styles.viewHeader}>
                 <button className={meterialIcon.meterialIcon} onClick={deleteScheduleHandler}>delete</button>
@@ -306,7 +306,13 @@ export const SummaryViewModal = ({setIsModal, data}) => {
                     
                     
                     <label><span className={meterialIcon.meterialIcon}>home</span></label>
-                    <div><button onClick={addressLinkClickHandler} style={{color:'blue'}}>{data.event.extendedProps.address}</button></div>
+                    <div>
+                        <button 
+                            onClick={addressLinkClickHandler} 
+                            style={{color:'blue'}}
+                        >{data.event.extendedProps.address}
+                        </button>
+                    </div>
 
                     <label><span className={meterialIcon.meterialIcon}>calendar_month</span></label>
                     <div>{data.event.extendedProps.calendarName}</div>

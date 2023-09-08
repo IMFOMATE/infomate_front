@@ -87,10 +87,7 @@ const MiniCalendar = () => {
                 <tbody>
                     {
                         calendar.map((item1, index) => 
-                            <tr key={index}>{item1.map((item2,index) => {
-
-                                console.log(item2);
-                                return <Day 
+                            <tr key={index}>{item1.map((item2,index) => <Day 
                                     key={index}
                                     value={item2} 
                                     data={data.data.filter(item => item.date === item2.format('YYYY-MM-DD')).map(item=> item)}
@@ -100,10 +97,8 @@ const MiniCalendar = () => {
                                     isSur={index === 6}
                                     onClick={(e)=>
                                         navigate(`/calendar?date=${e.target.id}`)
-    
                                     }
-                                
-                                />}
+                                />
                             )}</tr>
                         )
                     }

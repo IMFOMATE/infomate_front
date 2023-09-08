@@ -40,7 +40,7 @@ function Main() {
         return <Navigate to="/" />;
     }
 
-    // if(!documentData) return <LoadingSpiner />
+    if(!documentData) return <LoadingSpiner />
 
     return (
         <>

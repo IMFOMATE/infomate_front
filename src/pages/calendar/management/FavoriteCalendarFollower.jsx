@@ -48,6 +48,7 @@ const FavoriteCalendarFollower = () => {
         setSelectAll(e.target.checked)
     }
     
+    console.log(calendarFollowerList);
     return (
         <>
             
@@ -58,7 +59,7 @@ const FavoriteCalendarFollower = () => {
                                             key={item.id}
                                             id={item.id}
                                             memberName={item.member.memberName}
-                                            // rank={item?.refMember?.refRank?.name} // 직위 수정 예정
+                                            rank={item.calendar.member.rank.rankName}
                                             calendarName={item?.calendar.name}
                                             requestDate={item?.requestDate}
                                             state={item?.approvalStatus}

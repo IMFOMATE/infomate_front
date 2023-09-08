@@ -1,3 +1,5 @@
+
+
 .title{
     padding: 20px;
 }
@@ -139,6 +141,14 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 /* ... (기존 스타일 코드) */
 
 /* 모달 스타일 */
+
+.contentImg{
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    margin-left: 30px;
+}
+
 .modalOverlay {
     display: flex;
     position: fixed;
@@ -149,6 +159,7 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     background-color: rgba(0, 0, 0, 0.7);
     align-items: center;
     justify-content: center;
+    z-index: 101;
     
     
 }
@@ -162,9 +173,11 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     
     font-size: 23px;
     line-height: 50px;
+    height: 900px;
     
 }
 .closeModalButton {
+    flex: 1;
     margin-left: 85%;
     color: var(--color-hard);
     font-size: 40px;
@@ -235,6 +248,55 @@ color: aliceblue;
     color: white;
     border-radius: 10%;
 }
+
+/* 페이징 버튼 */
+.bodyDiv{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    height: 100%;
+}
+
+.buttonDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.buttonDiv button {
+    width: 100px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 25px;
+    height: 30px;
+    border-radius: 25px;
+    background-color: white;
+    font-weight: bold;
+}
+
+.productTable{
+    width: 900px;
+}
+
+.productTable tr:hover { 
+    background-color: #F5F5F5; 
+}
+
+.productTable tr {
+    cursor: pointer;
+}
+
+.pagingBtn{
+    margin: 5px;
+    border-radius: 25px;
+    background-color: white;
+    font-weight: bold;
+}
+
+.pagingBtn:hover{
+    cursor: pointer;
+    background-color: burlywood;
+}
+
 
 
 

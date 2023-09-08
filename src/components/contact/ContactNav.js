@@ -35,7 +35,7 @@ export default ContactNav;
 const ContactLink = [
     {text:'전체 연락처', link:'/addressBook'},
     {text:'즐겨찾기', link:'/addressBook/like'},
-    {text:'거래처 연락처', link:'/addressBook/client'},
+    // {text:'거래처 연락처', link:'/addressBook/client'},
     
 
   ]

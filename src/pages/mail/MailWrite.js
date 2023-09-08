@@ -6,16 +6,15 @@ import { useEffect, useState, useRef, useCallback, ChangeEvent, useMemo } from "
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from "react-router-dom";
 import MailContactModal from '../../components/approval/ele-component/contact/MailContactModal';
-import { callSelectAPI } from '../../apis/ContactAPIcalls'
-import { callPostMailAPI } from '../../apis/MailAPICalls';
+import { callPostMailAPI  ,callMailContactSelectAPI } from '../../apis/MailAPICalls';
 import MailReferenceModal from '../../components/approval/ele-component/contact/MailReferenceModal';
 import axios from "axios";
 
 
 function MailWrite() {
 
-    const contact = useSelector(state => state.contactReducer);
-    const contactList = contact.data;
+    const contact = useSelector(state => state.mailReducer);
+    const contactList = contact?.data;
     const [isModalOpen, setModalOpen] = useState(false); 
     const [isReferenceModalOpen, setReferenceModalOpen] = useState(false);
     const [dragging, setDragging] = useState(false);
@@ -24,6 +23,8 @@ function MailWrite() {
     const quillRef = useRef()
     const [content, setContent] = useState("")
     const [encoding, setencoding] = useState("");
+
+    console.log("contactList", contactList);
     
     const [form, setForm] = useState({
 
@@ -37,23 +38,40 @@ function MailWrite() {
         mailFile:[]
     })
 
-    function extractBase64ImagesFromQuillContent(content) {
-        const container = document.createElement('div');
-        container.innerHTML = content;
-        const imgElements = container.querySelectorAll('img');
-        const base64Images = [];
-      
-        imgElements.forEach((imgElement) => {
-          const src = imgElement.getAttribute('src');
-          if (src && src.startsWith('data:image/')) {
-            base64Images.push(src);
+    const handleImageUpload = useCallback((e) => {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.click();
+    
+        input.onchange = async () => {
+          const file = input.files[0];
+          if (file) {
+            // 이미지를 FormData에 추가하고, 서버에 업로드 로직을 구현하여 이미지를 저장할 수 있습니다.
+            const formData = new FormData();
+            formData.append('mailContent', file);
+            for(let [name, value] of formData) {
+                console.log('name', name);
+                console.log('value', value);
+                
+            }
+    
+            try {
+              // 서버로 이미지를 업로드하고 이미지 URL을 받아올 수 있습니다.
+              const response = await axios.post('http://localhost:8989/mail/img', formData); // '/api/upload-image'는 실제 업로드 엔드포인트에 맞게 수정해야 합니다.
+              const imageUrl = response.data.data;
+              console.log('image' , imageUrl);
+              
+    
+              // 이미지를 에디터에 삽입
+              const range = quillRef.current.getEditor().getSelection();
+              quillRef.current.getEditor().insertEmbed(range.index, 'image', imageUrl);
+            } catch (error) {
+              console.error('이미지 업로드 실패:', error);
+            }
           }
-        });
-      
-        return base64Images;
-      }
-
-  
+        };
+      }, []);
 
             
 
@@ -97,8 +115,8 @@ function MailWrite() {
 
     useEffect(
         () => {
-            dispatch(callSelectAPI({
-                // memberCode: params.memberCode
+            dispatch(callMailContactSelectAPI({
+                memberCode: 2,
             }));
             
         },[])
@@ -165,44 +183,7 @@ function MailWrite() {
         }
         }
 
-
-            // Quill 에디터 컨텐츠에서 이미지 base64 데이터 추출
-            const base64Images = extractBase64ImagesFromQuillContent(content);
-
-            // Blob으로 변환한 이미지 데이터를 저장할 배열
-            const imageBlobs = [];
-
-            // 이미지 base64 데이터를 Blob으로 변환
-            base64Images.forEach((base64) => {
-            const contentType = base64.split(':')[1].split(';')[0];
-            const byteCharacters = atob(base64.split(',')[1]);
-            const byteArrays = [];
-
-            for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-                const slice = byteCharacters.slice(offset, offset + 512);
-
-                const byteNumbers = new Array(slice.length);
-                for (let i = 0; i < slice.length; i++) {
-                byteNumbers[i] = slice.charCodeAt(i);
-                }
-
-                const byteArray = new Uint8Array(byteNumbers);
-                byteArrays.push(byteArray);
-            }
-
-            const blob = new Blob(byteArrays, { type: contentType });
-            imageBlobs.push(blob);
-            });
-
-            // 이제 imageBlobs 배열에는 Blob 형태의 이미지 데이터가 들어 있습니다.
-            console.log('Blob 형태의 이미지 데이터:', imageBlobs);
-
-            formData.append('mailContent', imageBlobs);
-
-        
-
-
-
+        formData.append("mailContent", content);
         
         for(let [name,value] of formData){
             console.log('name', name);
@@ -211,7 +192,6 @@ function MailWrite() {
         }
 
 
-        
         dispatch(callPostMailAPI({
             form: formData,
 
@@ -230,9 +210,9 @@ function MailWrite() {
                 [{ color: [] }, { background: [] }],
                 [{ align: [] }, "link", "image"],
             ],
-            // handlers: {
-            //     image: imageHandler
-            // }
+            handlers: {
+                image: handleImageUpload
+            }
             },
         }
     }, [])
@@ -248,10 +228,10 @@ function MailWrite() {
                     </div>
                     <div className={style.content}>
 
-                            <div className={style.receiver} >
+                            <div className={style.receiver}  >
                                 받는사람
 
-                                <input type="text" className={style.inputText} name="receiverMail" onChange={ () => onChangeHandler } value={receiver.map( (name) => name.contactName )}/>
+                                <input type="text" className={style.inputText} autoComplete='off' name="receiverMail" onChange={ () => onChangeHandler } value={receiver.map( (name) => name.contactName )}/>
                                 <button className={style.addressBook}  onClick={  openModal }>주소록</button>
                             </div>
                                 
@@ -260,7 +240,7 @@ function MailWrite() {
                                 참조
                             
 
-                                <input type="text" className={style.inputText} name="mailReference" onChange={ onChangeHandler } value={reference.map( (name) => name.contactName )}/>
+                                <input type="text" className={style.inputText} autoComplete='off' name="mailReference" onChange={ onChangeHandler } value={reference.map( (name) => name.contactName )}/>
                                 <button  className={style.addressBook} onClick={ openReferenceModal }>주소록</button>
                             </div>
 
@@ -279,7 +259,6 @@ function MailWrite() {
                                     style={{
                                         border: '2px dashed #ccc',
                                         textAlign: 'center',
-                                        lineHeight: '200px',
                                         backgroundColor: dragging ? 'gray' : 'white',
                                     }}>
                                     <p>{dragging ? '' : '여기로 파일을 드래그하세요'}</p>

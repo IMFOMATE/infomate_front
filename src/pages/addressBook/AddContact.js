@@ -116,6 +116,29 @@ function AddContact({title}) {
 
  
 
+   function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                const previewElement = document.getElementById(style.preview);
+                if (previewElement) {
+                    previewElement.src = e.target.result;
+
+                    setPreviewSrc(e.target.result); 
+                }
+            };
+            reader.readAsDataURL(input.files[0]);
+            
+        } else {
+            const previewElement = document.getElementById(style.preview);
+            if (previewElement) {
+                previewElement.src = "";
+                setPreviewSrc('');
+            }
+        }
+
+    }
+    
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();

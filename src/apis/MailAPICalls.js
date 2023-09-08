@@ -27,6 +27,29 @@ export const callMailSelectAPI = () => {
 
 }
 
+export const callMailContactSelectAPI = ({memberCode}) => {
+
+    const requestURL = `http://localhost:8989/mail/contactList/${memberCode}`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method: 'GET'
+        })
+        .then(response => response.json());
+
+
+
+        dispatch({type: GET_MAIL , payload: result});
+
+        console.log("========================== " + result.data);
+
+       
+
+    } 
+
+}
+
 export const callPostMailAPI = ({form}) => {
 
     const requestURL = "http://localhost:8989/mail/postMail";

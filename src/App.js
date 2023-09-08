@@ -38,6 +38,8 @@ import BrdAdmin from "./pages/board/BrdAdmin";
 import Anony from "./pages/board/Anony";
 import NewPost from "./pages/board/NewPost";
 import MailContactModal from './components/approval/ele-component/contact/MailContactModal';
+import AddressBookLike from './pages/addressBook/AddressBookLike';
+import ViewMail from './pages/mail/ViewMail';
 
 function App() {
   return (
@@ -51,7 +53,7 @@ function App() {
 
                     {/* <Route index element={<AddressBook title={"전체연락처"}/>}/> */}
                     <Route path="" element={<AddressBook title={"전체연락처"}/>}/>
-                    <Route path="like" element={<AddressBook title={"즐겨찾기"}/>}/>
+                    <Route path="like" element={<AddressBookLike title={"즐겨찾기"}/>}/>
                     <Route path="client" element={<AddressBook title={"거래처 연락처"}/>}/>
                     <Route path="addContact" element={<AddContact title={"연락처 추가"} />}/>
                 
@@ -64,9 +66,10 @@ function App() {
                 <Route path='allMail' element={<Mail title={"전체메일함"} />}/>
                 <Route path='unreadMail' element={<Mail title={"안읽은 메일함"} />}/>
                 <Route path='readMail' element={<Mail title={"읽은 메일함"} />}/>
-                <Route path='outBox' element={<Mail title={"임시 보관함"} />}/>
+                <Route path='reference' element={<Mail title={"참조 메일함"} />}/>
                 <Route path='mailWrite' element={<MailWrite />}/>
-                <Route path='asd' element={<MailContactModal />}/>
+                <Route path='viewMail' element={<ViewMail />} />
+                {/* <Route path='asd' element={<MailContactModal />}/> */}
 
 
                 {/* <Route path='trach' element={<MailTrach} /> */}

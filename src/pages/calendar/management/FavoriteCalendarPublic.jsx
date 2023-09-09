@@ -35,6 +35,7 @@ const FavoriteCalendarPublic = () => {
 
         return () => {
             setChk({})
+            
         }
     },[search, favCalendarReducer[POST_FAV_CALENDAR_REGIT]])
 

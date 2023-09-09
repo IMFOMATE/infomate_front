@@ -5,6 +5,9 @@ import {
     , POST_REGISTER
 } from '../modules/MemberModule';
 import { MEMBER_REGISTER } from '../modules/MemberRegisterModule';
+import { PURGE_SCHEDULE } from '../modules/ScheduleMoudule';
+import { PURGE_FAV_CALENDAR } from '../modules/FavCalendarMoudule';
+import { PURGE_CALENDAR } from '../modules/CalendarMoudule';
 
 export const callGetMemberAPI = ({ memberId }) => {
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/api/v1/members/${memberId}`;
@@ -67,6 +70,9 @@ export const callLogoutAPI = () => {
     return async (dispatch, getState) => {
 
         dispatch({ type: POST_LOGIN, payload: '' });
+        dispatch({ type: PURGE_SCHEDULE}); // 스케쥴 리듀서 초기화
+        dispatch({ type: PURGE_FAV_CALENDAR}); // 관심캐린더 리듀서 초기화
+        dispatch({ type: PURGE_CALENDAR}); // 캘린더 리듀서 초기화
         console.log('[MemberAPICalls] callLogoutAPI RESULT : SUCCESS');
     };
 }

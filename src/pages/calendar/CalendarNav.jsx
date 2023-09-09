@@ -21,6 +21,7 @@ const CalendarNav = () => {
     const dispatch = useDispatch();
 
     const data = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
+    const favCalendarReducer = useSelector(state => state.favCalendarReducer);
 
     const [moreToggle, setMoreToggle] = useState({
         my:false,
@@ -45,11 +46,9 @@ const CalendarNav = () => {
                         ].join(' ');
 
     useEffect(()=>{
-        if(data) return;
-        dispatch(getCalendarListAPI()) 
-    },[
-        data,
-    ])
+        // if(data) return;
+        dispatch(getCalendarListAPI());
+    },[data, favCalendarReducer])
 
     if(!data) return <LoadingSpiner />
     if(data && filter.includes(0)){ // 나은 방법 구상중 

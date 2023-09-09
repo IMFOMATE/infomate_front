@@ -116,8 +116,8 @@ function Main() {
                     <div className={MainStyle.home_content}>
                     <div className={MainStyle.home_title_wrap}>
                             <h2>게시판</h2>
-                            <AnonyMini />
                         </div>
+                            <AnonyMini />
                     </div>
                 </div>
             </div>

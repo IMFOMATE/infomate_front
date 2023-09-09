@@ -36,10 +36,10 @@ const documentsReducer = handleActions(
          return {[POST_DRAFT]: payload}
       },
       [POST_VACATION] : (state, { payload }) => {
-        return payload;
+        return {[POST_VACATION]: payload}
       },
       [POST_PAYMENT] : (state, { payload }) => {
-        return payload;
+        return {[POST_PAYMENT]: payload}
       },
       [DELETE_DOCUMENT] : (state, { payload }) => {
         return payload;

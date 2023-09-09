@@ -122,7 +122,6 @@ export const paymentRegistAPI = (form, temp)=>{
     if(result.status === 200){
       dispatch({type: POST_PAYMENT, payload: result.data});
     }
-
   };
 };
 

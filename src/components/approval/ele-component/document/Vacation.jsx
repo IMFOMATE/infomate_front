@@ -15,9 +15,11 @@ import {treeviewAPI} from "../../../../apis/DepartmentAPI";
 import {formatApprovalDate, handleCancel, isValid, showValidationAndConfirm} from "../common/dataUtils";
 import {vacationRegistAPI} from "../../../../apis/DocumentAPICalls";
 import {decodeJwt} from "../../../../util/tokenUtils";
+import {POST_DRAFT, POST_VACATION} from "../../../../modules/approval/DocumentModuels";
 
 function Vacation({documentData}) {
   const treeview = useSelector(state => state.departmentReducer);
+  const documentReducer = useSelector(state => state.documentsReducer[POST_VACATION]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -46,6 +48,12 @@ function Vacation({documentData}) {
 
       setData({...documentData, fileList:[], existList:[...documentData.fileList], approvalList:modifiedApprovalList});
     }
+
+    if(documentReducer?.status === 200){
+      console.log(documentReducer)
+      navigate('/approval');
+    }
+
   },[isReapply]);
 
   console.log(data)

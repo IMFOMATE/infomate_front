@@ -5,8 +5,15 @@ import Swal from "sweetalert2";
 
 export function formatApprovalDate(approvalDate) {
   const date = new Date(approvalDate);
-  return `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}`;
+  return `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')} `;
 }
+
+
+export function formatNowDate() {
+  const date = new Date();
+  return `${date.getFullYear()}년 ${(date.getMonth() + 1).toString().padStart(2, '0')}월 ${date.getDate().toString().padStart(2, '0')}일`;
+}
+
 
 export function shortFormatApprovalDate(approvalDate){
   const date = new Date(approvalDate);

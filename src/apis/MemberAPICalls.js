@@ -70,9 +70,8 @@ export const callLogoutAPI = () => {
     return async (dispatch, getState) => {
 
         dispatch({ type: POST_LOGIN, payload: '' });
-        dispatch({ type: PURGE_SCHEDULE}); // 스케쥴 리듀서 초기화
-        dispatch({ type: PURGE_FAV_CALENDAR}); // 관심캐린더 리듀서 초기화
-        dispatch({ type: PURGE_CALENDAR}); // 캘린더 리듀서 초기화
+        dispatch({ type: 'PURGE' })
+
         console.log('[MemberAPICalls] callLogoutAPI RESULT : SUCCESS');
     };
 }

@@ -9,10 +9,9 @@ export const POST_CALENDAR_REGIT = 'calendar/POST_REGIT'
 export const PUT_CALENDAR_UPDATE = 'calendar/PUT'
 export const PATCH_CALENDAR_UPDATE = 'calendar/PATCH'
 export const DELETE_CALENDAR = 'calendar/DELETE'
-export const PURGE_CALENDAR = 'PURGE_CALENDAR'
 
 const calendarReducer = handleActions({
-        [PURGE_CALENDAR] : (state) => {
+        PURGE : (state) => {
             return initialState;
         },
         [GET_CALENDAR_LIST]: (state, { payload }) => ({   

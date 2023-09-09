@@ -11,18 +11,9 @@ export const PATCH_SCHEDULE = 'SCHEDULE/PATCH'
 export const PUT_SCHEDULE = 'SCHEDULE/PUT'
 export const DELETE_SCHEDULE = 'SCHEDULE/DELETE'
 export const GET_PART_LIST = 'DEPARTMENT/GET_PART_LIST'
-export const PURGE_SCHEDULE = 'PURGET_SCHEDULE'
-
-
-const actions = createActions({
-    [GET_SCHEDULE_DETAIL]: () => {},
-    [POST_SCHEDULE_REGIT]: () => {},
-    [PATCH_SCHEDULE]: () => {},
-    [DELETE_SCHEDULE]: () => {}
-});
 
 const scheduleReducer = handleActions({
-        [PURGE_SCHEDULE] : (state) => {
+        PURGE : (state) => {
             return initialState;
         },
         [GET_SCHEDULE_DETAIL]: (state, { payload }) => ({

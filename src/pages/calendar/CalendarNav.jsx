@@ -48,7 +48,7 @@ const CalendarNav = () => {
     useEffect(()=>{
         // if(data) return;
         dispatch(getCalendarListAPI());
-    },[data, favCalendarReducer])
+    },[filter,favCalendarReducer])
 
     if(!data) return <LoadingSpiner />
     if(data && filter.includes(0)){ // 나은 방법 구상중 
@@ -58,8 +58,6 @@ const CalendarNav = () => {
             ).map(item => parseInt(item.id))])
     }
 
-    console.log(member);
-    console.log(data);
     const calendarFilterChange = e => {
         if(e.target.checked){
             setFilter([...filter.filter(item => 
@@ -71,7 +69,7 @@ const CalendarNav = () => {
             ]);
         }   
     }
-
+console.log('calendarNav');
     const moreClickHandler = (e) => {
         setMoreToggle({[e.target.name]:!moreToggle[e.target.name]});
     }

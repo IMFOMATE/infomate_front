@@ -6,7 +6,8 @@ import {
     GET_NOTICE,
     GET_COMMON,
     GET_ANONY,
-    GET_DEPT   
+    GET_DEPT,
+    GET_MAINBOARD,   
 
 } from '../modules/BoardModule.jsx';
 
@@ -38,6 +39,38 @@ export const callhBoardViewAPI = ({currentPage}) => {   // 게시판 조회
         console.log('[BoardAPICalls] callSearchBoardAPI RESULT : ', result);
 
         dispatch({ type: GET_BOARD,  payload: result.data });
+        
+    };    
+}
+
+export const callMainBoardViewAPI = ({currentPage}) => {   // 게시판 조회
+    console.log('[MainBoardAPICalls] callSearchBoardAPI Call');
+
+    let requestURL;
+
+    if(currentPage !== undefined && currentPage !== null){
+        requestURL = `http://localhost:8989/brd/miniboard?offset=${currentPage}`;
+    } else {
+        requestURL = `http://localhost:8989/brd/miniboard`;
+    }
+
+    console.log(`[MainBoardAPICalls] requesURL : `, requestURL);
+    
+    
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*",
+            }
+        })
+        .then(response => response.json());
+
+        console.log('[MainBoardAPICalls] callSearchBoardAPI RESULT : ', result);
+
+        dispatch({ type: GET_MAINBOARD,  payload: result.data });
         
     };    
 }

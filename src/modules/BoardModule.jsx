@@ -12,6 +12,7 @@ export const GET_NOTICE          = 'board/GET_BOARD_NOTICE';    //  공지사항
 export const GET_COMMON          = 'board/GET_BOARD_COMMON';    // 일반게시판 조회
 export const GET_ANONY           = 'board/GET_BOARD_ANONY'; // 익명게시판 조회
 export const GET_DEPT            = 'board/GET_BOARD_DEPT';  // 부서게시판 조회
+export const GET_MAINBOARD       = 'board/GET_MAINBOARD';
 
 const actions = createActions({
     [GET_POST]: () => {},
@@ -21,7 +22,8 @@ const actions = createActions({
     [GET_NOTICE]: () => {},
     [GET_COMMON]: () => {},
     [GET_ANONY]: () => {},
-    [GET_DEPT]: () => {}
+    [GET_DEPT]: () => {},
+    [GET_MAINBOARD]: () => {},
 });
 
 /* 리듀서 */
@@ -56,6 +58,10 @@ const boardReducer = handleActions(
             return payload;
         },
         [GET_DEPT]: (state, { payload }) => {
+
+            return payload;
+        },
+        [GET_MAINBOARD]: (state, { payload }) => {
 
             return payload;
         }

@@ -12,6 +12,7 @@ import {getMainCredit} from "../../apis/HomeAPICalls";
 import {LoadingSpiner} from "../../components/common/other/LoadingSpiner";
 import {NavLink, Navigate, useNavigate, Link} from 'react-router-dom';
 import AnonyMini from '../../components/board/AnonyMini';
+import Weather from "./Weather";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import ButtonOutline from "../../components/common/button/ButtonOutline";
 
@@ -19,7 +20,7 @@ function Main() {
     const dispatch = useDispatch();
     const documentData = useSelector(state => state.homeMainReducer[GET_CREDIT]);
     const navigate = useNavigate();
-
+    
     const isLogin = window.localStorage.getItem('accessToken');
     let decoded = null;
 
@@ -34,7 +35,7 @@ function Main() {
     const token = decodeJwt(window.localStorage.getItem("accessToken"));
 
     useEffect(() => {
-            dispatch(getMainCredit());
+            // dispatch(getMainCredit());
         },[]
     );
 
@@ -42,7 +43,7 @@ function Main() {
         return <Navigate to="/" />;
     }
 
-    if(!documentData) return <LoadingSpiner />
+    // if(!documentData) return <LoadingSpiner />
 
     return (
         <>
@@ -57,16 +58,14 @@ function Main() {
                 </div>
                 <div className={MainStyle.content}>
                     <div className={MainStyle.home_content}>
+                        <Clock/>
                         <div>
-                            <Clock/>
-                        </div>
-                        <div>
-
+                        <Weather/>
                         </div>
                     </div>
                     <div className={`${MainStyle.home_content} ${MainStyle.item1}`}>
                         <div className={MainStyle.home_title_wrap}>
-                            <h2>Calendar</h2>
+                            <h2>일정</h2>
                             <Link to={'/calendar'}><NavigateNextIcon/></Link>
                         </div>
                         <div className={MainStyle.calendar}>
@@ -75,7 +74,7 @@ function Main() {
                             </div>
                             <div className={MainStyle.reminder}>
                                 <h3>
-                                    주요일정
+                                    부서일정
                                 </h3>
                                 <ReminderList />
                             </div>
@@ -120,10 +119,10 @@ function Main() {
                         </div>
                     </div>
                     <div className={MainStyle.home_content}>
-                        <div className={MainStyle.home_title_wrap}>
+                    <div className={MainStyle.home_title_wrap}>
                             <h2>게시판</h2>
-                            <Link to={'/board'}><NavigateNextIcon/></Link>
                         </div>
+                            <AnonyMini />
                     </div>
                 </div>
             </div>

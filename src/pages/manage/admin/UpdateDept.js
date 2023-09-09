@@ -1,24 +1,18 @@
-import {React, useEffect} from 'react';
+import {React} from 'react';
 import GroupCss from '../Group.module.css';
 import UpdateCss from'./UpdateList.module.css';
-import UpdateList from './UpdateList';
-import 
-{ callDeptAlltAPI } from '../../../apis/EmployeeAPI';
-import { useDispatch, useSelector } from "react-redux";
-import { LoadingSpiner } from "../../../components/common/other/LoadingSpiner";
+// import UpdateList from './UpdateList';
+// import 
+// { callDeptAllAPI } from '../../../apis/EmployeeAPI';
+// import { useDispatch, useSelector } from "react-redux";
+import DeptItems from './DeptItems';
+// import { useParams } from 'react-router';
+// import { LoadingSpiner } from "../../../components/common/other/LoadingSpiner";
 
 
 function UpdateDept(){
 
-    const dispatch = useDispatch();
-    const deptItems = useSelector(state => state.employeeReducer);    
-
-    useEffect(
-        () => {
-            dispatch(callDeptAlltAPI());
-        },
-        []
-    )
+    
 
     return(
         <>
@@ -36,15 +30,7 @@ function UpdateDept(){
                                         <th>수정</th>
                                     </tr>
                                 </thead>   
-                                <tbody className={`tb ${UpdateCss.tb}`}>
-                                    {
-                                        deptItems.data.map((item, index) => 
-                                        <UpdateList 
-                                        key={index}
-                                        deptItems={item}
-                                        />) 
-                                    }
-                                </tbody>
+                                        <DeptItems />
                             </table>
                         </div>
                     </div>

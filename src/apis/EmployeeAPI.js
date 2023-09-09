@@ -11,7 +11,7 @@ import axios from 'axios';
 import { message } from 'antd';
 
 
-
+//사용함.
 export const callEmployeeInfoAPI = ({memberCode}) =>{
     
     const requestURL = `http://localhost:8989/emp/info/${memberCode}`;
@@ -35,7 +35,7 @@ export const callEmployeeInfoAPI = ({memberCode}) =>{
     };
 }
 
-
+// 미사용 정리 필요
 export const callDeptListAPI = ({currentPage}) => {     // 직원 전체
     
     let requestURL;
@@ -67,9 +67,9 @@ export const callDeptListAPI = ({currentPage}) => {     // 직원 전체
 }
 
 
-export const callDeptAlltAPI = () => {      // 부서만 조회
+export const callDeptAllAPI = () => {      // 부서만 조회
     
-    const requestURL= 'http://localhost:8989/department/emp/list'
+    const requestURL= 'http://localhost:8989/department/dept/list'
 
     return async (dispatch, getState) => {
 
@@ -77,12 +77,13 @@ export const callDeptAlltAPI = () => {      // 부서만 조회
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Accept" : "*/*"
+                "Accept" : "*/*",
+                "Authorization": "Bearer " + window.localStorage.getItem("accessToken"),
             }
         })
         .then(response => response.json());
 
-        console.log('[EmployeeAPI] callDeptListAPI RESULT : ' , result);
+        console.log('[EmployeeAPI] callDeptAllAPI RESULT : ' , result);
         if(result.status === 200){
             dispatch({type: GET_DEPTALL, payload: result.data});
         }

@@ -8,6 +8,7 @@ function Clock() {
       setTime(new Date());
     }, 1000);
 
+
     return () => clearInterval(timeId);
   }, []);
 

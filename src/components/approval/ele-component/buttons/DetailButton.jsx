@@ -28,9 +28,14 @@ const DetailButton = forwardRef(({condition, isOpen, reapply, deleteDoc}, ref) =
               <ButtonOutline value="반려" style={style} onClick={()=>{isOpen('반려','반려의견을 반드시 작성해주세요.')}}/>
             </>
         )}
-        {condition.isCancel && (
+        {condition.isRemove && (
             <>
               <ButtonOutline value="삭제" style={style} onClick={deleteDoc} />
+            </>
+        )}
+        {condition.isCancel && (
+            <>
+              <ButtonOutline value="취소" style={style} onClick={deleteDoc} />
             </>
         )}
         {condition.isDept && (

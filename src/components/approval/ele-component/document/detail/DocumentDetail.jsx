@@ -64,6 +64,7 @@ function DocumentDetail() {
     });
   };
 
+  //재기안
   const reApprove = () => {
 
     navigate(`/approval/document/${documentId}/reapply`,{
@@ -75,14 +76,18 @@ function DocumentDetail() {
     });
   };
 
-
-
-
+ //문서삭제
   const deleteDocument = () => {
     dispatch(deleteDocumentAPI({documentCode: documentId}));
     navigate('/approval');
 
   }
+
+  //기안 취소
+  const cancelDocument = () => {
+
+  }
+
 
   // 문서 종류별 세부 컴포넌트를 매핑하는 객체
   const documentComponents = {

@@ -141,10 +141,10 @@ export const handleCancel = (callback) => {
 };
 
 
-export const handleDelete = (callback)=>{
+export const handleAlert = (title, text, callback)=>{
   Swal.fire({
-    title: '문서 삭제',
-    text: '문서를 삭제하시겠습니까?',
+    title: title,
+    text: text,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonText: '예',

@@ -33,9 +33,11 @@ const rootReducer = combineReducers({
     homeMainReducer
 });
 
+
 const persistConfig = {
     key: "root",
     storage: storage,
+    blacklist:["memberReducer"]
 };
 
 

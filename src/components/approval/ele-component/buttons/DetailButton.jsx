@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import ReactToPrint, { useReactToPrint } from 'react-to-print';
 
 
-const DetailButton = forwardRef(({condition, isOpen, reapply, deleteDoc}, ref) =>{
+const DetailButton = forwardRef(({condition, isOpen, reapply, deleteDoc, cancel}, ref) =>{
   const navigate = useNavigate();
 
   const handlePrint = useReactToPrint({
@@ -35,7 +35,7 @@ const DetailButton = forwardRef(({condition, isOpen, reapply, deleteDoc}, ref) =
         )}
         {condition.isCancel && (
             <>
-              <ButtonOutline value="취소" style={style} onClick={deleteDoc} />
+              <ButtonOutline value="상신취소" style={style} onClick={cancel} />
             </>
         )}
         {condition.isDept && (

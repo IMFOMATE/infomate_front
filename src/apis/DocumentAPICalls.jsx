@@ -1,10 +1,12 @@
 import axios from 'axios';
 import {
+  CANCEL_DOCUMENT,
   DELETE_DOCUMENT,
   GET_DETAIL,
   GET_DOCUMENT_LIST,
   GET_DOCUMENT_MAIN, POST_DRAFT, POST_PAYMENT, POST_VACATION,
 } from '../modules/approval/DocumentModuels';
+import { message } from 'antd';
 
 // 결재 메인 화면
 export const getMainAPI = () => {
@@ -43,6 +45,13 @@ export const getList = ({ docStatus ,filter, page, size}) => {
     })
         .then(res => res.data)
         .catch(err => console.log(err));
+
+
+    // if(result.data.length === 0 || result === ''){
+    //   message.error('조회할 내용이 없습니다.')
+    //   dispatch({ type: GET_DOCUMENT_LIST,  payload: undefined });
+    //   return;
+    // }
 
     if(result.status === 200){
       dispatch({type: GET_DOCUMENT_LIST, payload: result});
@@ -153,6 +162,28 @@ export const deleteDocumentAPI = ({documentCode})=>{
 
     if(result.status === 200){
       dispatch({type: DELETE_DOCUMENT, payload: result.data});
+    }
+
+  }
+}
+
+export const cancelDocumentAPI = ({documentCode})=>{
+  const token = localStorage.getItem("accessToken");
+
+  const requestURL = `http://localhost:8989/document/cancel/${documentCode}`;
+  const headers = {
+    Authorization :  "Bearer " + token
+  }
+  return async (dispatch, getState)  => {
+
+    const result = await axios.patch(requestURL,'',{
+      headers:headers
+    })
+        .then(res => res.data)
+        .catch(err => console.log(err));
+
+    if(result.status === 200){
+      dispatch({type: CANCEL_DOCUMENT, payload: result.data});
     }
 
   }

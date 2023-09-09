@@ -49,7 +49,7 @@ function ApprovalTable({title, data}) {
           <TableHeader/>
           <tbody>
           {
-            data.length === 0 ?
+            data?.length === 0 ?
                 <tr>
                   <td className={ApprovalTableCss.data_null} colSpan={5}>해당 문서가 없습니다</td>
                 </tr>

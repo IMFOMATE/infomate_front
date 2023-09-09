@@ -81,7 +81,12 @@ export const MainSelect = ({mainData, msOnClick}) => {
         <div className={styles.hoverContainer}> 
             {
                 mainData.map(item =>     
-                    <SelectMainList key={item.deptCode} id={item.deptCode} value={item.deptName} onClick={msOnClick} />
+                    <SelectMainList 
+                        key={item.deptCode} 
+                        id={item.deptCode} 
+                        value={item.deptName} 
+                        onClick={msOnClick} 
+                    />
                 )
             }
         </div>
@@ -108,7 +113,11 @@ export const SelectmemberList = ({options, setChk}) => {
         <div className={styles.selectMemberListContainer}>
             {
                 options.members.map(item => 
-                        <SelectMember departmentCode={options.deptCode} data={item} setChk={setChk}/>
+                        <SelectMember 
+                            departmentCode={options.deptCode} 
+                            data={item} 
+                            setChk={setChk}
+                        />
                     )
             }
         </div>
@@ -118,8 +127,14 @@ export const SelectmemberList = ({options, setChk}) => {
 export const SelectMember = ({departmentCode, data}) => {
 
     const {schedule, setSchedule} = useContext(ScheduleProvider);
+    const [isChecked, setIsChecked] = useState(false);
 
-    const isChecked = schedule?.data?.participantList?.length > 0 && schedule.data.participantList.filter(item => parseInt(item.memberCode) === data.memberCode)[0];
+    useEffect(()=>{
+        setIsChecked(schedule?.data?.participantList?.length > 0 
+            && schedule.data.participantList.filter(item => 
+                parseInt(item?.member?.memberCode) 
+                === parseInt(data.memberCode))[0]);
+    },[schedule])
 
     const AttendUsersChangeHanlder = (e) => {
         if(e.target.checked){
@@ -128,9 +143,18 @@ export const SelectMember = ({departmentCode, data}) => {
             // }else{
             //     setSchedule({...schedule, data:{...schedule?.data, participantList: [...schedule?.data?.participantList, {member: {memberCode: parseInt(e.target.value), memberName: e.target.name}}]}})
             // }
-            setSchedule({...schedule, data:{...schedule?.data, participantList: [...schedule?.data?.participantList, {member: {memberCode: parseInt(e.target.value), memberName: e.target.name}}]}})
+            setSchedule({...schedule, data:{...schedule?.data,
+                 participantList: [...schedule?.data?.participantList,
+                     {member: {memberCode: parseInt(e.target.value), 
+                        memberName: e.target.name}}
+                    ]}
+                })
         }else{
-            setSchedule({...schedule, data:{...schedule?.data, participantList: [...schedule?.data?.participantList?.filter(item => item.member.memberCode !== parseInt(e.target.value))]}})
+            setSchedule({...schedule, data:{...schedule?.data, 
+                participantList: [...schedule?.data?.participantList?.filter(item => 
+                    parseInt(item.member.memberCode) !== parseInt(e.target.value))
+                ]}
+            })
         }
     }
     

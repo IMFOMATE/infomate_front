@@ -32,7 +32,6 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
-
     useEffect(()=>{
         setSchedule({
             ...schedule,
@@ -42,8 +41,6 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                 }
         })
     },[])
-
-    console.log(schedule);
 
     const scheduleChangeHanlder = e => {
         const eleName = e.target.name;
@@ -62,7 +59,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                     ...schedule, 
                     data:{...schedule.data, 
                         [eleName]: e.target.checked,
-                        endDate: schedule.data.startDate,
+                        endDate: dayjs(schedule.data.startDate).format('YYYY-MM-DD HH:mm'),
                     }
                 });
             }
@@ -86,6 +83,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
     }
     
     const scheduleResitClickHandler = (e) => {
+        console.log(schedule);
         dispatch(postScheduleRegist({data: schedule.data}))
         sc.status === 200 && navigate('.')
         setIsModal(false);
@@ -289,7 +287,7 @@ export const SummaryViewModal = ({setIsModal, data}) => {
 
     return (
         <>
-            {/* <div className={[styles.container, modal && styles.active].join(' ')}> */}
+            
             <div className={[styles.container,styles.active, styles.viewContainer].join(' ')}>
                 <div className={styles.viewHeader}>
                 <button className={meterialIcon.meterialIcon} onClick={deleteScheduleHandler}>delete</button>
@@ -308,7 +306,13 @@ export const SummaryViewModal = ({setIsModal, data}) => {
                     
                     
                     <label><span className={meterialIcon.meterialIcon}>home</span></label>
-                    <div><button onClick={addressLinkClickHandler} style={{color:'blue'}}>{data.event.extendedProps.address}</button></div>
+                    <div>
+                        <button 
+                            onClick={addressLinkClickHandler} 
+                            style={{color:'blue'}}
+                        >{data.event.extendedProps.address}
+                        </button>
+                    </div>
 
                     <label><span className={meterialIcon.meterialIcon}>calendar_month</span></label>
                     <div>{data.event.extendedProps.calendarName}</div>

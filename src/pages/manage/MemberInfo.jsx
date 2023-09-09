@@ -35,7 +35,7 @@ function MemberInfo(){
         () => {
             // if(member) return;
             dispatch(callEmployeeInfoAPI({
-                memberCode: params.MEMBER_CODE
+                memberCode: params.memberCode
             }))
         }
         ,[]
@@ -69,11 +69,11 @@ function MemberInfo(){
                                 </tr>
                                 <tr>
                                     <th>부서</th>
-                                    <td>{member.department.deptName}</td>
+                                    <td>{member.deptName}</td>
                                 </tr>
                                 <tr>
                                     <th>직위</th>
-                                    <td>{member.rank.rankName}</td>
+                                    <td>{member.rankName}</td>
                                 </tr>
                                 <tr>
                                     <th>이메일</th>

@@ -1,7 +1,7 @@
 .container{
     font-size: 0.8rem;
     min-width: 250px;
-    max-width: 250px;
+    /*max-width: 250px;*/
     min-height: 80px;
     max-height: 80px;
         
@@ -30,5 +30,11 @@
 .content{
     margin-left: 10px;
     line-height: 24px;
-    
+}
+
+.sun {
+    color: red;
+}
+.sur {
+    color: blue;
 }

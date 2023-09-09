@@ -7,7 +7,7 @@ export const ScheduleModalProvider = createContext(null);
 
 
 const ProviderContainer = ({children}) => {
-    const [schedule, setSchedule] = useState({});
+    const [schedule, setSchedule] = useState(null);
     const [isModal, setIsModal] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 

@@ -38,7 +38,7 @@ const ScheduleDetilaCreate = () => {
 
     const getCalednarReducer = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
     const data = useSelector(state => state.scheduleReducer[GET_SCHEDULE_DETAIL]);
-    const member = useSelector(state => state.memberReducer);
+    const member = JSON.parse(window.localStorage.getItem('authToken'));
     
     const scheduleId = search.get('scheduleId');
     const isRead = search.get('isread');
@@ -57,7 +57,7 @@ const ScheduleDetilaCreate = () => {
                         refCalendar: getCalednarReducer.data
                         .filter(item => 
                             item.defaultCalendar 
-                            && item.memberCode === member.data.memberCode 
+                            && item.memberCode === member.memberCode 
                             && item.departmentCode === null)[0].id,
                         participantList: []
                     }
@@ -69,7 +69,7 @@ const ScheduleDetilaCreate = () => {
                     refCalendar: getCalednarReducer.data
                         .filter(item => 
                             item.defaultCalendar 
-                            && item.memberCode === member.data.memberCode 
+                            && item.memberCode === member.memberCode 
                             && item.departmentCode === null)[0].id,
                     participantList:[]
                 }
@@ -346,7 +346,7 @@ const ScheduleDetilaCreate = () => {
                             name='refCalendar' 
                             options={getCalednarReducer.data.filter(item => (
                                 item.departmentCode !== 1 && 
-                                (item.memberCode === member.data.memberCode || item.departmentCode === member.data.deptCode )
+                                (item.memberCode === member.memberCode || item.departmentCode === member.deptCode )
                             )).sort((prev, next) => prev.indexNo - next.indexNo
                             ).map(item => ({
                                 value: item.id, 

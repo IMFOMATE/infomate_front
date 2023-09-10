@@ -26,7 +26,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
     const {menuState, toggleMenu} = useContext(MenuContext);
     
     const calendarList = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
-    const member = useSelector(state => state.memberReducer);
+    const member = JSON.parse(window.localStorage.getItem('authToken'));
     
     const sc = useSelector(state => state.scheduleReducer);
     const dispatch = useDispatch();
@@ -37,7 +37,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
             ...schedule,
             data: {...schedule.data, 
                 refCalendar: calendarList.data.filter(item => 
-                    item.defaultCalendar && item.memberCode === member.data.memberCode && item.departmentCode === null)[0].id
+                    item.defaultCalendar && item.memberCode === member.memberCode && item.departmentCode === null)[0].id
                 }
         })
     },[])
@@ -205,7 +205,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                                 value={schedule.data.refCalendar}
                                 options={calendarList.data.filter(item => (
                                     item.departmentCode !== 1 && 
-                                    (item.memberCode === member.data.memberCode || item.departmentCode === member.data.deptCode )
+                                    (item.memberCode === member.memberCode || item.departmentCode === member.deptCode )
                                 )).sort((prev, next) => prev.indexNo - next.indexNo
                                 ).map(item => ({
                                     value: item.id,

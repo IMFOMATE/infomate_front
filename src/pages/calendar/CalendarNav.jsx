@@ -16,8 +16,9 @@ const CalendarNav = () => {
 
     const {menuState, toggleMenu} = useContext(MenuContext);
     const {filter, setFilter} = useContext(CalendarFilterContext);
-    const member = useSelector(state => state.memberReducer);
-    
+    // const member = useSelector(state => state.memberReducer);
+    const member = JSON.parse(window.localStorage.getItem('authToken'));
+    console.log(member);
     const dispatch = useDispatch();
 
     const data = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
@@ -54,7 +55,7 @@ const CalendarNav = () => {
     if(data && filter.includes(0)){ // 나은 방법 구상중 
         setFilter([
         ...data.data.filter(item => 
-            item.memberCode !== member.data.memberCode && item.departmentCode === null
+            item.memberCode !== member.memberCode && item.departmentCode === null
             ).map(item => parseInt(item.id))])
     }
 
@@ -96,7 +97,7 @@ console.log('calendarNav');
             <div className={myClassName}>
                 {
                     data.data.filter(item => (
-                        item.departmentCode === null && item.memberCode === member.data.memberCode // memberCode 수정
+                        item.departmentCode === null && item.memberCode === member.memberCode // memberCode 수정
                     )).sort((prev , next) =>
                         prev.indexNo - next.indexNo
                     ).filter((item, index)=> (
@@ -116,7 +117,7 @@ console.log('calendarNav');
             </div>
             {
                 data.data.filter(item => (
-                    item.departmentCode === null && item.memberCode === member.data.memberCode // memberCode 수정
+                    item.departmentCode === null && item.memberCode === member.memberCode // memberCode 수정
                 )).length > 3 &&
                 <ButtonSimple
                     name='my'
@@ -132,7 +133,7 @@ console.log('calendarNav');
             <div className={corpClassName}>
                 {
                     data.data.filter(item => (
-                        item.departmentCode === member.data.deptCode || item.departmentCode  === 1 // 조건 수정 예정
+                        item.departmentCode === member.deptCode || item.departmentCode  === 1 // 조건 수정 예정
                     )).sort((prev , next) =>
                         prev.indexNo - next.indexNo
                     ).filter((item, index) => (
@@ -158,7 +159,7 @@ console.log('calendarNav');
             <div className={favClassName}>
                 {
                     data.data.filter(item => (
-                        item.memberCode !== member.data.memberCode && item.departmentCode === null // membercode조건 수정 예정
+                        item.memberCode !== member.memberCode && item.departmentCode === null // membercode조건 수정 예정
                     )).sort((prev , next) =>
                         prev.indexNo - next.indexNo
                     ).filter((item, index)=> (
@@ -177,7 +178,7 @@ console.log('calendarNav');
             </div>
             {
                 data.data.filter(item => (
-                    item.memberCode !== member.data.memberCode && item.departmentCode === null // membercode조건 수정 예정
+                    item.memberCode !== member.memberCode && item.departmentCode === null // membercode조건 수정 예정
                 )).length > 3 &&
                 <ButtonSimple
                     name='fav'

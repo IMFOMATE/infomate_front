@@ -12,12 +12,13 @@ import {getMainCredit} from "../../apis/HomeAPICalls";
 import {LoadingSpiner} from "../../components/common/other/LoadingSpiner";
 import {NavLink, Navigate, useNavigate, Link} from 'react-router-dom';
 import AnonyMini from '../../components/board/AnonyMini';
+import Weather from "./Weather";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 function Main() {
     const dispatch = useDispatch();
     const documentData = useSelector(state => state.homeMainReducer[GET_CREDIT]);
     const navigate = useNavigate();
-
+    
     const isLogin = window.localStorage.getItem('accessToken');
     let decoded = null;
 
@@ -52,11 +53,9 @@ function Main() {
                 </div>
                 <div className={MainStyle.content}>
                     <div className={MainStyle.home_content}>
+                        <Clock/>
                         <div>
-                            <Clock/>
-                        </div>
-                        <div>
-
+                        <Weather/>
                         </div>
                     </div>
                     <div className={`${MainStyle.home_content} ${MainStyle.item1}`}>
@@ -115,10 +114,10 @@ function Main() {
                         </div>
                     </div>
                     <div className={MainStyle.home_content}>
-                        <div className={MainStyle.home_title_wrap}>
+                    <div className={MainStyle.home_title_wrap}>
                             <h2>게시판</h2>
-                            <Link to={'/board'}><NavigateNextIcon/></Link>
                         </div>
+                            <AnonyMini />
                     </div>
                 </div>
             </div>

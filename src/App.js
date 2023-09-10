@@ -47,6 +47,8 @@ import LoginForm from "./pages/member/login/LoginForm";
 import Main from './pages/home/Main';
 import Register from './pages/member/login/Register';
 import SearchList from './pages/manage/SearchList';
+import Items from './pages/manage/admin/Items';
+
 
 
 function App() {
@@ -115,6 +117,7 @@ function App() {
             <Route path='updateList' element={<UpdateList/>}/>
             <Route path='deptItems' element={<DeptItems/>}/>
             <Route path='search' element={<SearchList/>}/>
+            <Route path='items' element={<Items/>}/>
 
 
 

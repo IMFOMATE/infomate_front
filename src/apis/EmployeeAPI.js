@@ -67,7 +67,7 @@ export const callDeptListAPI = ({currentPage}) => {     // 직원 전체
 }
 
 
-export const callDeptAllAPI = () => {      // 부서만 조회
+export const callDeptAllAPI = ({ deptCode }) => {      // 부서만 조회
     
     const requestURL= 'http://localhost:8989/department/dept/list'
 
@@ -78,7 +78,7 @@ export const callDeptAllAPI = () => {      // 부서만 조회
             headers: {
                 "Content-Type": "application/json",
                 "Accept" : "*/*",
-                "Authorization": "Bearer " + window.localStorage.getItem("accessToken"),
+                // "Authorization": "Bearer " + window.localStorage.getItem("accessToken"),
             }
         })
         .then(response => response.json());

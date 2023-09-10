@@ -13,6 +13,9 @@ export const PATCH_FAV_CALENDAR_STATE_UPDATE = 'favCalendar/PATCH'
 export const DELETE_FAV_CALENDAR = 'favCalendar/DELETE'
 
 const favCalendarReducer = handleActions({
+        PURGE : (state) => {
+            return initialState;
+        },
         [GET_FAV_CALENDAR_LIST]: (state, { payload }) => ({   
             ...state, [GET_FAV_CALENDAR_LIST]: payload
         }),

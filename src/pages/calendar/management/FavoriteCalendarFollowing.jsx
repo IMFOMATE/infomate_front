@@ -68,7 +68,7 @@ const FavoriteCalendarFollowing = () => {
                                             key={item.id}
                                             id={item.id}
                                             memberName={item.calendar.member.memberName}
-                                            rank={item.calendar.member.rank.rankName} // 직위 수정 예정
+                                            rank={item.calendar.member.rank.rankName}
                                             calendarName={item.calendar.name}
                                             requestDate={item?.requestDate}
                                             state={item?.approvalStatus}

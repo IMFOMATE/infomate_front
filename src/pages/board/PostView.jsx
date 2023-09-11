@@ -28,7 +28,7 @@ function PostView() {
     const [form, setForm] = useState({});
 
     useEffect(() => {
-      if(post.length > 0) return ;
+      if(post?.length > 0) return ;
 
           console.log('[PostUpdate] postCode : ', params.postCode);
 
@@ -37,7 +37,7 @@ function PostView() {
           }));                     
       }
   ,[]);
-    if(post.length > 0) return <LoadingSpiner />
+    if(post?.length > 0) return <LoadingSpiner />
 
     const onClickPostModifyHandler = () => {  // 수정 모드
       setModifyMode(true);
@@ -127,6 +127,7 @@ function PostView() {
       ['link', "image", "video"]
     ]; 
 
+    
     return (
 <>
         <div className={mainCSS.maintitle}>

@@ -19,7 +19,7 @@ function NewPost() {
     console.log('boardManagement', boardList);
 
     // 페이징
-    const pageInfo = board.pageInfo;
+    const pageInfo = board?.pageInfo || {};
 
     const [start, setStart] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
@@ -46,6 +46,7 @@ function NewPost() {
         navigate(`/board/post/${postCode}`, { replace: false });
     }
 
+
     return (
         <>
 
@@ -66,7 +67,7 @@ function NewPost() {
                         >
                             <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postTitle }</td>
-                            <td className={BoardCSS.bdtable_td}>{ b.memberCode }</td>
+                            <td className={BoardCSS.bdtable_td}>{ b.member.memberName }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postDate }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
                         </tr>

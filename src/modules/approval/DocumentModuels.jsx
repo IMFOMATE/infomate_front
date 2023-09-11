@@ -11,7 +11,7 @@ export const POST_PAYMENT = 'document/POST_PAYMENT';
 
 export const GET_DETAIL = 'document/GET_DETAIL';
 export const DELETE_DOCUMENT = 'document/DELETE_DOCUMENT';
-
+export const CANCEL_DOCUMENT = 'document/CANCEL_DOCUMENT';
 
 const actions = createActions({
   [GET_DOCUMENT_MAIN] : () => {},
@@ -20,7 +20,8 @@ const actions = createActions({
   [POST_VACATION] : () => {},
   [POST_PAYMENT] : () => {},
   [GET_DETAIL] : () => {},
-  [DELETE_DOCUMENT] : () =>{}
+  [DELETE_DOCUMENT] : () =>{},
+  [CANCEL_DOCUMENT] : () =>{}
 })
 
 const documentsReducer = handleActions(
@@ -35,14 +36,17 @@ const documentsReducer = handleActions(
          return {[POST_DRAFT]: payload}
       },
       [POST_VACATION] : (state, { payload }) => {
-        return payload;
+        return {[POST_VACATION]: payload}
       },
       [POST_PAYMENT] : (state, { payload }) => {
-        return payload;
+        return {[POST_PAYMENT]: payload}
       },
       [DELETE_DOCUMENT] : (state, { payload }) => {
         return payload;
       },
+      [CANCEL_DOCUMENT] : (state, { payload }) =>  ({
+        ...state, [CANCEL_DOCUMENT]: payload
+      }),
       [GET_DETAIL] : (state, { payload }) => ({
            ...state, [GET_DETAIL]: payload
       }),

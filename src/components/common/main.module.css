@@ -3,6 +3,10 @@
 	padding: 20px 30px;
 }
 
+.approval_border{
+	border-bottom: 1px solid var(--color-border);
+}
+
 @media (max-width: 480px){
 	.maintitle{
 		z-index: 1;

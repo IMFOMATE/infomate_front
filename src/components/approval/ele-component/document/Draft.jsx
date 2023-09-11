@@ -16,18 +16,20 @@ import {draftRegistAPI} from "../../../../apis/DocumentAPICalls";
 import {handleCancel, isValid, showValidationAndConfirm} from "../common/dataUtils";
 import {decodeJwt} from "../../../../util/tokenUtils";
 import {POST_DRAFT} from "../../../../modules/approval/DocumentModuels";
+import {tempAPI} from "../../../../apis/ApprovalAPICalls";
+import {POST_TEMP} from "../../../../modules/approval/ApprovalModuels";
 
 
-function Draft({documentData}) {
+function Draft({documentData, temp = false}) {
   const treeview = useSelector(state => state.departmentReducer);
   const documentReducer = useSelector(state => state.documentsReducer[POST_DRAFT]);
+  const approval = useSelector(state => state.approvalReducer[POST_TEMP]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname.split("/");
   const isReapply = path[path.length-1];
   const { data, setData } = useDraftDataContext();
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
 
@@ -42,7 +44,7 @@ function Draft({documentData}) {
   },[isModalOpen]);
 
   useEffect(() => {
-    if(isReapply === 'reapply'){
+    if(isReapply === 'reapply' || temp){
       const modifiedApprovalList = documentData.approvalList.map(approval => ({
         ...approval,
         approvalStatus: '',
@@ -78,10 +80,7 @@ function Draft({documentData}) {
   //모달 토글 버튼
   const toggleModal = () => setIsModalOpen(prev => !prev);
 
-  //폼요청
-  const requestApproval = (formData) => {
-    dispatch(draftRegistAPI(formData));
-  };
+
 
   // formData 생성하는 함수
   const createFormData = () => {
@@ -115,13 +114,28 @@ function Draft({documentData}) {
     return formData;
   };
 
+  //폼요청
+  const requestApproval = (formData) => {
+    dispatch(draftRegistAPI(formData));
+  };
+
+  const tempIsSave = data.documentStatus === "TEMPORARY";
+  const tempApproval = (formData, type, docId) => {
+    dispatch(tempAPI(formData, type, docId, tempIsSave));
+  };
+
+  const tempRequest = (formData, type, docId) => {
+    dispatch(tempAPI(formData, type, docId, tempIsSave));
+  };
+
+
   //유효성 및 결재 요청
   const handleRequest = () => {
 
     const validationResult = isValid(data,true, false);
 
     showValidationAndConfirm(
-        validationResult, data.approvalList.length,
+        validationResult, data.approvalList.length, '결재상신', '결재하시겠습니까??',
         () => {
           const formData = createFormData();
           requestApproval(formData);
@@ -131,7 +145,15 @@ function Draft({documentData}) {
   
   // 임시저장 api
   const handleTemp = () => {
-
+    const validationResult = isValid(data,true, false);
+    console.log(data)
+    showValidationAndConfirm(
+        validationResult, data.approvalList.length, '임시저장', '임시저장하시겠습니까??',
+        () => {
+          const formData = createFormData();
+          tempRequest(formData,'draft', data?.id);
+        }
+    )
   };
 
   const handleChoice = toggleModal;  //결재선 지정 모달
@@ -205,7 +227,9 @@ function Draft({documentData}) {
                       협조부서
                     </td>
                     <td className={style.td}>
-                      <select onChange={onChangeHandler} name="coDept" className={style.dept} value={data.coDept || ''}>
+                      <select onChange={onChangeHandler}
+                              name="coDept" className={style.dept}
+                              value={data.coDept || ''}>
                         <option value="협조부서선택">협조부서선택</option>
                         <option value="본부">본부</option>
                         <option value="영업팀">영업팀</option>

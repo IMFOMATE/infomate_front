@@ -82,11 +82,11 @@ export const postScheduleRegist = ({data}) => {
 
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/schedule/regist`;
     
-    data = {...data, startDate: dayjs(data.startDate).format('YYYY-MM-DDTHH:MM:ss'), endDate: dayjs(data.endDate).format('YYYY-MM-DDTHH:MM:ss')}
+    data = {...data, startDate: dayjs(data.startDate).format('YYYY-MM-DDTHH:mm:ss'), endDate: dayjs(data.endDate).format('YYYY-MM-DDTHH:mm:ss')}
+
     if(data?.participantList?.length > 0) 
         data = {...data, participantList: [...data.participantList?.map(item => ({memberCode: item.member.memberCode}))]}
 
-        console.log(data);
     return async (dispatch, getState) => {
         const result = await axios.post(requestURL, data, {headers: {
             "Accept": "*/*",

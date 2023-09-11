@@ -111,7 +111,6 @@ function SearchDept(){
                                     <th>정보</th>
                                 </tr>
                             </thead>   
-                            {/* <SearchList/> */}
                             <tbody className={`tb ${SdeptCss.tb}`}>
                                     
                                     {

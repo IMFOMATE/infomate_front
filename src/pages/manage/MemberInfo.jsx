@@ -7,11 +7,10 @@ import {
 } from '../../apis/EmployeeAPI';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import {  useParams } from 'react-router-dom';
+import {  useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FadeLoader } from "react-spinners";
 import StylesLoading from '../calendar/loadingStyle.module.css';
-
 
 
 function MemberInfo(){
@@ -53,8 +52,8 @@ function MemberInfo(){
                 <div className={`infoWrap ${InfoCss.infoWrap}`}>
                     <div className={`empInfo ${InfoCss.empInfo}`}>
                         <img className={`empImage ${InfoCss.empImage}`} alt='empImage' src='img/user.jpg'/>                               
-                        <input type='file' className={`imgFile ${InfoCss.imgFile}`}/>
-                        <p>* 사진은 자동으로 150x150 사이즈로 적용됩니다.</p>
+                        {/* <input type='file' className={`imgFile ${InfoCss.imgFile}`}/> */}
+                        {/* <p>* 사진은 자동으로 150x150 사이즈로 적용됩니다.</p> */}
                     </div>
                     <div className={`empSign ${InfoCss.empSign}`}>
                         <table>
@@ -103,7 +102,7 @@ function MemberInfo(){
                         </table>
                     </div>
                     <div className={`checkBnt ${InfoCss.checkBnt}`}>
-                    <button><a href='/searchDept'>확인</a></button>
+                    <button><Link to='/searchDept'>목록보기</Link></button>
                     {/* <button>취소</button> */}
                     </div>
                 </div>

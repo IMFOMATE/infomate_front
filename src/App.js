@@ -51,6 +51,8 @@ import Main from './pages/home/Main';
 import Register from './pages/member/login/Register';
 import SearchList from './pages/manage/SearchList';
 import MailTrash from './pages/mail/MailTrash';
+import Items from './pages/manage/admin/Items';
+
 
 
 function App() {
@@ -167,6 +169,7 @@ function App() {
             <Route path='updateList' element={<UpdateList/>}/>
             <Route path='deptItems' element={<DeptItems/>}/>
             <Route path='search' element={<SearchList/>}/>
+            <Route path='items' element={<Items/>}/>
 
 
 
@@ -190,7 +193,6 @@ function App() {
             <Route path="/board/anony" element={ <Anony />}/>
             <Route path="/board/posting" element={ <Posting />}/>
             <Route path="/board/post/:postCode" element={ <PostView />}/>
-            <Route path="/board/update/:postCode" element={ <PostUpdate />}/>
 
             {/* <Route path="/board" element={<BoardMain/>}></Route> */}
           

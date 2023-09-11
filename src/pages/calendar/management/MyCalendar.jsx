@@ -15,7 +15,8 @@ const MyCalendar = () => {
     
     const calendarList = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
     const calendarReducer = useSelector(state => state.calendarReducer);
-    const member = useSelector(state => state.memberReducer);
+    // const member = useSelector(state => state.memberReducer);
+    const member = JSON.parse(window.localStorage.getItem('authToken'));
     const dispatch = useDispatch();
 
     useEffect(()=> {
@@ -64,14 +65,14 @@ const MyCalendar = () => {
                     <div className={styles.delete}>
                     </div>
                     {
-                        calendarList?.data.filter(item => item.memberCode === parseInt(member.data.memberCode)
+                        calendarList?.data.filter(item => item.memberCode === parseInt(member.memberCode)
                         ).sort((prev, next) => (
                             prev.indexNo - next.indexNo
                         )).map((item,index) => <MyCalendarItem 
                                                     key={item.id}
                                                     id={item.id}
                                                     min={index === 0}
-                                                    max={index === (calendarList.data.filter(item => item.memberCode === parseInt(member.data.memberCode)).length - 1)}
+                                                    max={index === (calendarList.data.filter(item => item.memberCode === parseInt(member.memberCode)).length - 1)}
                                                     memberCode={item.memberCode}
                                                     defaultCalendar={item.defaultCalendar}
                                                     name={item.name}

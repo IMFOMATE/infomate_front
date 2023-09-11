@@ -4,7 +4,6 @@ import ApprovalTop from "../../components/approval/ApprovalTop";
 import ApprovalTable from "../../components/approval/ele-component/table/ApprovalTable";
 import {useDispatch, useSelector} from "react-redux";
 import {getMainAPI} from "../../apis/DocumentAPICalls";
-import { FadeLoader } from "react-spinners";
 import {LoadingSpiner} from "../../components/common/other/LoadingSpiner";
 
 
@@ -30,7 +29,9 @@ const ApprovalMain = () => {
           <h2>전자결재 홈</h2>
         </div>
           <>
-            <ApprovalTop data={data?.creditList} />
+            <div className={mainCss.approval_border}>
+              <ApprovalTop data={data?.creditList} />
+            </div>
             <ApprovalTable title="기안문서" data={data?.approvalList} />
             <ApprovalTable title="참조문서" data={data?.refList} />
           </>

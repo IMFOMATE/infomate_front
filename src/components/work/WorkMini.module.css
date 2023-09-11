@@ -1,0 +1,40 @@
+.flex{
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+  justify-content: space-between;
+}
+
+.workbtn_wrapper{
+  display: flex;
+  flex-direction: column;
+}
+
+.text{
+  font-size: 30px;
+
+}
+
+.dl{
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+
+}
+
+.work_wrapper{
+  padding: 15px;
+}
+
+.work_btn{
+  padding: 10px 0px;
+  display: flex;
+}
+
+.work_btn button{
+  flex: 1;
+}
+
+.work_btn button:first-child{
+  margin-right: 10px;
+}

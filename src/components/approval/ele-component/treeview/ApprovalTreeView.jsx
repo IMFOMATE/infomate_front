@@ -61,6 +61,7 @@ function ApprovalTreeView({modalData, contextType}) {
                   draggingSource: styles.draggingSource,
                   dropTarget: styles.dropTarget
                 }}
+                sort={false}
             />
             : ''
           }

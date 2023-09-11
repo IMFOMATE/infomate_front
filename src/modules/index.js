@@ -17,6 +17,7 @@ import homeMainReducer from "./HomeModules";
 import registMemberReducer from "./MemberRegisterModule";
 import memberMailReducer from "./MemberMailModule";
 import mailTrashReducer from "./MailTrashModule";
+import workReducer from "./WorkModule";
 
 const rootReducer = combineReducers({
     favCalendarReducer,
@@ -35,7 +36,9 @@ const rootReducer = combineReducers({
     homeMainReducer,
     memberMailReducer,
     mailTrashReducer,
+    workReducer
 });
+
 
 const persistConfig = {
     key: "root",

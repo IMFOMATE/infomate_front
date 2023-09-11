@@ -75,6 +75,10 @@ const boardReducer = handleActions(
 
             return payload;
         },
+        [GET_COMMENT]: (state, { payload }) => {
+
+            return payload;
+        },
         // [GET_COMMENT]: (state, { payload }) => {
 
         //     return payload;

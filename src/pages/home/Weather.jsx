@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import weatherStyle from './Weather.module.css';
 import weatherTranslations from './weatherTranslations.json';
+import {LoadingSpiner} from "../../components/common/other/LoadingSpiner";
+import {LocationCity, LocationOn, MyLocation} from "@mui/icons-material";
 
 function Weather() {
   const [weatherData, setWeatherData] = useState({
@@ -9,6 +11,9 @@ function Weather() {
     desc: '',
     icon: '',
     loading: true,
+    locationName: '',
+    max:0,
+    min:0
   });
 
   useEffect(() => {
@@ -25,11 +30,19 @@ function Weather() {
           const data = responseData.data;
           const weatherDesc = data.weather[0].description;
           const translatedDesc = weatherTranslations[weatherDesc] || weatherDesc;
+          const locationName = data.name;
+          const max = data.main.temp_max;
+          const min = data.main.temp_min;
+          console.log(max)
+
           setWeatherData({
             temp: data.main.temp,
             desc: translatedDesc,
             icon: data.weather[0].icon,
             loading: false,
+            locationName: locationName,
+            max:max,
+            min:min
           });
         })
         .catch((error) => console.log(error));
@@ -39,18 +52,29 @@ function Weather() {
   const imgSrc = `http://openweathermap.org/img/wn/${weatherData.icon}@2x.png`;
 
   if (weatherData.loading) {
-    return <p>Loading</p>;
+    return <LoadingSpiner/>;
   } else {
     return (
       <div className={weatherStyle.weatherContainer}>
-        <div className={weatherStyle.temperature}>
-          날씨: {(weatherData.temp).toFixed(1)}°C
-        </div>
-        <div>
-          <img src={imgSrc} alt="Weather Icon" className={weatherStyle.weatherIcon}/>
-        </div>
-        <div>
-          {weatherData.desc}
+        <h3>오늘 날씨</h3>
+        <div className={weatherStyle.flex}>
+          <div>
+            <img src={imgSrc} alt="Weather Icon" className={weatherStyle.weatherIcon}/>
+          </div>
+          <div className={weatherStyle.weather_content}>
+            <p><LocationOn/> {weatherData.locationName}</p>
+            <div className={weatherStyle.weather}>
+              <p className={weatherStyle.temperature}>{(weatherData.temp).toFixed(1)}°C</p>
+              <div>
+                <span>{(weatherData.max).toFixed(0)}°C</span>
+                /
+                <span>{(weatherData.min).toFixed(0)}°C</span>
+              </div>
+            </div>
+            <div>
+              {weatherData.desc}
+            </div>
+          </div>
         </div>
       </div>
     );

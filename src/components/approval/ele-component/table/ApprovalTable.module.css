@@ -61,9 +61,15 @@
     text-align: center;
 }
 
-.toolbar {
+.toolbar_wrap {
     display: flex;
     margin-bottom: 5px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toolbar{
+    display: flex;
 }
 
 .toolbar li  {
@@ -125,13 +131,14 @@
 }
 
 .data_null{
-    padding: 30px;
+    padding: 50px;
     text-align: center;
+    border-bottom: 1px solid var(--color-border);
 }
 
 
 @media (max-width: 480px){
-    .toolbar{
+    .toolbar_wrap{
         margin-top: 85px;
     }
 }

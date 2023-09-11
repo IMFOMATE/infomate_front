@@ -9,6 +9,7 @@ export const SelectCustomNode = (props) => {
   const { droppable, data } = props.node;
   const indent = props.depth * 24;
 
+
   const handleToggle = (e) => {
     e.stopPropagation();
     props.onToggle(props.node.id);

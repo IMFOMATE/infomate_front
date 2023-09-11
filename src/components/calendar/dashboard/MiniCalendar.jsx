@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { DELETE_SCHEDULE, GET_SCHEDULE_COUNT, PATCH_SCHEDULE, POST_SCHEDULE_REGIT } from "../../../modules/ScheduleMoudule";
 import { getScheduleDayPerCount } from "../../../apis/ScheduleAPICalls";
 import { LoadingSpiner } from "../../common/other/LoadingSpiner";
-import { type } from "@testing-library/user-event/dist/type";
 import { useNavigate } from "react-router-dom";
 
 dayjs.locale('ko');

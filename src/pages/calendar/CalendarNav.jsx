@@ -70,7 +70,7 @@ const CalendarNav = () => {
             ]);
         }   
     }
-console.log('calendarNav');
+    
     const moreClickHandler = (e) => {
         setMoreToggle({[e.target.name]:!moreToggle[e.target.name]});
     }

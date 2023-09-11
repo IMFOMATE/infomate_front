@@ -3,12 +3,14 @@
     display: block;
     padding: 10px;
     margin: 10px;
-    box-shadow: 0 0 7px 0 rgba(125, 125, 125, 0.3);
+    /* box-shadow: 0 0 7px 0 rgba(125, 125, 125, 0.3); */
 }
 
 .header{
     display: flex;
     justify-content: center;
+    font-size: 1.3rem;
+    font-weight: 500;
 }
 
 .header > div:nth-child(2){

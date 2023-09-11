@@ -37,7 +37,7 @@ const FavoriteCalendarFollowing = () => {
     },[search, favCalendarReducer[DELETE_FAV_CALENDAR]])
 
     if(!favCalendarFollowList) return <LoadingSpiner />
-    if(favCalendarFollowList.data.length === 0) <NotResultData />
+    if(favCalendarFollowList.data.length === 0 || favCalendarFollowList === null) return <NotResultData />
 
     const selectItemChange = (e)=> {
         if(e.target.checked){

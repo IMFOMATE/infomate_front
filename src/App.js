@@ -52,7 +52,7 @@ import Register from './pages/member/login/Register';
 import SearchList from './pages/manage/SearchList';
 import MailTrash from './pages/mail/MailTrash';
 import Items from './pages/manage/admin/Items';
-
+import MyInfo from './pages/member/MyInfo';
 
 
 function App() {
@@ -71,6 +71,14 @@ function App() {
               <Route index element={<Main/>}/>
               <Route path="regist-member" element={<Register/>}/>
             </Route>
+            <Route path="myInfo" element={<MyInfo/>}/>
+
+
+            <Route path="/addressBook" element={<AddressBook />} />
+            <Route path="/addContact" element={<AddContact />} />
+            {/* <Route path="/mailWrite" element={<MailWrite />} /> */}
+            <Route path="/mail" element={<Mail />} />
+            {/* <Route path="/board" element={<BoardMain />}></Route> */}
             
             <Route path="approval">
               <Route index element={<ApprovalMain/>}/>

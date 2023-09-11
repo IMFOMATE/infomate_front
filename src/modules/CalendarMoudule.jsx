@@ -11,6 +11,9 @@ export const PATCH_CALENDAR_UPDATE = 'calendar/PATCH'
 export const DELETE_CALENDAR = 'calendar/DELETE'
 
 const calendarReducer = handleActions({
+        PURGE : (state) => {
+            return initialState;
+        },
         [GET_CALENDAR_LIST]: (state, { payload }) => ({   
             ...state, [GET_CALENDAR_LIST]: payload
         }),

@@ -81,6 +81,7 @@ const Calendar = () =>{
             sizeObserver.disconnect();
         }
     },[
+        filter,
         dispatch,
         scheduleReducer[PATCH_SCHEDULE],
         scheduleReducer[DELETE_SCHEDULE],

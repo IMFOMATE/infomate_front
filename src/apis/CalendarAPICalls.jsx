@@ -167,6 +167,7 @@ export const patchChangeCalendarIndexNo = ({data}) => {
 
 
 export const deleteCalendar = ({scheduleId}) => {    
+    
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/delete/${scheduleId}`;
     return async (dispatch, getState) => {
         const result = await axios.delete(requestURL, {headers: {
@@ -176,7 +177,7 @@ export const deleteCalendar = ({scheduleId}) => {
                     .then(res => res.data)
                     .catch(e => console.log(e));
         
-        if(result.status === 200){
+        if(result?.status === 200){
             message.success(result.message);
             dispatch({ type: DELETE_CALENDAR,  payload: result });
             return ;

@@ -55,7 +55,78 @@ function Register() {
     },
         [image]);
 
-        console.log("image : ", image);
+    console.log("image : ", image);
+
+    const [errors, setErrors] = useState({
+        memberId: '',
+        memberPassword: '',
+        memberEmail: '',
+        memberPhone: '',
+        memberNo: '',
+        memberOff: '',
+    });
+
+    const validateForm = () => {
+        let isValid = true;
+        const newErrors = {
+            memberId: '',
+            memberPassword: '',
+            memberEmail: '',
+            memberPhone: '',
+            memberNo: '',
+            memberOff: '',
+        };
+
+        // 간단한 유효성 검사 예시
+        if (form.memberId.trim() === '') {
+            newErrors.memberId = '아이디를 입력하세요.';
+            isValid = false;
+        }
+
+        if (form.memberPassword.trim() === '') {
+            newErrors.memberPassword = '패스워드를 입력하세요.';
+            isValid = false;
+        }
+
+        if (!form.memberEmail.match(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)) {
+            newErrors.memberEmail = '올바른 이메일 주소를 입력하세요.';
+            isValid = false;
+        }
+
+        if (!form.memberPhone.match(/^\d{10,11}$/)) {
+            newErrors.memberPhone = '올바른 핸드폰 번호를 입력하세요.';
+            isValid = false;
+        }
+
+        if (!form.memberNo.match(/^\d{8}$/)) {
+            newErrors.memberNo = '올바른 생년월일을 입력하세요.';
+            isValid = false;
+        }
+
+        const birthYear = form.memberNo.substring(0, 4);
+        const birthMonth = form.memberNo.substring(4, 6);
+        const birthDay = form.memberNo.substring(6, 8);
+
+        if (birthMonth < 1 || birthMonth > 12) {
+            newErrors.memberBirthMonth = '올바른 월을 입력하세요 (1에서 12 사이).';
+            isValid = false;
+        }
+
+        const daysInMonth = new Date(birthYear, birthMonth, 0).getDate();
+        if (birthDay < 1 || birthDay > daysInMonth) {
+            newErrors.memberBirthDay = `올바른 일을 입력하세요 (1에서 ${daysInMonth} 사이).`;
+            isValid = false;
+        }
+
+        if (form.memberOff < 0 || form.memberOff > 25) {
+            newErrors.memberOff = '보유연차는 0에서 25 사이여야 합니다.';
+            isValid = false;
+        }
+
+        setErrors(newErrors);
+
+        return isValid;
+    };
 
     const onChangeImageUpload = (e) => {
 
@@ -80,30 +151,33 @@ function Register() {
 
         console.log('[MemberRegistration] onClickMemberRegistrationHandler');
 
-        const formData = new FormData();
+        if (validateForm()) {
+            const formData = new FormData();
 
-        formData.append("memberId", form.memberId);
-        formData.append("memberPassword", form.memberPassword);
-        formData.append("memberName", form.memberName);
-        formData.append("memberEmail", form.memberEmail);
-        formData.append("memberPhone", form.memberPhone);
-        formData.append("memberNo", form.memberNo);
-        formData.append("memberStatus", form.memberStatus);
-        formData.append("memberAddress", form.memberAddress);
-        formData.append("hireDate", form.hireDate);
-        formData.append("deptCode", form.deptCode);
-        formData.append("rankCode", form.rankCode);
-        formData.append("memberOff", form.memberOff);
+            formData.append("memberId", form.memberId);
+            formData.append("memberPassword", form.memberPassword);
+            formData.append("memberName", form.memberName);
+            formData.append("memberEmail", form.memberEmail);
+            formData.append("memberPhone", form.memberPhone);
+            formData.append("memberNo", form.memberNo);
+            formData.append("memberStatus", form.memberStatus);
+            formData.append("memberAddress", form.memberAddress);
+            formData.append("hireDate", form.hireDate);
+            formData.append("deptCode", form.deptCode);
+            formData.append("rankCode", form.rankCode);
+            formData.append("memberOff", form.memberOff);
 
-        if (image) {
-            formData.append("memberPic", image);
+            if (image) {
+                formData.append("memberPic", image);
+            }
+            
+            
+            dispatch(callRegisterAPI({
+                form: form,
+                image: image,
+            }));
+
         }
-        
-        
-        dispatch(callRegisterAPI({
-            form: form,
-            image: image,
-        }));
     }
 
     useEffect(() => {
@@ -163,6 +237,7 @@ function Register() {
                                             autoComplete='off'
                                             onChange={onChangeHandler}
                                         />
+                                        <div className="error">{errors.memberId}</div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -176,6 +251,7 @@ function Register() {
                                             autoComplete='off'
                                             onChange={onChangeHandler}
                                         />
+                                        <div className="error">{errors.memberPassword}</div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -202,6 +278,7 @@ function Register() {
                                             autoComplete='off'
                                             onChange={onChangeHandler}
                                         />
+                                        <div className="error">{errors.memberEmail}</div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -215,6 +292,7 @@ function Register() {
                                             autoComplete='off'
                                             onChange={onChangeHandler}
                                         />
+                                        <div className="error">{errors.memberPhone}</div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -222,11 +300,15 @@ function Register() {
                                     <td>
                                         <input
                                             className={RegisterCSS.registInfoInput}
-                                            type="date"
+                                            type="text"
                                             name="memberNo"
+                                            placeholder="생년월일 (예: 19901231)"
                                             autoComplete='off'
                                             onChange={onChangeHandler}
                                         />
+                                        <div className="error">{errors.memberNo}</div>
+                                    <div className="error">{errors.memberBirthMonth}</div>
+                                    <div className="error">{errors.memberBirthDay}</div>
                                     </td>
                                 </tr>
                                 <tr>

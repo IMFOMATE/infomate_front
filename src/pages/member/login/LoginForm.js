@@ -24,6 +24,7 @@ function LoginForm() {
 
             // console.log(loginMember.data);
 
+
             localStorage.setItem('authToken',
             JSON.stringify({
                 memberName:loginMember.data.memberName,

@@ -4,6 +4,7 @@ body {
 }
 
 
+
 .regist {
     margin-right: 30px;
     border: 1px solid #7758FA;
@@ -12,6 +13,14 @@ body {
 
 .regist:hover {
     background: #7758FA;
+}
+
+.board{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px 0 10px;
 }
 
 .calendar{
@@ -23,16 +32,38 @@ body {
 }
 
 .item1{
+    grid-row: 1 / 2;
+}
+
+.item2{
+    grid-row: 2 / 3;
+
+}
+
+.item3{
+    grid-row: 1 / 6 ;
+    grid-column: 2 / 3;
+}
+
+.item4{
     grid-row: 1 / 3;
-    grid-column: 2 / 2;
+
+}
+
+.item5{
+    grid-row: 3 / 6;
+    grid-column: 1 / 2;
+}
+
+.item6{
+    grid-row: 3 / 6;
 }
 
 .content{
     flex: 1;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: repeat(2, 1fr) ;
-    grid-auto-flow: dense;
+    /*grid-auto-rows: minmax(100px, auto);*/
     background-color: var(--color-background);
 }
 
@@ -44,8 +75,6 @@ body {
 }
 
 .home_content{
-    display: flex;
-    flex-direction: column;
     margin: 10px;
     border-radius: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -81,7 +110,34 @@ body {
 }
 
 .reminder h3{
-    padding: 30px 10px;
+    padding: 20px 10px;
+}
+
+.credit_content{
+    display: flex;
+    flex-direction: column;
+    flex:1;
+}
+
+.credit_top{
+    display: flex;
+    border-bottom: 1px solid var(--color-border);
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.credit_top > div{
+    text-align: center;
+    flex: 1;
+    padding: 10px;
+}
+
+.credit_top > div > p{
+    padding: 10px;
+    font-size: 25px;
+    color: var(--color-hard);
+    cursor: pointer;
 }
 
 .credit_content{
@@ -121,6 +177,11 @@ body {
 }
 
 
+.regi_title{
+    display: flex;
+    justify-content: space-between;
+}
+
 
 @media screen and (max-width: 1280px){
     .content{
@@ -128,6 +189,17 @@ body {
     }
 }
 
+@media screen and (max-width: 480px){
+    .regi_title{
+        justify-content: end;
+    }
+    .content{
+        margin-top: 85px;
+    }
+}
+.line{
+    border-right: 2px solid var(--color-border) ;
+}
 
 
 @media screen and (max-width: 768px){

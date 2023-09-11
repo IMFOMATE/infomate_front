@@ -5,10 +5,10 @@ import Status from "../table/Status";
 
 function CreditList({data}) {
 
-  if (!data){
+  if (!data || data.length === 0){
     return (
-        <div>
-          기안할 문서가 없습니다.
+        <div className={CreditListCss.no_list}>
+          결재대기 문서가 없습니다.
         </div>
     )
   }

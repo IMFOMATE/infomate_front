@@ -15,7 +15,7 @@ function DocFile({handleFileChange, value}) {
         />
         <div>
           {
-              value && value.map(f=><DownloadButton filename={f.fileName}>{f.fileName}</DownloadButton>)
+              value && value.map(f=><DownloadButton filename={f.fileName}></DownloadButton>)
           }
         </div>
 

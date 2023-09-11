@@ -72,6 +72,12 @@
     width: 100%;
 }
 
+.no_list{
+    padding: 50px;
+    width: 100%;
+    text-align: center;
+}
+
 
 @media screen and (max-width:768px){
     .approval{

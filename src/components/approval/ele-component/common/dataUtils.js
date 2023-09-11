@@ -5,8 +5,15 @@ import Swal from "sweetalert2";
 
 export function formatApprovalDate(approvalDate) {
   const date = new Date(approvalDate);
-  return `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}`;
+  return `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')} `;
 }
+
+
+export function formatNowDate() {
+  const date = new Date();
+  return `${date.getFullYear()}년 ${(date.getMonth() + 1).toString().padStart(2, '0')}월 ${date.getDate().toString().padStart(2, '0')}일`;
+}
+
 
 export function shortFormatApprovalDate(approvalDate){
   const date = new Date(approvalDate);
@@ -80,7 +87,7 @@ export const isPaymentListValid = (paymentList) => {
 };
 
 
-export const showValidationAndConfirm = (validationResult, approvalSize, confirmedCallback) => {
+export const showValidationAndConfirm = (validationResult, approvalSize, title, text, confirmedCallback) => {
   if (typeof validationResult === 'string') {
     // 유효성 검사 실패 시 해당 조건에 맞는 텍스트를 표시
     Swal.fire({
@@ -94,8 +101,8 @@ export const showValidationAndConfirm = (validationResult, approvalSize, confirm
   if(approvalSize){
     Swal.fire({
       icon: 'info',
-      title: '결재요청',
-      text: '결재하시겠습니까??',
+      title: title,
+      text: text,
       showCancelButton: true,
       confirmButtonText: '네',
       cancelButtonText: '아니오'
@@ -141,10 +148,10 @@ export const handleCancel = (callback) => {
 };
 
 
-export const handleDelete = (callback)=>{
+export const handleAlert = (title, text, callback)=>{
   Swal.fire({
-    title: '문서 삭제',
-    text: '문서를 삭제하시겠습니까?',
+    title: title,
+    text: text,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonText: '예',

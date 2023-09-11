@@ -15,6 +15,8 @@ const PaymentDetail = forwardRef(({data}, ref) =>{
     return Math.floor(totalPaymentPrice);
   }
 
+  console.log(data)
+
   return (
       <div className={style.container}>
         <div className={style.docs} ref={ref}>

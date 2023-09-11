@@ -69,6 +69,7 @@ const DraftDetail = forwardRef(({data}, ref) =>{
                         className={style.left}
                         name='emergency'
                         type="checkbox"
+                        checked={data.emergency === 'Y'}
                         value={data.emergency === 'Y'}
                     />
                   </td>

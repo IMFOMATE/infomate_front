@@ -155,13 +155,13 @@ border-bottom: 1px solid rgba(155, 155, 155, 0.5);
 #mailSearch {
 
     display: flex;
-margin-left: 80%;
-width: 200px;
+    margin-left: 80%;
+    width: 200px;
 
-border: 1px solid rgba(155, 155, 155, 0.5);
-color: gray;
-padding: 10px;
-border-radius: 5px;
+    border: 1px solid rgba(155, 155, 155, 0.5);
+    color: gray;
+    padding: 10px;
+    border-radius: 5px;
 
 }
 

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteFavCalendar, patchFavCalendarStateUpdate, postFavCalendarRegit } from '../../../apis/FavCalendarAPICalls';
 
 const CalendarManagefavoriteModifyMenu = () => {
-    const member = useSelector(state => state.memberReducer);
+    const member = JSON.parse(window.localStorage.getItem('authToken'));
 
     const {pathname} = useLocation();
 
@@ -30,7 +30,7 @@ const CalendarManagefavoriteModifyMenu = () => {
 
     const approveRequest = () => {
         const data = [...chk.selectList.map(item => 
-            ({refCalendar: item, memberCode: parseInt(member.data.memberCode)}))
+            ({refCalendar: item, memberCode: parseInt(member.memberCode)}))
         ]
         dispatch(postFavCalendarRegit({data:data}))
     }

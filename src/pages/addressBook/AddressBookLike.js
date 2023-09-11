@@ -1,7 +1,6 @@
 import style from './AddressBook.module.css';
 import img1 from './images/free-icon-star-1163655.png';
-import img2 from './images/free-icon-star-126482.png';
-import defaultImg from './images/images.png';
+import img2 from './images/free-icon-star-126482.png'
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -15,7 +14,7 @@ import ContactModal from '../../../src/components/approval/ele-component/contact
 
 const selectButton = ["전체","ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
 
-function AddressBook({ title }) {
+function AddressBookLike({ title }) {
 
     const dispatch = useDispatch();
     const contact = useSelector(state => state.contactReducer);
@@ -26,6 +25,8 @@ function AddressBook({ title }) {
     const [start, setStart] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageEnd, setPageEnd] = useState(1);
+    const [selectName, setSelectName] = useState("");
+    const [matchingNames, setMatchingNames] = useState([]);
 
     const authTokenJSON = localStorage.getItem('authToken');
 
@@ -34,14 +35,16 @@ function AddressBook({ title }) {
  
      // 회원 코드를 가져옴
      const memberCode = authToken.memberCode;
+    
 
     const pageInfo = contact.data?.pageInfo;
 
-    console.log("pageInfo",pageInfo);
+    console.log("솰라", matchingNames?.filter(contact => contact.contactLike === 'Y'));
+
+    // console.log("contactLike", contactList.map(contact => contact.contactLike.filter( contact.contactLike === 'Y')));
+
 
     const pageNumber = [];
-
-
 
     if(pageInfo){
         for(let i = 1; i <= pageInfo.pageEnd; i++){
@@ -55,30 +58,25 @@ function AddressBook({ title }) {
             dispatch(callSelectAPI({
                 memberCode: memberCode,
                 currentPage : currentPage,
-                title : title
+                title : title,
+                
                 
             }));
         },[currentPage]);
 
-    // useEffect(
-    //     () => {
-           
-    //         dispatch(callContactListPagingAPI({
-               
-                
-    //         }));
-            
-    //     },[currentPage]);
-        
         
         useEffect(() => {
             setMatchingNames(contactList);
             
-          }, [contactList]);
+            }, [contactList]);
 
 
-    const [selectName, setSelectName] = useState("");
-    const [matchingNames, setMatchingNames] = useState([]);
+
+
+
+
+
+    
     
     // const [check, setCheck] = useState(false);
     function getConstantVowel(kor) {
@@ -179,19 +177,11 @@ function AddressBook({ title }) {
 
     const [selectedContact, setSelectedContact] = useState(null);
 
-    console.log("asgfsagasgasg", selectedContact);
-
     const closeModal = () => {
         setSelectedContact(null);
     };
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const [updateContact, setUpdateContact] = useState({});
-    const openModal = (contact) => {
-        setUpdateContact(contact)
-        setIsModalOpen(true);
-    }
 
 
 
@@ -233,9 +223,9 @@ function AddressBook({ title }) {
                 
 
                 <div className={style.addressContent}>
-                    {matchingNames && matchingNames.map (
+                    {matchingNames && matchingNames?.map (
                         (contact, index) => (
-
+                            
                             <div key={contact.contactCode} className={`modal ${isModalOpen ? 'modal-open' : ''}`} >
                                 <button className={style.starButton} onClick={() => chooseHandler(contact)}>
                                     {
@@ -268,7 +258,7 @@ function AddressBook({ title }) {
                         <h2>{selectedContact.contactName} 연락처 정보</h2>
                         </div>
                         <div className={style.contentModal}>
-                        <p className='content'><strong>사진:</strong> <img className={style.contentImg} src={selectedContact.contactPhoto}  /></p>
+                        <p className={style.contentPhoto}><strong>사진:</strong> <img src={selectedContact.contactPhoto} alt="프로필 사진" /></p>
                         <p className='content'><strong>이름:</strong> {selectedContact.contactName}</p>
                         <p className='content'><strong>회사:</strong> {selectedContact.company}</p>
                         <p className='content'><strong>부서:</strong> {selectedContact.department}</p>
@@ -279,12 +269,10 @@ function AddressBook({ title }) {
                         <p className='content'><strong>메모:</strong> {selectedContact.memo}</p>
                         </div>
                     <div className={style.contentButton}>
-                    <button onClick={ () => openModal(selectedContact)}>수정</button>
+                    
                     <button onClick={ () => onDeleteContactHandler(selectedContact.contactCode) }>삭제</button>
                     </div>
-                    {
-                        isModalOpen && <ContactModal contact= {updateContact} setIsModalOpen={setIsModalOpen} />
-                    }
+                        
                     </div>
                 </div>
       )}
@@ -327,4 +315,4 @@ function AddressBook({ title }) {
 
 }
 
-export default AddressBook;
+export default AddressBookLike;

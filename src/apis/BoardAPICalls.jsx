@@ -13,7 +13,7 @@ import {
     POST_COMMENT,
     PUT_COMMENT,
     DELETE_COMMENT,
-    GET_MAINBOARD
+    GET_MAINBOARD,
     
 
 } from '../modules/BoardModule.jsx';

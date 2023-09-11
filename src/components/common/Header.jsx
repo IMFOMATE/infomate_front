@@ -11,6 +11,10 @@ import GroupNav from '../../pages/manage/GroupNav';
 import ContactNav from "../contact/ContactNav"
 import { useLocation } from 'react-router-dom';
 import WorkNav from '../../pages/work/WorkNav';
+import MailNav from '../mail/MailNav';
+
+
+
 
 
 
@@ -30,8 +34,9 @@ function Header() {
                 menu === 'board' && <Board/> ||
                 menu === 'approval' && <ApprovalNav/> ||
                 menu === 'group' && <GroupNav/> ||
-                menu === 'contact' && <ContactNav /> ||
-                menu === 'calendar' && <CalendarNav/>
+                menu === 'addressBook' && <ContactNav /> ||
+                menu === 'calendar' && <CalendarNav/> ||
+                menu === 'mail' && <MailNav />
             }
 
         </header>

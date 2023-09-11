@@ -34,6 +34,9 @@ import BrdDept from "./pages/board/BrdDept";
 import BrdAdmin from "./pages/board/BrdAdmin";
 import Anony from "./pages/board/Anony";
 import NewPost from "./pages/board/NewPost";
+import MailContactModal from './components/approval/ele-component/contact/MailContactModal';
+import AddressBookLike from './pages/addressBook/AddressBookLike';
+import ViewMail from './pages/mail/ViewMail';
 import Posting from './pages/board/Posting';
 import UpdateMember from './pages/manage/UpdateMember';
 import DocumentDetail from "./components/approval/ele-component/document/detail/DocumentDetail";
@@ -47,6 +50,7 @@ import LoginForm from "./pages/member/login/LoginForm";
 import Main from './pages/home/Main';
 import Register from './pages/member/login/Register';
 import SearchList from './pages/manage/SearchList';
+import MailTrash from './pages/mail/MailTrash';
 import Items from './pages/manage/admin/Items';
 
 
@@ -58,10 +62,55 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+
+
+        <Route path="/" element={<Layout/>}>
+                  <Route path="addressBook">
+
+                    {/* <Route index element={<AddressBook title={"전체연락처"}/>}/> */}
+                    <Route path="" element={<AddressBook title={"전체연락처"}/>}/>
+                    <Route path="allAddressBook" element={<AddressBook title={"전체연락처"}/>}/>
+                    <Route path="like" element={<AddressBookLike title={"즐겨찾기"}/>}/>
+                    <Route path="client" element={<AddressBook title={"거래처 연락처"}/>}/>
+                    <Route path="addContact" element={<AddContact title={"연락처 추가"} />}/>
+                
+                </Route>
+              </Route>  
+
+        <Route path='/' element={<Layout/>}> 
+              <Route path='mail'>
+                <Route path='' element={<Mail title={"전체메일함"} />}/>
+                <Route path='allMail' element={<Mail title={"전체메일함"} />}/>
+                <Route path='unreadMail' element={<Mail title={"안읽은 메일함"} />}/>
+                <Route path='readMail' element={<Mail title={"읽은 메일함"} />}/>
+                <Route path='reference' element={<Mail title={"참조 메일함"} />}/>
+                <Route path='mailWrite' element={<MailWrite />}/>
+                <Route path='mailTrash' element={<MailTrash title={"휴지통"} />}/>
+                <Route path='viewMail' element={<ViewMail />} />
+                {/* <Route path='asd' element={<MailContactModal />}/> */}
+
+
+                {/* <Route path='trach' element={<MailTrach} /> */}
+
+              </Route>
+        </Route>
+
+            <Route path="calendar">
+              {/* <Route index element={<SecheduleSummaryCreate />} /> */}
+            </Route>
           
           <Route index element={<LoginForm />} />
 
           <Route path="/" element={<Layout/>}>
+             {/* <Route path="/board" element={<BoardMain/>}></Route> */}
+                  {/* <Route path="/board" element={<BoardMain />}></Route> */}
+                  <Route path="calendar">
+                      {/* <Route index element={<SecheduleSummaryCreate/>}/> */}
+                  </Route>
+                  <Route path="approval"/>
+
+  
+            
 
             <Route path="main">
               <Route index element={<Main/>}/>
@@ -88,6 +137,9 @@ function App() {
                 <Route path=":documentId/reapply" element={<DocumentMain/>}/>
               </Route>
             </Route>
+
+
+
 
             <Route path="calendar" element={<CalendarLayout />}>
               <Route index element={<Calendar/>}/>

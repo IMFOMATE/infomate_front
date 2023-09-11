@@ -1,32 +1,41 @@
 import { MenuContext } from "../../context/MenuContext";
 import NavStyle from "../common/Nav.module.css";
-import Navlist from "../common/Navlist";
 import React, {useContext} from 'react';
+import Navlist from "../common/Navlist";
+import { Link  } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 function ContactNav() {
 
     const {menuState, toggleMenu} = useContext(MenuContext);
 
+    const navigate = useNavigate();
+
+    const handleButtonClick = () => {
+        navigate('/addressBook/addContact'); // 프로그래밍적인 페이지 이동
+    };
+
     return (
         <div className={`${NavStyle.sidemenu} ${menuState ? '': NavStyle.close}`}>
             <div className={NavStyle.sideTop}>
-                <h1>전체주소록</h1>
-                <a href="/">연락처 추가</a>
+                <h2 className={NavStyle.title}>주소록</h2>
+                <button className={NavStyle.new} onClick={handleButtonClick}>연락처 추가</button>
             </div>
             <div className={NavStyle.sideList}>
-              <Navlist title="전체주소록" data={ContactLink}/>
+              <Navlist title="전체 주소록" data={ContactLink}/>
             </div>
         </div>
     );
 }
 
 
+
 export default ContactNav;
 
 const ContactLink = [
-    {text:'전체주소록', link:'/addressBook'},
-    {text:'참조문서', link:'/approval/reflist'},
-    {text:'임시저장문서', link:'/approval/temp'},
-    {text:'결재대기문서', link:'/approval/approving'},
-    {text:'결재완료문서', link:'/approval/approved'},
+    {text:'전체 연락처', link:'/addressBook/allAddressBook'},
+    {text:'즐겨찾기', link:'/addressBook/like'},
+    // {text:'거래처 연락처', link:'/addressBook/client'},
+    
+
   ]

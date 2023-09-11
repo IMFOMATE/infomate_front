@@ -4,7 +4,7 @@ import {useContext, useEffect, useState} from "react";
 import {CurrentTitleContext} from "../../context/CurrentTitleContext";
 import {Link, NavLink, useNavigate} from "react-router-dom";
 import {MenuContext} from "../../context/MenuContext";
-import { callLogoutAPI } from '../../apis/MemberAPICalls';
+import { callLoginAPI, callLogoutAPI } from '../../apis/MemberAPICalls';
 import { useDispatch, useSelector } from 'react-redux';
 import { decodeJwt } from '../../util/tokenUtils';
 
@@ -17,11 +17,11 @@ function Navbar() {
     const dispatch = useDispatch();
 
     const loginMember = useSelector(state => state.memberReducer);
-    console.log(loginMember);
-
-    const isLogin = window.localStorage.getItem('accessToken');
+    console.log("로그인 멤버 데이터",loginMember.data);
 
     const [userInfo, setUserInfo ]= useState({});
+    const [imageUrl, setImageUrl] = useState('');
+
 
     const onClickLogoutHandler = () => {
         window.localStorage.removeItem('accessToken');
@@ -39,6 +39,13 @@ function Navbar() {
         navigate("/", { replace: true })
     }
 
+    useEffect(() => {
+        if (loginMember.data && loginMember.data.memberPic) {
+            setImageUrl(loginMember.data.memberPic);
+        } else {
+            setImageUrl('img/user.jpg'); // loginMember.data가 없거나 memberPic이 없을 때 기본 이미지 URL로 설정
+        }
+    }, [loginMember]);
 
     useEffect(() => {
         const storedTitle = localStorage.getItem('currentTitle') || 'Home';
@@ -46,11 +53,12 @@ function Navbar() {
 
     }, []);
 
+
     return (
         <nav className={`${NavStyle.nav} ${menuState ? '' : NavStyle.close }`}>
             <div className={`${NavStyle.profile} ${menuState ? '' : NavStyle.close }`}>
-                <a href="/">
-                    <img className={NavStyle.profileImg} alt='profileImg' src='img/user.jpg'/>
+                <a href="/myInfo">
+                    <img className={NavStyle.profileImg} alt='profileImg' src={imageUrl || 'img/user.jpg'}/>
                 </a>
                 <div className={NavStyle.profileInfo}>
                     <p>{loginMember?.data?.deptName} 부서</p>
@@ -99,7 +107,7 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Mail")}>
-                    <NavLink to="" >
+                    <NavLink to="/mail" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             mail
                         </span>
@@ -115,7 +123,7 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Address")}>
-                    <NavLink to="" >
+                    <NavLink to="address" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             library_books
                         </span>

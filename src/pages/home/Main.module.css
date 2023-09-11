@@ -14,6 +14,14 @@ body {
     background: #7758FA;
 }
 
+.board{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px 0 10px;
+}
+
 .calendar{
     flex: 1;
     display: flex;

@@ -53,6 +53,7 @@ function Main() {
                 </div>
                 <div className={MainStyle.content}>
                     <div className={MainStyle.home_content}>
+                        
                         <Clock/>
                         <div>
                         <Weather/>
@@ -114,10 +115,13 @@ function Main() {
                         </div>
                     </div>
                     <div className={MainStyle.home_content}>
-                    <div className={MainStyle.home_title_wrap}>
+                        <div className={MainStyle.home_title_wrap}>
                             <h2>게시판</h2>
+                            <Link to={'/board'}><NavigateNextIcon/></Link>
                         </div>
+                        <div className={MainStyle.board}>
                             <AnonyMini />
+                        </div>
                     </div>
                 </div>
             </div>

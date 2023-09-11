@@ -47,6 +47,7 @@ import LoginForm from "./pages/member/login/LoginForm";
 import Main from './pages/home/Main';
 import Register from './pages/member/login/Register';
 import SearchList from './pages/manage/SearchList';
+import MyInfo from './pages/member/MyInfo';
 
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
               <Route index element={<Main/>}/>
               <Route path="regist-member" element={<Register/>}/>
             </Route>
+            <Route path="myInfo" element={<MyInfo/>}/>
 
 
             <Route path="/addressBook" element={<AddressBook />} />

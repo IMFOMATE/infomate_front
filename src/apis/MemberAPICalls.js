@@ -2,7 +2,6 @@ import { PROTOCOL, SERVER_IP, SERVER_PORT} from './APIConfig';
 import {
     GET_MEMBER
     , POST_LOGIN
-    , POST_REGISTER
 } from '../modules/MemberModule';
 import { MEMBER_REGISTER } from '../modules/MemberRegisterModule';
 

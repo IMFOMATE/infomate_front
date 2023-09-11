@@ -17,7 +17,7 @@ function Clock() {
 
   return (
       <div>
-        <h2>현재 시간:</h2>
+        <h2>현재 시간</h2>
         <p>
           {hours < 10 ? `0${hours}` : hours}:
           {minutes < 10 ? `0${minutes}` : minutes}:

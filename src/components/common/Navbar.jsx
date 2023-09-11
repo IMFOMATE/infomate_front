@@ -41,10 +41,10 @@ function Navbar() {
     }
 
     useEffect(() => {
-        if (memberData && memberData.profile) {
+        if (memberData.profile === "http://localhost:8989/imgs/null") {
+            setImageUrl(memberData.defaultProfile);
+        } else if(memberData.profile) {
             setImageUrl(memberData.profile);
-        } else {
-            setImageUrl('img/user.jpg'); // memberData가 없거나 memberPic이 없을 때 기본 이미지 URL로 설정
         }
     }, [memberData]);
 
@@ -59,7 +59,7 @@ function Navbar() {
         <nav className={`${NavStyle.nav} ${menuState ? '' : NavStyle.close }`}>
             <div className={`${NavStyle.profile} ${menuState ? '' : NavStyle.close }`}>
                 <a href="/myInfo">
-                    <img className={NavStyle.profileImg} alt='profileImg' src={imageUrl || 'img/user.jpg'}/>
+                    <img className={NavStyle.profileImg} alt='profileImg' src={imageUrl}/>
                 </a>
                 <div className={NavStyle.profileInfo}>
                     <p>{memberData?.deptName} 부서</p>

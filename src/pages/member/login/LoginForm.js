@@ -36,6 +36,7 @@ function LoginForm() {
                 rank:loginMember.data.rank,
                 memberCode:loginMember.data.memberCode,
                 profile:loginMember.data.memberPic,
+                defaultProfile:loginMember.data.memberPicDefault,
             }));
             
             navigate("/main", { replace: true });

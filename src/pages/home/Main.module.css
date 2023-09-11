@@ -125,7 +125,7 @@ body {
     padding: 10px;
 }
 
-.credit_top > div > p{
+.credit_top > div > a > p{
     padding: 10px;
     font-size: 25px;
     color: var(--color-hard);

@@ -15,7 +15,7 @@ function WorkMini() {
   const workDate = useSelector(state => state.workReducer[GET_WORK]);
 
   const initTime = {
-    attendTime : '',
+    startTime : '',
     endTime : ''
   }
 
@@ -31,7 +31,7 @@ function WorkMini() {
       endTime: workDate?.endTime,
     });
 
-  }, [workReducer[POST_ATTEND]]);
+  }, [workDate?.startTime, workDate?.endTime, workReducer[POST_ATTEND]]);
 
   console.log(workDate)
 

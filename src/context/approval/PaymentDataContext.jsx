@@ -16,6 +16,7 @@ export const PaymentDataProvider = ({children}) =>{
     refList: [],
     approvalList: [],
     fileList: [],
+    existList:[],
     paymentList: [],
   });
   

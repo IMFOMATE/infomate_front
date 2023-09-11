@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {getList} from "../../apis/DocumentAPICalls";
 import ToolbarApprovalTable from "../../components/approval/ele-component/table/toolbarApprovalTable";
 import {useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
-import {GET_DOCUMENT_LIST} from "../../modules/approval/DocumentModuels";
 import {LoadingSpiner} from "../../components/common/other/LoadingSpiner";
 
 

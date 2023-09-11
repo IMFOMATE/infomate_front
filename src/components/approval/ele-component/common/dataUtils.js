@@ -18,7 +18,16 @@ export function formatNowDate() {
 export function shortFormatApprovalDate(approvalDate){
   const date = new Date(approvalDate);
   return `${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}`;
+}
 
+function formatDate(dateTimeString) {
+  const date = new Date(dateTimeString);
+
+  const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+
+  return formattedDate;
 }
 
 
@@ -44,6 +53,7 @@ export function formatStatus(status){
 }
 
 export const formatNumberWithCommas = (number) => {
+  if(isNaN(number)) return 0;
   return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 

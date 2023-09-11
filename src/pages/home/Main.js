@@ -23,7 +23,7 @@ function Main() {
     const isLogin = window.localStorage.getItem('accessToken');
     let decoded = null;
 
-    console.log(documentData)
+    console.log("documentData", documentData)
     if(isLogin !== undefined && isLogin !== null){
         const temp = decodeJwt(window.localStorage.getItem("accessToken"));
         decoded = temp.auth[0];
@@ -34,7 +34,7 @@ function Main() {
     const token = decodeJwt(window.localStorage.getItem("accessToken"));
 
     useEffect(() => {
-            // dispatch(getMainCredit());
+            dispatch(getMainCredit());
         },[]
     );
 
@@ -94,22 +94,28 @@ function Main() {
                         <div className={MainStyle.credit_content}>
                             <div className={MainStyle.credit_top}>
                                 <div className={MainStyle.line}>
-                                    <h3>
-                                        결재대기문서
-                                    </h3>
-                                    <p>{documentData?.data?.creditCount || 0}</p>
+                                    <Link to={'/approval/credit'}>
+                                        <h3>
+                                            결재대기문서
+                                        </h3>
+                                        <p>{documentData?.data?.creditCount || 0}</p>
+                                    </Link>
                                 </div>
                                 <div className={MainStyle.line}>
-                                    <h3>
-                                        기안문서
-                                    </h3>
-                                    <p>{documentData?.data?.approvalCount || 0}</p>
+                                    <Link to={'/approval/approval'}>
+                                        <h3>
+                                            기안문서
+                                        </h3>
+                                        <p>{documentData?.data?.approvalCount || 0}</p>
+                                    </Link>
                                 </div>
                                 <div>
-                                    <h3>
-                                        결재완료문서
-                                    </h3>
-                                    <p>{documentData?.data?.doneList || 0}</p>
+                                    <Link to={'/approval/approval?status=APPROVAL'}>
+                                        <h3>
+                                            결재완료문서
+                                        </h3>
+                                        <p>{documentData?.data?.doneList || 0}</p>
+                                    </Link>
                                 </div>
                             </div>
                             <div className={MainStyle.approval}>

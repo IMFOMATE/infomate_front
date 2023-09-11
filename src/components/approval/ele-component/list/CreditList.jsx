@@ -33,7 +33,7 @@ function CreditList({data}) {
           <p>{`기안자 ${d.auth}`}</p>
         </div>
       </div>
-      <Link className={CreditListCss.go} to={`document/${d.id}`}>
+      <Link className={CreditListCss.go} to={`/approval/document/${d.id}`}>
         결재하기
       </Link>
     </div>)

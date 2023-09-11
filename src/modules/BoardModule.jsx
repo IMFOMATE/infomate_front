@@ -74,23 +74,23 @@ const boardReducer = handleActions(
         [GET_MAINBOARD]: (state, { payload }) => {
 
             return payload;
-        }
-        [GET_COMMENT]: (state, { payload }) => {
-
-            return payload;
         },
-        [POST_COMMENT]: (state, { payload }) => {
+        // [GET_COMMENT]: (state, { payload }) => {
 
-            return payload;
-        },
-        [PUT_COMMENT]: (state, { payload }) => {
+        //     return payload;
+        // },
+        // [POST_COMMENT]: (state, { payload }) => {
 
-            return payload;
-        },
-        [DELETE_COMMENT]: (state, { payload }) => {
+        //     return payload;
+        // },
+        // [PUT_COMMENT]: (state, { payload }) => {
 
-            return payload;
-        },
+        //     return payload;
+        // },
+        // [DELETE_COMMENT]: (state, { payload }) => {
+
+        //     return payload;
+        // },
     },
     initialState
 );

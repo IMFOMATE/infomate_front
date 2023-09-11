@@ -57,72 +57,20 @@ import Items from './pages/manage/admin/Items';
 
 function App() {
 
-  
   return (
     <>
       <BrowserRouter>
         <Routes>
-
-
-        <Route path="/" element={<Layout/>}>
-                  <Route path="addressBook">
-
-                    {/* <Route index element={<AddressBook title={"전체연락처"}/>}/> */}
-                    <Route path="" element={<AddressBook title={"전체연락처"}/>}/>
-                    <Route path="allAddressBook" element={<AddressBook title={"전체연락처"}/>}/>
-                    <Route path="like" element={<AddressBookLike title={"즐겨찾기"}/>}/>
-                    <Route path="client" element={<AddressBook title={"거래처 연락처"}/>}/>
-                    <Route path="addContact" element={<AddContact title={"연락처 추가"} />}/>
-                
-                </Route>
-              </Route>  
-
-        <Route path='/' element={<Layout/>}> 
-              <Route path='mail'>
-                <Route path='' element={<Mail title={"전체메일함"} />}/>
-                <Route path='allMail' element={<Mail title={"전체메일함"} />}/>
-                <Route path='unreadMail' element={<Mail title={"안읽은 메일함"} />}/>
-                <Route path='readMail' element={<Mail title={"읽은 메일함"} />}/>
-                <Route path='reference' element={<Mail title={"참조 메일함"} />}/>
-                <Route path='mailWrite' element={<MailWrite />}/>
-                <Route path='mailTrash' element={<MailTrash title={"휴지통"} />}/>
-                <Route path='viewMail' element={<ViewMail />} />
-                {/* <Route path='asd' element={<MailContactModal />}/> */}
-
-
-                {/* <Route path='trach' element={<MailTrach} /> */}
-
-              </Route>
-        </Route>
-
-            <Route path="calendar">
-              {/* <Route index element={<SecheduleSummaryCreate />} /> */}
-            </Route>
           
           <Route index element={<LoginForm />} />
 
           <Route path="/" element={<Layout/>}>
-             {/* <Route path="/board" element={<BoardMain/>}></Route> */}
-                  {/* <Route path="/board" element={<BoardMain />}></Route> */}
-                  <Route path="calendar">
-                      {/* <Route index element={<SecheduleSummaryCreate/>}/> */}
-                  </Route>
-                  <Route path="approval"/>
-
   
-            
-
+          
             <Route path="main">
               <Route index element={<Main/>}/>
               <Route path="regist-member" element={<Register/>}/>
             </Route>
-
-
-            <Route path="/addressBook" element={<AddressBook />} />
-            <Route path="/addContact" element={<AddContact />} />
-            {/* <Route path="/mailWrite" element={<MailWrite />} /> */}
-            <Route path="/mail" element={<Mail />} />
-            {/* <Route path="/board" element={<BoardMain />}></Route> */}
             
             <Route path="approval">
               <Route index element={<ApprovalMain/>}/>
@@ -137,6 +85,30 @@ function App() {
                 <Route path=":documentId/reapply" element={<DocumentMain/>}/>
               </Route>
             </Route>
+
+
+              <Route path='mail'>
+                <Route path='' element={<Mail title={"전체메일함"} />}/>
+                <Route path='allMail' element={<Mail title={"전체메일함"} />}/>
+                <Route path='unreadMail' element={<Mail title={"안읽은 메일함"} />}/>
+                <Route path='readMail' element={<Mail title={"읽은 메일함"} />}/>
+                <Route path='reference' element={<Mail title={"참조 메일함"} />}/>
+                <Route path='mailWrite' element={<MailWrite />}/>
+                <Route path='mailTrash' element={<MailTrash title={"휴지통"} />}/>
+                <Route path='viewMail' element={<ViewMail />} />
+              </Route>
+
+
+              <Route path="addressBook">
+
+                    {/* <Route index element={<AddressBook title={"전체연락처"}/>}/> */}
+                    <Route path="" element={<AddressBook title={"전체연락처"}/>}/>
+                    <Route path="allAddressBook" element={<AddressBook title={"전체연락처"}/>}/>
+                    <Route path="like" element={<AddressBookLike title={"즐겨찾기"}/>}/>
+                    <Route path="client" element={<AddressBook title={"거래처 연락처"}/>}/>
+                    <Route path="addContact" element={<AddContact title={"연락처 추가"} />}/>
+                
+              </Route>
 
 
 

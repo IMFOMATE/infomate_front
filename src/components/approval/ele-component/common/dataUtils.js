@@ -87,7 +87,7 @@ export const isPaymentListValid = (paymentList) => {
 };
 
 
-export const showValidationAndConfirm = (validationResult, approvalSize, confirmedCallback) => {
+export const showValidationAndConfirm = (validationResult, approvalSize, title, text, confirmedCallback) => {
   if (typeof validationResult === 'string') {
     // 유효성 검사 실패 시 해당 조건에 맞는 텍스트를 표시
     Swal.fire({
@@ -101,8 +101,8 @@ export const showValidationAndConfirm = (validationResult, approvalSize, confirm
   if(approvalSize){
     Swal.fire({
       icon: 'info',
-      title: '결재요청',
-      text: '결재하시겠습니까??',
+      title: title,
+      text: text,
       showCancelButton: true,
       confirmButtonText: '네',
       cancelButtonText: '아니오'

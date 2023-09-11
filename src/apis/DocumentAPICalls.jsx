@@ -76,6 +76,7 @@ export const draftRegistAPI = (form, temp)=>{
     }).then(res => res.data);
 
     if(result.status === 200){
+      message.success('업무기안 등록완료');
       dispatch({type: POST_DRAFT, payload: result});
     }
 
@@ -98,6 +99,7 @@ export const vacationRegistAPI = (form, temp)=>{
         .then(res => res.data);
 
     if(result.status === 200){
+      message.success('휴가신청서 등록완료');
       dispatch({type: POST_VACATION, payload: result.data});
     }
 
@@ -120,6 +122,7 @@ export const paymentRegistAPI = (form, temp)=>{
         .then(res => res.data);
 
     if(result.status === 200){
+      message.success('지출승인서 등록완료');
       dispatch({type: POST_PAYMENT, payload: result.data});
     }
   };
@@ -160,6 +163,7 @@ export const deleteDocumentAPI = ({documentCode})=>{
         .catch(err => console.log(err));
 
     if(result.status === 200){
+      message.success(`삭제완료`);
       dispatch({type: DELETE_DOCUMENT, payload: result.data});
     }
 
@@ -182,8 +186,8 @@ export const cancelDocumentAPI = ({documentCode})=>{
         .catch(err => console.log(err));
 
     if(result.status === 200){
+      message.success('결재 취소 완료');
       dispatch({type: CANCEL_DOCUMENT, payload: result.data});
     }
-
   }
 }

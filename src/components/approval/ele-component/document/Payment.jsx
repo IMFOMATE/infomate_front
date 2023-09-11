@@ -20,13 +20,17 @@ import {
   formatNumberWithCommas,
   handleCancel,
   isPaymentValid,
-  isValid,
   showValidationAndConfirm
 } from "../common/dataUtils";
 import {decodeJwt} from "../../../../util/tokenUtils";
+import {tempAPI} from "../../../../apis/ApprovalAPICalls";
+import {POST_PAYMENT} from "../../../../modules/approval/DocumentModuels";
+import {POST_TEMP} from "../../../../modules/approval/ApprovalModuels";
 
-function Payment({documentData}) {
+function Payment({documentData, temp = false} ) {
   const treeview = useSelector(state => state.departmentReducer);
+  const documentReducer = useSelector(state => state.documentsReducer[POST_PAYMENT]);
+  const approval = useSelector(state => state.approvalReducer[POST_TEMP]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -43,7 +47,7 @@ function Payment({documentData}) {
   },[isModalOpen]);
 
   useEffect(() => {
-    if(isReapply === 'reapply'){
+    if(isReapply === 'reapply' || temp){
       const modifiedApprovalList = documentData.approvalList.map(approval => ({
         ...approval,
         approvalStatus: '',
@@ -52,8 +56,15 @@ function Payment({documentData}) {
 
       setData({...documentData, fileList:[], existList:[...documentData.fileList], approvalList:modifiedApprovalList});
     }
-  },[isReapply]);
 
+    if(documentReducer?.status === 200){
+      console.log(documentReducer)
+      navigate('/approval');
+    }
+
+  },[documentReducer]);
+
+  console.log(data)
   // form 데이터
   const onChangeHandler = (e) => {
     setData({
@@ -72,10 +83,6 @@ function Payment({documentData}) {
 
   //모달 토글 버튼
   const toggleModal = () => setIsModalOpen(prev => !prev);
-
-  const requestApproval = (formData) => {
-    dispatch(paymentRegistAPI(formData));
-  };
 
   //폼 데이터 생성
   const createFormData = () => {
@@ -109,14 +116,21 @@ function Payment({documentData}) {
     return formData;
   };
 
+  const requestApproval = (formData) => {
+    dispatch(paymentRegistAPI(formData));
+  };
+
+  const tempRequest = (formData, type, docId) => {
+    dispatch(tempAPI(formData, type, docId));
+  };
+
   //결제 요청 api
   const handleRequest = () => {
 
-    console.log(data);
     const validationResult = isPaymentValid(data, false);
 
     showValidationAndConfirm(
-      validationResult, data.approvalList.length,
+        validationResult, data.approvalList.length, '결재상신', '결재하시겠습니까??',
       () => {
         const formData = createFormData();
         requestApproval(formData);
@@ -126,13 +140,13 @@ function Payment({documentData}) {
 
   // 임시저장 api
   const handleTemp = () => {
-
     const validationResult = isPaymentValid(data, false);
+    console.log(data)
     showValidationAndConfirm(
-        validationResult, data.approvalList.length,
+        validationResult, data.approvalList.length, '임시저장', '임시저장하시겠습니까??',
         () => {
           const formData = createFormData();
-
+          tempRequest(formData,'payment', data?.id);
         }
     )
   };
@@ -227,7 +241,9 @@ function Payment({documentData}) {
                   <tr className={style.tr}>
                     <td className={style.td}>작성일자</td>
                     <td className={style.td}>
-                      <span>{formatApprovalDate(new Date())}</span>
+                      <span>
+                        {formatApprovalDate(new Date())}
+                      </span>
                     </td>
                     <td className={`${style.tds} ${style.td}`} >긴급여부</td>
                     <td className={style.td} >
@@ -309,7 +325,7 @@ function Payment({documentData}) {
                 </div>
               </div>
               {/* 파일컴포넌트 */}
-              <DocFile handleFileChange={handleFileChange}/>
+              <DocFile handleFileChange={handleFileChange} value={data.existList || ''}/>
             </div>
           </div>
           <aside className={style.doc_side}>

@@ -14,6 +14,13 @@ import CreditModal from "../../modal/CreditModal";
 import {POST_APPROVE, POST_REJECT, POST_TEMP} from "../../../../../modules/approval/ApprovalModuels";
 import {CANCEL_DOCUMENT, DELETE_DOCUMENT, GET_DETAIL} from "../../../../../modules/approval/DocumentModuels";
 import {handleAlert} from "../../common/dataUtils";
+import {PaymentDataProvider} from "../../../../../context/approval/PaymentDataContext";
+import Payment from "../Payment";
+import Draft from "../Draft";
+import {DraftDataProvider} from "../../../../../context/approval/DraftDataContext";
+import {VacationProvider} from "../../../../../context/approval/VacationDataContext";
+import Vacation from "../Vacation";
+import DocumentHeader from "../../../manage/DocumentHeader";
 
 function DocumentDetail() {
   let { documentId } = useParams();
@@ -27,7 +34,6 @@ function DocumentDetail() {
   const approvalReducer = useSelector(state => state.approvalReducer);
   const ref = useRef();
 
-  console.log("state", state);
 
   const [modalData, setModalData] = useState({
     isOpen: false,
@@ -43,7 +49,7 @@ function DocumentDetail() {
           approvalReducer[POST_REJECT],
           approvalReducer[POST_APPROVE],
           approvalReducer[POST_TEMP],
-          documentReducer[CANCEL_DOCUMENT]
+          documentReducer[CANCEL_DOCUMENT],
       ]
   );
 
@@ -102,7 +108,14 @@ function DocumentDetail() {
 
   //임시저장상태면 input 태그여야하니까
   if(documentData?.documentStatus === "TEMPORARY"){
-
+    return (
+        <>
+          <DocumentHeader name={documentData?.title}/>
+          {documentData.documentKind === 'payment' && <PaymentDataProvider><Payment documentData={documentData} temp={true}/></PaymentDataProvider>}
+          {documentData.documentKind === 'Draft' && <DraftDataProvider><Draft documentData={documentData} temp={true} /></DraftDataProvider>}
+          {documentData.documentKind === 'vacation' && <VacationProvider><Vacation documentData={documentData} temp={true}/></VacationProvider>}
+        </>
+    );
   }
 
 

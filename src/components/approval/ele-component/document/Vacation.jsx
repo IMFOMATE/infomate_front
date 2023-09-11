@@ -13,13 +13,15 @@ import DocumentSide from "./DocumentSide";
 import Swal from "sweetalert2";
 import {treeviewAPI} from "../../../../apis/DepartmentAPI";
 import {formatApprovalDate, handleCancel, isValid, showValidationAndConfirm} from "../common/dataUtils";
-import {vacationRegistAPI} from "../../../../apis/DocumentAPICalls";
+import {draftRegistAPI, vacationRegistAPI} from "../../../../apis/DocumentAPICalls";
 import {decodeJwt} from "../../../../util/tokenUtils";
 import {POST_DRAFT, POST_VACATION} from "../../../../modules/approval/DocumentModuels";
+import {tempAPI} from "../../../../apis/ApprovalAPICalls";
 
-function Vacation({documentData}) {
+function Vacation({documentData, temp = false}) {
   const treeview = useSelector(state => state.departmentReducer);
   const documentReducer = useSelector(state => state.documentsReducer[POST_VACATION]);
+  const approvalReducer = useSelector(state => state.approvalReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,7 +41,7 @@ function Vacation({documentData}) {
   },[isModalOpen]);
 
   useEffect(() => {
-    if(isReapply === 'reapply'){
+    if(isReapply === 'reapply' || temp){
       const modifiedApprovalList = documentData.approvalList.map(approval => ({
         ...approval,
         approvalStatus: '',
@@ -54,7 +56,7 @@ function Vacation({documentData}) {
       navigate('/approval');
     }
 
-  },[isReapply]);
+  },[documentReducer]);
 
   console.log(data)
 
@@ -99,11 +101,6 @@ function Vacation({documentData}) {
     setData({...data, endDate:e.target.value + ' 18:00:00'})
   }
 
-  const requestApproval = (formData) => {
-    dispatch(vacationRegistAPI(formData));
-  };
-
-
   const createFormData = () => {
     const formData = new FormData();
 
@@ -137,9 +134,17 @@ function Vacation({documentData}) {
     return formData;
   };
 
-
   //모달 토글 버튼
   const toggleModal = () => setIsModalOpen(prev => !prev);
+
+  const requestApproval = (formData) => {
+    dispatch(draftRegistAPI(formData));
+  };
+
+  const tempRequest = (formData, type, docId) => {
+    dispatch(tempAPI(formData, type, docId));
+  };
+
 
   //결제 요청 api
   const handleRequest = () => {
@@ -148,7 +153,7 @@ function Vacation({documentData}) {
     const validationResult = isValid(data,true,true);
 
     showValidationAndConfirm(
-        validationResult, data.approvalList.length,
+        validationResult, data.approvalList.length, '결재상신', '결재하시겠습니까??',
         () => {
           const formData = createFormData();
           requestApproval(formData);
@@ -157,7 +162,17 @@ function Vacation({documentData}) {
   };
 
   // 임시저장 api
-  const handleTemp = () => {};
+  const handleTemp = () => {
+    const validationResult = isValid(data,true, false);
+    console.log(data)
+    showValidationAndConfirm(
+        validationResult, data.approvalList.length, '임시저장', '임시저장하시겠습니까??',
+        () => {
+          const formData = createFormData();
+          tempRequest(formData,'vacation', data?.id);
+        }
+    )
+  };
 
 
   const handleChoice = toggleModal;  //결재선 지정 모달

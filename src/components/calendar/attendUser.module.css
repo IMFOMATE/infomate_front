@@ -28,12 +28,12 @@
     
 }
 .selectCol2 {
-    grid-template-columns: 1fr 1.5fr;
-    width: 270px;
+    grid-template-columns: 1.1fr 1.5fr;
+    /* max-width: 0px; */
 }
 .selectCol1{
     grid-template-columns: 1fr;
-    max-width: 100px;
+    max-width: 200px;
     
 }
 

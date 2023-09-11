@@ -1,18 +1,24 @@
 import * as React from 'react';
-// import Default from '../../component/Default.css';
+import { useEffect } from 'react';
 import GroupCss from './Group.module.css';
-// import styles from "../../components/approval/ele-component/treeview/nodes/CustomNode.module.css";
-// import treeStyle from "./TreeView.module.css"
-// import {
-//     Tree,
-//   } from "@minoru/react-dnd-treeview";
-
-
+import DeptTreeView from './TreeView';
+import { useSelector, useDispatch } from 'react-redux';
+import { treeviewAPI } from '../../apis/DepartmentAPI';
 
 
 function Group () {
 
+    const dispatch = useDispatch();
 
+    const data = useSelector(state => state.departmentReducer);
+    
+    useEffect(
+        () => {
+            dispatch(treeviewAPI({}))
+        },
+        []
+    );
+    console.log("[Group] treeView 값 들어오니???????? ", data);
     return(
 
         <>
@@ -21,30 +27,10 @@ function Group () {
                 <div className={`firstWrap ${GroupCss.firstWrap}`}>
                     <div className={`deptList ${GroupCss.deptList}`}>
                         <div className={`list ${GroupCss.list}`}>
-                            
+                            <DeptTreeView node={data}/>
                         </div>
                     </div>
-                        {/* <div className={treeStyle.doc_wrap}>
-                        <Tree
-                            tree={treeData}
-                            rootId={0}
-                            render={(node, { depth, isOpen, onToggle }) => (
-                                <CustomNode
-                                    node={node}
-                                    depth={depth}
-                                    isOpen={isOpen}
-                                    onToggle={onToggle}
-                                />
-                            )}
-                            initialOpen={true}
-                            canDrop={()=> false}
-                            classes={{
-                                root: styles.treeRoot,
-                                draggingSource: styles.draggingSource,
-                                dropTarget: styles.dropTarget
-                            }}
-                        />
-                        </div> */}
+
                 </div>
             </main>
             
@@ -56,3 +42,6 @@ function Group () {
 
 
 export default Group; 
+
+
+

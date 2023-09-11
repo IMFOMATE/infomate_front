@@ -28,6 +28,15 @@ function AddressBookLike({ title }) {
     const [selectName, setSelectName] = useState("");
     const [matchingNames, setMatchingNames] = useState([]);
 
+    const authTokenJSON = localStorage.getItem('authToken');
+
+    // JSON 형식의 데이터를 JavaScript 객체로 파싱
+     const authToken = JSON.parse(authTokenJSON);
+ 
+     // 회원 코드를 가져옴
+     const memberCode = authToken.memberCode;
+    
+
     const pageInfo = contact.data?.pageInfo;
 
     console.log("솰라", matchingNames?.filter(contact => contact.contactLike === 'Y'));
@@ -47,7 +56,7 @@ function AddressBookLike({ title }) {
         () => {
             setStart((currentPage - 1) * 5);
             dispatch(callSelectAPI({
-                memberCode: 2,
+                memberCode: memberCode,
                 currentPage : currentPage,
                 title : title,
                 

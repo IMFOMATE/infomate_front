@@ -50,6 +50,7 @@ import LoginForm from "./pages/member/login/LoginForm";
 import Main from './pages/home/Main';
 import Register from './pages/member/login/Register';
 import SearchList from './pages/manage/SearchList';
+import MailTrash from './pages/mail/MailTrash';
 
 
 function App() {
@@ -82,6 +83,7 @@ function App() {
                 <Route path='readMail' element={<Mail title={"읽은 메일함"} />}/>
                 <Route path='reference' element={<Mail title={"참조 메일함"} />}/>
                 <Route path='mailWrite' element={<MailWrite />}/>
+                <Route path='mailTrash' element={<MailTrash title={"휴지통"} />}/>
                 <Route path='viewMail' element={<ViewMail />} />
                 {/* <Route path='asd' element={<MailContactModal />}/> */}
 

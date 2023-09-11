@@ -15,6 +15,8 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import homeMainReducer from "./HomeModules";
 import registMemberReducer from "./MemberRegisterModule";
+import memberMailReducer from "./MemberMailModule";
+import mailTrashReducer from "./MailTrashModule";
 
 const rootReducer = combineReducers({
     favCalendarReducer,
@@ -30,12 +32,15 @@ const rootReducer = combineReducers({
     employeeReducer,
     memberReducer,
     registMemberReducer,
-    homeMainReducer
+    homeMainReducer,
+    memberMailReducer,
+    mailTrashReducer,
 });
 
 const persistConfig = {
     key: "root",
     storage: storage,
+    blacklist:["memberReducer"]
 };
 
 

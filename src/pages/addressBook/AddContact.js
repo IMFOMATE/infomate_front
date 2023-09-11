@@ -21,6 +21,14 @@ function AddContact({title}) {
     const imageInput = useRef();
     const [image, setImage] = useState(null);
     const [previewSrc, setPreviewSrc] = useState('');
+
+    const authTokenJSON = localStorage.getItem('authToken');
+
+    // JSON 형식의 데이터를 JavaScript 객체로 파싱
+     const authToken = JSON.parse(authTokenJSON);
+ 
+     // 회원 코드를 가져옴
+     const memberCode = authToken.memberCode;
     
 
     const [form, setForm] = useState ({
@@ -98,6 +106,7 @@ function AddContact({title}) {
         navigate("/addressBook");
         dispatch(callRegistAPI({
             form: formData,
+            memberCode : memberCode,
 
         }))
     }

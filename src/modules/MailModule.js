@@ -7,12 +7,14 @@ const initialState = [];
 /* 액션 */
 export const GET_MAIL = 'contact/GET_SELECTMAIL';
 export const POST_MAIL = 'contact/POST_POSTMAIL';
+export const DELETE_MAIL = 'contact/DELETE_MAIL';
+
 
 
 const actions = createActions({
     [GET_MAIL]: () => {},
     [POST_MAIL]: () => {},
-    [GET_CONTACTLIST]: () => {},
+    [DELETE_MAIL]: () => {},
    
 })
 
@@ -29,10 +31,14 @@ const mailReducer = handleActions (
 
             return payload
         },
-        [GET_CONTACTLIST]: (state, {payload}) => {
+        // [GET_CONTACTLIST]: (state, {payload}) => {
+
+        //     return payload
+        // }
+        [DELETE_MAIL]: (state, {payload}) => {
 
             return payload
-        }
+        },
     },
     initialState
 

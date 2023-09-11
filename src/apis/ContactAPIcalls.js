@@ -7,8 +7,10 @@ import {
    ,GET_CONTACTLIST
 } from '../modules/ContactModule';
 
-export const callRegistAPI = ({form}) => {
-    const requestURL = "http://localhost:8989/addressBook/addContact"
+export const callRegistAPI = ({form, memberCode}) => {
+
+  
+    const requestURL = `http://localhost:8989/addressBook/addContact/${memberCode}`
 
     return async (dispatch, getState) => {
 
@@ -30,7 +32,7 @@ export const callRegistAPI = ({form}) => {
             dispatch({ type: POST_REGISTER,  payload: result });
         }
 
-
+        window.location.reload();
 
     };
 };
@@ -66,7 +68,7 @@ export const callRegistAPI = ({form}) => {
 export const callSelectAPI = ({memberCode, currentPage, title}) => {
 
     let requestURL;
-  
+   
 
     if(currentPage !== undefined || currentPage !== null){
         requestURL = `http://localhost:8989/addressBook/contact/${memberCode}/${title}/?offset=${currentPage}`;

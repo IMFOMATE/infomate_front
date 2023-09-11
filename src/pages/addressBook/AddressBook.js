@@ -27,6 +27,14 @@ function AddressBook({ title }) {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageEnd, setPageEnd] = useState(1);
 
+    const authTokenJSON = localStorage.getItem('authToken');
+
+    // JSON 형식의 데이터를 JavaScript 객체로 파싱
+     const authToken = JSON.parse(authTokenJSON);
+ 
+     // 회원 코드를 가져옴
+     const memberCode = authToken.memberCode;
+
     const pageInfo = contact.data?.pageInfo;
 
     console.log("pageInfo",pageInfo);
@@ -45,7 +53,7 @@ function AddressBook({ title }) {
         () => {
             setStart((currentPage - 1) * 5);
             dispatch(callSelectAPI({
-                memberCode: 2,
+                memberCode: memberCode,
                 currentPage : currentPage,
                 title : title
                 
@@ -67,11 +75,6 @@ function AddressBook({ title }) {
             setMatchingNames(contactList);
             
           }, [contactList]);
-
-      
-
-
-
 
 
     const [selectName, setSelectName] = useState("");

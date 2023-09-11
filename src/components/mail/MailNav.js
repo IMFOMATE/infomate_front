@@ -40,11 +40,11 @@ const MailLink = [
     {text:'전체 메일함', link:'/mail/allMail'},
     {text:'안읽은 메일함', link:'/mail/unreadMail'},
     {text:'읽은 메일함', link:'/mail/readMail'},
-    {text:'참조 메일함', link:'/mail/reference'}
+    // {text:'참조 메일함', link:'/mail/reference'}
     
 
   ]
 
 const trashLink = [
-    {text:'휴지통', link:'/mail/trash'}
+    {text:'휴지통', link:'/mail/mailTrash'}
 ]

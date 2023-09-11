@@ -1,7 +1,7 @@
 import style from './MailWrite.module.css';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate , useLocation} from 'react-router-dom';
 import { useEffect, useState, useRef, useCallback, ChangeEvent, useMemo } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import MailContactModal from '../../components/approval/ele-component/contact/Ma
 import { callPostMailAPI  ,callMailContactSelectAPI } from '../../apis/MailAPICalls';
 import MailReferenceModal from '../../components/approval/ele-component/contact/MailReferenceModal';
 import axios from "axios";
+import { callGetMemberAPI } from '../../apis/MemberMailAPICalls';
 
 
 function MailWrite() {
@@ -23,8 +24,36 @@ function MailWrite() {
     const quillRef = useRef()
     const [content, setContent] = useState("")
     const [encoding, setencoding] = useState("");
+    const [receiver, setReceiver] = useState([]);
 
-    console.log("contactList", contactList);
+    const [reference, setReference ] = useState([]);
+
+    const [company, setCompany] = useState([]);
+    
+    const member = useSelector(state => state.memberMailReducer)
+    const memberList = member.data;
+    console.log("memberList" , memberList);
+
+
+
+    useEffect(
+        () => {
+            dispatch(callGetMemberAPI({	
+                
+            }));            
+        }
+        ,[]
+    );
+
+    const location = useLocation();
+
+    const { checkedName , sendMail} = location.state || {};
+    
+
+    console.log(checkedName);
+
+    console.log(sendMail);
+
     
     const [form, setForm] = useState({
 
@@ -109,9 +138,7 @@ function MailWrite() {
 
     const dispatch = useDispatch();
 
-    const [receiver, setReceiver] = useState([]);
 
-    const [reference, setReference ] = useState([]);
 
     useEffect(
         () => {
@@ -231,18 +258,20 @@ function MailWrite() {
                             <div className={style.receiver}  >
                                 받는사람
 
-                                <input type="text" className={style.inputText} autoComplete='off' name="receiverMail" onChange={ () => onChangeHandler } value={receiver.map( (name) => name.contactName )}/>
+                                <input type="text" className={style.inputText} autoComplete='off' name="receiverMail" 
+                                onChange={ () => onChangeHandler } 
+                                value={receiver.map( (name) => name.contactName) + company.map((memberName) => memberName.memberName) + (checkedName || '') + (sendMail || '')}/>
                                 <button className={style.addressBook}  onClick={  openModal }>주소록</button>
                             </div>
                                 
 
-                            <div className={style.reference}>
+                            {/* <div className={style.reference}>
                                 참조
                             
 
                                 <input type="text" className={style.inputText} autoComplete='off' name="mailReference" onChange={ onChangeHandler } value={reference.map( (name) => name.contactName )}/>
                                 <button  className={style.addressBook} onClick={ openReferenceModal }>주소록</button>
-                            </div>
+                            </div> */}
 
 
                             <div className={style.mailTitle} >
@@ -287,7 +316,8 @@ function MailWrite() {
                     
                     </div>
                     {isModalOpen && (
-                <MailContactModal isOpen={isModalOpen} closeModal={closeModalWrite} contact={contactList} setReceiver={setReceiver} receiver={receiver} />
+                <MailContactModal isOpen={isModalOpen} closeModal={closeModalWrite} contact={contactList} 
+                                setReceiver={setReceiver} receiver={receiver} memberList = {memberList} company={company} setCompany={setCompany}/>
                     )}
 
                     {isReferenceModalOpen && (

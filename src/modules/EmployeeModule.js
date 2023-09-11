@@ -34,9 +34,9 @@ const employeeReducer = handleActions(
         [GET_DEPTSEARCH]: (state, {payload}) => {
             return payload;
         },
-        [GET_DEPTALL]: (state, {payload}) => {
-            return payload;
-        },
+        [GET_DEPTALL]: (state, {payload}) => ({
+            ...state, [GET_DEPTALL]: payload
+        }),
         [GET_EMPLIST]: (state, {payload}) => ({
             ...state, [GET_EMPLIST]: payload
         })

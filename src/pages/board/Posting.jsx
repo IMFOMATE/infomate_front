@@ -192,7 +192,7 @@ function Posting() {
         
         </input>
         <div className={PostingCSS.postmargin}>
-        <div className={PostCSS.quill}>
+        <div className={PostCSS.quilll}>
             <ReactQuill
             name='postContents'
             placeholder="내용을 입력해주세요."

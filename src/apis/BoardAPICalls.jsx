@@ -18,8 +18,11 @@ import {
 
 } from '../modules/BoardModule.jsx';
 
-export const callhBoardViewAPI = ({ currentPage }) => {
+export const callhBoardViewAPI = ({ currentPage ,boardCategory}) => {
     console.log('[BoardAPICalls] callSearchBoardAPI Call');
+
+    console.log("boardCategory " , boardCategory)
+    
   
     let requestURL;
   

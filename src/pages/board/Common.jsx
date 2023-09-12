@@ -36,7 +36,8 @@ function Common() {
         () => {
             setStart((currentPage - 1) * 5);            
             dispatch(callhBoardViewAPI({ 
-                currentPage: currentPage} ));
+                currentPage: currentPage,
+                boardCategory : Common} ));
         }
         ,[currentPage]
     );

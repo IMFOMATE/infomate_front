@@ -193,9 +193,9 @@ function AddressBookLike({ title }) {
             <div className={style.wrapper} >
                 <h1 style={{ color: 'var(--color-text-title)' }} className={style.title}>{title}</h1>
                 <div className={style.addressSearch}>
-                    <div className={style.addressText}>이름</div>
+                    {/* <div className={style.addressText}>이름</div>
                     <div className={style.addressText}>전화번호</div>
-                    <div className={style.addressText}>메모</div>
+                    <div className={style.addressText}>메모</div> */}
                 </div>
 
                 <div className={style.selectButton} style={buttonStyle}>

@@ -1,6 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { GET_CONTACTLIST } from './ContactModule';
 
+
 /* 초기값 */
 const initialState = [];
 
@@ -8,6 +9,8 @@ const initialState = [];
 export const GET_MAIL = 'contact/GET_SELECTMAIL';
 export const POST_MAIL = 'contact/POST_POSTMAIL';
 export const DELETE_MAIL = 'contact/DELETE_MAIL';
+export const GET_FILE = 'contact/GET_FILE';
+
 
 
 
@@ -15,6 +18,7 @@ const actions = createActions({
     [GET_MAIL]: () => {},
     [POST_MAIL]: () => {},
     [DELETE_MAIL]: () => {},
+    [GET_FILE]: () => {},
    
 })
 
@@ -39,6 +43,9 @@ const mailReducer = handleActions (
 
             return payload
         },
+        [GET_FILE]: (state, {payload}) => ({
+            ...state, [GET_FILE] :payload
+        })
     },
     initialState
 

@@ -18,7 +18,6 @@ import ViewMail from './ViewMail';
 
 
 
-
 function Mail({title}) {
 
     const dispatch = useDispatch();
@@ -32,6 +31,12 @@ function Mail({title}) {
     const [checkedItems, setCheckedItems] = useState({});
     const [checkedName , setCheckedName] = useState([]);
     const [checkedMail ,setCheckedMail] = useState({});
+
+    const yStatusEmails = mailList.matchingEmails.filter((mail) => mail.mailStatus === 'N');
+
+    
+    const yStatusEmailsCount = yStatusEmails.length;
+
 
     
 
@@ -128,14 +133,14 @@ function Mail({title}) {
                     <div className={ style.wrapper }>
                     <h1  style={{color: 'var(--color-text-title)', display: 'flex', padding: '20px' }}>
                         {title}
-                        <p>전체 메일 0 / 안읽은 메일 0</p>
+                        <p>전체 메일 {mailList.matchingEmails.length}  / 안읽은 메일 {yStatusEmailsCount}</p>
                     </h1>
                     <div className={style.mailButton}>
                         <button onClick={onClickReplyHandler}>답장</button>
                         <button onClick={ onClickDeleteHandler}>삭제</button>
                         
                         
-                        <input id={style.mailSearch} type="text" placeholder="검색"/>
+                        {/* <input id={style.mailSearch} type="text" placeholder="검색"/> */}
                     </div>
             
                     <div className={style.mailLine}></div> 

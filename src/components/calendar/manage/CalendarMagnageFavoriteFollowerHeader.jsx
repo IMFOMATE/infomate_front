@@ -3,7 +3,7 @@ import CalendarManagefavoriteModifyMenu from './CalendarManagefavoriteModifyMenu
 import styles from './calendarMagnageFavoriteFollowerHeader.module.css'
 
 const CalendarMagnageFavoriteFollowerHeader = ({chk, setChk}) => {
-    const className  = [styles.fowHdGrid].join(' ');
+    const className  = [styles.fowHdGrid, styles.fowHdHeader].join(' ');
 
     return(
         <>

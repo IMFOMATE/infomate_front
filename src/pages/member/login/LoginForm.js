@@ -16,16 +16,36 @@ function LoginForm() {
         memberPassword: '',
     });
 
+    const memberDataString = localStorage.getItem("authToken");
+    const memberData = JSON.parse(memberDataString);
+
     useEffect(() => {
         // 로그인이 성공하면 메인 페이지로 이동
         if (loginMember.status === 200) {
             console.log("[Login] Login SUCCESS", loginMember);
             alert(loginMember.data.memberName + "님 환영합니다.");
 
-            navigate("/main", { replace: true });
             // console.log(loginMember.data);
 
-            localStorage.setItem('authToken', loginMember.data.token);
+
+            localStorage.setItem('authToken',
+            JSON.stringify({
+                memberName:loginMember.data.memberName,
+                deptCode:loginMember.data.deptCode,
+                deptName:loginMember.data.deptName,
+                rank:loginMember.data.rank,
+                memberCode:loginMember.data.memberCode,
+                profile:loginMember.data.memberPic,
+                defaultProfile:loginMember.data.memberPicDefault,
+                memberId:loginMember.data.memberId,
+                memberEmail:loginMember.data.memberEmail,
+                memberPhone:loginMember.data.memberPhone,
+                memberNo:loginMember.data.memberNo,
+                extensionNumber:loginMember.data.extensionNumber,
+                hireDate:loginMember.data.hireDate,
+            }));
+            
+            navigate("/main", { replace: true });
 
             // dispatch({
             //     type: POST_LOGIN,
@@ -39,7 +59,7 @@ function LoginForm() {
     }, [loginMember]);
 
     // 이미 로그인된 경우 홈 화면으로 이동
-    if (loginMember.length > 0) {
+    if (memberData) {
         console.log("[Login] Login is already authenticated by the server");
         return <Navigate to="/main" />;
     }

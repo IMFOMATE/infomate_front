@@ -86,16 +86,34 @@ border-radius: 5px;
 .text {
 
     display: flex;
-    justify-content: center;
+    padding: 50px;
     border-top: 1px solid rgba(0, 0, 0, 0.3);
     
-}
-
-.text>p {
     
-    margin-top: 50px;
 }
 
+.text>div {
+    
+    
+    width: 1500px;
+    height: 800px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.file {
+    display: flex;
+    padding: 20px;
+}
+
+.file>div {
+    margin-right: 20px;
+}
+
+.fileBox {
+    width: 1000px;
+    height: 80px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
 
 
 

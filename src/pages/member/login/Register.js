@@ -2,7 +2,8 @@ import RegisterCSS from './Register.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-
+import { POST_LOGIN } from "../../../modules/MemberModule"
+import { RESET_REGIST } from '../../../modules/MemberRegisterModule';
 import {
     callRegisterAPI
 } from '../../../apis/MemberAPICalls'
@@ -11,8 +12,12 @@ function Register() {
 
     // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
     const dispatch = useDispatch();
-    const member = useSelector(state => state.memberReducer);  // API 요청하여 가져온 loginMember 정보
-    // console.log(member)
+
+    const loginMember = useSelector(state => state.memberReducer);
+    console.log("loginMember : ", loginMember);
+
+    const member = useSelector(state => state.registMemberReducer); 
+    console.log("member : ", member);
 
     const navigate = useNavigate();
 
@@ -30,9 +35,9 @@ function Register() {
         memberStatus: '',
         memberAddress: '',
         hireDate: '',
-        department: '',
+        deptCode: '',
         rankCode: '',
-        memberOff: ''
+        memberOff: '',
     });
 
     useEffect(() => {
@@ -49,6 +54,79 @@ function Register() {
         }
     },
         [image]);
+
+    console.log("image : ", image);
+
+    const [errors, setErrors] = useState({
+        memberId: '',
+        memberPassword: '',
+        memberEmail: '',
+        memberPhone: '',
+        memberNo: '',
+        memberOff: '',
+    });
+
+    const validateForm = () => {
+        let isValid = true;
+        const newErrors = {
+            memberId: '',
+            memberPassword: '',
+            memberEmail: '',
+            memberPhone: '',
+            memberNo: '',
+            memberOff: '',
+        };
+
+        // 간단한 유효성 검사 예시
+        if (form.memberId.trim() === '') {
+            newErrors.memberId = '아이디를 입력하세요.';
+            isValid = false;
+        }
+
+        if (form.memberPassword.trim() === '') {
+            newErrors.memberPassword = '패스워드를 입력하세요.';
+            isValid = false;
+        }
+
+        if (!form.memberEmail.match(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)) {
+            newErrors.memberEmail = '올바른 이메일 주소를 입력하세요.';
+            isValid = false;
+        }
+
+        if (!form.memberPhone.match(/^\d{10,11}$/)) {
+            newErrors.memberPhone = '올바른 핸드폰 번호를 입력하세요.';
+            isValid = false;
+        }
+
+        if (!form.memberNo.match(/^\d{8}$/)) {
+            newErrors.memberNo = '올바른 생년월일을 입력하세요.';
+            isValid = false;
+        }
+
+        const birthYear = form.memberNo.substring(0, 4);
+        const birthMonth = form.memberNo.substring(4, 6);
+        const birthDay = form.memberNo.substring(6, 8);
+
+        if (birthMonth < 1 || birthMonth > 12) {
+            newErrors.memberBirthMonth = '올바른 월을 입력하세요 (1에서 12 사이).';
+            isValid = false;
+        }
+
+        const daysInMonth = new Date(birthYear, birthMonth, 0).getDate();
+        if (birthDay < 1 || birthDay > daysInMonth) {
+            newErrors.memberBirthDay = `올바른 일을 입력하세요 (1에서 ${daysInMonth} 사이).`;
+            isValid = false;
+        }
+
+        if (form.memberOff < 0 || form.memberOff > 25) {
+            newErrors.memberOff = '보유연차는 0에서 25 사이여야 합니다.';
+            isValid = false;
+        }
+
+        setErrors(newErrors);
+
+        return isValid;
+    };
 
     const onChangeImageUpload = (e) => {
 
@@ -73,36 +151,42 @@ function Register() {
 
         console.log('[MemberRegistration] onClickMemberRegistrationHandler');
 
-        const formData = new FormData();
+        if (validateForm()) {
+            const formData = new FormData();
 
-        formData.append("memberId", form.memberId);
-        formData.append("memberPassword", form.memberPassword);
-        formData.append("memberName", form.memberName);
-        formData.append("memberEmail", form.memberEmail);
-        formData.append("memberPhone", form.memberPhone);
-        formData.append("memberNo", form.memberNo);
-        formData.append("memberStatus", form.memberStatus);
-        formData.append("memberAddress", form.memberAddress);
-        formData.append("hireDate", form.hireDate);
-        formData.append("department", form.department);
-        formData.append("rankCode", form.rankCode);
-        formData.append("memberOff", form.memberOff);
+            formData.append("memberId", form.memberId);
+            formData.append("memberPassword", form.memberPassword);
+            formData.append("memberName", form.memberName);
+            formData.append("memberEmail", form.memberEmail);
+            formData.append("memberPhone", form.memberPhone);
+            formData.append("memberNo", form.memberNo);
+            formData.append("memberStatus", form.memberStatus);
+            formData.append("memberAddress", form.memberAddress);
+            formData.append("hireDate", form.hireDate);
+            formData.append("deptCode", form.deptCode);
+            formData.append("rankCode", form.rankCode);
+            formData.append("memberOff", form.memberOff);
 
-        if (image) {
-            formData.append("memberPic", image);
+            if (image) {
+                formData.append("memberPic", image);
+            }
+            
+            
+            dispatch(callRegisterAPI({
+                form: form,
+                image: image,
+            }));
+
         }
-        
     }
-
-    dispatch(callRegisterAPI({
-        form: form
-    }));
 
     useEffect(() => {
         if (member.status === 201) {
             alert('회원이 등록되었습니다.');
             console.log("[Login] Register SUCCESS {}", member);
-            navigate("/main", { replace: true })
+            dispatch({ type: RESET_REGIST});
+
+            // navigate("/main", { replace: true })
             window.location.reload();
         }
     },
@@ -153,6 +237,7 @@ function Register() {
                                             autoComplete='off'
                                             onChange={onChangeHandler}
                                         />
+                                        <div className="error">{errors.memberId}</div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -166,6 +251,7 @@ function Register() {
                                             autoComplete='off'
                                             onChange={onChangeHandler}
                                         />
+                                        <div className="error">{errors.memberPassword}</div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -192,6 +278,7 @@ function Register() {
                                             autoComplete='off'
                                             onChange={onChangeHandler}
                                         />
+                                        <div className="error">{errors.memberEmail}</div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -205,6 +292,7 @@ function Register() {
                                             autoComplete='off'
                                             onChange={onChangeHandler}
                                         />
+                                        <div className="error">{errors.memberPhone}</div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -212,11 +300,15 @@ function Register() {
                                     <td>
                                         <input
                                             className={RegisterCSS.registInfoInput}
-                                            type="date"
+                                            type="text"
                                             name="memberNo"
+                                            placeholder="생년월일 (예: 19901231)"
                                             autoComplete='off'
                                             onChange={onChangeHandler}
                                         />
+                                        <div className="error">{errors.memberNo}</div>
+                                    <div className="error">{errors.memberBirthMonth}</div>
+                                    <div className="error">{errors.memberBirthDay}</div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -224,6 +316,7 @@ function Register() {
                                     <td>
                                         
                                         <select
+                                            onChange={onChangeHandler}
                                             className={RegisterCSS.registInfoInput}
                                             name='memberStatus'
                                             defaultValue={0}>
@@ -275,8 +368,9 @@ function Register() {
                                     <td><label>부서</label></td>
                                     <td>
                                         <select
+                                            onChange={onChangeHandler}
                                             className={RegisterCSS.registInfoInput}
-                                            name='department.deptCode'
+                                            name='deptCode'
                                             defaultValue={0}
                                         >
                                             <option value={0} disabled>부서</option>
@@ -293,13 +387,14 @@ function Register() {
                                     <td><label>직급</label></td>
                                     <td>
                                         <select
+                                            onChange={onChangeHandler}
                                             className={RegisterCSS.registInfoInput}
-                                            name='rank.rankCode'
+                                            name='rankCode'
                                             defaultValue={-1}
                                         >
                                             <option value={-1} disabled>직급</option>
                                             <option value={1}>대표이사</option>
-                                            <option value={2}>상부</option>
+                                            <option value={2}>상무</option>
                                             <option value={3}>부장</option>
                                             <option value={4}>차장</option>
                                             <option value={5}>과장</option>

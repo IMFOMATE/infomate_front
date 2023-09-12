@@ -37,7 +37,7 @@ const FavoriteCalendarFollowing = () => {
     },[search, favCalendarReducer[DELETE_FAV_CALENDAR]])
 
     if(!favCalendarFollowList) return <LoadingSpiner />
-    if(favCalendarFollowList.data.length === 0) <NotResultData />
+    if(favCalendarFollowList.data.length === 0 || favCalendarFollowList === null) return <NotResultData />
 
     const selectItemChange = (e)=> {
         if(e.target.checked){
@@ -52,6 +52,7 @@ const FavoriteCalendarFollowing = () => {
         
         setSelectAll(e.target.checked)
     }
+    console.log(favCalendarFollowList);
     
     return (
         <>
@@ -66,8 +67,8 @@ const FavoriteCalendarFollowing = () => {
                                     <CalendarMagnageFavoriteItem
                                             key={item.id}
                                             id={item.id}
-                                            memberName={item.member.memberName}
-                                            // rank={item?.refMember?.refRank?.name} // 직위 수정 예정
+                                            memberName={item.calendar.member.memberName}
+                                            rank={item.calendar.member.rank.rankName}
                                             calendarName={item.calendar.name}
                                             requestDate={item?.requestDate}
                                             state={item?.approvalStatus}

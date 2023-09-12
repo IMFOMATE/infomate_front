@@ -24,12 +24,19 @@ export default function Layout() {
     if(token?.exp * 1000 < Date.now()) {
         
         window.localStorage.removeItem("accessToken");
-        dispatch(callLogoutAPI());
 
+        const authTokenJSON = window.localStorage.getItem("authToken");
+        if(authTokenJSON) {
+
+            window.localStorage.removeItem("authToken");
+        }
+
+        dispatch(callLogoutAPI());
+        
         alert("로그인 세션이 만료되었습니다. 다시 로그인하여주십시오.");
 
         navigate("/", {replace: true});
-        window.location.reload();
+        // window.location.reload();
     }
 
 

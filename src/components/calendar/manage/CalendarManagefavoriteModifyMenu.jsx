@@ -3,11 +3,11 @@ import styles from './calendarManagefavoriteModifyMenu.module.css';
 import icon from '../../common/meterialIcon.module.css'
 import { useContext } from 'react';
 import { ManageChkList } from '../../../layouts/FavoriteCalendarLayout';
-import { useDispatch } from 'react-redux';
-import { deleteFavCalendar, patchFavCalendarStateUpdate, patchFavCalendarUpdate, postFavCalendarRegit } from '../../../apis/FavCalendarAPICalls';
-import { MEMBER_CODE } from '../../../apis/APIConfig';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteFavCalendar, patchFavCalendarStateUpdate, postFavCalendarRegit } from '../../../apis/FavCalendarAPICalls';
 
 const CalendarManagefavoriteModifyMenu = () => {
+    const member = JSON.parse(window.localStorage.getItem('authToken'));
 
     const {pathname} = useLocation();
 
@@ -30,7 +30,7 @@ const CalendarManagefavoriteModifyMenu = () => {
 
     const approveRequest = () => {
         const data = [...chk.selectList.map(item => 
-            ({refCalendar: item, memberCode: parseInt(MEMBER_CODE)}))
+            ({refCalendar: item, memberCode: parseInt(member.memberCode)}))
         ]
         dispatch(postFavCalendarRegit({data:data}))
     }

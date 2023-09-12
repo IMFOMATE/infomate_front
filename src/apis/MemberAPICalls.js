@@ -1,12 +1,15 @@
-
+import { PROTOCOL, SERVER_IP, SERVER_PORT} from './APIConfig';
 import {
     GET_MEMBER
     , POST_LOGIN
-    , POST_REGISTER
 } from '../modules/MemberModule';
+import { MEMBER_REGISTER } from '../modules/MemberRegisterModule';
+import { PURGE_SCHEDULE } from '../modules/ScheduleMoudule';
+import { PURGE_FAV_CALENDAR } from '../modules/FavCalendarMoudule';
+import { PURGE_CALENDAR } from '../modules/CalendarMoudule';
 
 export const callGetMemberAPI = ({ memberId }) => {
-    const requestURL = `http://${process.env.REACT_APP_SPRINGBOOT_SERVER_IP}:${process.env.REACT_APP_SPRINGBOOT_SERVER_PORT}/api/v1/members/${memberId}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/api/v1/members/${memberId}`;
 
     return async (dispatch, getState) => {
 
@@ -29,7 +32,7 @@ export const callGetMemberAPI = ({ memberId }) => {
 }
 
 export const callLoginAPI = ({ form }) => {
-    const requestURL = `http://${process.env.REACT_APP_SPRINGBOOT_SERVER_IP}:${process.env.REACT_APP_SPRINGBOOT_SERVER_PORT}/auth/login`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/auth/login`;
 
     return async (dispatch, getState) => {
 
@@ -41,7 +44,7 @@ export const callLoginAPI = ({ form }) => {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "*/*",
-                "Access-Control-Allow-Origin": "*",     // 모든 도멘인에서 접근할 수 있음을 의미 (특정도메인을 넣고싶으면 * 대신 http://test.com)
+                "Access-Control-Allow-Origin": "*",     // 모든 도메인에서 접근할 수 있음을 의미 (특정도메인을 넣고싶으면 * 대신 http://test.com)
             },
             body: JSON.stringify({
                 memberId: form.memberId,
@@ -66,38 +69,45 @@ export const callLogoutAPI = () => {
     return async (dispatch, getState) => {
 
         dispatch({ type: POST_LOGIN, payload: '' });
+        dispatch({ type: 'PURGE' })
+
         console.log('[MemberAPICalls] callLogoutAPI RESULT : SUCCESS');
     };
 }
 
+export const callRegisterAPI = ({ form, image }) => {
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/auth/regist`;
 
-export const callRegisterAPI = ({ form }) => {
-    const requestURL = `http://${process.env.REACT_APP_SPRINGBOOT_SERVER_IP}:${process.env.REACT_APP_SPRINGBOOT_SERVER_PORT}/auth/signup`;
+    const formData = new FormData();
+
+    for (const key in form) { 
+        formData.append(key, form[key]);
+    }
+
+    if (image){
+        formData.append("image", image);
+    }
 
     return async (dispatch, getState) => {
-
-        console.log("form :", form);
+        
+        console.log("form =-==-=-=- ", form);
+        console.log("image-=-", image);
 
         const result = await fetch(requestURL, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                // "Content-Type": "application/json",
                 "Accept": "*/*",
                 "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
             },
-            body: JSON.stringify({
-                memberId: form.memberId,
-                memberPassword: form.memberPassword,
-                memberName: form.memberName,
-                memberEmail: form.memberEmail
-            })
+            body: formData,
         })
             .then(response => response.json());
 
         console.log('[MemberAPICalls] callRegisterAPI RESULT : ', result);
 
         if (result.status === 201) {
-            dispatch({ type: POST_REGISTER, payload: result });
+            dispatch({ type: MEMBER_REGISTER, payload: result });
         }
     };
 }

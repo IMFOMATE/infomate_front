@@ -1,9 +1,35 @@
 import Swal from "sweetalert2";
 
+
+
+
 export function formatApprovalDate(approvalDate) {
   const date = new Date(approvalDate);
-  return `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}`;
+  return `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')} `;
 }
+
+
+export function formatNowDate() {
+  const date = new Date();
+  return `${date.getFullYear()}년 ${(date.getMonth() + 1).toString().padStart(2, '0')}월 ${date.getDate().toString().padStart(2, '0')}일`;
+}
+
+
+export function shortFormatApprovalDate(approvalDate){
+  const date = new Date(approvalDate);
+  return `${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}`;
+}
+
+function formatDate(dateTimeString) {
+  const date = new Date(dateTimeString);
+
+  const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+
+  return formattedDate;
+}
+
 
 export function diffDate(date1, date2){
   const startDate = new Date(date1).getTime();
@@ -27,6 +53,7 @@ export function formatStatus(status){
 }
 
 export const formatNumberWithCommas = (number) => {
+  if(isNaN(number)) return 0;
   return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
@@ -70,7 +97,7 @@ export const isPaymentListValid = (paymentList) => {
 };
 
 
-export const showValidationAndConfirm = (validationResult, approvalSize, confirmedCallback) => {
+export const showValidationAndConfirm = (validationResult, approvalSize, title, text, confirmedCallback) => {
   if (typeof validationResult === 'string') {
     // 유효성 검사 실패 시 해당 조건에 맞는 텍스트를 표시
     Swal.fire({
@@ -84,8 +111,8 @@ export const showValidationAndConfirm = (validationResult, approvalSize, confirm
   if(approvalSize){
     Swal.fire({
       icon: 'info',
-      title: '결재요청',
-      text: '결재하시겠습니까??',
+      title: title,
+      text: text,
       showCancelButton: true,
       confirmButtonText: '네',
       cancelButtonText: '아니오'
@@ -129,4 +156,20 @@ export const handleCancel = (callback) => {
     }
   });
 };
+
+
+export const handleAlert = (title, text, callback)=>{
+  Swal.fire({
+    title: title,
+    text: text,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: '예',
+    cancelButtonText: '아니요',
+  }).then((result) =>{
+    if (result.isConfirmed) {
+      callback();
+    }
+  })
+}
 

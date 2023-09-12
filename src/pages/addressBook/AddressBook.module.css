@@ -1,3 +1,5 @@
+
+
 .title{
     padding: 20px;
 }
@@ -86,6 +88,9 @@ color: var(--color-text-title);
 font-weight: 600;
 border-top: 1.5px solid rgba(155,155,155,0.5);
 border-bottom: 1.5px solid rgba(155,155,155,0.5);
+display: flex;
+justify-content: center; /* 수평 가운데 정렬 */
+align-items: center;  /* 수직 가운데 정렬 */
 
 }
 
@@ -113,8 +118,189 @@ display: flex;
 width: 100%;
 text-align: center;
 color: #757575;
-font-weight: 600;
+font-weight: 500;
 border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+.starButton {
+    width: 25px;
+    height: 25px;
+    margin-left: 23px;
+}
+
+.onstartButton {
+    
+    width: 30px;
+    height: 30px;
+    margin-left: 20px;
+    
+
+}
+
+/* AddressBook.module.css */
+/* ... (기존 스타일 코드) */
+
+/* 모달 스타일 */
+
+.contentImg{
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    margin-left: 30px;
+}
+
+.modalOverlay {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+    z-index: 101;
+    
+    
+}
+
+.modalContent {
+    background-color: white;
+    
+    border-radius: 5px;
+    max-width: 400px;
+    flex: 1;
+    
+    font-size: 23px;
+    line-height: 50px;
+    height: 900px;
+    
+}
+.closeModalButton {
+    flex: 1;
+    margin-left: 85%;
+    color: var(--color-hard);
+    font-size: 40px;
+    margin-top: 10px;
+
+
+}
+
+.contentTitle {
+    background-color: var(--color-middle);
+    flex: 1;
+
+    color: white;
+    display: grid;
+    place-items: center;
+    
+
+}
+
+.contentModal {
+    padding: 50px;
+}
+
+.contentButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    font-size: 28px;
+    
+}
+
+.contentButton>button {
+
+    width: 79px;
+    height: 33px;
+    justify-content: center;
+    align-items: center;
+    color: bl;
+    font-weight: 600;
+    /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    
+    
+}
+
+.contentButton>button:hover{
+    background-color: var(--color-middle);
+color: aliceblue;
+}
+
+.selectButton {
+    margin-top: -30px;
+    /* margin-left: 20px; */
+    /* border-top: 1px solid rgba(0, 0, 0, 0.2); */
+}
+
+.selectButton>button {
+    padding: 15px;
+    font-size: 20px;
+    font-weight: 500;
+    color: gray;
+    margin-left: 20px;
+    margin-top: 10px;
+
+}
+
+.selectButton>button:hover {
+
+    background-color: var(--color-middle);
+    color: white;
+    border-radius: 10%;
+}
+
+/* 페이징 버튼 */
+.bodyDiv{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    height: 100%;
+}
+
+.buttonDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.buttonDiv button {
+    width: 100px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 25px;
+    height: 30px;
+    border-radius: 25px;
+    background-color: white;
+    font-weight: bold;
+}
+
+.productTable{
+    width: 900px;
+}
+
+.productTable tr:hover { 
+    background-color: #F5F5F5; 
+}
+
+.productTable tr {
+    cursor: pointer;
+}
+
+.pagingBtn{
+    margin: 5px;
+    border-radius: 25px;
+    background-color: white;
+    font-weight: bold;
+}
+
+.pagingBtn:hover{
+    cursor: pointer;
+    background-color: burlywood;
+}
+
+
 
 

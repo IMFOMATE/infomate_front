@@ -10,17 +10,18 @@ import { MenuContext } from '../../context/MenuContext';
 import { getCalendarListAPI } from '../../apis/CalendarAPICalls';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
-import { DEPARTMENT_CODE, MEMBER_CODE } from '../../apis/APIConfig';
 import { LoadingSpiner } from '../../components/common/other/LoadingSpiner';
 
 const CalendarNav = () => {
 
     const {menuState, toggleMenu} = useContext(MenuContext);
     const {filter, setFilter} = useContext(CalendarFilterContext);
-    
+    // const member = useSelector(state => state.memberReducer);
+    const member = JSON.parse(window.localStorage.getItem('authToken'));
     const dispatch = useDispatch();
 
     const data = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
+    const favCalendarReducer = useSelector(state => state.favCalendarReducer);
 
     const [moreToggle, setMoreToggle] = useState({
         my:false,
@@ -45,17 +46,15 @@ const CalendarNav = () => {
                         ].join(' ');
 
     useEffect(()=>{
-        if(data) return;
-        dispatch(getCalendarListAPI()) 
-    },[
-        data,
-    ])
+        // if(data) return;
+        dispatch(getCalendarListAPI());
+    },[filter,favCalendarReducer])
 
     if(!data) return <LoadingSpiner />
     if(data && filter.includes(0)){ // 나은 방법 구상중 
         setFilter([
         ...data.data.filter(item => 
-            item.memberCode !== MEMBER_CODE && item.departmentCode === null
+            item.memberCode !== member.memberCode && item.departmentCode === null
             ).map(item => parseInt(item.id))])
     }
 
@@ -70,7 +69,7 @@ const CalendarNav = () => {
             ]);
         }   
     }
-
+    
     const moreClickHandler = (e) => {
         setMoreToggle({[e.target.name]:!moreToggle[e.target.name]});
     }
@@ -83,9 +82,9 @@ const CalendarNav = () => {
     return (
         <div className={styles.container}>
             <div className={NavStyle.sideTop}>
-                <h1 className={NavStyle.title}>일정</h1>
+                <h2 className={NavStyle.title}>일정</h2>
                 <NavLink 
-                    to='/calendar/regist' 
+                    to='/calendar/regist?new=true' 
                     className={NavStyle.new} 
                     onClick={toggleMenu}>
                     일정등록
@@ -97,7 +96,7 @@ const CalendarNav = () => {
             <div className={myClassName}>
                 {
                     data.data.filter(item => (
-                        item.departmentCode === null && item.memberCode === MEMBER_CODE // memberCode 수정
+                        item.departmentCode === null && item.memberCode === member.memberCode // memberCode 수정
                     )).sort((prev , next) =>
                         prev.indexNo - next.indexNo
                     ).filter((item, index)=> (
@@ -117,7 +116,7 @@ const CalendarNav = () => {
             </div>
             {
                 data.data.filter(item => (
-                    item.departmentCode === null && item.memberCode === MEMBER_CODE // memberCode 수정
+                    item.departmentCode === null && item.memberCode === member.memberCode // memberCode 수정
                 )).length > 3 &&
                 <ButtonSimple
                     name='my'
@@ -133,7 +132,7 @@ const CalendarNav = () => {
             <div className={corpClassName}>
                 {
                     data.data.filter(item => (
-                        item.departmentCode === DEPARTMENT_CODE || item.departmentCode  === 1 // 조건 수정 예정
+                        item.departmentCode === member.deptCode || item.departmentCode  === 1 // 조건 수정 예정
                     )).sort((prev , next) =>
                         prev.indexNo - next.indexNo
                     ).filter((item, index) => (
@@ -159,7 +158,7 @@ const CalendarNav = () => {
             <div className={favClassName}>
                 {
                     data.data.filter(item => (
-                        item.memberCode !== MEMBER_CODE && item.departmentCode === null // membercode조건 수정 예정
+                        item.memberCode !== member.memberCode && item.departmentCode === null // membercode조건 수정 예정
                     )).sort((prev , next) =>
                         prev.indexNo - next.indexNo
                     ).filter((item, index)=> (
@@ -178,7 +177,7 @@ const CalendarNav = () => {
             </div>
             {
                 data.data.filter(item => (
-                    item.memberCode !== MEMBER_CODE && item.departmentCode === null // membercode조건 수정 예정
+                    item.memberCode !== member.memberCode && item.departmentCode === null // membercode조건 수정 예정
                 )).length > 3 &&
                 <ButtonSimple
                     name='fav'

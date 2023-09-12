@@ -1,0 +1,142 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
+
+
+
+/* 스크롤 추가*/
+.itemWrap{
+    height: 540px;
+    overflow-y: auto;
+
+}
+
+.itemWrap::-webkit-scrollbar {
+    width: 8px;
+}
+.itemWrap::-webkit-scrollbar-thumb {
+    background-color: #888;
+}
+
+.itemWrap::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+/* 추가 input */
+
+.addWrap{
+    width: 36%;
+    overflow-y: auto;
+    border: 1px solid #e7e7e7;
+    border-radius: 30px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.addDept{
+    width: 80%;
+    height: 30px;
+    margin: 10px 20px  ;
+    padding: 10px;
+    /* background-color: rgb(241, 241, 241); */
+    border-radius: 30px;
+    outline: none;
+}
+
+.deptWrap{
+    width: 60%;
+    margin: 10px;
+}
+
+
+/* 스크롤 */
+.deptP{
+    width: 36%;
+    overflow-y: auto;
+    border: 1px solid #e7e7e7;
+    border-radius: 30px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+/* 타이틀 */
+.titleWrap{
+    width: 36%;
+    margin: 10px 0;
+    padding: 10px;
+
+}
+
+.titleDeptCode{
+    width: 16%;
+    height: 30px;
+    font-weight: 600;
+    vertical-align: middle;
+    margin-left: 20px;
+
+}
+.titleDeptName{
+    width: 60%;
+    height: 30px;
+    font-weight: 600;
+    vertical-align: middle;
+    margin-left: 120px;
+}
+
+.deptCode{
+    font-size: 1rem;
+    font-weight: 600;
+    width: 60px;
+    height: 30px;
+    background-color: white;
+    text-align: center;
+
+}
+
+.deptNameInput{
+    font-size: 1rem;
+    font-weight: 500;
+    width: 280px;
+    height: 30px;
+    padding-left: 12px;
+    background-color: white;
+    text-align: center;
+
+}
+
+.checkBnt{
+    width: 30px;
+    height: 30px;
+    color: rgb(124, 124, 124);
+    border-radius: 3px;
+    /* margin-left: 10px; */
+    text-align: center;
+
+
+}
+
+.updateBnt{
+    color: #9f8afb;
+    width: 16px
+
+}
+
+
+
+
+
+.inputDept{
+    width: 72%;
+    height: 30px;
+    margin: 10px;
+    padding: 10px;
+    background-color: rgb(241, 241, 241);
+    border-radius: 30px;
+}
+
+.inputCode{
+    width:8%;
+    height: 30px;
+    margin: 2px;
+    padding: 2px;
+}

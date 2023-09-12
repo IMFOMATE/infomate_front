@@ -8,7 +8,7 @@ function Navlist({title, data}) {
   return (
     <>
       <div className={NavListCss.title}>{title}</div>
-      <ol>
+      <ol className={NavListCss.ol}>
         {
           data.map((d, index) =>
             <li key={index} className={NavListCss.list}>

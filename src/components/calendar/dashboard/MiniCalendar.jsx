@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DELETE_SCHEDULE, GET_SCHEDULE_COUNT, PATCH_SCHEDULE, POST_SCHEDULE_REGIT } from "../../../modules/ScheduleMoudule";
 import { getScheduleDayPerCount } from "../../../apis/ScheduleAPICalls";
 import { LoadingSpiner } from "../../common/other/LoadingSpiner";
-import { type } from "@testing-library/user-event/dist/type";
+import { useNavigate } from "react-router-dom";
 
 dayjs.locale('ko');
 dayjs.extend(utc);
@@ -20,6 +20,7 @@ const MiniCalendar = () => {
     const data = useSelector(state => state.scheduleReducer[GET_SCHEDULE_COUNT]);
     const scheduleReducer = useSelector(state => state.scheduleReducer);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const startDate = curMonth.startOf("month").startOf('week');
     const endDate = dayjs().clone().endOf("month").endOf('week');
     let day = startDate.clone().subtract(1, "day");
@@ -69,7 +70,7 @@ const MiniCalendar = () => {
                 </div>
             </div>
 
-            <table>
+            <table className={styles.table}>
                 <thead>
                     {
                         dateLabel.map((item, index) => 
@@ -84,16 +85,19 @@ const MiniCalendar = () => {
                 </thead>
                 <tbody>
                     {
-                        calendar.map(item1 => 
-                            <tr>{item1.map((item2,index) => 
-                                <Day 
+                        calendar.map((item1, index) => 
+                            <tr key={index}>{item1.map((item2,index) => 
+                                <Day
                                     key={index}
-                                    value={item2.format('D')} 
+                                    value={item2} 
                                     data={data.data.filter(item => item.date === item2.format('YYYY-MM-DD')).map(item=> item)}
                                     today={item2.format('D') === dayjs().format('D')} 
                                     isCurMonth={item2.format('MM') === curMonth.format('MM')}
                                     isSun={index === 0}
                                     isSur={index === 6}
+                                    onClick={(e)=>
+                                        navigate(`/calendar?date=${e.target.id}`)
+                                    }
                                 />
                             )}</tr>
                         )

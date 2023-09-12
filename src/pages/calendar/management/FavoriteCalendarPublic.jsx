@@ -20,6 +20,7 @@ const FavoriteCalendarPublic = () => {
     
     const publicCalendarList = useSelector(state => state.calendarReducer[GET_CALENDAR_FIND_ALL_PUBLIC]);
     const favCalendarReducer = useSelector(state => state.favCalendarReducer);
+    const member = JSON.parse(window.localStorage.getItem('authToken'));
     const dispatch = useDispatch();
 
     useEffect(()=>{
@@ -34,6 +35,7 @@ const FavoriteCalendarPublic = () => {
 
         return () => {
             setChk({})
+            
         }
     },[search, favCalendarReducer[POST_FAV_CALENDAR_REGIT]])
 
@@ -50,26 +52,30 @@ const FavoriteCalendarPublic = () => {
         setSelectAll(e.target.checked)
     }
 
+
     return (
         <>
             
             <CalendarMagnageFavoriteFollowerHeader chk={selectAll} setChk={selectItemChange} />
             <br />
             {
-                publicCalendarList.data.map((item)=> <CalendarMagnageFavoriteItem
+                publicCalendarList.data.map((item)=> 
+                                    <CalendarMagnageFavoriteItem
                                             key={item.id}
                                             id={item.id}
                                             memberName={item.member.memberName}
-                                            // rank={item?.refMember?.refRank?.name} // 직위 수정 예정
+                                            rank={item?.member.rank.rankName} // 직위 수정 예정
                                             calendarName={item?.name}
                                             requestDate={item?.requestDate}
                                             createDate={item?.createDate}
-                                            favState={item?.favoriteCalendar[0]?.approvalStatus}
+                                            favState={item?.favoriteCalendar.filter(mem => 
+                                                mem.member.memberCode === member.memberCode
+                                            )[0]?.approvalStatus}
                                     />)  
             }
             {
-                publicCalendarList.pageInfo &&
-                <Pagenation 
+                publicCalendarList.pageInfo 
+                && <Pagenation 
                     prev={publicCalendarList.pageInfo.prev}
                     next={publicCalendarList.pageInfo.next}
                     total={publicCalendarList.pageInfo.total} 

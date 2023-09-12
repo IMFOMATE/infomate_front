@@ -15,7 +15,7 @@ import { getCalendarFindAllAPI } from '../../apis/CalendarAPICalls';
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 import 'dayjs/locale/ko';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { MenuContext } from "../../context/MenuContext";
 import { patchScheduleUpdate } from "../../apis/ScheduleAPICalls";
 import { FadeLoader } from "react-spinners";
@@ -29,6 +29,8 @@ dayjs.extend(utc)
 const Calendar = () =>{
 
     const containerRef = createRef();
+    const [search] = useSearchParams();
+
 
     const [mode, setMode] = useState('create');
     const [offset, setOffset] = useState({x:0, y:0, yName:'top', xName:'left'})
@@ -75,10 +77,10 @@ const Calendar = () =>{
         dispatch(getCalendarFindAllAPI())
     
         return () => {
-            console.log(1);
             sizeObserver.disconnect();
         }
     },[
+        filter,
         dispatch,
         scheduleReducer[PATCH_SCHEDULE],
         scheduleReducer[DELETE_SCHEDULE],
@@ -88,7 +90,6 @@ const Calendar = () =>{
     ])
 
     const calenderClickHandler = data => {
-        
         setSchedule({
             ...schedule, 
             data : {...schedule?.data,
@@ -209,8 +210,9 @@ const Calendar = () =>{
                         selectable={true}
                         dayMaxEvents={true}
                         expandRows={true}
+                        initialDate={search.get('date') || dayjs().format('YYYY-MM-DD')}
                         plugins={[ multiMonthPlugin, dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin ]}
-                        initialView={'dayGridMonth'}
+                        initialView={search.get('date') ? 'timeGrid' : 'dayGridMonth'}
                         windowResize={e => {
                             if(window.innerWidth <= 480){
                                 setIsMobile(true);

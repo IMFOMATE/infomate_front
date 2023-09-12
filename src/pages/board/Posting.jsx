@@ -17,7 +17,7 @@ function Posting() {
     const dispatch = useDispatch();
     const params = useParams();
     const post = useSelector(state => state.postReducer);
-
+  
 
     // form 데이터 ==========================
     const [form, setForm] = useState({
@@ -34,6 +34,7 @@ function Posting() {
       
 
     });
+    
 
  const changeContent = (editor) => {
     

@@ -6,11 +6,9 @@ import styles from './myCalendar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { DELETE_CALENDAR, GET_CALENDAR_LIST, PATCH_CALENDAR_UPDATE, POST_CALENDAR_REGIT } from '../../../modules/CalendarMoudule';
 import { getCalendarListAPI, patchCalendarUpdate, patchDefaultCalendarUpdate, postCalendarRegit } from '../../../apis/CalendarAPICalls';
-import { MEMBER_CODE } from '../../../apis/APIConfig';
 import { NotResultData } from '../../common/Error';
-import { FadeLoader } from 'react-spinners';
-import StylesLoading from '../loadingStyle.module.css';
 import { LoadingSpiner } from '../../../components/common/other/LoadingSpiner';
+import { message } from 'antd';
 
 const MyCalendar = () => {
 
@@ -18,11 +16,12 @@ const MyCalendar = () => {
     
     const calendarList = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
     const calendarReducer = useSelector(state => state.calendarReducer);
+    const member = JSON.parse(window.localStorage.getItem('authToken'));
     const dispatch = useDispatch();
 
     useEffect(()=> {
         dispatch(getCalendarListAPI());
-        setData({});
+        setData({labelColor:'#000000'});
     },[
         calendarReducer[POST_CALENDAR_REGIT],
         calendarReducer[PATCH_CALENDAR_UPDATE], 
@@ -41,6 +40,7 @@ const MyCalendar = () => {
     }
 
     const registCalendarHandler = () => {
+        if(!data?.name) return message.error('누락된 필드가 존재 합니다');
         dispatch(postCalendarRegit({data: data}));
     }
 
@@ -66,14 +66,14 @@ const MyCalendar = () => {
                     <div className={styles.delete}>
                     </div>
                     {
-                        calendarList?.data.filter(item => item.memberCode === parseInt(MEMBER_CODE)
+                        calendarList?.data.filter(item => item.memberCode === parseInt(member.memberCode)
                         ).sort((prev, next) => (
                             prev.indexNo - next.indexNo
                         )).map((item,index) => <MyCalendarItem 
                                                     key={item.id}
                                                     id={item.id}
                                                     min={index === 0}
-                                                    max={index === (calendarList.data.filter(item => item.memberCode === parseInt(MEMBER_CODE)).length - 1)}
+                                                    max={index === (calendarList.data.filter(item => item.memberCode === parseInt(member.memberCode)).length - 1)}
                                                     memberCode={item.memberCode}
                                                     defaultCalendar={item.defaultCalendar}
                                                     name={item.name}

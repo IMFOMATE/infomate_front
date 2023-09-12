@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import style from "../../../../../pages/approval/DocumentMain.module.css";
 import WriterInfo from "../WriterInfo";
 import Credit from "../Credit";
@@ -11,12 +11,13 @@ function formatApprovalDate(approvalDate) {
   const date = new Date(approvalDate);
   return `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}`;
 }
-function DraftDetail({data}) {
+
+const DraftDetail = forwardRef(({data}, ref) =>{
 
   console.log(data)
   return (
-      <div className={style.container}>
-        <div className={style.docs}>
+      <div className={style.container} >
+        <div className={style.docs} ref={ref}>
           <div className={style.doc}>
             <h2 className={style.doc_title}>업무기안</h2>
             <div className={style.doc_top}>
@@ -24,7 +25,7 @@ function DraftDetail({data}) {
               <div className={style.inline}>
                 {
                   data.approvalList.length !== 0 ?
-                      data.approvalList.map((data, i) => <Credit key={data.memberCode} text={data.memberName} rank={data.rankName} approvalDate={data.approvalDate} />)
+                      data.approvalList.map((data, i) => <Credit key={data.memberCode} text={data.memberName} rank={data.rankName} approvalDate={data.approvalDate} approvalStatus={data.approvalStatus} />)
                       : ""
                 }
               </div>
@@ -68,6 +69,7 @@ function DraftDetail({data}) {
                         className={style.left}
                         name='emergency'
                         type="checkbox"
+                        checked={data.emergency === 'Y'}
                         value={data.emergency === 'Y'}
                     />
                   </td>
@@ -78,12 +80,12 @@ function DraftDetail({data}) {
             </div>
             <DocFileSpan fileList={data.fileList}/>
           </div>
-        </div>
+        </div >
         <aside className={style.doc_side}>
           <DocumentSide approval={data.approvalList} reference={data.refList}/>
         </aside>
       </div>
   );
-}
+});
 
 export default DraftDetail;

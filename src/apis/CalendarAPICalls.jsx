@@ -8,17 +8,19 @@ import {
     POST_CALENDAR_REGIT,
 } from '../modules/CalendarMoudule';
 
-import { PROTOCOL, SERVER_IP, SERVER_PORT, MEMBER_CODE, PageURI, Pageable, DEPARTMENT_CODE} from './APIConfig';
+import { PROTOCOL, SERVER_IP, SERVER_PORT, Pageable} from './APIConfig';
 import { message } from 'antd';
 
 export const getCalendarFindAllAPI = () => {
-
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/list/${MEMBER_CODE}/${DEPARTMENT_CODE}`;
+ 
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/list`;
 
     return async (dispatch, getState) => {
         
-        const result = await axios.get(requestURL)
-                    .then(res => res.data);
+        const result = await axios.get(requestURL,{headers:{
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data);
         
         if(result.status === 200) 
             dispatch({ type: GET_CALENDAR_FINDALL,  payload: result });
@@ -28,12 +30,13 @@ export const getCalendarFindAllAPI = () => {
 
 export const getCalendarListAPI = () => {
 
-    console.log(DEPARTMENT_CODE);
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/mylist/${MEMBER_CODE}/${DEPARTMENT_CODE}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/mylist`;
 
     return async (dispatch, getState) => {
-        const result = await axios.get(requestURL)
-                    .then(res => res.data)
+        const result = await axios.get(requestURL,{headers: {
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data);
                     
         if(result.status === 200) {
             dispatch({ type: GET_CALENDAR_LIST,  payload: result });
@@ -44,15 +47,16 @@ export const getCalendarListAPI = () => {
 
 export const getCalendarPublicListAPI = ({page}) => {
 
-    const {pageOption, sort} = Pageable({page:page.number, size:page.size, sortId: page.sortId, sortDirection: page. sortDirection});
+    const {pageOption, sort} = Pageable({page:page.number, size:page.size, sortId: page.sortId, sortDirection: page.sortDirection});
     
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/openCalendarList/${MEMBER_CODE}?${pageOption}&${sort}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/openCalendarList?${pageOption}&${sort}`;
     
 
     return async (dispatch, getState) => {
-        const result = await axios.get(requestURL)
-                    .then(res => res.data)
-                    .catch(res => res)
+        const result = await axios.get(requestURL,{headers:{
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data)
 
         if(result === undefined || result === ''){
             message.error('조회할 내용이 없습니다.')
@@ -73,12 +77,14 @@ export const getCalendarPublicListAPI = ({page}) => {
 
 export const postCalendarRegit = ({data}) => {
 
-    data = {...data, memberCode: MEMBER_CODE};
+    
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/regist`;
 
     return async (dispatch, getState) => {
-        const result = await axios.post(requestURL, data, {headers:{"Content-Type":'application/json',Accept:'*/*'}})
-                    .then(res => res.data)
+        const result = await axios.post(requestURL, data, {headers:{
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data)
         
         if(result.status === 200){
             message.success(result.message);
@@ -90,15 +96,17 @@ export const postCalendarRegit = ({data}) => {
 }
 
 export const patchCalendarUpdate = ({data}) => {
-    data = {...data, memberCode: MEMBER_CODE}
+    
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/update`;
 
     return async (dispatch, getState) => {
-        const result = await axios.patch(requestURL, data, {headers:{"Content-Type":'application/json',Accept:'*/*'}})
-                    .then(res => res.data)
-                    .catch(e => console.log(e));
+        const result = await axios.patch(requestURL, data, {headers:{
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data);
+                    
         
-        if(result.status === 200){
+        if(result?.status === 200){
             message.success(result.message);
             dispatch({ type: PATCH_CALENDAR_UPDATE,  payload: result });
             return ;
@@ -110,13 +118,14 @@ export const patchCalendarUpdate = ({data}) => {
 
 
 export const patchDefaultCalendarUpdate = ({data}) => {
-    data = {...data, memberCode: MEMBER_CODE}
     
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/updateDafault/${MEMBER_CODE}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/updateDafault`;
     return async (dispatch, getState) => {
-        const result = await axios.patch(requestURL, data, {headers:{"Content-Type":'application/json',Accept:'*/*'}})
-                    .then(res => res.data)
-                    .catch(e => console.log(e));
+        const result = await axios.patch(requestURL, data, {headers: {
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data);
+                    
         
         if(result.status === 200){
             message.success(result.message);
@@ -128,16 +137,17 @@ export const patchDefaultCalendarUpdate = ({data}) => {
     };
 }
 
-export const patchChangeCalendarIndexNo = ({data}) => {
-    data = {...data, memberCode: MEMBER_CODE}
-    
+export const patchChangeCalendarIndexNo = ({data}) => {    
+
+    console.log(data);
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/changeIndexNo`;
     return async (dispatch, getState) => {
-        const result = await axios.patch(requestURL, data, {headers:{"Content-Type":'application/json',Accept:'*/*'}})
-                    .then(res => res.data)
-                    .catch(e => console.log(e));
+        const result = await axios.patch(requestURL, data, {headers: {
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data);
         
-        if(result.status === 200){
+        if(result?.status === 200){
             message.success(result.message);
             dispatch({ type: PATCH_CALENDAR_UPDATE,  payload: result });
             return ;
@@ -148,14 +158,17 @@ export const patchChangeCalendarIndexNo = ({data}) => {
 }
 
 
-export const deleteCalendar = ({data}) => {    
-    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/delete/${MEMBER_CODE}`;
+export const deleteCalendar = ({scheduleId}) => {    
+    
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/delete/${scheduleId}`;
     return async (dispatch, getState) => {
-        const result = await axios.delete(requestURL, {data}, {headers:{"Content-Type":'application/json',Accept:'*/*'}})
-                    .then(res => res.data)
-                    .catch(e => console.log(e));
+        const result = await axios.delete(requestURL, {headers: {
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data);
+                    
         
-        if(result.status === 200){
+        if(result?.status === 200){
             message.success(result.message);
             dispatch({ type: DELETE_CALENDAR,  payload: result });
             return ;

@@ -14,11 +14,11 @@ function WriterInfo({writer, id, start}) {
             <tbody>
             <tr className={style.tr}>
                 <td className={style.td}>기안자</td>
-                <td className={style.td}>{memberName}</td>
+                <td className={style.td}>{memberName || ''}</td>
             </tr>
             <tr className={style.tr}>
                 <td className={style.td}>소속부서</td>
-                <td className={style.td}>{deptName}</td>
+                <td className={style.td}>{deptName || ''}</td>
             </tr>
             <tr className={style.tr}>
                 <td className={style.td}>기안일</td>

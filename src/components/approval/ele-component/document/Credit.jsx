@@ -1,7 +1,7 @@
 import React from 'react';
 import style from "./Credit.module.css";
-import {formatApprovalDate} from "../common/dataUtils";
-function Credit({key, text, rank, approvalDate}) {
+import {formatApprovalDate, shortFormatApprovalDate} from "../common/dataUtils";
+function Credit({key, text, rank, approvalDate, approvalStatus}) {
   const formattedDate = approvalDate ? formatApprovalDate(approvalDate) : null;
 
   return (
@@ -9,7 +9,8 @@ function Credit({key, text, rank, approvalDate}) {
         <p>{rank }</p>
         <p className={style.credit_name}>
           {
-            approvalDate ?
+
+            approvalStatus === 'APPROVAL' ?
                 <img className={style.stamp} src="/img/stamp.png" />
                 :
                 ''
@@ -17,8 +18,9 @@ function Credit({key, text, rank, approvalDate}) {
           }
           <span>{text}</span>
         </p>
-        <p>{
-            formattedDate
+        <p className={approvalStatus === 'REJECT' ? style.reject :''}>
+          {
+            approvalStatus === 'REJECT' ? `(반려)${shortFormatApprovalDate(approvalDate)}` : formattedDate
           }
         </p>
       </div>

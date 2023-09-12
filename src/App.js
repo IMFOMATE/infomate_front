@@ -21,7 +21,6 @@ import FavoriteCalendarFollowing from './pages/calendar/management/FavoriteCalen
 import FavoriteCalendarPublic from './pages/calendar/management/FavoriteCalendarPublic';
 import FavoriteCalendarFollower from './pages/calendar/management/FavoriteCalendarFollower';
 import MemberInfo from './pages/manage/MemberInfo';
-import ChartModal from './pages/manage/ChartModal';
 import Work from "./pages/work/Work";
 import WkAdmin from "./pages/work/WkAdmin";
 import MyWork from "./pages/work/MyWork";
@@ -34,18 +33,32 @@ import BrdDept from "./pages/board/BrdDept";
 import BrdAdmin from "./pages/board/BrdAdmin";
 import Anony from "./pages/board/Anony";
 import NewPost from "./pages/board/NewPost";
+import MailContactModal from './components/approval/ele-component/contact/MailContactModal';
+import AddressBookLike from './pages/addressBook/AddressBookLike';
+import ViewMail from './pages/mail/ViewMail';
 import Posting from './pages/board/Posting';
 import UpdateMember from './pages/manage/UpdateMember';
 import DocumentDetail from "./components/approval/ele-component/document/detail/DocumentDetail";
 import PostView from './pages/board/PostView';
+import UpdateDept from './pages/manage/admin/UpdateDept';
+import Department from './pages/manage/Department';
+import UpdateList from './pages/manage/admin/UpdateList';
+import DeptItems from './pages/manage/admin/DeptItems';
 import PostUpdate from './pages/board/PostUpdate';
 import LoginForm from "./pages/member/login/LoginForm";
 import Main from './pages/home/Main';
 import Register from './pages/member/login/Register';
+import SearchList from './pages/manage/SearchList';
+import MailTrash from './pages/mail/MailTrash';
+import Items from './pages/manage/admin/Items';
+import MyInfo from './pages/member/MyInfo';
+import DeptTreeView from './pages/manage/DeptTreeView';
+import SimpleInfo from './pages/manage/SimpleInfo';
+
+
 
 function App() {
 
-  
   return (
     <>
       <BrowserRouter>
@@ -54,11 +67,13 @@ function App() {
           <Route index element={<LoginForm />} />
 
           <Route path="/" element={<Layout/>}>
-
+  
+          
             <Route path="main">
               <Route index element={<Main/>}/>
               <Route path="regist-member" element={<Register/>}/>
             </Route>
+            <Route path="myInfo" element={<MyInfo/>}/>
 
 
             <Route path="/addressBook" element={<AddressBook />} />
@@ -73,12 +88,40 @@ function App() {
               <Route path="ref" element={<MyDocList />}/> {/*참조문서리스트*/}
               <Route path="temporary" element={<MyDocList />} /> {/*임시저장문서리스트*/}
               <Route path="credit" element={<MyDocList/>}/> {/*결재 대기문서리스트*/}
+              <Route path="dept" element={<MyDocList/>}/>
               <Route path="document">
                 <Route path="new" element={<DocumentMain/>}/>
                 <Route path=":documentId" element={<DocumentDetail/>}/> {/* 문서 조회 */}
                 <Route path=":documentId/reapply" element={<DocumentMain/>}/>
               </Route>
             </Route>
+
+
+              <Route path='mail'>
+                <Route path='' element={<Mail title={"전체메일함"} />}/>
+                <Route path='allMail' element={<Mail title={"전체메일함"} />}/>
+                <Route path='unreadMail' element={<Mail title={"안읽은 메일함"} />}/>
+                <Route path='readMail' element={<Mail title={"읽은 메일함"} />}/>
+                <Route path='reference' element={<Mail title={"참조 메일함"} />}/>
+                <Route path='mailWrite' element={<MailWrite />}/>
+                <Route path='mailTrash' element={<MailTrash title={"휴지통"} />}/>
+                <Route path='viewMail' element={<ViewMail />} />
+              </Route>
+
+
+              <Route path="addressBook">
+
+                    {/* <Route index element={<AddressBook title={"전체연락처"}/>}/> */}
+                    <Route path="" element={<AddressBook title={"전체연락처"}/>}/>
+                    <Route path="allAddressBook" element={<AddressBook title={"전체연락처"}/>}/>
+                    <Route path="like" element={<AddressBookLike title={"즐겨찾기"}/>}/>
+                    <Route path="client" element={<AddressBook title={"거래처 연락처"}/>}/>
+                    <Route path="addContact" element={<AddContact title={"연락처 추가"} />}/>
+                
+              </Route>
+
+
+
 
             <Route path="calendar" element={<CalendarLayout />}>
               <Route index element={<Calendar/>}/>
@@ -99,10 +142,24 @@ function App() {
 
             <Route path='group'>
               <Route index element={<Group/>}/>
+              <Route path='searchDept'>
+                <Route index element={<SearchDept/>}/>
+                <Route path='memberInfo/:memberCode' element={<MemberInfo />}/>
+              </Route>
+              <Route path='updateDept' element={<UpdateDept/>}/>
+              <Route path='simpleInfo/:memberCode'element={<SimpleInfo/>}/>
             </Route>
-            <Route path='memberInfo' element={<MemberInfo />}/>
-            <Route path='memberupdate' element={<UpdateMember/>}/>
-            <Route path='/searchDept' element={<SearchDept/>}/>
+            <Route path='treeDept' element={<DeptTreeView/>}/>
+            <Route path='searchDept' element={<SearchDept/>}/>
+            <Route path='updateDept' element={<UpdateDept/>}/>
+            <Route path='department' element={<Department/>}/>
+            <Route path='deptItems' element={<DeptItems/>}/>
+            <Route path='search' element={<SearchList/>}/>
+            <Route path='items' element={<Items/>}/>
+
+
+
+
             
             <Route path="/work" element={ <Work />}/>
             <Route path="/work/admin" element={ <WkAdmin /> }/>
@@ -110,6 +167,7 @@ function App() {
             <Route path="/work/mydept" element={ <MyDept />}/>
             <Route path="/work/dept" element={ <Dept />}/>
 
+            
 
             
             <Route path="/board/newpost" element={<NewPost/>}/>

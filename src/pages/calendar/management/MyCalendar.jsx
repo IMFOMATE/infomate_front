@@ -15,13 +15,12 @@ const MyCalendar = () => {
     
     const calendarList = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
     const calendarReducer = useSelector(state => state.calendarReducer);
-    // const member = useSelector(state => state.memberReducer);
     const member = JSON.parse(window.localStorage.getItem('authToken'));
     const dispatch = useDispatch();
 
     useEffect(()=> {
         dispatch(getCalendarListAPI());
-        setData({});
+        setData({labelColor:'#000000'});
     },[
         calendarReducer[POST_CALENDAR_REGIT],
         calendarReducer[PATCH_CALENDAR_UPDATE], 

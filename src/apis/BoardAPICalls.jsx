@@ -95,7 +95,7 @@ export const callhBoardViewAPI = ({ currentPage ,boardCategory}) => {
 export const callPostPostAPI = ({form}) => {   // 게시글 생성
     console.log('[BoardAPICalls] callPostPostAPI Call ==== {}', JSON.stringify(form));
 
-    form.member.memberCode = 22;
+    form.member.memberCode = 522;
     const requestURL = `http://localhost:8989/brd/board/posting`;
 
     return async (dispatch, getState) => {

@@ -173,10 +173,10 @@ function Posting() {
                         className={PostingCSS.category}
                         onChange={onChangeHandler}>
                     <option value="" >게시판을 선택해주세요</option>
+                    <option value="공지사항" className={PostingCSS.drdown}>공지사항</option>
                     <option value="일반게시판" className={PostingCSS.drdown}>일반게시판</option>
                     <option value="익명게시판" className={PostingCSS.drdown}>익명게시판</option>
                     <option value="부서게시판" className={PostingCSS.drdown}>부서게시판</option>
-                    <option value="보고사항" className={PostingCSS.drdown}>보고사항</option>
                 </select>
             </div>
 

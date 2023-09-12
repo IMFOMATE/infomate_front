@@ -37,7 +37,7 @@ function PostView() {
           }));                     
       }
   ,[]);
-    if(post.length > 0) return <LoadingSpiner />
+    if(post?.length > 0) return <LoadingSpiner />
 
     const onClickPostModifyHandler = () => {  // 수정 모드
       setModifyMode(true);

@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ReactQuill from "react-quill";
+import PostCSS from './PostView.module.css'
 
 import{
     callPostPostAPI
@@ -33,6 +34,11 @@ function Posting() {
       
 
     });
+
+ const changeContent = (editor) => {
+    
+    
+ }
 
 
     /* form 데이터 세팅 */   
@@ -185,6 +191,7 @@ function Posting() {
         
         </input>
         <div className={PostingCSS.postmargin}>
+        <div className={PostCSS.quill}>
             <ReactQuill
             name='postContents'
             placeholder="내용을 입력해주세요."
@@ -199,7 +206,7 @@ function Posting() {
                     }}
                     />
                     
-        </div>
+        </div></div>
         {/*  */}
 
         {/*  */}

@@ -1,125 +1,122 @@
 .posttitle {
-display: flex;
-width: 99%;
-height: 35px;
-padding: 0px 10px;
-align-items: center;
-gap: 10px;
-flex-shrink: 0;
-border-radius: 10px;
-border: 1px solid #D9D9D9;
-margin: 10px;
-}
-
-/* 작성완료작성취소 */
-.postpost {
-    color: #7758FA;
-    font-weight: 600;
-    background: none;
-    display: flex;
-    width: 70px;
-    height: 30px;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    border-radius: 6px;
-    border: 1px solid #7758FA;
-    transition: 0.4s;
-    cursor: pointer;
-    font-size: 13px;
-    margin-left: 5px;
+  display: flex;
+  width: 99%;
+  height: 35px;
+  padding: 0px 10px;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  border: 1px solid #D9D9D9;
+  margin: 10px;
   }
-
-  .postpost:hover {
+  
+  /* 작성완료작성취소 */
+  .postpost {
+      color: #7758FA;
+      font-weight: 600;
+      background: none;
+      display: flex;
+      width: 70px;
+      height: 30px;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      border-radius: 6px;
+      border: 1px solid #7758FA;
+      transition: 0.4s;
+      cursor: pointer;
+      font-size: 13px;
+      margin-left: 5px;
+    }
+  
+    .postpost:hover {
+        background-color: #7758FA;
+        color: white;
+        font-weight : 500;
+    }
+  
+  .postmargin {
+      margin-bottom: 10px;
+  }
+  
+  /* 나란히 */
+  .postside{
+      display: flex;
+      margin-left: 15px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+  }
+  
+  .title {
+      width: 97%;
+      padding: 9px;
+      font-size: 13px;
+      border: 1px solid #3f3f3f48;
+      outline: none;
+      margin-bottom: 6px;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+    
+  /* 드롭바 */
+  .category {
+      color: #3f3f3f9c;
+      font-weight: 600;
+      background: none;
+      display: flex;
+      width: 173px;
+      height: 31px;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      border-radius: 6px;
+      border: 1px solid #7758FA;
+      transition: 0.4s;
+      padding: 1px;
+      padding-left: 6px;
+      margin-left: 20px;
+      margin-top: 20px;
+    }
+    
+    .drdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .drdown-content {
+      display: none;
+      position: absolute;
+      background-color: #ffffff;
+      min-width: 178px;
+      height: 115px;
+      box-shadow: 0px 4px 8px 0px #7658fa34;
+      z-index: 1;
+      border-radius: 6px;
+      text-align: center;
+      
+    }
+    
+    .drdown-content a {
+      color: black;
+      padding: 6px 10px;
+      text-decoration: none;
+      display: block;
+      font-size: 13px;
+      font-weight : 600;
+    }
+    
+    .drdown-content a:hover {
       background-color: #7758FA;
       color: white;
-      font-weight : 500;
-  }
-
-.postmargin {
-    margin-left: 3%;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    width: 93%;
-}
-
-/* 나란히 */
-.postside{
-    display: flex;
-    margin-left: 15px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.title {
-    width: 97%;
-    padding: 9px;
-    font-size: 13px;
-    border: 1px solid #3f3f3f48;
-    outline: none;
-    margin-bottom: 6px;
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-  
-/* 드롭바 */
-.category {
-    color: #3f3f3f9c;
-    font-weight: 600;
-    background: none;
-    display: flex;
-    width: 173px;
-    height: 31px;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    border-radius: 6px;
-    border: 1px solid #7758FA;
-    transition: 0.4s;
-    padding: 1px;
-    padding-left: 6px;
-    margin-left: 20px;
-    margin-top: 20px;
-  }
-  
-  .drdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .drdown-content {
-    display: none;
-    position: absolute;
-    background-color: #ffffff;
-    min-width: 178px;
-    height: 115px;
-    box-shadow: 0px 4px 8px 0px #7658fa34;
-    z-index: 1;
-    border-radius: 6px;
-    text-align: center;
+    }
     
-  }
-  
-  .drdown-content a {
-    color: black;
-    padding: 6px 10px;
-    text-decoration: none;
-    display: block;
-    font-size: 13px;
-    font-weight : 600;
-  }
-  
-  .drdown-content a:hover {
-    background-color: #7758FA;
-    color: white;
-  }
-  
-  .drdown:hover .drdown-content {
-    display: block;
-  }
-  
-  .drdown:hover .dropsearch {
-    background-color: #7758FA;
-    color: white;
-    font-weight : 400;
-  }
+    .drdown:hover .drdown-content {
+      display: block;
+    }
+    
+    .drdown:hover .dropsearch {
+      background-color: #7758FA;
+      color: white;
+      font-weight : 400;
+    }

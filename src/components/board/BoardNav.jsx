@@ -44,6 +44,7 @@ const noticeLink = [
   {text:'공지사항', link:'/board/notice'},
 ]
 const boardLink = [
+  {text:'최근게시글', link:'/board/newpost'},
   {text:'일반게시판', link:'/board/common'},
   {text:'익명게시판', link:'/board/anony'},
 ]

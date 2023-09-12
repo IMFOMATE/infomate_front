@@ -76,7 +76,7 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Board")}>
-                    <NavLink to="/board" >
+                    <NavLink to="/board/newpost" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             developer_board
                         </span>

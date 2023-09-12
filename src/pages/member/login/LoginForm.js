@@ -37,6 +37,12 @@ function LoginForm() {
                 memberCode:loginMember.data.memberCode,
                 profile:loginMember.data.memberPic,
                 defaultProfile:loginMember.data.memberPicDefault,
+                memberId:loginMember.data.memberId,
+                memberEmail:loginMember.data.memberEmail,
+                memberPhone:loginMember.data.memberPhone,
+                memberNo:loginMember.data.memberNo,
+                extensionNumber:loginMember.data.extensionNumber,
+                hireDate:loginMember.data.hireDate,
             }));
             
             navigate("/main", { replace: true });

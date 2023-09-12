@@ -7,14 +7,14 @@ import { FadeLoader } from "react-spinners";
 function TableHeader(){
   return(
     <>
-      <colgroup>
-        <col width="15%"/>
-        <col width="15%"/>
-        <col width="15%"/>
-        <col width="200px"/>
-        <col width="15%"/>
-      </colgroup>
-      <thead>
+      {/*<colgroup>*/}
+      {/*  <col width="15%"/>*/}
+      {/*  <col width="15%"/>*/}
+      {/*  <col width="15%"/>*/}
+      {/*  <col width="200px"/>*/}
+      {/*  <col width="15%"/>*/}
+      {/*</colgroup>*/}
+      <thead className={ApprovalTableCss.thead}>
       <tr className={ApprovalTableCss.list_tr}>
         <th className={`${ApprovalTableCss.list_th} ${ApprovalTableCss.list_no}`}>문서번호</th>
         <th className={`${ApprovalTableCss.list_th}`}>긴급여부</th>

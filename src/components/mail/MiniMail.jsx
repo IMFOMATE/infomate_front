@@ -1,6 +1,6 @@
 
 import React from 'react';
-import style from './Mail.module.css';
+import style from '../../pages/mail/Mail.module.css';
 
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,13 +8,14 @@ import { Navigate } from "react-router-dom";
 import { useNavigate, useParams } from 'react-router-dom';
 import {
     callMailSelectAPI, callDeleteMailAPI ,callUpdateStatusAPI
-} from '../../apis/MailAPICalls'
+} from '../../apis/MailAPICalls';
 
 import {
     callLoginAPI
 }
 from '../../apis/MemberAPICalls'
-import ViewMail from './ViewMail';
+import ViewMail from '../../pages/mail/ViewMail';
+
 
 
 
@@ -31,12 +32,6 @@ function Mail({title}) {
     const [checkedItems, setCheckedItems] = useState({});
     const [checkedName , setCheckedName] = useState([]);
     const [checkedMail ,setCheckedMail] = useState({});
-
-    const yStatusEmails = mailList.matchingEmails.filter((mail) => mail.mailStatus === 'N');
-
-    
-    const yStatusEmailsCount = yStatusEmails.length;
-
 
     
 
@@ -63,8 +58,6 @@ function Mail({title}) {
     // 회원 코드를 가져옴
     const memberCode = authToken.memberCode;
 
-    
-
     useEffect(
         () => {
             setStart((currentPage - 1) * 5);
@@ -75,8 +68,6 @@ function Mail({title}) {
                 
             }));
         },[currentPage , title] );
-    
-
     
     const onClickEventHandler = (mail, sendName) => {
 
@@ -91,66 +82,20 @@ function Mail({title}) {
 
     }
 
-    const handleCheckboxChange = (mail ,sendName) => {
-        setCheckedItems((prevCheckedItems) => ({
-            ...prevCheckedItems,
-            [mail]: !prevCheckedItems[mail]
-        }));
-
-        if(checkedItems) {
-            setCheckedMail(mail)
-            setCheckedName(sendName)
-
-        }
-
-        };
-
-    const onClickReplyHandler = () => {
-
-        if(checkedItems){
-        navigate('/mail/mailWrite', { state: { checkedName } });
-        }
-    }
-
-    const onClickDeleteHandler = () => {
-        console.log("안녕", checkedMail.mailCode);
-        if (Object.keys(checkedItems).length > 0) { // checkedItems에 체크된 항목이 있는지 확인
-            dispatch(callDeleteMailAPI({
-                mailCode : checkedMail.mailCode
-            }));
-        } else {
-            console.log("선택된 메일이 없습니다."); // 선택된 메일이 없을 때 처리
-        }
-    }
-
-    
-
-
-
 
     return (
         <>
                     <div className={ style.wrapper }>
                     <h1  style={{color: 'var(--color-text-title)', display: 'flex', padding: '20px' }}>
                         {title}
-                        <p>전체 메일 {mailList.matchingEmails.length}  / 안읽은 메일 {yStatusEmailsCount}</p>
+                        <p>전체 메일 0 / 안읽은 메일 0</p>
                     </h1>
-                    <div className={style.mailButton}>
-                        <button onClick={onClickReplyHandler}>답장</button>
-                        <button onClick={ onClickDeleteHandler}>삭제</button>
-                        
-                        
-                        {/* <input id={style.mailSearch} type="text" placeholder="검색"/> */}
-                    </div>
             
                     <div className={style.mailLine}></div> 
-
-                    
 
                     <div className={style.mailContent}>
 
                     <div className={style.mailSubtitle}>
-                        <div className={style.mailCheckbox}>▢</div>
                         <div className={style.mailName}>이름</div>
                         <div className={style.mailTitle}>제목</div>
                         <div className={style.mailDate}>날짜</div>
@@ -160,8 +105,7 @@ function Mail({title}) {
                             (mail, index) => (
                                 
                                 <div key={ mail.mailCode } style={{ background: (mail.mailStatus === 'Y') ? "rgba(155,155,155,0.3)" : "" }}>
-                                <input type="checkBox" className={style.mailCheckbox} checked={checkedItems[mail.mailCode]}
-                                        onChange={() => handleCheckboxChange(mail,mailList.sendMemberName[index].memberName)}/>
+                                
                                 <div className={style.mailName} onClick={ () => onClickEventHandler(mail, mailList.sendMemberName[index].memberName) }>
                                     {mailList.sendMemberName && mailList.sendMemberName[index].memberName}</div>
                                 <div className={style.mailTitle}>{mail.mailTitle}</div>
@@ -169,42 +113,11 @@ function Mail({title}) {
                                 </div>
                             )
                         )}
-                        
 
-                        
                     </div>
                 </div>
 
-                <div style={{ listStyleType: "none", display: "flex", justifyContent: "center" }}>
-                            { Array.isArray( mailList.matchingEmails) &&
-                            <button 
-                                onClick={() => setCurrentPage(currentPage - 1)} 
-                                disabled={currentPage === 1}
-                                className={ style.pagingBtn }
-                            >
-                                &lt;
-                            </button>
-                            }
-                            {pageNumber.map((num) => (
-                            <li key={num} onClick={() => setCurrentPage(num)}>
-                                <button
-                                    style={ currentPage === num ? {backgroundColor : 'orange' } : null}
-                                    className={ style.pagingBtn }
-                                >
-                                    {num}
-                                </button>
-                            </li>
-                            ))}
-                            { Array.isArray( mailList.matchingEmails) &&
-                            <button 
-                                className={ style.pagingBtn }
-                                onClick={() => setCurrentPage(currentPage + 1)} 
-                                disabled={currentPage === pageInfo.pageEnd || pageInfo.total == 0}
-                            >
-                                &gt;
-                            </button>
-                            }
-                        </div>
+                
         </>    
     )
 }

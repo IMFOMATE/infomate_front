@@ -6,7 +6,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import {callSelectAPI} from '../../../../apis/ContactAPIcalls'
 
-function MailContactModal({ isOpen, closeModal, contact , setReceiver, receiver , memberList, setCompany, company}) {
+function MailContactModal({ isOpen, closeModal, contact , setReceiver, receiver , memberList, setCompany, company, onChangeNameHandler}) {
 
     
     const dispatch = useDispatch();
@@ -33,7 +33,6 @@ function MailContactModal({ isOpen, closeModal, contact , setReceiver, receiver 
                 
 
         setReceiver(prevContacts => [...prevContacts, selectedContact]); 
-
     };
 
     const handleSelectCompanyChange = (e) => {
@@ -48,7 +47,7 @@ function MailContactModal({ isOpen, closeModal, contact , setReceiver, receiver 
 
     const onDeleteContact = (contact) => {
 
-        console.log('ㅎㅇㅎㅇ?',contact);
+        console.log('ㅎㅇㅎㅇ?',receiver);
 
        const updateSelected = receiver.filter(item => item.contactName != contact.contactName);
 
@@ -57,9 +56,19 @@ function MailContactModal({ isOpen, closeModal, contact , setReceiver, receiver 
         
     }
 
+    const onDeleteMember = (member) => {
+
+        console.log('receiver' , receiver);
+        
+
+        const updateSelected = company.filter(item => item.memberName != member.memberName);
+
+        setCompany(updateSelected)
+    }
+
     const onReceiver = () => {
         closeModal();
-        
+        onChangeNameHandler();
     }
 
     
@@ -111,7 +120,7 @@ function MailContactModal({ isOpen, closeModal, contact , setReceiver, receiver 
                             {company.map((member, index) => (
                                 <div key={index}>{member.memberName} - {member.memberEmail}    
 
-                                <button onClick={ () => onDeleteContact(memberList)}>&nbsp;&nbsp; X</button></div>
+                                <button onClick={ () => onDeleteMember(member)}>&nbsp;&nbsp; X</button></div>
                             ))}
                             
                             

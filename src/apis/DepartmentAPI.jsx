@@ -96,7 +96,7 @@ export const insertDeptAPI = ({form}) => {
 
 
 
-export const callDeptAllAPI = ({ deptCode }) => {      // 부서만 조회
+export const callDeptAllAPI = ({ deptCode }) => {
     
   const requestURL= 'http://localhost:8989/department/dept/list'
 

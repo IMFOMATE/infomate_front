@@ -100,6 +100,20 @@ border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
+.file {
+    display: flex;
+    padding: 20px;
+}
+
+.file>div {
+    margin-right: 20px;
+}
+
+.fileBox {
+    width: 1000px;
+    height: 80px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
 
 
 

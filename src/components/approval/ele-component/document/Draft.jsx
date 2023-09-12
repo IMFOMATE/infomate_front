@@ -18,10 +18,13 @@ import {decodeJwt} from "../../../../util/tokenUtils";
 import {POST_DRAFT} from "../../../../modules/approval/DocumentModuels";
 import {tempAPI} from "../../../../apis/ApprovalAPICalls";
 import {POST_TEMP} from "../../../../modules/approval/ApprovalModuels";
+import {GET_DEPTALL, GET_TREEVIEW} from "../../../../modules/DepartmentModule";
+import {callDeptAllAPI} from "../../../../apis/DepartmentAPI";
 
 
 function Draft({documentData, temp = false}) {
-  const treeview = useSelector(state => state.departmentReducer);
+  const treeview = useSelector(state => state.departmentReducer[GET_TREEVIEW]);
+  const deptData = useSelector(state => state.departmentReducer[GET_DEPTALL]);
   const documentReducer = useSelector(state => state.documentsReducer[POST_DRAFT]);
   const approval = useSelector(state => state.approvalReducer[POST_TEMP]);
   const dispatch = useDispatch();
@@ -38,9 +41,6 @@ function Draft({documentData, temp = false}) {
     if (isModalOpen){
       dispatch(treeviewAPI());
     }
-    // if(documentData){
-    //   setData({...documentData, fileList:[], existList:[...documentData.fileList] });
-    // }
   },[isModalOpen]);
 
   useEffect(() => {
@@ -48,10 +48,12 @@ function Draft({documentData, temp = false}) {
       const modifiedApprovalList = documentData.approvalList.map(approval => ({
         ...approval,
         approvalStatus: '',
-        approvalDate: ''
+        approvalDate: '',
+        comment:''
       }));
       setData({...documentData, fileList:[], existList:[...documentData.fileList], approvalList:modifiedApprovalList });
     }
+    dispatch(callDeptAllAPI({deptCode:3}));
 
     if(documentReducer?.status === 200){
       console.log(documentReducer)
@@ -59,6 +61,8 @@ function Draft({documentData, temp = false}) {
     }
 
   },[documentReducer]);
+
+  console.log("dept" , deptData)
 
   // 데이터 핸들러
   const onChangeHandler = (e) => {
@@ -120,11 +124,12 @@ function Draft({documentData, temp = false}) {
   };
 
   const tempIsSave = data.documentStatus === "TEMPORARY";
-  const tempApproval = (formData, type, docId) => {
+
+  const tempApproval = (formData, type, docId, tempIsSave) => {
     dispatch(tempAPI(formData, type, docId, tempIsSave));
   };
 
-  const tempRequest = (formData, type, docId) => {
+  const tempRequest = (formData, type, docId, tempIsSave) => {
     dispatch(tempAPI(formData, type, docId, tempIsSave));
   };
 
@@ -138,7 +143,7 @@ function Draft({documentData, temp = false}) {
         validationResult, data.approvalList.length, '결재상신', '결재하시겠습니까??',
         () => {
           const formData = createFormData();
-          requestApproval(formData);
+          tempIsSave ? tempApproval(formData, 'draft', data?.id, true) : requestApproval(formData);
         }
     )
   };
@@ -146,12 +151,13 @@ function Draft({documentData, temp = false}) {
   // 임시저장 api
   const handleTemp = () => {
     const validationResult = isValid(data,true, false);
+
     console.log(data)
     showValidationAndConfirm(
         validationResult, data.approvalList.length, '임시저장', '임시저장하시겠습니까??',
         () => {
           const formData = createFormData();
-          tempRequest(formData,'draft', data?.id);
+          tempRequest(formData,'draft', data?.id, false);
         }
     )
   };
@@ -231,12 +237,11 @@ function Draft({documentData, temp = false}) {
                               name="coDept" className={style.dept}
                               value={data.coDept || ''}>
                         <option value="협조부서선택">협조부서선택</option>
-                        <option value="본부">본부</option>
-                        <option value="영업팀">영업팀</option>
-                        <option value="개발팀">개발팀</option>
-                        <option value="인사팀">인사팀</option>
-                        <option value="총무팀">총무팀</option>
-                        <option value="마케팅팀">마케팅팀</option>
+                        {
+                          deptData?.map((data, index)=>
+                              <option key={index} value={data.deptName}>{data.deptName}</option>
+                          )
+                        }
                       </select>
                     </td>
                   </tr>

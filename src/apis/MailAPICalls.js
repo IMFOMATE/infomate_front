@@ -2,7 +2,8 @@
 import {
     GET_MAIL,
     POST_MAIL,
-    DELETE_MAIL
+    DELETE_MAIL,
+    GET_FILE
 } from '../modules/MailModule';
 import {
     DELETE_TRASH,
@@ -81,6 +82,8 @@ export const callPostMailAPI = ({form}) => {
         .then(response => response.json());
 
         dispatch({type: POST_MAIL , payload: result})
+
+        alert("메일전송 성공")
     }
 }
 
@@ -186,6 +189,7 @@ export const callDeleteTrashAPI = ({memberCode}) => {
         dispatch({type: DELETE_TRASH, payload: result})
         
         window.location.reload();
+        
     }
 }
 
@@ -211,6 +215,36 @@ export const callUpdateTrashAPI = ({memberCode}) => {
         dispatch({type: PUT_TRASH, payload: result})
         
         window.location.reload();
+
+        alert("복구 완료")
+        
+    }
+}
+
+export const callFileAPI = ({mailCode}) => {
+
+    console.log("mailCode", mailCode);
+
+    const requestURL = `http://localhost:8989/mail/selectFile/${mailCode}`
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method: 'GET',
+            headers: {
+                "Accept": "*/*",
+                
+            },
+           
+        })
+
+        .then(response => response.json());
+
+        dispatch({type: GET_FILE, payload: result})
+
+        console.log("res" , result);
+        
+        
     }
 }
 

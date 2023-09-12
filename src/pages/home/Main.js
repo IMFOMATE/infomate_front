@@ -133,7 +133,7 @@ function Main() {
                         <div className={`${MainStyle.home_content} ${MainStyle.item6}`}>
                             <div className={MainStyle.home_title_wrap}>
                                 <h2>게시판</h2>
-                                <Link to={'/board'}><NavigateNextIcon /></Link>
+                                <Link to={'/board/newpost'}><NavigateNextIcon /></Link>
                             </div>
                             <div style={{marginTop: '70px'}}>
                             <div className={MainStyle.board}>

@@ -8,6 +8,7 @@ import { DELETE_CALENDAR, GET_CALENDAR_LIST, PATCH_CALENDAR_UPDATE, POST_CALENDA
 import { getCalendarListAPI, patchCalendarUpdate, patchDefaultCalendarUpdate, postCalendarRegit } from '../../../apis/CalendarAPICalls';
 import { NotResultData } from '../../common/Error';
 import { LoadingSpiner } from '../../../components/common/other/LoadingSpiner';
+import { message } from 'antd';
 
 const MyCalendar = () => {
 
@@ -39,6 +40,7 @@ const MyCalendar = () => {
     }
 
     const registCalendarHandler = () => {
+        if(!data?.name) return message.error('누락된 필드가 존재 합니다');
         dispatch(postCalendarRegit({data: data}));
     }
 

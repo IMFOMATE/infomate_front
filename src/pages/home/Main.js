@@ -14,6 +14,7 @@ import Weather from "./Weather";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import ButtonOutline from "../../components/common/button/ButtonOutline";
 import WorkMini from "../../components/work/WorkMini";
+import {LoadingSpiner} from "../../components/common/other/LoadingSpiner";
 
 function Main() {
     const dispatch = useDispatch();
@@ -95,24 +96,31 @@ function Main() {
                             </div>
                             <div className={MainStyle.credit_content}>
                                 <div className={MainStyle.credit_top}>
-                                    <div className={MainStyle.line}>
-                                        <h3>
-                                            결재대기문서
-                                        </h3>
-                                        <p>{documentData?.data?.creditCount || 0}</p>
-                                    </div>
-                                    <div className={MainStyle.line}>
-                                        <h3>
-                                            기안문서
-                                        </h3>
-                                        <p>{documentData?.data?.approvalCount || 0}</p>
-                                    </div>
-                                    <div>
-                                        <h3>
-                                            결재완료문서
-                                        </h3>
-                                        <p>{documentData?.data?.doneList || 0}</p>
-                                    </div>
+                                    {
+                                        !documentData ?
+                                            <LoadingSpiner/>
+                                        :
+                                            <>
+                                            <div className={MainStyle.line}>
+                                                <h3>
+                                                    결재대기문서
+                                                </h3>
+                                                <p>{documentData?.data?.creditCount || 0}</p>
+                                            </div>
+                                            <div className={MainStyle.line}>
+                                                <h3>
+                                                기안문서
+                                                </h3>
+                                            <p>{documentData?.data?.approvalCount || 0}</p>
+                                            </div>
+                                            <div>
+                                                <h3>
+                                                결재완료문서
+                                                </h3>
+                                            <p>{documentData?.data?.doneList || 0}</p>
+                                            </div>
+                                            </>
+                                    }
                                 </div>
                                 <div className={MainStyle.approval}>
                                     <ApprovalTop data={documentData?.data?.creditList} />

@@ -28,7 +28,7 @@ function PostView() {
     const [form, setForm] = useState({});
 
     useEffect(() => {
-      if(post.length > 0) return ;
+      if(post?.length > 0) return ;
 
           console.log('[PostUpdate] postCode : ', params.postCode);
 
@@ -37,7 +37,7 @@ function PostView() {
           }));                     
       }
   ,[]);
-    if(post.length > 0) return <LoadingSpiner />
+    if(post?.length > 0) return <LoadingSpiner />
 
     const onClickPostModifyHandler = () => {  // 수정 모드
       setModifyMode(true);
@@ -118,6 +118,7 @@ function PostView() {
     }
 
     const toolbarOptions = [
+      
       [{ header: [1, 2, 3, false] }],
       ["bold", "italic", "underline", "strike"],
       ["blockquote"],
@@ -127,6 +128,7 @@ function PostView() {
       ['link', "image", "video"]
     ]; 
 
+    
     return (
 <>
         <div className={mainCSS.maintitle}>
@@ -143,9 +145,11 @@ function PostView() {
           style={ (!modifyMode ? titleStyle : titleStyles) || ''}
           ></input>
 
-          {!modifyMode ? (
-          <div className={ PostCSS.actfnt}>{post.memberCode} | {post.postDate} | {post.postCode} | {post.postViews} </div>
-          ) : '' }
+          {!modifyMode && post && post.member && post.member.memberName && (
+          <div className={ PostCSS.actfnt}>
+            {post.member.memberName} | {post.postDate} | {post.postCode} | {post.postViews} 
+          </div>
+          ) }
       
         
         
@@ -160,8 +164,8 @@ function PostView() {
            ref={quillRef}
            modules={{
            toolbar: toolbarOptions,
-        }}
-        value={modifyMode ? form.postContents : post.postContents}
+            }}
+           value={modifyMode ? form.postContents : form.postContents}
            onChange={(value, delta, source, editor)=>{
             const newContents = editor.getHTML();
                         setForm((prev)=> ({...prev, postContents:editor.getHTML()}))
@@ -176,7 +180,12 @@ function PostView() {
         </div>
       ) : (
         <div className={PostCSS.postcont}>
-          {post.postContents}
+          <ReactQuill value={post.postContents} 
+                      readOnly={true} 
+                      modules={{toolbar: false}} 
+                      theme={null}
+                      style={{ height: '200px', overflowY: 'auto' }}
+          />
         </div>
       )}
       

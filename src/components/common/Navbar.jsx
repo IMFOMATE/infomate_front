@@ -4,7 +4,7 @@ import {useContext, useEffect, useState} from "react";
 import {CurrentTitleContext} from "../../context/CurrentTitleContext";
 import {Link, NavLink, useNavigate} from "react-router-dom";
 import {MenuContext} from "../../context/MenuContext";
-import { callLogoutAPI } from '../../apis/MemberAPICalls';
+import { callLoginAPI, callLogoutAPI } from '../../apis/MemberAPICalls';
 import { useDispatch, useSelector } from 'react-redux';
 import { decodeJwt } from '../../util/tokenUtils';
 
@@ -16,12 +16,13 @@ function Navbar() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const loginMember = useSelector(state => state.memberReducer);
-    console.log(loginMember);
-
-    const isLogin = window.localStorage.getItem('accessToken');
+    const memberDataString = localStorage.getItem("authToken");
+    const memberData = JSON.parse(memberDataString);
+    console.log("멤버데이터 : ", memberData);
 
     const [userInfo, setUserInfo ]= useState({});
+    const [imageUrl, setImageUrl] = useState('');
+
 
     const onClickLogoutHandler = () => {
         window.localStorage.removeItem('accessToken');
@@ -39,6 +40,13 @@ function Navbar() {
         navigate("/", { replace: true })
     }
 
+    useEffect(() => {
+        if (memberData.profile === "http://localhost:8989/imgs/null") {
+            setImageUrl(memberData.defaultProfile);
+        } else if(memberData.profile) {
+            setImageUrl(memberData.profile);
+        }
+    }, [memberData]);
 
     useEffect(() => {
         const storedTitle = localStorage.getItem('currentTitle') || 'Home';
@@ -46,15 +54,16 @@ function Navbar() {
 
     }, []);
 
+
     return (
         <nav className={`${NavStyle.nav} ${menuState ? '' : NavStyle.close }`}>
             <div className={`${NavStyle.profile} ${menuState ? '' : NavStyle.close }`}>
-                <a href="/">
-                    <img className={NavStyle.profileImg} alt='profileImg' src='img/user.jpg'/>
+                <a href="/myInfo">
+                    <img className={NavStyle.profileImg} alt='profileImg' src={imageUrl}/>
                 </a>
                 <div className={NavStyle.profileInfo}>
-                    <p>{loginMember?.data?.deptName} 부서</p>
-                    <p>{loginMember?.data?.memberName} {loginMember?.data?.rank}</p>
+                    <p>{memberData?.deptName} 부서</p>
+                    <p>{memberData?.memberName} {memberData?.rank}</p>
                 </div>
             </div>
             <ul className=''>
@@ -67,7 +76,7 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Board")}>
-                    <NavLink to="/board" >
+                    <NavLink to="/board/newpost" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             developer_board
                         </span>
@@ -99,7 +108,7 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Mail")}>
-                    <NavLink to="" >
+                    <NavLink to="/mail" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             mail
                         </span>
@@ -115,7 +124,8 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Address")}>
-                    <NavLink to="" >
+
+                    <NavLink to="/addressBook" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             library_books
                         </span>
@@ -124,7 +134,7 @@ function Navbar() {
                 </li>
                 <li onClick={()=>toggleTitle("Alarm")}>
                     <NavLink to="" >
-                       <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
+                        <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             notifications
                         </span>
                         <span>알림</span>
@@ -132,7 +142,7 @@ function Navbar() {
                 </li>
                 <li onClick={()=>toggleTitle("Chat")}>
                     <NavLink to="" >
-                       <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
+                        <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             mode_comment
                         </span>
                         <span>채팅</span>

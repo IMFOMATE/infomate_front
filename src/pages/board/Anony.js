@@ -19,7 +19,7 @@ function Anony() {
     console.log('boardManagement', boardList);
 
     // 페이징
-    const pageInfo = board.pageInfo;
+    const pageInfo = board?.pageInfo || {};
 
     const [start, setStart] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
@@ -27,7 +27,7 @@ function Anony() {
 
     const pageNumber = [];
     if(pageInfo){
-        for(let i = 1; i <= pageInfo.pageEnd ; i++){
+         for(let i = 1; i <= Math.min(pageInfo.pageEnd, 5) ; i++){
             pageNumber.push(i);
         }
     }
@@ -46,19 +46,35 @@ function Anony() {
         navigate(`/board/post/${postCode}`, { replace: false });
     }
 
+    const Common = boardList?.filter((b) => b.boardCategory === '익명게시판');
+
     return (
         <>
 
         <div className={mainCSS.maintitle}>
-        <h2>익명 게시판</h2>
+        <h2>익명게시판</h2>
         </div>
             
             <NewButton />
                       
             <table className={BoardCSS.bdtable}>
-                <PostTable />
+            <colgroup>
+                    <col width="10%" />
+                    <col width="60%" />
+                    <col width="10%" />
+                    <col width="30%" />
+                    <col width="20%" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th className={BoardCSS.bdtable_th}>No.</th>
+                        <th className={BoardCSS.bdtable_th}>제목</th>
+                        <th className={BoardCSS.bdtable_th}>작성일</th>
+                        <th className={BoardCSS.bdtable_th}>조회</th>
+                    </tr>
+                </thead>
                 <tbody>
-                    { Array.isArray(boardList) && boardList.map((b, index) => (
+                    {Array.isArray(Common) && Common.map((b, index) => (
                         <tr className={BoardCSS.bdtable_tr}
                             key={ b.boardCode }
                             // key={index}
@@ -66,7 +82,6 @@ function Anony() {
                         >
                             <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postTitle }</td>
-                            <td className={BoardCSS.bdtable_td}></td>
                             <td className={BoardCSS.bdtable_td}>{ b.postDate }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
                         </tr>

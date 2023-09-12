@@ -5,16 +5,23 @@ export const Day = ({today, value, data, isHeader, isCurMonth, isSun, isSur, onC
 
     return (
         <>
-            <td className={[styles.dayContainer, (!isCurMonth && !isHeader) && styles.notCurMonth].join(' ')}>
-            <span className={[styles.count, today && styles.countToday].join(' ')}>{data?.length > 0 && data[0]?.count}</span>
-            <button 
-                className={[today && styles.today, isSun && styles.sun, isSur && styles.sur].join(" ")} 
-                id={dateLabel.includes(value) ? value : value.format('YYYY-MM-DD')} 
-                onClick={onClick}
-                disabled={dateLabel.includes(value)}
-            >
-                {dateLabel.includes(value) ? value : value.format('D')}
-            </button>
+            <td className={[styles.dayContainer].join(' ')}>
+                <span className={[styles.count, today && styles.countToday].join(' ')}>
+                    {data?.length > 0 && data[0]?.count}
+                </span>
+                <button 
+                    className={[today && styles.today,
+                         isHeader && styles.header,
+                         isSun && styles.sun,
+                         isSur && styles.sur,
+                         (!isCurMonth && !isHeader) && styles.notCurMonth
+                        ].join(" ")} 
+                    id={dateLabel.includes(value) ? value : value.format('YYYY-MM-DD')} 
+                    onClick={onClick}
+                    disabled={dateLabel.includes(value)}
+                >
+                    {dateLabel.includes(value) ? value : value.format('D')}
+                </button>
             </td>
         </>
     )

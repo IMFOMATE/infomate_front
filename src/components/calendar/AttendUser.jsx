@@ -138,11 +138,6 @@ export const SelectMember = ({departmentCode, data}) => {
 
     const AttendUsersChangeHanlder = (e) => {
         if(e.target.checked){
-            // if(!schedule) {
-            //     setSchedule({data:{participantList: [{member: {memberCode: parseInt(e.target.value), memberName: e.target.name}}]}});
-            // }else{
-            //     setSchedule({...schedule, data:{...schedule?.data, participantList: [...schedule?.data?.participantList, {member: {memberCode: parseInt(e.target.value), memberName: e.target.name}}]}})
-            // }
             setSchedule({...schedule, data:{...schedule?.data,
                  participantList: [...schedule?.data?.participantList,
                      {member: {memberCode: parseInt(e.target.value), 

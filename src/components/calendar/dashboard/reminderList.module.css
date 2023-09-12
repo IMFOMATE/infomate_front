@@ -1,6 +1,6 @@
 .container {
     display: inline-block;
-    box-shadow: 0 0 7px 0 rgba(125, 125, 125, 0.3);
+    /* box-shadow: 0 0 7px 0 rgba(125, 125, 125, 0.3); */
     margin: 10px;
     /*height: 235px ;*/
 }

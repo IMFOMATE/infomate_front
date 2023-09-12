@@ -13,7 +13,7 @@ import {
     POST_COMMENT,
     PUT_COMMENT,
     DELETE_COMMENT,
-    GET_MAINBOARD
+    GET_MAINBOARD,
     
 
 } from '../modules/BoardModule.jsx';
@@ -108,9 +108,9 @@ export const callPostPostAPI = ({form}) => {   // 게시글 생성
         })
         .then(response => response.json());
 
-        console.log('[BoardAPICalls] callPostPostAPI RESULT : ', result);
+        console.log('[BoardAPICalls] callPostPostAPI RESULT : ', result.data);
 
-        dispatch({ type: POST_POST,  payload: result });
+        dispatch({ type: POST_POST,  payload: result.data });
         
     };    
 }
@@ -301,77 +301,15 @@ export const callCommentDeleteAPI = ({postCode, form}) => {   // 댓글 삭제
     };    
 }
 
-
-
-
-export const callNoticeViewAPI = () => {
-    const requestURL = `http://localhost:8989/brd/board/notice`;
-
-    return async (dispatch, getState) => {
-
-        const result = await fetch(requestURL, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "*/*"                
-            }
-        })
-        .then(response => response.json());
-        if(result.status === 200){
-            console.log('[BoardAPICalls] callNoticeViewAPI RESULT : ', result);
-            dispatch({ type: GET_NOTICE,  payload: result.data });
-        }
-        
-    };
-}
-
-
-export const callCommonViewAPI = () => {    // 일반게시판 조회   
-    const requestURL = "http://localhost:8989/brd/board/common";
-
-    return async (dispatch, getState) => {
-
-        const result = await fetch(requestURL, {
-            method: "GET",
-        })
-        .then(response => response.json());
-
-        console.log('[BoardAPICalls] callCommonViewAPI RESULT : ', result);
-
-        dispatch({ type: GET_COMMON, payload: result.data });
-    };    
-}
-
-
-export const callAnonyViewAPI = () => {    // 익명게시판 조회   
-    const requestURL = "http://localhost:8989/brd/board/anony";
-
-    return async (dispatch, getState) => {
-
-        const result = await fetch(requestURL, {
-            method: "GET",
-        })
-        .then(response => response.json());
-
-        console.log('[BoardAPICalls] callAnonyViewAPI RESULT : ', result);
-
-        dispatch({ type: GET_ANONY, payload: result.data });
-    };    
-}
-
-
-export const callDeptViewAPI = () => {    // 부서별게시판 조회   
-    const requestURL = "http://localhost:8989/brd/board/dept";
-
-    return async (dispatch, getState) => {
-
-        const result = await fetch(requestURL, {
-            method: "GET",
-        })
-        .then(response => response.json());
-
-        console.log('[BoardAPICalls] callDeptViewAPI RESULT : ', result);
-
-        dispatch({ type: GET_DEPT, payload: result.data });
-    };    
-}
+export const callCommonView = async () => {     // 게시판 카테고리 나누기
+    try {
+      const response = await fetch('http://localhost:8989/brd/board/common');
+      if (!response.ok) {
+        throw new Error('서버에서 데이터를 가져오지 못했습니다.');
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('데이터를 가져오는 중 오류 발생:', error);
+      throw error;
+    }
+  };

@@ -43,20 +43,20 @@ export const getParticipantList = ()=>{
 
 export const updateDeptAPI = ({form}) =>{
 
+  console.log('updateDeptAPI', form);
+
   const requestURL = `http://localhost:8989/department/save`
 
   return async(dispatch, getState) => {
 
-    const result = await axios.get(requestURL, {
-      method:"PUT",
+    const result = await axios.put(requestURL, form ,{
       headers:{
         "Accept": "*/*",
         "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-      },
-      body:form
-    })
+    },
+  })
       
-
+ 
     if(result.status === 200) {
       message.success(result.message);
       dispatch({type: PATCH_UPDATE_DEPT, payload: result});

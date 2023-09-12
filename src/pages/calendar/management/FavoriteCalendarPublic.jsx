@@ -51,7 +51,7 @@ const FavoriteCalendarPublic = () => {
         }
         setSelectAll(e.target.checked)
     }
-    console.log(publicCalendarList);
+
 
     return (
         <>

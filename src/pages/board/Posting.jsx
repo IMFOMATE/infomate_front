@@ -16,6 +16,7 @@ function Posting() {
     const dispatch = useDispatch();
     const params = useParams();
     const post = useSelector(state => state.postReducer);
+    const user = useSelector((state) => state.userReducer.userInfo);
 
 
     // form 데이터 ==========================
@@ -75,6 +76,8 @@ function Posting() {
       };
 
 
+    
+
       // useEffect(() => {
       //   async function fetchMemberInfo() {
       //     try {
@@ -123,7 +126,7 @@ function Posting() {
         }));
 
         alert('작성완료');
-        navigate('/board/common', { replace: false});
+        navigate('/board', { replace: false});
         window.location.reload();
 
         

@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 import ItemCss from './Items.module.css';
 import { updateDeptAPI, callDeptAllAPI } from '../../../apis/DepartmentAPI';
 import { GET_DEPTALL } from '../../../modules/DepartmentModule';
+import { LoadingSpiner } from '../../../components/common/other/LoadingSpiner';
 
 
 function Items() {
 
     const dispatch = useDispatch();
-    const params = useParams();
+    const [params] = useSearchParams();
     // const department = useSelector(state => state.employeeReducer);
     // const deptList = department['employee/GET_DEPTALL'];
-    const depart = useSelector(state => state.departmentReducer);
+    const depart = useSelector(state => state.departmentReducer[GET_DEPTALL]);
 
     const [modify, setModify] = useState(false);
     const [form, setForm] = useState({});
@@ -21,7 +22,8 @@ function Items() {
     // 로컬로 복사 
     const [items, setItems] = useState({ depart });
 
-
+    // console.log(params.get("param"));
+    console.log(params.get('param'));
     // 로컬상태 업데이트 시키기
     // useEffect(() => {
     //     
@@ -38,28 +40,25 @@ function Items() {
         setForm(items.filter(item => item.deptCode === itemDeptCode)[0])
     };
 
-    console.log(form);
+    console.log("form-----------------------", form);
 
 
 
     // 정보조회
-
+    console.log("param : " ,params);
     useEffect(
         () => {
-            console.log("[listDepartment] params.deptName : ", params.deptCode);
-
             dispatch(callDeptAllAPI({               // 조직도 불러오기
                 deptCode: params.deptCode
             }))
             setItems(depart);
         }, [])
+
     console.log("form : ", form);
-    console.log("depart : ", depart);
-    console.log("items : ", items);
+    console.log("[Item] ===== depart : ", depart);
+    console.log("[Item] ===== items : ", items);
 
-
-
-
+    if(!items) return <LoadingSpiner />
 
 
     // fom 데이터 세팅하기
@@ -105,7 +104,7 @@ return (
     <>
 
         {
-            items.length > 0 && items.map((item) =>
+            items?.length > 0 && items?.map((item) =>
 
 
                 <div className={`deptP ${ItemCss.deptP}`} key={item.deptCode}>

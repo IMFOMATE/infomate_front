@@ -18,19 +18,12 @@ function Group () {
     const [modal, setModal] = useState(false);
 
     // const treeData = data.data;
-    const dataTree = useSelector(state => state.departmentReducer[GET_TREEVIEW]);
-
-    // 정보 창 띄우기
-    const [modal, setModal] = useState(false);
-
-    // const treeData = data.data;
     useEffect(
         () => {
             dispatch(treeviewAPI({}))
         },
         []
     );
-    console.log("[Group] treeView 값 들어오니???????? ", dataTree);
     console.log("[Group] treeView 값 들어오니???????? ", dataTree);
     return(
 
@@ -73,5 +66,3 @@ function Group () {
 
 
 export default Group; 
-
-

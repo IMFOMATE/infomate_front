@@ -40,10 +40,12 @@ function Navbar() {
         navigate("/", { replace: true })
     }
 
+    const handleImgError = (e) => {
+        e.target.src = '/img/user.jpg';
+    }
+
     useEffect(() => {
-        if (memberData.profile === "http://localhost:8989/imgs/null") {
-            setImageUrl(memberData.defaultProfile);
-        } else if(memberData.profile) {
+        if (memberData.profile) {
             setImageUrl(memberData.profile);
         }
     }, [memberData]);
@@ -59,7 +61,7 @@ function Navbar() {
         <nav className={`${NavStyle.nav} ${menuState ? '' : NavStyle.close }`}>
             <div className={`${NavStyle.profile} ${menuState ? '' : NavStyle.close }`}>
                 <a href="/myInfo">
-                    <img className={NavStyle.profileImg} alt='profileImg' src={imageUrl}/>
+                    <img className={NavStyle.profileImg} alt='profileImg' src={imageUrl} onError={handleImgError}/>
                 </a>
                 <div className={NavStyle.profileInfo}>
                     <p>{memberData?.deptName} 부서</p>
@@ -116,7 +118,7 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li onClick={()=>toggleTitle("Group")}>
-                    <NavLink to="group" >
+                    <NavLink to="/group" >
                         <span className={`material-symbols-outlined icon ${NavStyle.icon}`}>
                             group
                         </span>

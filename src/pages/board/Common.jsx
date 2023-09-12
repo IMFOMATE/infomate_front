@@ -19,7 +19,7 @@ function Common() {
     console.log('boardManagement', boardList);
 
     // 페이징
-    const pageInfo = board.pageInfo;
+    const pageInfo = board?.pageInfo || {};
 
     const [start, setStart] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
@@ -27,7 +27,7 @@ function Common() {
 
     const pageNumber = [];
     if(pageInfo){
-        for(let i = 1; i <= pageInfo.pageEnd ; i++){
+         for(let i = 1; i <= Math.min(pageInfo.pageEnd, 5) ; i++){
             pageNumber.push(i);
         }
     }
@@ -46,11 +46,13 @@ function Common() {
         navigate(`/board/post/${postCode}`, { replace: false });
     }
 
+    const Common = boardList?.filter((b) => b.boardCategory === '일반게시판');
+
     return (
         <>
 
         <div className={mainCSS.maintitle}>
-        <h2>일반 게시판</h2>
+        <h2>일반게시판</h2>
         </div>
             
             <NewButton />
@@ -58,7 +60,7 @@ function Common() {
             <table className={BoardCSS.bdtable}>
                 <PostTable />
                 <tbody>
-                    { Array.isArray(boardList) && boardList.map((b, index) => (
+                    {Array.isArray(Common) && Common.map((b, index) => (
                         <tr className={BoardCSS.bdtable_tr}
                             key={ b.boardCode }
                             // key={index}
@@ -66,7 +68,7 @@ function Common() {
                         >
                             <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postTitle }</td>
-                            <td className={BoardCSS.bdtable_td}>{ b.memberCode }</td>
+                            <td className={BoardCSS.bdtable_td}>{ b.member.memberName }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postDate }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
                         </tr>

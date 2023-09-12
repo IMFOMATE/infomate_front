@@ -26,24 +26,21 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
     const {menuState, toggleMenu} = useContext(MenuContext);
     
     const calendarList = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
-    const member = useSelector(state => state.memberReducer);
+    const member = JSON.parse(window.localStorage.getItem('authToken'));
     
     const sc = useSelector(state => state.scheduleReducer);
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
-
     useEffect(()=>{
         setSchedule({
             ...schedule,
             data: {...schedule.data, 
                 refCalendar: calendarList.data.filter(item => 
-                    item.defaultCalendar && item.memberCode === member.data.memberCode && item.departmentCode === null)[0].id
+                    item.defaultCalendar && item.memberCode === member.memberCode && item.departmentCode === null)[0].id
                 }
         })
     },[])
-
-    console.log(schedule);
 
     const scheduleChangeHanlder = e => {
         const eleName = e.target.name;
@@ -62,7 +59,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                     ...schedule, 
                     data:{...schedule.data, 
                         [eleName]: e.target.checked,
-                        endDate: schedule.data.startDate,
+                        endDate: dayjs(schedule.data.startDate).format('YYYY-MM-DD HH:mm'),
                     }
                 });
             }
@@ -86,6 +83,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
     }
     
     const scheduleResitClickHandler = (e) => {
+        console.log(schedule);
         dispatch(postScheduleRegist({data: schedule.data}))
         sc.status === 200 && navigate('.')
         setIsModal(false);
@@ -207,7 +205,7 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
                                 value={schedule.data.refCalendar}
                                 options={calendarList.data.filter(item => (
                                     item.departmentCode !== 1 && 
-                                    (item.memberCode === member.data.memberCode || item.departmentCode === member.data.deptCode )
+                                    (item.memberCode === member.memberCode || item.departmentCode === member.deptCode )
                                 )).sort((prev, next) => prev.indexNo - next.indexNo
                                 ).map(item => ({
                                     value: item.id,
@@ -289,7 +287,7 @@ export const SummaryViewModal = ({setIsModal, data}) => {
 
     return (
         <>
-            {/* <div className={[styles.container, modal && styles.active].join(' ')}> */}
+            
             <div className={[styles.container,styles.active, styles.viewContainer].join(' ')}>
                 <div className={styles.viewHeader}>
                 <button className={meterialIcon.meterialIcon} onClick={deleteScheduleHandler}>delete</button>
@@ -308,7 +306,13 @@ export const SummaryViewModal = ({setIsModal, data}) => {
                     
                     
                     <label><span className={meterialIcon.meterialIcon}>home</span></label>
-                    <div><button onClick={addressLinkClickHandler} style={{color:'blue'}}>{data.event.extendedProps.address}</button></div>
+                    <div>
+                        <button 
+                            onClick={addressLinkClickHandler} 
+                            style={{color:'blue'}}
+                        >{data.event.extendedProps.address}
+                        </button>
+                    </div>
 
                     <label><span className={meterialIcon.meterialIcon}>calendar_month</span></label>
                     <div>{data.event.extendedProps.calendarName}</div>

@@ -2,6 +2,8 @@ import axios from 'axios';
 import {GET_TREEVIEW} from "../modules/DepartmentModule";
 import { PROTOCOL, SERVER_IP, SERVER_PORT } from './APIConfig';
 import { GET_PART_LIST } from '../modules/ScheduleMoudule';
+import { PATCH_UPDATE_DEPT, POST_DEPT_INSERT, GET_DEPTALL } from '../modules/DepartmentModule';
+import { message } from 'antd';
 
 export const treeviewAPI = ()=>{
   const requestURL = `http://localhost:8989/department/treeview`;
@@ -37,3 +39,82 @@ export const getParticipantList = ()=>{
 }
 
 
+
+
+export const updateDeptAPI = ({form}) =>{
+
+  console.log('updateDeptAPI', form);
+
+  const requestURL = `http://localhost:8989/department/save`
+
+  return async(dispatch, getState) => {
+
+    const result = await axios.put(requestURL, form ,{
+      headers:{
+        "Accept": "*/*",
+        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+    },
+  })
+      
+ 
+    if(result.status === 200) {
+      message.success(result.message);
+      dispatch({type: PATCH_UPDATE_DEPT, payload: result});
+      return ;
+    }
+  }
+
+};
+
+
+export const insertDeptAPI = ({form}) => {
+    console.log("[insertDeptAPI] =========> ");
+  
+    const requestURL =`http://localhost:8989/department/regist`;
+
+    return async (dispatch, getState) => {
+
+      const result = await fetch(requestURL, {
+          method: "POST",
+          headers:{
+            "Accept": "*/*",
+            // "Content-Type": "application/json",
+            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+      },body: form
+    })
+    .then(response => response.json());
+
+    console.log("[insertDeptAPI] ===> ", result);
+
+      dispatch({ type: POST_DEPT_INSERT, payload: result});
+      
+    };
+
+}
+
+
+
+
+
+export const callDeptAllAPI = ({ deptCode }) => {
+    
+  const requestURL= 'http://localhost:8989/department/dept/list'
+
+  return async (dispatch, getState) => {
+
+      const result = await fetch(requestURL, {
+          method: "GET",
+          headers: {
+              "Content-Type": "application/json",
+              "Accept" : "*/*",
+              // "Authorization": "Bearer " + window.localStorage.getItem("accessToken"),
+          }
+      })
+      .then(response => response.json());
+
+      console.log('[EmployeeAPI] callDeptAllAPI RESULT : ' , result);
+      if(result.status === 200){
+          dispatch({type: GET_DEPTALL, payload: result.data});
+      }
+  }
+}

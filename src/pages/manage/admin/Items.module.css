@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
+
+
+.deptWrap{
+    width: 60%;
+    margin: 10px;
+}
+
+.titleWrap{
+    width: 40%;
+    background-color: antiquewhite;
+    margin: 10px;
+    border-bottom: 1px solid #333;
+
+}
+
+.titleDeptCode{
+    width: 40px;
+    height: 30px;
+    background-color: aqua;
+}
+.titleDeptName{
+    width: 60px;
+    height: 30px;
+    padding-left: 16px;
+}
+
+.deptCode{
+    font-size: 1rem;
+    font-weight: 600;
+    width: 60px;
+    height: 30px;
+    background-color: white;
+    text-align: center;
+
+}
+
+.deptNameInput{
+    font-size: 1rem;
+    font-weight: 500;
+    width: 280px;
+    height: 30px;
+    padding-left: 12px;
+    background-color: white;
+    text-align: center;
+
+}
+
+.deletBnt{
+    width: 30px;
+    height: 30px;
+    /* background-color: #333; */
+    /* border: 1px solid #888888; */
+    color: rgb(124, 124, 124);
+    border-radius: 3px;
+    margin-left: 20px;
+    text-align: center;
+
+
+}
+
+.updateBnt{
+    color: #9f8afb;
+    width: 16px
+
+}
+
+
+
+
+
+.inputDept{
+    width: 200px;
+    height: 30px;
+    margin: 10px;
+    padding: 10px;
+    background-color: rgb(241, 241, 241);
+    border-radius: 4px;
+}
+
+.inputCode{
+    width:50px;
+    height: 30px;
+    margin: 10px;
+    padding: 10px;
+}

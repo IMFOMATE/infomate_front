@@ -2,6 +2,8 @@ import React from 'react';
 import ApprovalTableCss from "./ApprovalTable.module.css";
 import ApprovalTable from "./ApprovalTable";
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
+import Pagenation from "../common/Pagenation";
+import SelectEle from "../../../common/select/SelectEle";
 
 
 
@@ -11,7 +13,6 @@ function ToolbarApprovalTable({documentData, pageHandler, filter}) {
   const {pathname} = useLocation()
   const path = pathname.split("/")[2];
 
-  const navigate = useNavigate();
   const pageInfo = documentData?.pageInfo;
   const documents = documentData?.data;
 
@@ -21,62 +22,50 @@ function ToolbarApprovalTable({documentData, pageHandler, filter}) {
     setSearchParams(searchParams);
   };
 
-  const pageNumber = [];
 
-  if(pageInfo){
-    for(let i = 1; i <= pageInfo.pageEnd ; i++){
-      pageNumber.push(i);
-    }
-  }
+  const handleSizeChange = (e) => {
+    searchParams.set("size", e.target.value);
+    setSearchParams(searchParams);
+  };
+
+
 
 
   return (
     <div className={ApprovalTableCss.container}>
-      <ul className={ApprovalTableCss.toolbar}>
-        {
-          path === 'temporary' || path === 'credit' ? ''
-          :
-          filterState.map((value, index) =>
-            <li
-              key={index}
-              onClick={handleFilterChange}
-              data-type={value.url}
-              className={filter === value.url ?ApprovalTableCss.active : ''}
-            >
-              {value.text}
-            </li>
-          )
-        }
-      </ul>
-      <ApprovalTable data={documents}/>
-      <div style={{ listStyleType: "none", display: "flex", justifyContent: "center" }}>
-        { Array.isArray(documents) &&
-            <button
-                onClick={() => navigate()}
-                disabled={pageInfo.cri.pageNum === 1}
-            >
-              &lt;
-            </button>
-        }
-        {pageNumber.map((num) => (
-            <li key={num} onClick={() => pageHandler(num)}>
-              <button
-                  style={ pageInfo.cri.pageNum === num ? {backgroundColor : 'orange' } : null}
-              >
-                {num}
-              </button>
-            </li>
-        ))}
-        { Array.isArray(documents) &&
-            <button
-                // className={ ReviewCSS.pagingBtn }
-                onClick={() => pageHandler(pageInfo.cri.pageNum + 1)}
-                disabled={pageInfo.cri.pageNum === pageInfo.pageEnd || pageInfo.total === 0}
-            >
-              &gt;
-            </button>
-        }
+      <div className={ApprovalTableCss.toolbar_wrap}>
+        <ul className={ApprovalTableCss.toolbar}>
+          {
+            path === 'temporary' || path === 'credit' || path === 'dept'? ''
+                :
+                filterState.map((value, index) =>
+                    <li
+                        key={index}
+                        onClick={handleFilterChange}
+                        data-type={value.url}
+                        className={filter === value.url ?ApprovalTableCss.active : ''}
+                    >
+                      {value.text}
+                    </li>
+                )
+          }
+        </ul>
+        <div>
+          <SelectEle
+              defaultValue={20}
+              options={[
+                {id:1, value:10, text:10},
+                {id:2, value:20, text:20},
+                {id:3, value:30, text:30},
+                {id:4, value:50, text:50},
+              ]}
+              onClick={handleSizeChange}
+          />
+        </div>
       </div>
+
+      <ApprovalTable data={documents}/>
+      <Pagenation pageInfo={pageInfo} onPageChange={pageHandler} />
     </div>
   );
 }

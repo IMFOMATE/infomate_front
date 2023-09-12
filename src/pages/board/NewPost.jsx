@@ -19,7 +19,7 @@ function NewPost() {
     console.log('boardManagement', boardList);
 
     // 페이징
-    const pageInfo = board.pageInfo;
+    const pageInfo = board?.pageInfo || {};
 
     const [start, setStart] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
@@ -27,24 +27,30 @@ function NewPost() {
 
     const pageNumber = [];
     if(pageInfo){
-        for(let i = 1; i <= pageInfo.pageEnd ; i++){
+        for(let i = 1; i <= Math.min(pageInfo.pageEnd, 5) ; i++){
             pageNumber.push(i);
         }
     }
 
     useEffect(
         () => {
-            setStart((currentPage - 1) * 5);            
-            dispatch(callhBoardViewAPI({ 
-                currentPage: currentPage} ));
-        }
-        ,[currentPage]
+            setStart((currentPage - 1) * 5);
+            dispatch(
+                callhBoardViewAPI({
+                    currentPage: currentPage,
+                })
+            );
+        },
+        [currentPage]
     );
+
+    
 
     // 게시글페이지
     const postHandler = (postCode) => {
         navigate(`/board/post/${postCode}`, { replace: false });
     }
+
 
     return (
         <>
@@ -66,7 +72,7 @@ function NewPost() {
                         >
                             <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postTitle }</td>
-                            <td className={BoardCSS.bdtable_td}>{ b.memberCode }</td>
+                            <td className={BoardCSS.bdtable_td}>{ b.member.memberName }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postDate }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
                         </tr>
@@ -98,7 +104,6 @@ function NewPost() {
                     <button
                         className={ BoardCSS.pagination }
                         onClick={() => setCurrentPage(currentPage +1)}
-                        disabled={ currentPage === pageInfo.pageEnd || pageInfo.total == 0}
                     >
                         &gt;
                         </button>

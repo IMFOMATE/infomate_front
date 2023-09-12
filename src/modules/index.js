@@ -13,6 +13,11 @@ import fileReducer from "./FileModule";
 import employeeReducer from "./EmployeeModule";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import homeMainReducer from "./HomeModules";
+import registMemberReducer from "./MemberRegisterModule";
+import memberMailReducer from "./MemberMailModule";
+import mailTrashReducer from "./MailTrashModule";
+import workReducer from "./WorkModule";
 
 const rootReducer = combineReducers({
     favCalendarReducer,
@@ -27,11 +32,18 @@ const rootReducer = combineReducers({
     fileReducer,
     employeeReducer,
     memberReducer,
+    registMemberReducer,
+    homeMainReducer,
+    memberMailReducer,
+    mailTrashReducer,
+    workReducer
 });
+
 
 const persistConfig = {
     key: "root",
     storage: storage,
+    blacklist:["memberReducer"]
 };
 
 

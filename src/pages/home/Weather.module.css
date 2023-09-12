@@ -1,0 +1,27 @@
+.weatherContainer {
+    padding: 10px;
+  }
+  
+.temperature {
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--color-hard);
+}
+  
+.weatherIcon {
+  width: 120px;
+}
+
+.flex{
+  display: flex;
+}
+
+.weather_content{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.weather{
+}

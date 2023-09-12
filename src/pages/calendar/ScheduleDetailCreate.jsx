@@ -21,6 +21,7 @@ import { GET_CALENDAR_LIST } from '../../modules/CalendarMoudule';
 import { GET_SCHEDULE_DETAIL } from '../../modules/ScheduleMoudule';
 import { LoadingSpiner } from '../../components/common/other/LoadingSpiner';
 
+
 dayjs.extend(utc);
 
 export const AttendUserContext = createContext([{}]);
@@ -37,7 +38,7 @@ const ScheduleDetilaCreate = () => {
 
     const getCalednarReducer = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
     const data = useSelector(state => state.scheduleReducer[GET_SCHEDULE_DETAIL]);
-    const member = useSelector(state => state.memberReducer);
+    const member = JSON.parse(window.localStorage.getItem('authToken'));
     
     const scheduleId = search.get('scheduleId');
     const isRead = search.get('isread');
@@ -46,9 +47,6 @@ const ScheduleDetilaCreate = () => {
     const navigate = useNavigate();
 
     useEffect(()=>{
-        // if(!schedule && newSchedule === 'true') {
-        //     setSchedule({data:{participantList:[]}})
-        // }
 
         if(!isDataLoad()) {
             if(!getCalednarReducer) return;
@@ -59,16 +57,34 @@ const ScheduleDetilaCreate = () => {
                         refCalendar: getCalednarReducer.data
                         .filter(item => 
                             item.defaultCalendar 
-                            && item.memberCode === member.data.memberCode 
+                            && item.memberCode === member.memberCode 
                             && item.departmentCode === null)[0].id,
                         participantList: []
                     }
             })    
         }
         
+        if(!schedule && newSchedule === 'true') {
+            setSchedule({data:{
+                    refCalendar: getCalednarReducer.data
+                        .filter(item => 
+                            item.defaultCalendar 
+                            && item.memberCode === member.memberCode 
+                            && item.departmentCode === null)[0].id,
+                    participantList:[]
+                }
+            })
+        }
+        
+
+
         if(data) return;
         dispatch(getScheduleDetail({scheduleId:scheduleId}));
         if(schedule?.data) return;
+
+        return () => {
+            dispatch(dispatch => dispatch({type: GET_SCHEDULE_DETAIL, payload: '' }))
+        }
 
     },[
         isRead,
@@ -78,7 +94,6 @@ const ScheduleDetilaCreate = () => {
         getCalednarReducer,
         schedule?.data?.allDay
     ])
-
     const isDataLoad = () => {
         return scheduleId !== null 
         && scheduleId !== undefined 
@@ -87,8 +102,10 @@ const ScheduleDetilaCreate = () => {
 
     if(!getCalednarReducer) return <LoadingSpiner />
 
+    if(isDataLoad() && !data) return <LoadingSpiner />
+
     if(!schedule?.data && isDataLoad()){           
-        if(!data) return <LoadingSpiner />;
+        if(!data?.data) return <LoadingSpiner />;
         setSchedule(data);
         return <LoadingSpiner />; 
     }
@@ -329,7 +346,7 @@ const ScheduleDetilaCreate = () => {
                             name='refCalendar' 
                             options={getCalednarReducer.data.filter(item => (
                                 item.departmentCode !== 1 && 
-                                (item.memberCode === member.data.memberCode || item.departmentCode === member.data.deptCode )
+                                (item.memberCode === member.memberCode || item.departmentCode === member.deptCode )
                             )).sort((prev, next) => prev.indexNo - next.indexNo
                             ).map(item => ({
                                 value: item.id, 
@@ -382,7 +399,7 @@ const ScheduleDetilaCreate = () => {
                         <ButtonInline 
                             value={'주소검색'} 
                             onClick={addressSearchHandler} 
-                            style={{height:30, width:80, display:'inline'}} 
+                            style={{height:30, width:80, display:'inline', fontSize:'0.82rem'}} 
                         />
                         {
                             postToggle && 
@@ -423,7 +440,7 @@ const ScheduleDetilaCreate = () => {
                     <div>
                         <ButtonInline 
                             isCancel={true} 
-                            value={isDataLoad() && data?.data?.calendar?.memberCode !== member.data.memberCode? '뒤로가기' : '취소' } 
+                            value={isDataLoad() && !data?.expendsProps.compare ? '뒤로가기' : '취소' } 
                             onClick={registCancle} 
                             style={{width:80, height: 40}}
                         />

@@ -8,6 +8,7 @@ import {
 import {SelectCustomNode} from "./nodes/SelectCustomNode";
 import {CustomDragPreview} from "./CustomDragPreview";
 import {contextMappings} from "../../../../context/contextMappings";
+import {transformNode} from "./TreeTransform";
 
 
 function ApprovalTreeView({modalData, contextType}) {
@@ -16,13 +17,12 @@ function ApprovalTreeView({modalData, contextType}) {
   const { data, setData } = selectedContext;
   const { approvalList } = data;
 
-  // console.log(modalData)
+  console.log(data)
   const handleSelect = (node) => {
-    const item = approvalList.find((n) => n.id === node.id);
+    const item = approvalList.find((n) => n.memberCode === node.data.memberCode);
 
     if (!item) {
-      setData(prev => ({...prev, approvalList:([...prev.approvalList, node])}))
-      console.log(approvalList)
+      setData(prev => ({...prev, approvalList:([...prev.approvalList, transformNode(node)])}))
     } else {
       setData(prev=> ({...prev, approvalList:approvalList.filter((n) => n.id !== node.id)}))
     }
@@ -43,11 +43,12 @@ function ApprovalTreeView({modalData, contextType}) {
                 tree={modalData}
                 rootId={0}
                 render={(node, { depth, isOpen, onToggle }) => (
+
                     <SelectCustomNode
                         node={node}
                         depth={depth}
                         isOpen={isOpen}
-                        isSelected={!!approvalList.find((n) => n.id === node.id)}
+                        isSelected={!!approvalList.find((n) => n.memberCode === node.data?.memberCode)}
                         canDrop={()=> false}
                         onToggle={onToggle}
                         onSelect={handleSelect}
@@ -60,6 +61,7 @@ function ApprovalTreeView({modalData, contextType}) {
                   draggingSource: styles.draggingSource,
                   dropTarget: styles.dropTarget
                 }}
+                sort={false}
             />
             : ''
           }
@@ -69,18 +71,18 @@ function ApprovalTreeView({modalData, contextType}) {
               <thead className={tableStyle.list_thead}>
                 <tr className={tableStyle.list_tr1}>
                   <td className={tableStyle.list_td2}>이름</td>
-                  <td>부서</td>
+                  <td>직급</td>
                   <td>결재 순서</td>
                   <td><RemoveCircleOutlineIcon className={styles.alert}/></td>
                 </tr>
               </thead>
               <tbody>
                 {
-                    (approvalList.length !== 0) &&
-                    approvalList.map((value, index) =>
+                    (data.approvalList.length !== 0) &&
+                    data.approvalList.map((value, index) =>
                         <tr key={index} className={`${styles.center} ${tableStyle.list_tr}`}>
-                            <td className={tableStyle.list_td2}>{value.text}</td>
-                            <td>{value.data.rank}</td>
+                            <td className={tableStyle.list_td2}>{value.memberName}</td>
+                            <td>{value.rankName}</td>
                             <td>{index+1}</td>
                             <td><RemoveCircleOutlineIcon onClick={() => handleClick(index)} className={styles.alert}/></td>
                         </tr>

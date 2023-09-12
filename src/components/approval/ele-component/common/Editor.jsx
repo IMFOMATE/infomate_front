@@ -15,11 +15,12 @@ const modules = {
   toolbar: toolbarOptions
 }
 
-function Editor({handler}) {
+function Editor({handler, value}) {
   return (
       <ReactQuill
           modules={modules}
           onChange={(value, delta, source, editor) => handler(prev => ({...prev, content:editor.getHTML()}))}
+          value={value || ''}
       />
   );
 }

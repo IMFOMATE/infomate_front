@@ -1,8 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {fileDownloadAPI} from "../../../../apis/FileAPICalls";
-import {FILE_DOWNLOAD} from "../../../../modules/FileModule";
-
-
+import DownloadIcon from '@mui/icons-material/Download';
+import styles from './DownloadButton.module.css';
 
 const DownloadButton = ({ filename }) => {
   const dispatch = useDispatch();
@@ -12,7 +11,13 @@ const DownloadButton = ({ filename }) => {
 
 
   return (
-      <button onClick={handleDownloadClick}>{filename}</button>
+      <>
+        <div onClick={handleDownloadClick} className={styles.download_wrapper}>
+          <DownloadIcon sx={{ color: 'var(--color-hard)'}} />
+          <span>{filename}</span>
+        </div>
+      </>
+
   );
 };
 

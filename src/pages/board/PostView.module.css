@@ -48,6 +48,28 @@
     /* margin-left: 3%; */
      /* margin-left: 4px; */
   }
+
+  .boardupdate {
+    color: #7758FA;
+    font-weight: 600;
+    background: none;
+    display: flex;
+    width: 80px;
+    height: 31px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 6px;
+    border: 1px solid #7758FA;
+    transition: 0.4s;
+    cursor: pointer;
+    margin-top: 8px;
+    margin-bottom: 7px;
+    font-size: 13px;
+    padding-top: 4px;
+  }
+
+
   .boardupload:hover {
     background-color: #7758FA;
     color: white;
@@ -92,7 +114,7 @@
   /* margin-top: 20px;
   margin-bottom: 20px; */
   width: 93%;
-  padding: 20px;
+  padding: 4px;
   padding-bottom: 80px;
   /* background-color: #ddddddd7; */
 }

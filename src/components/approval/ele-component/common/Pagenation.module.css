@@ -1,0 +1,24 @@
+.wrapper{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.ul{
+  display: flex;
+}
+
+.ul li{
+  padding: 8px 15px;
+  border-radius: 50% ;
+  margin: 3px;
+}
+
+.active{
+  background-color: var(--color-hard);
+  color: #ffffff;
+}
+
+.page{
+  cursor: pointer;
+}

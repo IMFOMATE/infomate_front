@@ -238,7 +238,7 @@ function Draft({documentData, temp = false}) {
                               value={data.coDept || ''}>
                         <option value="협조부서선택">협조부서선택</option>
                         {
-                          deptData.map((data, index)=>
+                          deptData?.map((data, index)=>
                               <option key={index} value={data.deptName}>{data.deptName}</option>
                           )
                         }

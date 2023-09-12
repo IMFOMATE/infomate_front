@@ -1,18 +1,30 @@
-import * as React from 'react';
-// import Default from '../../component/Default.css';
+import React, {useState} from 'react';
+import { useEffect } from 'react';
 import GroupCss from './Group.module.css';
-// import styles from "../../components/approval/ele-component/treeview/nodes/CustomNode.module.css";
-// import treeStyle from "./TreeView.module.css"
-// import {
-//     Tree,
-//   } from "@minoru/react-dnd-treeview";
-
-
+import DeptTreeView from './DeptTreeView';
+import { useSelector, useDispatch } from 'react-redux';
+import { treeviewAPI } from '../../apis/DepartmentAPI';
+import {GET_TREEVIEW} from "../../modules/DepartmentModule";
+// import SimpleInfo from './SimpleInfo';
 
 
 function Group () {
 
+    const dispatch = useDispatch();
 
+    const dataTree = useSelector(state => state.departmentReducer[GET_TREEVIEW]);
+
+    // 정보 창 띄우기
+    const [modal, setModal] = useState(false);
+
+    // const treeData = data.data;
+    useEffect(
+        () => {
+            dispatch(treeviewAPI({}))
+        },
+        []
+    );
+    console.log("[Group] treeView 값 들어오니???????? ", dataTree);
     return(
 
         <>
@@ -21,30 +33,28 @@ function Group () {
                 <div className={`firstWrap ${GroupCss.firstWrap}`}>
                     <div className={`deptList ${GroupCss.deptList}`}>
                         <div className={`list ${GroupCss.list}`}>
+                            {/* {Array.isArray({dataTree}) && dataTree.length > 0 ?(
+                                <DeptTreeView data={dataTree}/>
+                            ):(<p>no</p>)
                             
+                            } */}
+
+                            <button onClick={()=> {setModal(!modal)}}>클릭</button>
+
+                                <DeptTreeView data={dataTree.data}/>
                         </div>
+                        {
+                            modal === true ?    (
+                            <div className={`simpleInfoWrap ${GroupCss.simpleInfoWrap}`}>
+                            {/*<SimpleInfo /> */}
+                            <button className={`xbnt ${GroupCss.xbnt}`} 
+                            onClick={() => {setModal(!modal)} }
+                            >닫기</button>
+                            </div>) : null
+                        }
+                        
                     </div>
-                        {/* <div className={treeStyle.doc_wrap}>
-                        <Tree
-                            tree={treeData}
-                            rootId={0}
-                            render={(node, { depth, isOpen, onToggle }) => (
-                                <CustomNode
-                                    node={node}
-                                    depth={depth}
-                                    isOpen={isOpen}
-                                    onToggle={onToggle}
-                                />
-                            )}
-                            initialOpen={true}
-                            canDrop={()=> false}
-                            classes={{
-                                root: styles.treeRoot,
-                                draggingSource: styles.draggingSource,
-                                dropTarget: styles.dropTarget
-                            }}
-                        />
-                        </div> */}
+
                 </div>
             </main>
             
@@ -56,3 +66,6 @@ function Group () {
 
 
 export default Group; 
+
+
+

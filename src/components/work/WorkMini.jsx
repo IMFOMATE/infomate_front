@@ -7,7 +7,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {attendAPI, finishAPI, getworkAPI} from "../../apis/WorkAPICall";
 import {GET_WORK, PATCH_FINISH, POST_ATTEND} from "../../modules/WorkModule";
 import WorkTimer from "../../pages/home/WorkTimer";
-import {LoadingSpiner} from "../common/other/LoadingSpiner";
 
 function WorkMini() {
   const dispatch = useDispatch();

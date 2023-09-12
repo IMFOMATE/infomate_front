@@ -30,7 +30,7 @@ function Pagenation({ pageInfo, onPageChange }) {
     return pageNumbers;
   };
 
-  if(pageInfo.pageEnd === 0 ) return ;
+  if(pageInfo?.pageEnd === 0 ) return ;
 
   return (
       <div className={styles.wrapper}>

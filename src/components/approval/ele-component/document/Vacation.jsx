@@ -310,11 +310,8 @@ function Vacation({documentData, temp = false}) {
                           type="date"
                           onChange={onStartDateChange}
                           value={
-
-
                             !data?.startDate ?
                         '' : formatDate(data?.startDate)
-
                           }
                       />
                       {

@@ -87,7 +87,7 @@ export const getworkAPI = () => {
       dispatch({type: GET_WORK, payload: result.data});
     }
 
-    if(result.status === 208){
+    if(result.status === 204){
       dispatch({type: GET_WORK, payload: {}});
     }
   };

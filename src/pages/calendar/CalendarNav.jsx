@@ -18,7 +18,6 @@ const CalendarNav = () => {
     const {filter, setFilter} = useContext(CalendarFilterContext);
     // const member = useSelector(state => state.memberReducer);
     const member = JSON.parse(window.localStorage.getItem('authToken'));
-    console.log(member);
     const dispatch = useDispatch();
 
     const data = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
@@ -83,7 +82,7 @@ const CalendarNav = () => {
     return (
         <div className={styles.container}>
             <div className={NavStyle.sideTop}>
-                <h1 className={NavStyle.title}>일정</h1>
+                <h2 className={NavStyle.title}>일정</h2>
                 <NavLink 
                     to='/calendar/regist?new=true' 
                     className={NavStyle.new} 

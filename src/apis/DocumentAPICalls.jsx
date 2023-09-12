@@ -76,7 +76,7 @@ export const draftRegistAPI = (form, temp)=>{
     }).then(res => res.data);
 
     if(result.status === 200){
-      message.success('업무기안 등록완료');
+      message.success('결재 상신에 성공했습니다');
       dispatch({type: POST_DRAFT, payload: result});
     }
 

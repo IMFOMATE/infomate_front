@@ -146,13 +146,23 @@ export const deleteSchedule = ({scheduleId}) => {
             "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
         }})
                         .then(res => res)
-                        .catch(err => err);
+                        .catch(err => err.response.data);
 
+
+
+                        console.log(result);
+        
         if(result?.status === 200){
             message.success("일정이 삭제 되었습니다.")
             dispatch({ type: DELETE_SCHEDULE,  payload: result});
             return ;
-        } 
+        }
+        
+        if(result?.status === 400){
+            message.error(result.message)
+            dispatch({ type: DELETE_SCHEDULE,  payload: result});
+            return ;
+        }
         
         message.error("변경에 실패 했습니다")
     };

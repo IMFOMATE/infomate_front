@@ -17,6 +17,7 @@ import {draftRegistAPI, vacationRegistAPI} from "../../../../apis/DocumentAPICal
 import {decodeJwt} from "../../../../util/tokenUtils";
 import {POST_DRAFT, POST_VACATION} from "../../../../modules/approval/DocumentModuels";
 import {tempAPI} from "../../../../apis/ApprovalAPICalls";
+import {formatDate} from "@fullcalendar/core";
 
 function Vacation({documentData, temp = false}) {
   const treeview = useSelector(state => state.departmentReducer);
@@ -45,7 +46,8 @@ function Vacation({documentData, temp = false}) {
       const modifiedApprovalList = documentData.approvalList.map(approval => ({
         ...approval,
         approvalStatus: '',
-        approvalDate: ''
+        approvalDate: '',
+        comment:''
       }));
 
       setData({...documentData, fileList:[], existList:[...documentData.fileList], approvalList:modifiedApprovalList});
@@ -77,17 +79,43 @@ function Vacation({documentData, temp = false}) {
     });
   };
 
+  // const onStartDateChange = (e) => {
+  //   if(sort === '오전반차'){
+  //
+  //     setData({...data, startDate:e.target.value + ' 09:00:00',endDate: e.target.value + ' 13:00:00'});
+  //     return;
+  //   }
+  //   if(sort === '오후반차'){
+  //     setData({...data, startDate:e.target.value + ' 13:00:00',endDate: e.target.value + ' 18:00:00'});
+  //     return;
+  //   }
+  //   setData({...data, startDate:e.target.value + ' 09:00:00'})
+  // };
+
   const onStartDateChange = (e) => {
-    if(sort === '오전반차'){
-      setData({...data, startDate:e.target.value + ' 09:00:00',endDate: e.target.value + ' 13:00:00'});
-      return;
+    let startDate;
+    let endDate;
+
+    switch (sort) {
+      case '오전반차':
+        startDate = `${e.target.value}T09:00:00`;
+        endDate = `${e.target.value}T13:00:00`;
+        break;
+
+      case '오후반차':
+        startDate = `${e.target.value}T13:00:00`;
+        endDate = `${e.target.value}T18:00:00`;
+        break;
+
+      default:
+        startDate = `${e.target.value}T09:00:00`;
+        break;
     }
-    if(sort === '오후반차'){
-      setData({...data, startDate:e.target.value + ' 13:00:00',endDate: e.target.value + ' 18:00:00'});
-      return;
-    }
-    setData({...data, startDate:e.target.value + ' 09:00:00'})
+
+    const newData = { ...data, startDate, endDate };
+    setData(newData);
   };
+
 
   const onEndDateChange = (e) => {
 
@@ -281,7 +309,10 @@ function Vacation({documentData, temp = false}) {
                           name='startDate'
                           type="date"
                           onChange={onStartDateChange}
-                          // value={data.startDate || ''}
+                          value={
+                            !data?.startDate ?
+                        '' : formatDate(data?.startDate)
+                          }
                       />
                       {
                         sort === '연차' ?
@@ -292,7 +323,7 @@ function Vacation({documentData, temp = false}) {
                               name='endDate'
                               type="date"
                               onChange={onEndDateChange}
-                              value={data.endDate || ''}
+                              value={data?.endDate || ''}
                           />
                         </>
                         : ''

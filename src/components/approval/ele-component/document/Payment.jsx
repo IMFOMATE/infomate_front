@@ -12,7 +12,6 @@ import DocumentSide from "./DocumentSide";
 import ButtonInline from "../../../common/button/ButtonInline";
 import PaymentList from "./PaymentList";
 import {useDispatch, useSelector} from "react-redux";
-
 import {treeviewAPI} from "../../../../apis/DepartmentAPI";
 import {paymentRegistAPI} from "../../../../apis/DocumentAPICalls";
 import {
@@ -51,7 +50,8 @@ function Payment({documentData, temp = false} ) {
       const modifiedApprovalList = documentData.approvalList.map(approval => ({
         ...approval,
         approvalStatus: '',
-        approvalDate: ''
+        approvalDate: '',
+        comment:''
       }));
 
       setData({...documentData, fileList:[], existList:[...documentData.fileList], approvalList:modifiedApprovalList});
@@ -88,6 +88,11 @@ function Payment({documentData, temp = false} ) {
   const createFormData = () => {
     const formData = new FormData();
 
+    if(data.existList){
+      data.existList.forEach((ex, index) => {
+        formData.append(`existList[${index}]`, ex.fileCode);
+      });
+    }
     data.fileList.forEach((file) => {
       formData.append("fileList", file); // 각 파일을 formData에 추가
     });
@@ -116,12 +121,18 @@ function Payment({documentData, temp = false} ) {
     return formData;
   };
 
+  const tempIsSave = data.documentStatus === "TEMPORARY";
+
   const requestApproval = (formData) => {
     dispatch(paymentRegistAPI(formData));
   };
 
-  const tempRequest = (formData, type, docId) => {
-    dispatch(tempAPI(formData, type, docId));
+  const tempApproval = (formData, type, docId, tempIsSave) => {
+    dispatch(tempAPI(formData, type, docId, tempIsSave));
+  };
+
+  const tempRequest = (formData, type, docId, tempIsSave) => {
+    dispatch(tempAPI(formData, type, docId, tempIsSave));
   };
 
   //결제 요청 api
@@ -131,10 +142,10 @@ function Payment({documentData, temp = false} ) {
 
     showValidationAndConfirm(
         validationResult, data.approvalList.length, '결재상신', '결재하시겠습니까??',
-      () => {
-        const formData = createFormData();
-        requestApproval(formData);
-      }
+        () => {
+          const formData = createFormData();
+          tempIsSave ? tempApproval(formData, 'payment', data?.id, true) : requestApproval(formData);
+        }
     )
   };
 
@@ -146,7 +157,7 @@ function Payment({documentData, temp = false} ) {
         validationResult, data.approvalList.length, '임시저장', '임시저장하시겠습니까??',
         () => {
           const formData = createFormData();
-          tempRequest(formData,'payment', data?.id);
+          tempRequest(formData,'payment', data?.id, false);
         }
     )
   };
@@ -272,7 +283,7 @@ function Payment({documentData, temp = false} ) {
                       총금액
                     </td>
                     <td className={style.td}>
-                      {formatNumberWithCommas(calculateTotal().toString()) || ''}원
+                      {formatNumberWithCommas(calculateTotal().toString())}원
                     </td>
                   </tr>
                   <tr>

@@ -10,6 +10,9 @@ export const GET_WORK = 'work/GET_WORK';
 
 
 const workReducer = handleActions({
+      PURGE : (state) =>{
+        return initialState;
+      },
       [POST_ATTEND]: (state, {payload}) => ({
         ...state, [POST_ATTEND]: payload
       }),

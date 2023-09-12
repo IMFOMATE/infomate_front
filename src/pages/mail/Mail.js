@@ -15,7 +15,7 @@ import {
 }
 from '../../apis/MemberAPICalls'
 import ViewMail from './ViewMail';
-
+import dayjs from "dayjs";
 
 
 
@@ -33,7 +33,14 @@ function Mail({title}) {
     const [checkedName , setCheckedName] = useState([]);
     const [checkedMail ,setCheckedMail] = useState({});
 
+    const yStatusEmails = mailList.matchingEmails.filter((mail) => mail.mailStatus === 'N');
+
     
+    const yStatusEmailsCount = yStatusEmails.length;
+
+
+    const date = dayjs(mail.mailDate )
+
 
     const pageInfo = mail.data?.pageInfo || { pageEnd: 1 };
 
@@ -128,14 +135,14 @@ function Mail({title}) {
                     <div className={ style.wrapper }>
                     <h1  style={{color: 'var(--color-text-title)', display: 'flex', padding: '20px' }}>
                         {title}
-                        <p>전체 메일 0 / 안읽은 메일 0</p>
+                        <p>전체 메일 {mailList.matchingEmails.length}  / 안읽은 메일 {yStatusEmailsCount}</p>
                     </h1>
                     <div className={style.mailButton}>
                         <button onClick={onClickReplyHandler}>답장</button>
                         <button onClick={ onClickDeleteHandler}>삭제</button>
                         
                         
-                        <input id={style.mailSearch} type="text" placeholder="검색"/>
+                        {/* <input id={style.mailSearch} type="text" placeholder="검색"/> */}
                     </div>
             
                     <div className={style.mailLine}></div> 
@@ -160,7 +167,7 @@ function Mail({title}) {
                                 <div className={style.mailName} onClick={ () => onClickEventHandler(mail, mailList.sendMemberName[index].memberName) }>
                                     {mailList.sendMemberName && mailList.sendMemberName[index].memberName}</div>
                                 <div className={style.mailTitle}>{mail.mailTitle}</div>
-                                <div className={style.mailDate}>{mail.mailDate}</div>
+                                <div className={style.mailDate}>{date.format("YY-MM-DD")}</div>
                                 </div>
                             )
                         )}

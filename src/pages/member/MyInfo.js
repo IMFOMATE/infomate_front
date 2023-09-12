@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import myInfo from "./MyInfo.module.css"
 
 function MyInfo() {
+    const [imageUrl, setImageUrl] = useState('');
+
+    const memberDataString = localStorage.getItem("authToken");
+    const memberData = JSON.parse(memberDataString);
+
+    useEffect(() => {
+        if (memberData.profile === "http://localhost:8989/imgs/null") {
+            setImageUrl(memberData.defaultProfile);
+        } else if(memberData.profile) {
+            setImageUrl(memberData.profile);
+        }
+    }, [memberData]);
 
     return (
         <div className={myInfo.wrapper}>
@@ -12,23 +24,18 @@ function MyInfo() {
         <div>
             <div className={myInfo.profile}>
                 <div>
-                    <span>사진</span>
-                    
-                        <input className="registPhoto" type="file" id="photo" name="photo" />
+                    <img alt='profileImg' src={imageUrl}/>
 
                 </div>
                 <div className={myInfo.reWrapper}>
                     <div className={myInfo.profileReq}>
-                        <p>이름 : </p>
-                        <p>사번</p>
-                        <p>부서</p>
-                        <p>직위</p>
-                        <p>이메일</p>
-                        <p>Cell.</p>
-                        <p>Dir.</p>
-                        <p>생년월일</p>
-                        <p>주소</p>
-                        <p>입사일</p>
+                        <p>이름 : {memberData.memberName}</p>
+                        <p>부서 : {memberData.deptName}</p>
+                        <p>직위 : {memberData.rank}</p>
+                        <p>이메일 : {memberData.memberEmail}</p>
+                        <p>Cell. : {memberData.memberPhone}</p>
+                        <p>Dir. : {memberData.extensionNumber}</p>
+                        <p>생년월일 : {memberData.memberNo}</p>
                     </div>
                 </div>
             </div>

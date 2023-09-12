@@ -30,6 +30,8 @@ export const callRegistAPI = ({form, memberCode}) => {
             alert('연락처 추가 성공')
 
             dispatch({ type: POST_REGISTER,  payload: result });
+        } else {
+            alert('연락처 추가 실패')
         }
 
         window.location.reload();

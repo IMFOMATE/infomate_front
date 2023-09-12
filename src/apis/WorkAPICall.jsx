@@ -80,12 +80,14 @@ export const getworkAPI = () => {
         .then(res => res.data)
         .catch(err => console.log(err));
 
-    console.log('으아아아아아', )
+
+    console.log("result.status", result.status)
+    console.log("result ", result)
     if(result.status === 200){
       dispatch({type: GET_WORK, payload: result.data});
     }
 
-    if(result.status === 208){
+    if(result.status === 204){
       dispatch({type: GET_WORK, payload: {}});
     }
   };

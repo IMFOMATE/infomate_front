@@ -28,9 +28,9 @@ const departmentReducer = handleActions({
       [POST_DEPT_INSERT]: (state, {payload}) =>{
         return payload;
       },
-      [GET_DEPTALL]: (state, {payload}) => {
-        return payload;
-      }
+      [GET_DEPTALL]: (state, {payload}) => ({
+        ...state, [GET_DEPTALL] : payload
+      })
 
     },
     initialState

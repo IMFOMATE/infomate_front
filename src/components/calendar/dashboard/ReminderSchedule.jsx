@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 dayjs.locale('ko');
 dayjs.extend(utc);
 
-const RemiderSchedule = ({toDay, title, date, id }) => {
+const RemiderSchedule = ({toDay, title, date, id, allDay }) => {
     const navigate = useNavigate();
     const dayOfWeek = toDay.format('dddd')
     const className = [
@@ -15,7 +15,6 @@ const RemiderSchedule = ({toDay, title, date, id }) => {
         dayjs(dayjs().format('YYYY-MM-DD')).isSame(toDay.format('YYYY-MM-DD')) && styles.today
     ].join(' ');
 
-    
     const onClickHandler = () => {
         id && navigate(`/calendar/regist?scheduleId=${id}&isread=true`)
     }
@@ -30,7 +29,7 @@ const RemiderSchedule = ({toDay, title, date, id }) => {
                     <div className={styles.content}>
                         <div style={{fontWeight:700, textAlign:'left'}}>{title}</div>
                         <div style={{color:'gray'}}>
-                             <span>{date || '등록된 일정이 없습니다.'}</span>
+                             <span>{(allDay && '종일') || date || '등록된 일정이 없습니다.'}</span>
                         </div>
                     </div>
                 </div>

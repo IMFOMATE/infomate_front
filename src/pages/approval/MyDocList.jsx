@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import style from '../../components/common/main.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {getList} from "../../apis/DocumentAPICalls";
 import ToolbarApprovalTable from "../../components/approval/ele-component/table/toolbarApprovalTable";
-import {useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
-import {GET_DOCUMENT_LIST} from "../../modules/approval/DocumentModuels";
+import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {LoadingSpiner} from "../../components/common/other/LoadingSpiner";
 
 

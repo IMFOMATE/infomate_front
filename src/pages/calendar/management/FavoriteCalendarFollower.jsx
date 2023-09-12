@@ -17,7 +17,6 @@ const FavoriteCalendarFollower = () => {
     const {chk, setChk} = useContext(ManageChkList);
     search.get('page')
 
-    
     const calendarFollowerList = useSelector(state => state.favCalendarReducer[GET_FAV_CALENDAR_FOLLOWER]);
     const favCalendarReducer = useSelector(state => state.favCalendarReducer);
     const dispatch = useDispatch();

@@ -10,6 +10,7 @@ import {
 } from '../../apis/ContactAPIcalls';
 import { Search, South } from '@mui/icons-material';
 import ContactModal from '../../../src/components/approval/ele-component/contact/ContactModal';
+import { LoadingSpiner } from '../../components/common/other/LoadingSpiner';
 
 
 
@@ -197,15 +198,17 @@ function AddressBook({ title }) {
 
     const buttonStyle = { fontWeight: '800', fontSize: '15px', color: 'black' }
 
+    if(!contact) return <LoadingSpiner/>
+
 
     return (
         <>
             <div className={style.wrapper} >
                 <h1 style={{ color: 'var(--color-text-title)' }} className={style.title}>{title}</h1>
                 <div className={style.addressSearch}>
-                    <div className={style.addressText}>이름</div>
+                    {/* <div className={style.addressText}>이름</div>
                     <div className={style.addressText}>전화번호</div>
-                    <div className={style.addressText}>메모</div>
+                    <div className={style.addressText}>메모</div> */}
                 </div>
 
                 <div className={style.selectButton} style={buttonStyle}>

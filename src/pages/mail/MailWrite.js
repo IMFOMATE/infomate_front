@@ -10,6 +10,7 @@ import { callPostMailAPI  ,callMailContactSelectAPI } from '../../apis/MailAPICa
 import MailReferenceModal from '../../components/approval/ele-component/contact/MailReferenceModal';
 import axios from "axios";
 import { callGetMemberAPI } from '../../apis/MemberMailAPICalls';
+import { ReplayCircleFilled } from '@mui/icons-material';
 
 
 function MailWrite() {
@@ -25,14 +26,23 @@ function MailWrite() {
     const [content, setContent] = useState("")
     const [encoding, setencoding] = useState("");
     const [receiver, setReceiver] = useState([]);
+    const [receiverName, setReceiverName] = useState([]);
+    const navigate = useNavigate();
 
     const [reference, setReference ] = useState([]);
 
     const [company, setCompany] = useState([]);
-    
     const member = useSelector(state => state.memberMailReducer)
     const memberList = member.data;
     console.log("memberList" , memberList);
+
+    const authTokenJSON = localStorage.getItem('authToken');
+
+    // JSON 형식의 데이터를 JavaScript 객체로 파싱
+     const authToken = JSON.parse(authTokenJSON);
+ 
+     // 회원 코드를 가져옴
+     const memberCode = authToken.memberCode;
 
 
 
@@ -102,6 +112,7 @@ function MailWrite() {
         };
       }, []);
 
+  
             
 
 
@@ -143,7 +154,7 @@ function MailWrite() {
     useEffect(
         () => {
             dispatch(callMailContactSelectAPI({
-                memberCode: 2,
+                memberCode: memberCode,
             }));
             
         },[])
@@ -199,8 +210,9 @@ function MailWrite() {
 
         const formData = new FormData();
         console.log("form", form);
-        
-        formData.append('receiverMail', form.receiverMail);  
+        // console.log(receiver);
+        formData.append("memberCode" , memberCode)
+        formData.append('receiverMail', receiverName);  
         formData.append('mailReference', form.mailReference);  
         formData.append("mailTitle", form.mailTitle );
 
@@ -224,6 +236,8 @@ function MailWrite() {
 
         }))
 
+        navigate("/mail")
+
     }
 
     const modules = useMemo(() => {
@@ -245,6 +259,26 @@ function MailWrite() {
     }, [])
 
 
+    const onChangeNameHandler = () => {
+        const list = [];
+        console.log("gd", receiver);
+    
+        receiver.map((receiverItem) => {
+            list.push(receiverItem.contactName);
+        });
+        company.map((companyItem) => {
+            list.push(companyItem.memberName);
+        });
+    
+        console.log("List", list );
+
+
+
+        setReceiverName(list);
+
+        
+    };
+
     return (
         <>
 
@@ -259,8 +293,9 @@ function MailWrite() {
                                 받는사람
 
                                 <input type="text" className={style.inputText} autoComplete='off' name="receiverMail" 
-                                onChange={ () => onChangeHandler } 
-                                value={receiver.map( (name) => name.contactName) + company.map((memberName) => memberName.memberName) + (checkedName || '') + (sendMail || '')}/>
+                                onChange={onChangeNameHandler} 
+                                value={receiver.map( (name) => name.contactName ) + company.map((memberName) => memberName.memberName ) + (checkedName || '') + (sendMail || '')}
+                                />
                                 <button className={style.addressBook}  onClick={  openModal }>주소록</button>
                             </div>
                                 
@@ -317,7 +352,7 @@ function MailWrite() {
                     </div>
                     {isModalOpen && (
                 <MailContactModal isOpen={isModalOpen} closeModal={closeModalWrite} contact={contactList} 
-                                setReceiver={setReceiver} receiver={receiver} memberList = {memberList} company={company} setCompany={setCompany}/>
+                                setReceiver={setReceiver} receiver={receiver} onChangeNameHandler={onChangeNameHandler} memberList = {memberList} company={company} setCompany={setCompany}/>
                     )}
 
                     {isReferenceModalOpen && (

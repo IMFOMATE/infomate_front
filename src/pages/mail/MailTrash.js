@@ -59,7 +59,7 @@ function MailTrash({title}) {
                     <div className={ style.wrapper }>
                     <h1  style={{color: 'var(--color-text-title)', display: 'flex', padding: '20px' }}>
                         {title}
-                        <p>전체 메일 0 / 안읽은 메일 0</p>
+                        
                     </h1>
                     <div className={style.mailButton}>
                         

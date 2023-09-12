@@ -42,11 +42,9 @@ export const getScheduleReminder = () => {
 
     return async (dispatch, getState) => {
         const result = await axios.get(requestURL,{headers: {
-            "Accept": "*/*",
-            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-        }})
-                    .then(res => res.data)
-                    .catch(err => err);
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data);
 
         if(result?.status === 200) {
             dispatch({ type: GET_SCHEDULE_REMINDER,  payload: result });
@@ -63,11 +61,9 @@ export const getScheduleDetail = ({scheduleId}) => {
 
     return async (dispatch, getState) => {
         const result = await axios.get(requestURL, {headers: {
-            "Accept": "*/*",
-            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-        }})
-                    .then(res => res.data)
-                    .catch(err => err);
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data);
 
         if(result?.status === 200) {
             dispatch({ type: GET_SCHEDULE_DETAIL,  payload: result });
@@ -89,11 +85,9 @@ export const postScheduleRegist = ({data}) => {
 
     return async (dispatch, getState) => {
         const result = await axios.post(requestURL, data, {headers: {
-            "Accept": "*/*",
-            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-        }})
-                        .then(res => res)
-                        .catch(err => err);
+                            "Accept": "*/*",
+                            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                        }}).then(res => res);
 
         if(result?.status === 200){
             message.success("일정이 등록 되었습니다.")
@@ -116,11 +110,9 @@ export const patchScheduleUpdate = ({data}) => {
     
     return async (dispatch, getState) => {
         const result = await axios.patch(requestURL, data,{headers: {
-            "Accept": "*/*",
-            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-        }})
-                        .then(res => res)
-                        .catch(err => console.log(err));
+                            "Accept": "*/*",
+                            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                        }}).then(res => res);
 
         if(result?.status === 200){
             dispatch({ type: PATCH_SCHEDULE,  payload: result});
@@ -142,15 +134,9 @@ export const deleteSchedule = ({scheduleId}) => {
     
     return async (dispatch, getState) => {
         const result = await axios.delete(requestURL, {headers:{
-            "Accept": "*/*",
-            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-        }})
-                        .then(res => res)
-                        .catch(err => err.response.data);
-
-
-
-                        console.log(result);
+                            "Accept": "*/*",
+                            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                        }}).then(res => res);
         
         if(result?.status === 200){
             message.success("일정이 삭제 되었습니다.")

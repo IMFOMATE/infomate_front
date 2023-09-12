@@ -81,11 +81,9 @@ export const patchFavCalendarStateUpdate = ({data}) => {
     
     return async (dispatch, getState) => {
         const result = await axios.patch(requestURL, data, {headers: {
-            "Accept": "*/*",
-            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-        }})
-                    .then(res => res.data)
-                    .catch(e => console.log(e));
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data);
         
         if(result.status === 200){
             message.success(result.message);
@@ -103,11 +101,9 @@ export const deleteFavCalendar = ({data}) => {
 
     return async (dispatch, getState) => {
         const result = await axios.delete(requestURL, {data}, {headers: {
-            "Accept": "*/*",
-            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-        }})
-                    .then(res => res.data)
-                    .catch(e => console.log(e));
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data);
         
         if(result.status === 200){
             message.success(result.message);

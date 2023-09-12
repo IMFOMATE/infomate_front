@@ -28,7 +28,6 @@ const  ReminderList = () => {
         scheduleReducer[PATCH_SCHEDULE],
         scheduleReducer[DELETE_SCHEDULE],
     ])
-    console.log(data);
     if(!data) return <LoadingSpiner />
 
     return (

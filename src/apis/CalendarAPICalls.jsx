@@ -18,10 +18,9 @@ export const getCalendarFindAllAPI = () => {
     return async (dispatch, getState) => {
         
         const result = await axios.get(requestURL,{headers:{
-            "Accept": "*/*",
-            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-        }})
-                    .then(res => res.data);
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data);
         
         if(result.status === 200) 
             dispatch({ type: GET_CALENDAR_FINDALL,  payload: result });
@@ -37,7 +36,7 @@ export const getCalendarListAPI = () => {
         const result = await axios.get(requestURL,{headers: {
                         "Accept": "*/*",
                         "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-                    }}).then(res => res.data)
+                    }}).then(res => res.data);
                     
         if(result.status === 200) {
             dispatch({ type: GET_CALENDAR_LIST,  payload: result });
@@ -55,11 +54,9 @@ export const getCalendarPublicListAPI = ({page}) => {
 
     return async (dispatch, getState) => {
         const result = await axios.get(requestURL,{headers:{
-            "Accept": "*/*",
-            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-        }})
-                    .then(res => res.data)
-                    .catch(res => res)
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data)
 
         if(result === undefined || result === ''){
             message.error('조회할 내용이 없습니다.')
@@ -85,10 +82,9 @@ export const postCalendarRegit = ({data}) => {
 
     return async (dispatch, getState) => {
         const result = await axios.post(requestURL, data, {headers:{
-            "Accept": "*/*",
-            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-        }})
-                    .then(res => res.data)
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data)
         
         if(result.status === 200){
             message.success(result.message);
@@ -105,11 +101,10 @@ export const patchCalendarUpdate = ({data}) => {
 
     return async (dispatch, getState) => {
         const result = await axios.patch(requestURL, data, {headers:{
-            "Accept": "*/*",
-            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-        }})
-                    .then(res => res.data)
-                    .catch(e => console.log(e));
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data);
+                    
         
         if(result?.status === 200){
             message.success(result.message);
@@ -127,11 +122,10 @@ export const patchDefaultCalendarUpdate = ({data}) => {
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/updateDafault`;
     return async (dispatch, getState) => {
         const result = await axios.patch(requestURL, data, {headers: {
-            "Accept": "*/*",
-            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-        }})
-                    .then(res => res.data)
-                    .catch(e => console.log(e));
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data);
+                    
         
         if(result.status === 200){
             message.success(result.message);
@@ -149,11 +143,9 @@ export const patchChangeCalendarIndexNo = ({data}) => {
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/changeIndexNo`;
     return async (dispatch, getState) => {
         const result = await axios.patch(requestURL, data, {headers: {
-            "Accept": "*/*",
-            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-        }})
-                    .then(res => res.data)
-                    .catch(e => console.log(e));
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data);
         
         if(result?.status === 200){
             message.success(result.message);
@@ -171,11 +163,10 @@ export const deleteCalendar = ({scheduleId}) => {
     const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/calendar/delete/${scheduleId}`;
     return async (dispatch, getState) => {
         const result = await axios.delete(requestURL, {headers: {
-            "Accept": "*/*",
-            "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-        }})
-                    .then(res => res.data)
-                    .catch(e => console.log(e));
+                        "Accept": "*/*",
+                        "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    }}).then(res => res.data);
+                    
         
         if(result?.status === 200){
             message.success(result.message);

@@ -77,7 +77,6 @@ const Calendar = () =>{
         dispatch(getCalendarFindAllAPI())
     
         return () => {
-            console.log(1);
             sizeObserver.disconnect();
         }
     },[

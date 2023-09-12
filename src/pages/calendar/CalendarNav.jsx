@@ -18,7 +18,6 @@ const CalendarNav = () => {
     const {filter, setFilter} = useContext(CalendarFilterContext);
     // const member = useSelector(state => state.memberReducer);
     const member = JSON.parse(window.localStorage.getItem('authToken'));
-    console.log(member);
     const dispatch = useDispatch();
 
     const data = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);

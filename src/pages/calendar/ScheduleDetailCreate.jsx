@@ -180,7 +180,6 @@ const ScheduleDetilaCreate = () => {
     }
 
     const changeDateHandler = (e) => {
-        console.log(e);
         // 일정 초기화
         if(e === null || e === undefined){
             return setSchedule({

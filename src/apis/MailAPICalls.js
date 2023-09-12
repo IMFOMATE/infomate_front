@@ -41,6 +41,33 @@ export const callMailSelectAPI = ({memberCode, currentPage, title}) => {
 
 }
 
+
+export const callMiniMailSelectAPI = ({memberCode, currentPage, title}) => {
+
+    let requestURL;
+
+    requestURL = `http://localhost:8989/mail/miniMail/${memberCode}/${title}/?offset=${currentPage}`;
+
+    
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method: 'GET'
+        })
+        .then(response => response.json());
+
+        
+        dispatch({type: GET_MAIL , payload: result});
+
+        console.log("========================== " + result.data);
+
+
+    } 
+
+}
+
+
 export const callMailContactSelectAPI = ({memberCode}) => {
 
     const requestURL = `http://localhost:8989/mail/contactList/${memberCode}`;

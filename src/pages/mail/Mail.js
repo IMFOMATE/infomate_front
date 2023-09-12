@@ -15,6 +15,7 @@ import {
 }
 from '../../apis/MemberAPICalls'
 import ViewMail from './ViewMail';
+import dayjs from "dayjs";
 
 
 
@@ -38,7 +39,8 @@ function Mail({title}) {
     const yStatusEmailsCount = yStatusEmails.length;
 
 
-    
+    const date = dayjs(mail.mailDate )
+
 
     const pageInfo = mail.data?.pageInfo || { pageEnd: 1 };
 
@@ -165,7 +167,7 @@ function Mail({title}) {
                                 <div className={style.mailName} onClick={ () => onClickEventHandler(mail, mailList.sendMemberName[index].memberName) }>
                                     {mailList.sendMemberName && mailList.sendMemberName[index].memberName}</div>
                                 <div className={style.mailTitle}>{mail.mailTitle}</div>
-                                <div className={style.mailDate}>{mail.mailDate}</div>
+                                <div className={style.mailDate}>{date.format("YY-MM-DD")}</div>
                                 </div>
                             )
                         )}

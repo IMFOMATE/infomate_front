@@ -98,17 +98,17 @@ function Vacation({documentData, temp = false}) {
 
     switch (sort) {
       case '오전반차':
-        startDate = `${e.target.value} 09:00:00`;
-        endDate = `${e.target.value} 13:00:00`;
+        startDate = `${e.target.value}T09:00:00`;
+        endDate = `${e.target.value}T13:00:00`;
         break;
 
       case '오후반차':
-        startDate = `${e.target.value} 13:00:00`;
-        endDate = `${e.target.value} 18:00:00`;
+        startDate = `${e.target.value}T13:00:00`;
+        endDate = `${e.target.value}T18:00:00`;
         break;
 
       default:
-        startDate = `${e.target.value} 09:00:00`;
+        startDate = `${e.target.value}T09:00:00`;
         break;
     }
 

@@ -16,7 +16,6 @@ function Posting() {
     const dispatch = useDispatch();
     const params = useParams();
     const post = useSelector(state => state.postReducer);
-    const user = useSelector((state) => state.userReducer.userInfo);
 
 
     // form 데이터 ==========================
@@ -34,11 +33,6 @@ function Posting() {
       
 
     });
-
- const changeContent = (editor) => {
-    
-    
- }
 
 
     /* form 데이터 세팅 */   
@@ -126,7 +120,7 @@ function Posting() {
         }));
 
         alert('작성완료');
-        navigate('/board', { replace: false});
+        navigate('/board/newpost', { replace: false});
         window.location.reload();
 
         

@@ -119,7 +119,7 @@ export const callPostPostAPI = ({form}) => {   // 게시글 생성
 export const callPostUpdateAPI = ({postCode, form}) => {   // 게시글 수정
     console.log('[BoardeAPICalls] callPostUpdateAPI Call');
 
-    const requestURL = `http://localhost:8989/brd/board/update/${postCode}`;
+    const requestURL = `http://localhost:8989/brd/board/update`;
 
     return async (dispatch, getState) => {
 
@@ -173,8 +173,7 @@ export const callPostDeleteAPI = (postCode) => {
         const response = await fetch(requestURL, {
           method: 'DELETE',
           headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
+            Accept: '*/*',
             Authorization: 'Bearer ' + window.localStorage.getItem('accessToken'),
           },
         });

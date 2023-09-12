@@ -37,15 +37,13 @@ function UpdateDept(){
     const onClickdepartmentInsertHandler = () => {
         console.log("[insertHandler] =======> onClickdepartmentInsertHandler ");
 
-        const formData = new FormData();
 
-        formData.append("deptName", form.deptName);
 
         dispatch(insertDeptAPI({
-            form: formData
+            deptName : form.deptName
         }));
 
-        // alert('부서 등록 완료되었습니다.');
+        alert('부서 등록 완료되었습니다.');
         // navigate('/updateDept', {replace: true});
         // window.location.reload();
     }
@@ -61,20 +59,23 @@ function UpdateDept(){
                         <span className={`titleDeptCode ${ItemCss.titleDeptCode}`}>부서코드</span>
                         <span className={`titleDeptName ${ItemCss.titleDeptName}`}>부서명</span>
                     </div>
-                        <div>
+                        <div className={`addWrap ${ItemCss.addWrap}`}>
                             <input
+                            className={`addDept ${ItemCss.addDept}`}
                             placeholder='추가할 부서를 입력하세요.'
                             name='deptName'
                             onChange={ onChangingHandler }
                             />
                             <button
-                            className={`material-symbols-outlined icon ${ItemCss.deletBnt}`}
+                            className={`material-symbols-outlined icon ${ItemCss.checkBnt}`}
                             onClick={ onClickdepartmentInsertHandler }
                             >
                                 check
                             </button>
                         </div>
-                        <Items />
+                        <div className={`itemWrap ${ItemCss.itemWrap}`}>
+                            <Items />
+                        </div>
                     </div>
             </main>
         </>

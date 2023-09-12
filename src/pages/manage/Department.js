@@ -1,7 +1,7 @@
 import  { ReactInstance } from "react";
 import { useNavigate} from "react-router-dom";
 import SdeptCss from "./SearchDept.module.css";
-import { MEMBER_CODE } from "../../apis/APIConfig";
+// import { MEMBER_CODE } from "../../apis/APIConfig";
 
 
 function Department({ dept : {memberName, memberCode, department}}) {
@@ -9,7 +9,7 @@ function Department({ dept : {memberName, memberCode, department}}) {
     const navigate = useNavigate();
 
     const onClickDeptHandler = (memberCode) => {
-        navigate(`/memberInfo/${memberCode}`, { replace: false});
+        navigate(`memberInfo/${memberCode}`, { replace: false});
     }
 
 

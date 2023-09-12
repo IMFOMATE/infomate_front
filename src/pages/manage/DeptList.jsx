@@ -20,7 +20,6 @@ function DeptList() {
         []
     )
     
-    // if(deptList.data === 0) return <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
 
 
     return(
@@ -43,23 +42,7 @@ function DeptList() {
 
 
 
-    // return(
-    //     <>
-    //             {
-    //                 deptList.map((mamber, index) =>
-    //                 <tr key={index} className={SdeptCss.tr}>
-    //                     <td>{mamber.empName}</td>  
-    //                     <td>{mamber.empNum}</td>   
-    //                     <td>{mamber.deptName}</td>   
-    //                     <td><Link to={mamber.link} className={SdeptCss.board_link}>
-    //                         <button className={SdeptCss.bnt}>정보</button>
-    //                         </Link></td>
-    //                 </tr>
-    //                 )            
-    //             }
-
-    //     </>
-    // );
+    
 }
 
 

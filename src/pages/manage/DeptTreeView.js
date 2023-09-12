@@ -3,29 +3,33 @@ import {
   Tree,
 } from "@minoru/react-dnd-treeview";
 import styles from '../../components/approval/ele-component/treeview/nodes/CustomNode.module.css';
-import treeStyle from '../../components/approval/ele-component/treeview/TreeView.module.css';
-import {CustomNode} from '../../components/approval/ele-component/treeview/nodes/CustomNode';
+import {DeptCustomNode} from '../../components/approval/ele-component/treeview/nodes/DeptCustomNode';
+import {LoadingSpiner} from "../../components/common/other/LoadingSpiner";
+import treeStyle from './DeptTree.Model.css';
 
 export default function DeptTreeView({data}) {
+  
+  console.log("[TreeView] ==== props로 값 전달 잘 되니? :", data);
+  const [treeViewData, setTreeData] = useState(data);
 
-  const [treeData, setTreeData] = useState(data);
 
-  console.log("[TreeView] Group에서 넘겨준 값 잘 들어와?? ===>>>>", treeData);
+    if(!data) return <LoadingSpiner/>;
 
     return(
       <div className={treeStyle.doc_wrap}>
       <Tree
-          tree={treeData}
+          tree={data}
           rootId={0}
           render={(node, { depth, isOpen, onToggle }) => (
-              <CustomNode
+              <DeptCustomNode
                   node={node}
                   depth={depth}
                   isOpen={isOpen}
                   onToggle={onToggle}
+                  data={data}
               />
           )}
-          initialOpen={true}
+          initialOpen={false}
           canDrop={()=> false}
           classes={{
             root: styles.treeRoot,
@@ -37,17 +41,3 @@ export default function DeptTreeView({data}) {
     )
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

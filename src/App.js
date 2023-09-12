@@ -21,7 +21,6 @@ import FavoriteCalendarFollowing from './pages/calendar/management/FavoriteCalen
 import FavoriteCalendarPublic from './pages/calendar/management/FavoriteCalendarPublic';
 import FavoriteCalendarFollower from './pages/calendar/management/FavoriteCalendarFollower';
 import MemberInfo from './pages/manage/MemberInfo';
-import ChartModal from './pages/manage/ChartModal';
 import Work from "./pages/work/Work";
 import WkAdmin from "./pages/work/WkAdmin";
 import MyWork from "./pages/work/MyWork";
@@ -52,9 +51,10 @@ import Register from './pages/member/login/Register';
 import SearchList from './pages/manage/SearchList';
 import MailTrash from './pages/mail/MailTrash';
 import Items from './pages/manage/admin/Items';
-import TreeView from './pages/manage/TreeView';
-
 import MyInfo from './pages/member/MyInfo';
+import DeptTreeView from './pages/manage/DeptTreeView';
+import SimpleInfo from './pages/manage/SimpleInfo';
+
 
 
 function App() {
@@ -142,17 +142,20 @@ function App() {
 
             <Route path='group'>
               <Route index element={<Group/>}/>
+              <Route path='searchDept'>
+                <Route index element={<SearchDept/>}/>
+                <Route path='memberInfo/:memberCode' element={<MemberInfo />}/>
+              </Route>
+              <Route path='updateDept' element={<UpdateDept/>}/>
+              <Route path='simpleInfo/:memberCode'element={<SimpleInfo/>}/>
             </Route>
-            <Route path='memberInfo/:memberCode' element={<MemberInfo />}/>
-            <Route path='memberupdate' element={<UpdateMember/>}/>
+            <Route path='treeDept' element={<DeptTreeView/>}/>
             <Route path='searchDept' element={<SearchDept/>}/>
             <Route path='updateDept' element={<UpdateDept/>}/>
             <Route path='department' element={<Department/>}/>
-            <Route path='updateList' element={<UpdateList/>}/>
             <Route path='deptItems' element={<DeptItems/>}/>
             <Route path='search' element={<SearchList/>}/>
             <Route path='items' element={<Items/>}/>
-            <Route path='tree' element={<TreeView/>}/>
 
 
 

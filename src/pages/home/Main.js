@@ -14,6 +14,7 @@ import Weather from "./Weather";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import ButtonOutline from "../../components/common/button/ButtonOutline";
 import WorkMini from "../../components/work/WorkMini";
+import MiniMail from "../../components/mail/MiniMail";
 
 function Main() {
     const dispatch = useDispatch();
@@ -86,7 +87,9 @@ function Main() {
                                 <h2>메일</h2>
                                 <Link to={'/mail'}><NavigateNextIcon /></Link>
                             </div>
-                            {/* 메일 */}
+                            <div>
+                                <MiniMail/>
+                            </div>
                         </div>
                         <div className={`${MainStyle.home_content} ${MainStyle.item5}`}>
                             <div className={MainStyle.home_title_wrap}>
@@ -124,8 +127,10 @@ function Main() {
                                 <h2>게시판</h2>
                                 <Link to={'/board'}><NavigateNextIcon /></Link>
                             </div>
+                            <div style={{marginTop: '70px'}}>
                             <div className={MainStyle.board}>
                                 <AnonyMini />
+                            </div>
                             </div>
                         </div>
                     </div>

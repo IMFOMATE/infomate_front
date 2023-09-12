@@ -16,8 +16,9 @@ function Navbar() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const loginMember = useSelector(state => state.memberReducer);
-    console.log("로그인 멤버 데이터",loginMember.data);
+    const memberDataString = localStorage.getItem("authToken");
+    const memberData = JSON.parse(memberDataString);
+    console.log("멤버데이터 : ", memberData);
 
     const [userInfo, setUserInfo ]= useState({});
     const [imageUrl, setImageUrl] = useState('');
@@ -40,12 +41,12 @@ function Navbar() {
     }
 
     useEffect(() => {
-        if (loginMember.data && loginMember.data.memberPic) {
-            setImageUrl(loginMember.data.memberPic);
-        } else {
-            setImageUrl('img/user.jpg'); // loginMember.data가 없거나 memberPic이 없을 때 기본 이미지 URL로 설정
+        if (memberData.profile === "http://localhost:8989/imgs/null") {
+            setImageUrl(memberData.defaultProfile);
+        } else if(memberData.profile) {
+            setImageUrl(memberData.profile);
         }
-    }, [loginMember]);
+    }, [memberData]);
 
     useEffect(() => {
         const storedTitle = localStorage.getItem('currentTitle') || 'Home';
@@ -58,11 +59,11 @@ function Navbar() {
         <nav className={`${NavStyle.nav} ${menuState ? '' : NavStyle.close }`}>
             <div className={`${NavStyle.profile} ${menuState ? '' : NavStyle.close }`}>
                 <a href="/myInfo">
-                    <img className={NavStyle.profileImg} alt='profileImg' src={imageUrl || 'img/user.jpg'}/>
+                    <img className={NavStyle.profileImg} alt='profileImg' src={imageUrl}/>
                 </a>
                 <div className={NavStyle.profileInfo}>
-                    <p>{loginMember?.data?.deptName} 부서</p>
-                    <p>{loginMember?.data?.memberName} {loginMember?.data?.rank}</p>
+                    <p>{memberData?.deptName} 부서</p>
+                    <p>{memberData?.memberName} {memberData?.rank}</p>
                 </div>
             </div>
             <ul className=''>

@@ -75,10 +75,8 @@ function UpdateDept(){
                             </button>
                         </div>
                         <Items />
-
                     </div>
             </main>
-
         </>
     )
 }

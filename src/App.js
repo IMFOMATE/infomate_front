@@ -52,6 +52,8 @@ import Register from './pages/member/login/Register';
 import SearchList from './pages/manage/SearchList';
 import MailTrash from './pages/mail/MailTrash';
 import Items from './pages/manage/admin/Items';
+import TreeView from './pages/manage/TreeView';
+
 import MyInfo from './pages/member/MyInfo';
 
 
@@ -150,6 +152,7 @@ function App() {
             <Route path='deptItems' element={<DeptItems/>}/>
             <Route path='search' element={<SearchList/>}/>
             <Route path='items' element={<Items/>}/>
+            <Route path='tree' element={<TreeView/>}/>
 
 
 

@@ -83,7 +83,6 @@ export const SummaryCreateModal = ({modal, setModal, mode, setMode}) => {
     }
     
     const scheduleResitClickHandler = (e) => {
-        console.log(schedule);
         dispatch(postScheduleRegist({data: schedule.data}))
         sc.status === 200 && navigate('.')
         setIsModal(false);

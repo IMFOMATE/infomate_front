@@ -23,7 +23,6 @@ const CalendarAdd = ({calendarAddData, calendarAddHandler,registCalendarHandler}
                         defaultValue={'#000000'}
                         value={calendarAddData?.labelColor}
                         onChangeComplete={calendarAddHandler}
-                        
                     />
                 </div>
                 

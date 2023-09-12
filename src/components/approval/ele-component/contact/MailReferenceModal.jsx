@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import style from './MailContactModal.module.css';
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
@@ -6,7 +6,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import {callSelectAPI} from '../../../../apis/ContactAPIcalls'
 
-function MailReferenceModal({ isOpen, closeModal, contact , setReference, reference}) {
+const MailReferenceModal = forwardRef(({ isOpen, closeModal, contact , setReference, reference}, ref) => {
 
     
     const dispatch = useDispatch();
@@ -88,6 +88,6 @@ function MailReferenceModal({ isOpen, closeModal, contact , setReference, refere
         
         </>
     );
-}
+})
 
 export default MailReferenceModal;

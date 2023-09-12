@@ -231,7 +231,9 @@ color: aliceblue;
 }
 
 .selectButton {
-    margin-left: 20px;
+    margin-top: -30px;
+    /* margin-left: 20px; */
+    /* border-top: 1px solid rgba(0, 0, 0, 0.2); */
 }
 
 .selectButton>button {
@@ -239,6 +241,8 @@ color: aliceblue;
     font-size: 20px;
     font-weight: 500;
     color: gray;
+    margin-left: 20px;
+    margin-top: 10px;
 
 }
 

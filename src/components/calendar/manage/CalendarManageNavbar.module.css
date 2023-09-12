@@ -1,9 +1,9 @@
-
-@media (width < 480px) {
+@media (width <= 480px) {
     .container > div {
         width: 50% !important;
-        text-align: center !important;
+        text-align: center !important;   
     }
+
 }
 .container{
     display: flex;

@@ -27,19 +27,24 @@ function NewPost() {
 
     const pageNumber = [];
     if(pageInfo){
-        for(let i = 1; i <= pageInfo.pageEnd ; i++){
+        for(let i = 1; i <= Math.min(pageInfo.pageEnd, 5) ; i++){
             pageNumber.push(i);
         }
     }
 
     useEffect(
         () => {
-            setStart((currentPage - 1) * 5);            
-            dispatch(callhBoardViewAPI({ 
-                currentPage: currentPage} ));
-        }
-        ,[currentPage]
+            setStart((currentPage - 1) * 5);
+            dispatch(
+                callhBoardViewAPI({
+                    currentPage: currentPage,
+                })
+            );
+        },
+        [currentPage]
     );
+
+    
 
     // 게시글페이지
     const postHandler = (postCode) => {
@@ -99,7 +104,6 @@ function NewPost() {
                     <button
                         className={ BoardCSS.pagination }
                         onClick={() => setCurrentPage(currentPage +1)}
-                        disabled={ currentPage === pageInfo.pageEnd || pageInfo.total == 0}
                     >
                         &gt;
                         </button>

@@ -112,7 +112,7 @@ function App() {
 
 
             
-            <Route path="/board" element={<NewPost/>}/>
+            <Route path="/board/newpost" element={<NewPost/>}/>
             <Route path="/board/notice" element={ <Notice />}/>
             <Route path="/board/menu" element={ <Menu />}/>
             <Route path="/board/common" element={ <Common />}/>

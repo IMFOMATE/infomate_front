@@ -13,6 +13,7 @@ export const GET_NOTICE          = 'board/GET_BOARD_NOTICE';    //  공지사항
 export const GET_COMMON          = 'board/GET_BOARD_COMMON';    // 일반게시판 조회
 export const GET_ANONY           = 'board/GET_BOARD_ANONY'; // 익명게시판 조회
 export const GET_DEPT            = 'board/GET_BOARD_DEPT';  // 부서게시판 조회
+export const GET_MAINBOARD       = 'board/GET_MAINBOARD';
 export const GET_COMMENT         = 'comment/GET_COMMENT';   // 댓글 조회
 export const POST_COMMENT        = 'comment/POST_COMMENT';  // 댓글 생성
 export const PUT_COMMENT         = 'comment/PUT_COMMENT';   // 댓글 수정
@@ -27,6 +28,7 @@ const actions = createActions({
     [GET_COMMON]: () => {},
     [GET_ANONY]: () => {},
     [GET_DEPT]: () => {},
+    [GET_MAINBOARD]: () => {},
     [GET_COMMENT]: () => {}
 });
 
@@ -69,22 +71,30 @@ const boardReducer = handleActions(
 
             return payload;
         },
+        [GET_MAINBOARD]: (state, { payload }) => {
+
+            return payload;
+        },
         [GET_COMMENT]: (state, { payload }) => {
 
             return payload;
         },
-        [POST_COMMENT]: (state, { payload }) => {
+        // [GET_COMMENT]: (state, { payload }) => {
 
-            return payload;
-        },
-        [PUT_COMMENT]: (state, { payload }) => {
+        //     return payload;
+        // },
+        // [POST_COMMENT]: (state, { payload }) => {
 
-            return payload;
-        },
-        [DELETE_COMMENT]: (state, { payload }) => {
+        //     return payload;
+        // },
+        // [PUT_COMMENT]: (state, { payload }) => {
 
-            return payload;
-        },
+        //     return payload;
+        // },
+        // [DELETE_COMMENT]: (state, { payload }) => {
+
+        //     return payload;
+        // },
     },
     initialState
 );

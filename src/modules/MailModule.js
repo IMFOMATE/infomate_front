@@ -31,7 +31,7 @@ const mailReducer = handleActions (
     {
         [GET_MAIL]: (state, {payload}) => {
 
-            return {...state, [GET_MAIL]: payload}
+            return payload
         },
         [POST_MAIL]: (state, {payload}) => {
 

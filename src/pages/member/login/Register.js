@@ -148,10 +148,11 @@ function Register() {
 
 
     const onClickMemberRegistrationHandler = () => {
-
         console.log('[MemberRegistration] onClickMemberRegistrationHandler');
 
+
         if (validateForm()) {
+
             const formData = new FormData();
 
             formData.append("memberId", form.memberId);
@@ -170,7 +171,6 @@ function Register() {
             if (image) {
                 formData.append("memberPic", image);
             }
-            
             
             dispatch(callRegisterAPI({
                 form: form,

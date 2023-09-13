@@ -84,7 +84,7 @@ function Anony() {
                             <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postTitle }</td>
                             <td className={BoardCSS.bdtable_td}>{ b.postDate }</td>
-                            <td className={BoardCSS.bdtable_td}>{ b.postCode }</td>
+                            <td className={BoardCSS.bdtable_td}>1</td>
                         </tr>
                     )) 
                     }

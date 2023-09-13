@@ -36,7 +36,7 @@
 
 
 .addContact {
-    display: grid;
+    display: block;
     grid-template-columns: 1fr; /* 자식 요소를 하나의 열로 정렬 */
     width: 500px;
     border: 1px solid #ccc;

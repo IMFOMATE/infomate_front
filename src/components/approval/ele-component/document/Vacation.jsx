@@ -12,12 +12,17 @@ import {useDispatch, useSelector} from "react-redux";
 import DocumentSide from "./DocumentSide";
 import Swal from "sweetalert2";
 import {treeviewAPI} from "../../../../apis/DepartmentAPI";
-import {formatApprovalDate, handleCancel, isValid, showValidationAndConfirm} from "../common/dataUtils";
-import {draftRegistAPI, vacationRegistAPI} from "../../../../apis/DocumentAPICalls";
+import {
+  formatApprovalDate,
+  formatInputDate,
+  handleCancel,
+  isValid,
+  showValidationAndConfirm
+} from "../common/dataUtils";
+import {vacationRegistAPI} from "../../../../apis/DocumentAPICalls";
 import {decodeJwt} from "../../../../util/tokenUtils";
 import {POST_DRAFT, POST_VACATION} from "../../../../modules/approval/DocumentModuels";
 import {tempAPI} from "../../../../apis/ApprovalAPICalls";
-import {formatDate} from "@fullcalendar/core";
 import {GET_TREEVIEW} from "../../../../modules/DepartmentModule";
 import {POST_TEMP} from "../../../../modules/approval/ApprovalModuels";
 
@@ -30,7 +35,6 @@ function Vacation({documentData, temp = false}) {
   const location = useLocation();
   const path = location.pathname.split("/");
   const isReapply = path[path.length-1];
-  const {name, type} = location.state;
   const { data, setData } = useVacationDataContext();
   const { sort, startDate, endDate} = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -173,12 +177,12 @@ function Vacation({documentData, temp = false}) {
 
   const tempIsSave = data.documentStatus === "TEMPORARY";
 
-  const tempApproval = (formData, type, docId, tempIsSave) => {
-    dispatch(tempAPI(formData, type, docId, tempIsSave));
+  const tempApproval = (formData, type, docId, save) => {
+    dispatch(tempAPI(formData, type, docId, save));
   };
 
-  const tempRequest = (formData, type, docId, tempIsSave) => {
-    dispatch(tempAPI(formData, type, docId, tempIsSave));
+  const tempRequest = (formData, type, docId, save) => {
+    dispatch(tempAPI(formData, type, docId, save));
   };
 
 
@@ -277,7 +281,7 @@ function Vacation({documentData, temp = false}) {
                     </td>
                   </tr>
                   <tr className={style.tr}>
-                    <td className={style.td}>작성일자</td>
+                    <td className={ style.td}>작성일자</td>
                     <td className={style.td}>
                       <span>
                         {data?.createdDate
@@ -321,7 +325,8 @@ function Vacation({documentData, temp = false}) {
                           name='startDate'
                           type="date"
                           onChange={onStartDateChange}
-                          defaultValue={data.startDate}
+                          value={formatInputDate(data.startDate)} // value 속성을 사용해 값을 동적으로 설정
+                          // defaultValue={data.startDate}
                       />
                       {
                         sort === '연차' ?
@@ -332,7 +337,8 @@ function Vacation({documentData, temp = false}) {
                               name='endDate'
                               type="date"
                               onChange={onEndDateChange}
-                              defaultValue={data.endDate}
+                              value={formatInputDate(data.endDate)}
+                              // defaultValue={data.endDate}
                           />
                         </>
                         : ''

@@ -2,7 +2,7 @@ import React from 'react';
 import style from "../../../../pages/approval/DocumentMain.module.css";
 import {formatApprovalDate} from "../common/dataUtils";
 
-function WriterInfo({writer, id, start}) {
+function WriterInfo({writer, id, start, istemp}) {
     const {memberName, deptName} = writer;
 
     return (
@@ -28,7 +28,7 @@ function WriterInfo({writer, id, start}) {
             </tr>
             <tr className={style.tr}>
                 <td className={style.td}>문서번호</td>
-                <td className={style.td}>{id ?? ''}</td>
+                <td className={style.td}>{istemp ? id : ''}</td>
             </tr>
             </tbody>
         </table>

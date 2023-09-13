@@ -32,9 +32,9 @@ const documentsReducer = handleActions(
       [GET_DOCUMENT_LIST] : (state, { payload }) =>  {
         return payload;
       },
-      [POST_DRAFT] : (state, { payload }) => {
-         return {[POST_DRAFT]: payload}
-      },
+      [POST_DRAFT] : (state, { payload }) => ({
+         ...state, [POST_DRAFT]: payload
+      }),
       [POST_VACATION] : (state, { payload }) => ({
         ...state,[POST_VACATION]: payload
       }),

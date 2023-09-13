@@ -3,7 +3,6 @@ import style from "./DocumentSide.module.css";
 
 function DocumentSideList({key, data}) {
 
-    console.log('data',data)
     const ImageError = (e)=>{
         e.target.src = '/img/user.jpg';
     };

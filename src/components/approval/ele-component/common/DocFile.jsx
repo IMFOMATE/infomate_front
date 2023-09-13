@@ -15,7 +15,7 @@ function DocFile({handleFileChange, value}) {
         />
         <div>
           {
-              value && value.map(f=><DownloadButton filename={f.originalName}></DownloadButton>)
+              value && value.map(f=><DownloadButton filename={f.fileName}></DownloadButton>)
           }
         </div>
 
@@ -35,7 +35,7 @@ export const DocFileSpan = ({fileList}) => {
           </p>
           {
             fileList.length < 0 ? '' :
-                fileList.map(f=><DownloadButton filename={f.fileName}>{f.originalName}</DownloadButton>)
+                fileList.map(f=><DownloadButton filename={f.fileName}>{f.fileName}</DownloadButton>)
           }
         </div>
       </>

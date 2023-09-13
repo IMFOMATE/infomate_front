@@ -1,4 +1,4 @@
-.wrapper{
+.page_wrapper{
   display: flex;
   justify-content: center;
   margin-top: 10px;
@@ -21,4 +21,10 @@
 
 .page{
   cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .page_wrapper {
+    max-width: 480px;
+  }
 }

@@ -43,3 +43,10 @@
 .reject{
   color: var(--color-alert);
 }
+
+
+@media (max-width: 480px) {
+  .credit p:nth-child(2){
+    max-height: 83px;
+  }
+}

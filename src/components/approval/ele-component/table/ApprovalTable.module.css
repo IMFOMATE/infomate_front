@@ -21,9 +21,7 @@
     background-color: var(--color-border);
     text-align: left;
     table-layout: fixed;
-    font-size: 1.3vw;
-    line-height: 1.375vw;
-
+    /*line-height: 1.375vw;*/
 }
 
 .list_thead{
@@ -176,9 +174,10 @@
         margin-right: 12px;
         -webkit-box-flex: 0;
         -ms-flex: 0 0 100px;
-        flex: 0 0 100px;
+        flex: 0 0 165px;
         font-weight: bold;
         font-size: 15px;
+        padding: 0px 10px;
         content: attr(data-label);
     }
     .last{

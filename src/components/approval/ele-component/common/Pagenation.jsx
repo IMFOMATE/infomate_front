@@ -33,7 +33,7 @@ function Pagenation({ pageInfo, onPageChange }) {
   if(pageInfo?.pageEnd === 0 ) return ;
 
   return (
-      <div className={styles.wrapper}>
+      <div className={styles.page_wrapper}>
         <button
             className={currentPage === 1 ? 'disabled' : ''}
             onClick={() => handlePageChange(currentPage - 1)}

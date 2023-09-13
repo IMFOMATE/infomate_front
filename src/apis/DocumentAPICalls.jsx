@@ -65,6 +65,7 @@ export const draftRegistAPI = (form, temp)=>{
   const token = localStorage.getItem("accessToken");
   const tempParam = temp ? `?temp=${temp}` : '';
 
+
   const requestURL = `http://localhost:8989/document/regist/draft${tempParam}`;
 
   return async (dispatch, getState)  => {
@@ -75,6 +76,7 @@ export const draftRegistAPI = (form, temp)=>{
       }
     }).then(res => res.data);
 
+    console.log("result:",result)
     if(result.status === 200){
       message.success('결재 상신에 성공했습니다');
       dispatch({type: POST_DRAFT, payload: result});
@@ -99,7 +101,7 @@ export const vacationRegistAPI = (form, temp)=>{
 
     if(result?.status === 200){
       message.success('휴가신청서 등록완료');
-      dispatch({type: POST_VACATION, payload: result.data});
+      dispatch({type: POST_VACATION, payload: result});
     }
 
   };
@@ -122,7 +124,7 @@ export const paymentRegistAPI = (form, temp)=>{
 
     if(result.status === 200){
       message.success('지출승인서 등록완료');
-      dispatch({type: POST_PAYMENT, payload: result.data});
+      dispatch({type: POST_PAYMENT, payload: result});
     }
   };
 };

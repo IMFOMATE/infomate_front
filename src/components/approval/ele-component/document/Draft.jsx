@@ -53,14 +53,15 @@ function Draft({documentData, temp = false}) {
       }));
       setData({...documentData, fileList:[], existList:[...documentData.fileList], approvalList:modifiedApprovalList });
     }
+
     dispatch(callDeptAllAPI({deptCode:3}));
 
     if(documentReducer?.status === 200){
-      console.log(documentReducer)
-      navigate('/approval');
+        navigate('/approval');
     }
-
+    console.log("draft reducer:", documentReducer)
   },[documentReducer]);
+
 
   // 데이터 핸들러
   const onChangeHandler = (e) => {
@@ -78,7 +79,6 @@ function Draft({documentData, temp = false}) {
       [e.target.name]: newValue
     });
   };
-
   //모달 토글 버튼
   const toggleModal = () => setIsModalOpen(prev => !prev);
 
@@ -123,13 +123,13 @@ function Draft({documentData, temp = false}) {
 
   const tempIsSave = data.documentStatus === "TEMPORARY";
 
-  const tempApproval = (formData, type, docId, tempIsSave) => {
-    dispatch(tempAPI(formData, type, docId, tempIsSave));
+  const tempApproval = (formData, type, docId, save) => {
+    dispatch(tempAPI(formData, type, docId, save));
   };
 
-  const tempRequest = (formData, type, docId, tempIsSave) => {
-    dispatch(tempAPI(formData, type, docId, tempIsSave));
-  };
+  // const tempRequest = (formData, type, docId) => {
+  //   dispatch(tempAPI(formData, type, docId, false));
+  // };
 
 
   //유효성 및 결재 요청
@@ -155,7 +155,7 @@ function Draft({documentData, temp = false}) {
         validationResult, data.approvalList.length, '임시저장', '임시저장하시겠습니까??',
         () => {
           const formData = createFormData();
-          tempRequest(formData,'draft', data?.id, false);
+          tempApproval(formData,'draft', data?.id, false);
         }
     )
   };
@@ -195,7 +195,7 @@ function Draft({documentData, temp = false}) {
             <div className={style.doc}>
               <h2 className={style.doc_title}>업무기안</h2>
               <div className={style.doc_top}>
-                <WriterInfo writer={writer} start={new Date()} id={data?.id}/>
+                <WriterInfo writer={writer} start={new Date()} id={data?.id} istemp={temp}/>
                 <div className={style.inline}>
                   {
                     data.approvalList.length !== 0 ?

@@ -8,6 +8,11 @@ export function formatApprovalDate(approvalDate) {
   return `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')} `;
 }
 
+export function formatInputDate(approvalDate) {
+  const date = new Date(approvalDate);
+  return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+}
+
 
 export function formatNowDate() {
   const date = new Date();

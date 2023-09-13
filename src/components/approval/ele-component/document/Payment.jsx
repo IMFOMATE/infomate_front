@@ -57,11 +57,11 @@ function Payment({documentData, temp = false} ) {
       setData({...documentData, fileList:[], existList:[...documentData.fileList], approvalList:modifiedApprovalList});
     }
 
-    console.log("documentReducer:",documentReducer)
 
     if(documentReducer?.status === 200){
       navigate('/approval');
     }
+    console.log("payment red:",documentReducer)
 
   },[documentReducer]);
 
@@ -127,12 +127,12 @@ function Payment({documentData, temp = false} ) {
     dispatch(paymentRegistAPI(formData));
   };
 
-  const tempApproval = (formData, type, docId, tempIsSave) => {
-    dispatch(tempAPI(formData, type, docId, tempIsSave));
+  const tempApproval = (formData, type, docId, save) => {
+    dispatch(tempAPI(formData, type, docId, save));
   };
 
-  const tempRequest = (formData, type, docId, tempIsSave) => {
-    dispatch(tempAPI(formData, type, docId, tempIsSave));
+  const tempRequest = (formData, type, docId, save) => {
+    dispatch(tempAPI(formData, type, docId, save));
   };
 
   //결제 요청 api

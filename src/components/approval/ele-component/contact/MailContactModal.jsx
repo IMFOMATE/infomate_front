@@ -134,10 +134,6 @@ function MailContactModal({
                             <button className={style.sendButton} onClick={ onReceiver } >확인</button>
                             </div>
 
-                        </div>
-                        <div className={style.sendButtonContainer}>
-                            <button className={style.sendButton} onClick={onReceiver}>확인</button>
-                        </div>
                     </div>
 
                 </div>

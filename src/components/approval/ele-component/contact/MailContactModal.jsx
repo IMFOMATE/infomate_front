@@ -1,20 +1,26 @@
 import React from 'react';
 import style from './MailContactModal.module.css';
-import { useEffect, useState, useRef } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux';
 
 import {callSelectAPI} from '../../../../apis/ContactAPIcalls'
 
-function MailContactModal({ isOpen, closeModal, contact , setReceiver, receiver , memberList, setCompany, company, onChangeNameHandler}) {
+function MailContactModal({
+                              isOpen,
+                              closeModal,
+                              contact,
+                              setReceiver,
+                              receiver,
+                              memberList,
+                              setCompany,
+                              company,
+                              onChangeNameHandler
+                          }) {
 
-    
+
     const dispatch = useDispatch();
 
-    
-    console.log('"기뭐링', memberList);
-    
 
+    console.log('"기뭐링', memberList);
 
 
     const handleOutsideClick = (event) => {
@@ -23,21 +29,20 @@ function MailContactModal({ isOpen, closeModal, contact , setReceiver, receiver 
         }
     };
 
-    
 
-    const handleSelectChange =  (e) => {
+    const handleSelectChange = (e) => {
 
-        const selectedValue = e.target.value; 
+        const selectedValue = e.target.value;
         const selectedContact = contact.find(contact => contact.contactName === selectedValue);
         console.log('selected', selectedContact);
-                
 
-        setReceiver(prevContacts => [...prevContacts, selectedContact]); 
+
+        setReceiver(prevContacts => [...prevContacts, selectedContact]);
     };
 
     const handleSelectCompanyChange = (e) => {
 
-        const selectedValue = e.target.value; 
+        const selectedValue = e.target.value;
         const selectedContact = memberList.find(member => member.memberName === selectedValue);
         console.log('selected', selectedContact.memberName);
 
@@ -47,19 +52,19 @@ function MailContactModal({ isOpen, closeModal, contact , setReceiver, receiver 
 
     const onDeleteContact = (contact) => {
 
-        console.log('ㅎㅇㅎㅇ?',receiver);
+        console.log('ㅎㅇㅎㅇ?', receiver);
 
-       const updateSelected = receiver.filter(item => item.contactName != contact.contactName);
+        const updateSelected = receiver.filter(item => item.contactName != contact.contactName);
 
-       setReceiver(updateSelected);
-        
-        
+        setReceiver(updateSelected);
+
+
     }
 
     const onDeleteMember = (member) => {
 
-        console.log('receiver' , receiver);
-        
+        console.log('receiver', receiver);
+
 
         const updateSelected = company.filter(item => item.memberName != member.memberName);
 
@@ -71,56 +76,54 @@ function MailContactModal({ isOpen, closeModal, contact , setReceiver, receiver 
         onChangeNameHandler();
     }
 
-    
 
     return (
         <>
-        
+
             {isOpen && (
                 <div className={style.modalOverlay} onClick={handleOutsideClick} id="addressModal">
 
-                    
 
-                        <div className={style.modal}>
-                            <div>
+                    <div className={style.modal}>
+                        <div>
                             <div className={style.title}>연락처</div>
                             <select name="contact" className={style.contactBox} onChange={handleSelectChange}>
-                            <option value="" disabled placeholder='연락처'>연락처</option>
-                            {
-                            contact.map((value, index) => 
-                                <option value={value.contactName}>{value.contactName}  - <span>{value.contactEmail}</span></option>
-                            )
-                            }
+                                <option value="" disabled placeholder='연락처'>연락처</option>
+                                {
+                                    contact?.map((value, index) =>
+                                        <option
+                                            value={value.contactName}>{value.contactName} - <span>{value.contactEmail}</span>
+                                        </option>
+                                    )
+                                }
 
                             </select>
                             <div className={style.title}>회사</div>
                             <select name="contact" className={style.contactBox} onChange={handleSelectCompanyChange}>
-                            <option value="" disabled placeholder='연락처'>연락처</option>
-                            {
-                            memberList.map((value, index) => 
-                                <option value={value.memberName}>{value.memberName}  - <span>{value.memberEmail}</span></option>
-                            )
-                            }
+                                <option value="" disabled placeholder='연락처'>연락처</option>
+                                {
+                                    memberList?.map((value, index) =>
+                                        <option
+                                            value={value.memberName}>{value.memberName} - <span>{value.memberEmail}</span>
+                                        </option>
+                                    )
+                                }
                             </select>
+                        </div>
+                        <div className={style.addContact}>
 
-                            </div>
-
-
-                            
-
-                            
-                            <div className={style.addContact}>
-                            
                             {receiver.map((contact, index) => (
-                                <div key={index}>{contact.contactName} - {contact.contactEmail} 
-                                
-                                <button onClick={ () => onDeleteContact(contact)}>&nbsp;&nbsp; X</button></div>
+                                <div key={index}>{contact.contactName} - {contact.contactEmail}
+
+                                    <button onClick={() => onDeleteContact(contact)}>&nbsp;&nbsp; X</button>
+                                </div>
                             ))}
 
                             {company.map((member, index) => (
-                                <div key={index}>{member.memberName} - {member.memberEmail}    
+                                <div key={index}>{member.memberName} - {member.memberEmail}
 
-                                <button onClick={ () => onDeleteMember(member)}>&nbsp;&nbsp; X</button></div>
+                                    <button onClick={() => onDeleteMember(member)}>&nbsp;&nbsp; X</button>
+                                </div>
                             ))}
                             
                             
@@ -132,16 +135,15 @@ function MailContactModal({ isOpen, closeModal, contact , setReceiver, receiver 
                             </div>
 
                         </div>
-
-                        
-
-
-
+                        <div className={style.sendButtonContainer}>
+                            <button className={style.sendButton} onClick={onReceiver}>확인</button>
+                        </div>
+                    </div>
 
                 </div>
             )}
 
-        
+
         </>
     );
 }

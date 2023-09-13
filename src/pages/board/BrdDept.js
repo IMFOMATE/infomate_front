@@ -54,9 +54,9 @@ function BrdDept() {
         <div className={mainCSS.maintitle}>
         <h2>부서게시판</h2>
         </div>
-            
-            <NewButton />
-                      
+            <div style={{padding:'10px'}}>
+                <NewButton />
+            </div>
             <table className={BoardCSS.bdtable}>
                 <PostTable />
                 <tbody>

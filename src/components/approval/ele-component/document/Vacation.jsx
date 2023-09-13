@@ -271,7 +271,6 @@ function Vacation({documentData, temp = false}) {
                     <td>
                       <input
                           name='title'
-                          defaultValue={name}
                           type="text"
                           value={data.title || ''}
                       />
@@ -280,7 +279,12 @@ function Vacation({documentData, temp = false}) {
                   <tr className={style.tr}>
                     <td className={style.td}>작성일자</td>
                     <td className={style.td}>
-                      <span>{formatApprovalDate(data.createdDate) || formatApprovalDate(new Date())}</span>
+                      <span>
+                        {data?.createdDate
+                            ? formatApprovalDate(data?.createdDate)
+                            : formatApprovalDate(new Date())
+                        }
+                      </span>
                     </td>
                     <td className={`${style.tds} ${style.td}`} >긴급여부</td>
                     <td className={style.td} >
@@ -290,7 +294,6 @@ function Vacation({documentData, temp = false}) {
                           type="checkbox"
                           checked={data.emergency === 'Y'}
                           onChange={checkboxHandler}
-                          // value={}
                       />
                     </td>
                   </tr>
@@ -317,10 +320,7 @@ function Vacation({documentData, temp = false}) {
                           name='startDate'
                           type="date"
                           onChange={onStartDateChange}
-                          value={
-                            !data?.startDate ?
-                        '' : formatDate(data?.startDate)
-                          }
+                          value={data.startDate}
                       />
                       {
                         sort === '연차' ?

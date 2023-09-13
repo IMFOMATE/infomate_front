@@ -55,7 +55,6 @@ function MiniMail({title}) {
           memberCode: memberCode,
           currentPage: currentPage,
           title: title
-
         }));
       }, [currentPage, title]);
 
@@ -78,11 +77,11 @@ function MiniMail({title}) {
               <div className={style.mailDate}>날짜</div>
             </div>
 
-            {mailList.matchingEmails && mailList.matchingEmails.map(
+            {mailList.matchingEmails && mailList.matchingEmails.slice(0,5).map(
                 (mail, index) => (
 
                     <div key={mail.mailCode}
-                         style={{background: (mail.mailStatus === 'Y') ? "rgba(155,155,155,0.3)" : ""}}>
+                         style={{background: (mail.mailStatus === 'Y') ? "rgba(155,155,155,0.1)" : ""}}>
                       <div className={style.mailTitle}>{mail.mailTitle}</div>
                       <div className={style.mailDate}>{mail.mailDate}</div>
                     </div>

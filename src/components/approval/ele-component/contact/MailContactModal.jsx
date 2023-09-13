@@ -126,6 +126,7 @@ function MailContactModal({ isOpen, closeModal, contact , setReceiver, receiver 
                             
                             
                             </div>
+                            <div></div>
                             <div className={style.sendButtonContainer}>
                             <button className={style.sendButton} onClick={ onReceiver } >확인</button>
                             </div>

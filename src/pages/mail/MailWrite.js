@@ -11,11 +11,13 @@ import MailReferenceModal from '../../components/approval/ele-component/contact/
 import axios from "axios";
 import { callGetMemberAPI } from '../../apis/MemberMailAPICalls';
 import { ReplayCircleFilled } from '@mui/icons-material';
+import { LoadingSpiner } from '../../components/common/other/LoadingSpiner';
+import { GET_CONTACT_MAIL, GET_MAIL } from '../../modules/MailModule';
 
 
 function MailWrite() {
 
-    const contact = useSelector(state => state.mailReducer);
+    const contact = useSelector(state => state.mailReducer[GET_CONTACT_MAIL]);
     const contactList = contact?.data;
     const [isModalOpen, setModalOpen] = useState(false); 
     const [isReferenceModalOpen, setReferenceModalOpen] = useState(false);
@@ -43,6 +45,8 @@ function MailWrite() {
  
      // 회원 코드를 가져옴
      const memberCode = authToken.memberCode;
+
+     
 
 
 
@@ -278,7 +282,11 @@ function MailWrite() {
 
         
     };
+    
+    console.log('"기뭐링', contact);
 
+
+  
     return (
         <>
 
@@ -355,9 +363,9 @@ function MailWrite() {
                                 setReceiver={setReceiver} receiver={receiver} onChangeNameHandler={onChangeNameHandler} memberList = {memberList} company={company} setCompany={setCompany}/>
                     )}
 
-                    {isReferenceModalOpen && (
+                    {/* {isReferenceModalOpen && (
                 <MailReferenceModal isOpen={isReferenceModalOpen} closeModal={closeReferenceModal} contact={contactList} setReference={setReference} reference={reference} />
-                    )}
+                    )} */}
 
 
             

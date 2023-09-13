@@ -3,6 +3,7 @@ import style from './MailContactModal.module.css';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {callSelectAPI} from '../../../../apis/ContactAPIcalls'
+import { LoadingSpiner } from '../../../common/other/LoadingSpiner';
 
 function MailContactModal({
                               isOpen,
@@ -19,8 +20,11 @@ function MailContactModal({
 
     const dispatch = useDispatch();
 
+    if(!contact) {
 
-    console.log('"기뭐링', memberList);
+        return <LoadingSpiner />
+    }
+    
 
 
     const handleOutsideClick = (event) => {
@@ -109,14 +113,19 @@ function MailContactModal({
                                     )
                                 }
                             </select>
-                        </div>
-                        <div className={style.addContact}>
 
+                            </div>
+
+
+                            
+
+                            
+                            <div className={style.addContact}>
+                            
                             {receiver.map((contact, index) => (
-                                <div key={index}>{contact.contactName} - {contact.contactEmail}
-
-                                    <button onClick={() => onDeleteContact(contact)}>&nbsp;&nbsp; X</button>
-                                </div>
+                                <div key={index}>{contact.contactName} - {contact.contactEmail} 
+                                
+                                <button onClick={ () => onDeleteContact(contact)}>&nbsp;&nbsp; X</button></div>
                             ))}
 
                             {company.map((member, index) => (

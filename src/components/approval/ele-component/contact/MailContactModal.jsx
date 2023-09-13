@@ -5,16 +5,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import {callSelectAPI} from '../../../../apis/ContactAPIcalls'
+import { LoadingSpiner } from '../../../common/other/LoadingSpiner';
 
-function MailContactModal({ isOpen, closeModal, contact , setReceiver, receiver , memberList, setCompany, company, onChangeNameHandler}) {
+function MailContactModal({ isOpen, closeModal, contact, setReceiver, receiver , memberList, setCompany, company, onChangeNameHandler}) {
 
     
     const dispatch = useDispatch();
 
-    
-    console.log('"기뭐링', memberList);
-    
+    if(!contact) {
 
+        return <LoadingSpiner />
+    }
+    
 
 
     const handleOutsideClick = (event) => {
@@ -71,7 +73,7 @@ function MailContactModal({ isOpen, closeModal, contact , setReceiver, receiver 
         onChangeNameHandler();
     }
 
-    
+    console.log("MailContactModal", contact);
 
     return (
         <>
@@ -87,7 +89,7 @@ function MailContactModal({ isOpen, closeModal, contact , setReceiver, receiver 
                             <select name="contact" className={style.contactBox} onChange={handleSelectChange}>
                             <option value="" disabled placeholder='연락처'>연락처</option>
                             {
-                            contact.map((value, index) => 
+                            contact?.map((value, index) => 
                                 <option value={value.contactName}>{value.contactName}  - <span>{value.contactEmail}</span></option>
                             )
                             }
@@ -97,7 +99,7 @@ function MailContactModal({ isOpen, closeModal, contact , setReceiver, receiver 
                             <select name="contact" className={style.contactBox} onChange={handleSelectCompanyChange}>
                             <option value="" disabled placeholder='연락처'>연락처</option>
                             {
-                            memberList.map((value, index) => 
+                            memberList?.map((value, index) => 
                                 <option value={value.memberName}>{value.memberName}  - <span>{value.memberEmail}</span></option>
                             )
                             }

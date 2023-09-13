@@ -158,7 +158,7 @@ main{
 
 .hideSidemenu{  /* ?? */
     flex: 1 0 0;
-    display: hidden;
+    /*display: hidden;*/
 }
 
 .sideTop{

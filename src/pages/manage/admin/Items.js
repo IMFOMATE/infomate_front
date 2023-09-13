@@ -93,12 +93,7 @@ function Items() {
 );
 }
 
-
-
 // 삭제 버튼 구현
-
-
-
 
 return (
     <>
@@ -114,7 +109,7 @@ return (
                         disabled={false}
                     />
                     {
-                        item.isEditing ? (
+                        item?.isEditing ? (
                             <input
                                 className={`inputDept ${ItemCss.inputDept}`}
                                 onClick={() => toggleEditState(item.deptCode)}

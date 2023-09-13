@@ -41,9 +41,9 @@ const documentsReducer = handleActions(
       [POST_PAYMENT] : (state, { payload }) => ({
         ...state, [POST_PAYMENT]: payload
       }),
-      [DELETE_DOCUMENT] : (state, { payload }) => {
-        return payload;
-      },
+      [DELETE_DOCUMENT] : (state, { payload }) => ({
+        ...state, [DELETE_DOCUMENT]:payload
+      }),
       [CANCEL_DOCUMENT] : (state, { payload }) =>  ({
         ...state, [CANCEL_DOCUMENT]: payload
       }),

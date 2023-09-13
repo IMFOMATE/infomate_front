@@ -3,12 +3,16 @@ import style from "./DocumentSide.module.css";
 
 function DocumentSideList({key, data}) {
 
+    console.log('data',data)
+    const ImageError = (e)=>{
+        e.target.src = '/img/user.jpg';
+    };
 
     return (
         <li key={key} className={style.item}>
             <div className={style.photo}>
                 {/*<img src={data.profile || data.data.profile} alt=""/>*/}
-                <img src='/img/user.jpg' alt=""/>
+                <img src={`http://localhost:8989/imgs/${data.profile}`} alt="" onError={ImageError}/>
             </div>
             <div className={style.content}>
                 <span>{`${data.text || data.memberName} ${data.rankName || data.data.rank }`}

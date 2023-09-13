@@ -10,11 +10,6 @@ import {
     callMailSelectAPI, callDeleteMailAPI ,callUpdateStatusAPI
 } from '../../apis/MailAPICalls'
 
-import {
-    callLoginAPI
-}
-from '../../apis/MemberAPICalls'
-import ViewMail from './ViewMail';
 import dayjs from "dayjs";
 
 

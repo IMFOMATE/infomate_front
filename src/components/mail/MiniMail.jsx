@@ -6,6 +6,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {
   callMiniMailSelectAPI
 } from '../../apis/MailAPICalls'
+import dayjs from "dayjs";
 
 
 function MiniMail({title}) {
@@ -17,6 +18,7 @@ function MiniMail({title}) {
   const params = useParams();
   const [start, setStart] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const date = dayjs(mail.mailDate )
 
   const yStatusEmails = mailList.matchingEmails.filter((mail) => mail.mailStatus === 'N');
 
@@ -83,7 +85,7 @@ function MiniMail({title}) {
                     <div key={mail.mailCode}
                          style={{background: (mail.mailStatus === 'Y') ? "rgba(155,155,155,0.1)" : ""}}>
                       <div className={style.mailTitle}>{mail.mailTitle}</div>
-                      <div className={style.mailDate}>{mail.mailDate}</div>
+                      <div className={style.mailDate}>{date.format("YY-MM-DD")}</div>
                     </div>
                 )
             )}

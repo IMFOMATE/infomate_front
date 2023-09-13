@@ -320,7 +320,7 @@ function Vacation({documentData, temp = false}) {
                           name='startDate'
                           type="date"
                           onChange={onStartDateChange}
-                          value={data.startDate}
+                          defaultValue={data.startDate}
                       />
                       {
                         sort === '연차' ?
@@ -331,7 +331,7 @@ function Vacation({documentData, temp = false}) {
                               name='endDate'
                               type="date"
                               onChange={onEndDateChange}
-                              value={data?.endDate || ''}
+                              defaultValue={data.endDate}
                           />
                         </>
                         : ''

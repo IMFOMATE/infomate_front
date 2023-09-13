@@ -36,8 +36,8 @@
 
 
 .addContact {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr; /* 자식 요소를 하나의 열로 정렬 */
     width: 500px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -45,9 +45,10 @@
     height: 400px;
     margin-bottom: 25%;
     padding: 15px;
+    
  
 }
-.addContact>div>button {
+.xButton {
 
     color: red;
     
@@ -79,9 +80,7 @@
 }
 
 
-.sendButton {
-    padding: 20px;
-}
+
 
 .contentButton{
     display: flex;
@@ -98,17 +97,17 @@
 
 .sendButton {
     
-    position: absolute;
-    top: 78%;
-    left: 60%;
+    display: flex;
     
-
     width: 79px;
     height: 33px;
     font-weight: 600;
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.1);
     padding: 20px;
+    
+    color: black;
+    margin-top: 500px;
 
 
 }

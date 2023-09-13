@@ -1,7 +1,8 @@
+import { useNavigate } from 'react-router';
 import { callContactUpdateAPI } from '../../../../apis/ContactAPIcalls';
 import style from '../../../../pages/addressBook/AddressBook.module.css';
 import { useEffect, useState, useRef,  } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch , Navigate } from 'react-redux';
 // import img from '../../../../pages/addressBook/images/images.png'
 
 
@@ -12,6 +13,7 @@ function ContactModal (contact, setIsModalOpen) {
     const [previewSrc, setPreviewSrc] = useState('');
     const [image, setImage] = useState(contact.contact.contactPhoto);
     const [imageFile, setImageFile ] = useState("");
+    const navigate = useNavigate();
 
     console.log('modalContact' , contact);
 
@@ -34,6 +36,8 @@ function ContactModal (contact, setIsModalOpen) {
 
     const closeModal = () => {
         setSelectedContact(null);
+
+        window.location.reload();
     };
 
     const updateSuccess = () => {

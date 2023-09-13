@@ -110,27 +110,30 @@ function MailContactModal({ isOpen, closeModal, contact , setReceiver, receiver 
 
                             
                             <div className={style.addContact}>
+                                <div>
                             
-                            {receiver.map((contact, index) => (
-                                <div key={index}>{contact.contactName} - {contact.contactEmail} 
-                                
-                                <button onClick={ () => onDeleteContact(contact)}>&nbsp;&nbsp; X</button></div>
-                            ))}
+                                    {receiver.map((contact, index) => (
+                                        <div key={index}>{contact.contactName} - {contact.contactEmail} 
+                                        
+                                        <button className={style.xButton}  onClick={ () => onDeleteContact(contact)}>&nbsp;&nbsp; X</button></div>
+                                    ))}
 
-                            {company.map((member, index) => (
-                                <div key={index}>{member.memberName} - {member.memberEmail}    
+                                    {company.map((member, index) => (
+                                        <div key={index}>{member.memberName} - {member.memberEmail}    
 
-                                <button onClick={ () => onDeleteMember(member)}>&nbsp;&nbsp; X</button></div>
-                            ))}
-                            
-                            
-                            
+                                        <button className={style.xButton} onClick={ () => onDeleteMember(member)}>&nbsp;&nbsp; X</button></div>
+                                    ))}
+                                </div>
+                        
+
                             </div>
-                            <div className={style.sendButtonContainer}>
-                            <button className={style.sendButton} onClick={ onReceiver } >확인</button>
-                            </div>
+                                <div className={style.sendButtonContainer}>
 
-                        </div>
+                                <button className={style.sendButton}  onClick={ onReceiver } >확인</button>
+                                </div>
+
+                            </div>
+                            
 
                         
 

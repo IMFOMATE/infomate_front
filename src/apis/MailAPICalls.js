@@ -3,7 +3,8 @@ import {
     GET_MAIL,
     POST_MAIL,
     DELETE_MAIL,
-    GET_FILE
+    GET_FILE,
+    GET_CONTACT_MAIL
 } from '../modules/MailModule';
 import {
     DELETE_TRASH,
@@ -81,7 +82,7 @@ export const callMailContactSelectAPI = ({memberCode}) => {
 
 
 
-        dispatch({type: GET_MAIL , payload: result});
+        dispatch({type: GET_CONTACT_MAIL , payload: result});
 
         console.log("========================== " + result.data);
 

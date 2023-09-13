@@ -192,6 +192,7 @@
 
 .mailDate {
   flex: 0.5;
+  white-space: nowrap;
 }
 
 .mailCheckbox {
@@ -202,13 +203,7 @@
   flex: 0.5;
 }
 
-.addressPhone {
-  flex: 2.5;
-}
 
-.mailDate {
-  flex: 0.5;
-}
     
 .mini_mail_title p{
   padding: 10px;

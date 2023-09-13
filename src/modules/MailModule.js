@@ -10,6 +10,7 @@ export const GET_MAIL = 'contact/GET_SELECTMAIL';
 export const POST_MAIL = 'contact/POST_POSTMAIL';
 export const DELETE_MAIL = 'contact/DELETE_MAIL';
 export const GET_FILE = 'contact/GET_FILE';
+export const GET_CONTACT_MAIL = 'contact/GET_CONTACT_MAIL'
 
 
 
@@ -19,6 +20,7 @@ const actions = createActions({
     [POST_MAIL]: () => {},
     [DELETE_MAIL]: () => {},
     [GET_FILE]: () => {},
+    [GET_CONTACT_MAIL]: () => {},
    
 })
 
@@ -29,16 +31,16 @@ const mailReducer = handleActions (
     {
         [GET_MAIL]: (state, {payload}) => {
 
-            return payload
+            return {...state, [GET_MAIL]: payload}
         },
         [POST_MAIL]: (state, {payload}) => {
 
             return payload
         },
-        // [GET_CONTACTLIST]: (state, {payload}) => {
+        [GET_CONTACT_MAIL]: (state, {payload}) => {
 
-        //     return payload
-        // }
+            return {...state, [GET_CONTACT_MAIL]: payload}
+        },
         [DELETE_MAIL]: (state, {payload}) => {
 
             return payload

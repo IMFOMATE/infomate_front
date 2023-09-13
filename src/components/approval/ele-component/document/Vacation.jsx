@@ -272,7 +272,7 @@ function Vacation({documentData, temp = false}) {
                       <input
                           name='title'
                           type="text"
-                          value={data.title || ''}
+                          defaultValue={data.title || ''}
                       />
                     </td>
                   </tr>
@@ -304,6 +304,7 @@ function Vacation({documentData, temp = false}) {
                           className={style.input}
                           name='sort'
                           onChange={onChangeHandler}
+                          // defaultValue={data.sort }
                           value={data.sort || ''}
                       >
                         <option value="연차">연차</option>
@@ -351,7 +352,7 @@ function Vacation({documentData, temp = false}) {
                           name="content"
                           cols="30" rows="10"
                           onChange={onChangeHandler}
-                          value={data.content || ''}
+                          defaultValue={data.content || ''}
                       />
                     </td>
                   </tr>

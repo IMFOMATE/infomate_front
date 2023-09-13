@@ -441,7 +441,7 @@ const ScheduleDetilaCreate = () => {
                             isCancel={true} 
                             value={isDataLoad() && !data?.expendsProps.compare ? '뒤로가기' : '취소' } 
                             onClick={registCancle} 
-                            style={{width:80, height: 40}}
+                            style={{width:80, height: 40, fontSize:'0.8rem'}}
                         />
                     </div>
                     {   

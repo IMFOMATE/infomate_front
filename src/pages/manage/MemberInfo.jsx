@@ -47,6 +47,9 @@ function MemberInfo(){
 
     if(member.length === 0) return <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
 
+    const errorHandlerImg = (e) => {
+        e.target.src = '/img/user.jpg'
+    }
 
     return(
         <>
@@ -54,7 +57,7 @@ function MemberInfo(){
                 <h1>인사기본정보</h1>
                 <div className={`infoWrap ${InfoCss.infoWrap}`}>
                     <div className={`empInfo ${InfoCss.empInfo}`}>
-                        <img className={`empImage ${InfoCss.empImage}`} alt='empImage' src={member.memberPic}/>                               
+                        <img className={`empImage ${InfoCss.empImage}`} alt='empImage' src={member.memberPic} onError={errorHandlerImg}/>                               
                         {/* <input type='file' className={`imgFile ${InfoCss.imgFile}`}/> */}
                         {/* <p>* 사진은 자동으로 150x150 사이즈로 적용됩니다.</p> */}
                     </div>

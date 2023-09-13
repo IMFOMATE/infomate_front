@@ -16,7 +16,7 @@ function Items() {
     // const deptList = department['employee/GET_DEPTALL'];
     const depart = useSelector(state => state.departmentReducer[GET_DEPTALL]);
 
-    const [modify, setModify] = useState(false);
+    // const [modify, setModify] = useState(false);
     const [form, setForm] = useState({});
 
     // 로컬로 복사 

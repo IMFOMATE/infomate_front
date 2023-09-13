@@ -58,8 +58,9 @@ function NewPost() {
         <div className={mainCSS.maintitle}>
         <h2>최근 게시글</h2>
         </div>
-            
-            <NewButton />
+            <div style={{padding: '10px'}}>
+                <NewButton />
+            </div>
                       
             <table className={BoardCSS.bdtable}>
                 <PostTable />

@@ -84,6 +84,8 @@ function MiniMail({title}) {
 
                     <div key={mail.mailCode}
                          style={{background: (mail.mailStatus === 'Y') ? "rgba(155,155,155,0.1)" : ""}}>
+                      <div className={style.mailName}>
+                        {mailList.sendMemberName && mailList.sendMemberName[index].memberName}</div>
                       <div className={style.mailTitle}>{mail.mailTitle}</div>
                       <div className={style.mailDate}>{date.format("YY-MM-DD")}</div>
                     </div>

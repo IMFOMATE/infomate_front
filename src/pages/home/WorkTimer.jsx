@@ -13,6 +13,9 @@ function WorkTimer({ startTime, endTime }) {
         const elapsed = now - new Date(startTime);
         setElapsedTime(elapsed);
       }, 1000);
+    }else if (startTime && endTime) {
+      const elapsed = new Date(endTime) - new Date(startTime);
+      setElapsedTime(elapsed);
     }
 
     return () => {
@@ -30,7 +33,7 @@ function WorkTimer({ startTime, endTime }) {
   }
 
   return (
-      <p>{formatElapsedTime()}</p>
+      <p style={{fontSize:'28px', color:'var(--color-text-content)'}}>{formatElapsedTime()}</p>
   );
 }
 

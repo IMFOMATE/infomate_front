@@ -95,10 +95,9 @@ export const vacationRegistAPI = (form, temp)=>{
       headers : {
         Authorization :  "Bearer " + token
       }
-    })
-        .then(res => res.data);
+    }).then(res => res.data);
 
-    if(result.status === 200){
+    if(result?.status === 200){
       message.success('휴가신청서 등록완료');
       dispatch({type: POST_VACATION, payload: result.data});
     }
@@ -111,7 +110,7 @@ export const paymentRegistAPI = (form, temp)=>{
   const token = localStorage.getItem("accessToken");
   const tempParam = temp ? `?temp=${temp}` : '';
   const requestURL = `http://localhost:8989/document/regist/payment${tempParam}`;
-  console.log(tempParam)
+
   return async (dispatch, getState)  => {
 
     const result = await axios.post(requestURL, form,{

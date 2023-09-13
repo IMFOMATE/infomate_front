@@ -43,7 +43,7 @@ const DetailButton = forwardRef(({condition, isOpen, reapply, deleteDoc, cancel}
               <ButtonOutline value="재기안" style={style} onClick={reapply} />
             </>
         )}
-        <ButtonOutline value="목록" style={style} onClick={() => {}}/>
+        <ButtonOutline value="목록" style={style} onClick={() => {navigate('/approval/approval')}}/>
         <ButtonOutline value="미리보기" style={style} onClick={handlePrint}/>
       </div>
   );

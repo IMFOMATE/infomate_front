@@ -5,12 +5,13 @@ import ApprovalTable from "../../components/approval/ele-component/table/Approva
 import {useDispatch, useSelector} from "react-redux";
 import {getMainAPI} from "../../apis/DocumentAPICalls";
 import {LoadingSpiner} from "../../components/common/other/LoadingSpiner";
+import {GET_DOCUMENT_MAIN} from "../../modules/approval/DocumentModuels";
 
 
 const ApprovalMain = () => {
 
   const dispatch = useDispatch();
-  const documentData = useSelector(state => state.documentsReducer);
+  const documentData = useSelector(state => state.documentsReducer[GET_DOCUMENT_MAIN]);
   const data = documentData?.data;
 
 

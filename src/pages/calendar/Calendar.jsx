@@ -95,7 +95,7 @@ const Calendar = () =>{
             data : {...schedule?.data,
                 startDate: dayjs(data.startStr).format('YYYY-MM-DDTHH:mm'),
                 endDate: data.view.type === 'dayGridMonth'
-                ? dayjs(data.endStr).subtract(1,'d').format('YYYY-MM-DDTHH:mm') 
+                ? dayjs(data.endStr).subtract(18,'hour').format('YYYY-MM-DDTHH:mm') 
                 : dayjs(data.endStr).format('YYYY-MM-DDTHH:mm'),
             }
         })

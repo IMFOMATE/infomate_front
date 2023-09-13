@@ -15,7 +15,7 @@
 }
 
 .active{
-  background-color: var(--color-hard);
+  background-color: var(--color-middle);
   color: #ffffff;
 }
 

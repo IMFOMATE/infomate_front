@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ReactQuill from "react-quill";
+import PostCSS from './PostView.module.css'
 
 import{
     callPostPostAPI
@@ -16,9 +17,7 @@ function Posting() {
     const dispatch = useDispatch();
     const params = useParams();
     const post = useSelector(state => state.postReducer);
-    const member = useSelector(state => state.memberMailReducer)
   
-
 
     // form 데이터 ==========================
     const [form, setForm] = useState({
@@ -174,10 +173,10 @@ function Posting() {
                         className={PostingCSS.category}
                         onChange={onChangeHandler}>
                     <option value="" >게시판을 선택해주세요</option>
+                    <option value="공지사항" className={PostingCSS.drdown}>공지사항</option>
                     <option value="일반게시판" className={PostingCSS.drdown}>일반게시판</option>
                     <option value="익명게시판" className={PostingCSS.drdown}>익명게시판</option>
                     <option value="부서게시판" className={PostingCSS.drdown}>부서게시판</option>
-                    <option value="보고사항" className={PostingCSS.drdown}>보고사항</option>
                 </select>
             </div>
 
@@ -193,6 +192,7 @@ function Posting() {
         
         </input>
         <div className={PostingCSS.postmargin}>
+        <div className={PostCSS.quilll}>
             <ReactQuill
             name='postContents'
             placeholder="내용을 입력해주세요."
@@ -207,7 +207,7 @@ function Posting() {
                     }}
                     />
                     
-        </div>
+        </div></div>
         {/*  */}
 
         {/*  */}

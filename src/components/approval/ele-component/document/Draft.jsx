@@ -62,8 +62,6 @@ function Draft({documentData, temp = false}) {
 
   },[documentReducer]);
 
-  console.log("dept" , deptData)
-
   // 데이터 핸들러
   const onChangeHandler = (e) => {
     setData({
@@ -165,7 +163,6 @@ function Draft({documentData, temp = false}) {
   const handleChoice = toggleModal;  //결재선 지정 모달
   const cancelAction = () => navigate("/approval");
 
-
   // 파일 저장
   const handleFileChange = (event) => {
     const newFiles = Array.from(event.target.files);
@@ -198,7 +195,7 @@ function Draft({documentData, temp = false}) {
             <div className={style.doc}>
               <h2 className={style.doc_title}>업무기안</h2>
               <div className={style.doc_top}>
-                <WriterInfo writer={writer} start={new Date()}/>
+                <WriterInfo writer={writer} start={new Date()} id={data?.id}/>
                 <div className={style.inline}>
                   {
                     data.approvalList.length !== 0 ?

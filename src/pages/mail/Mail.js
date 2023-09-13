@@ -10,11 +10,6 @@ import {
     callMailSelectAPI, callDeleteMailAPI ,callUpdateStatusAPI
 } from '../../apis/MailAPICalls'
 
-import {
-    callLoginAPI
-}
-from '../../apis/MemberAPICalls'
-import ViewMail from './ViewMail';
 import dayjs from "dayjs";
 
 
@@ -161,7 +156,7 @@ function Mail({title}) {
                         { mailList.matchingEmails && mailList.matchingEmails.map(
                             (mail, index) => (
                                 
-                                <div key={ mail.mailCode } style={{ background: (mail.mailStatus === 'Y') ? "rgba(155,155,155,0.3)" : "" }}>
+                                <div key={ mail.mailCode } style={{ background: (mail.mailStatus === 'Y') ? "rgba(155,155,155,0.1)" : "" }}>
                                 <input type="checkBox" className={style.mailCheckbox} checked={checkedItems[mail.mailCode]}
                                         onChange={() => handleCheckboxChange(mail,mailList.sendMemberName[index].memberName)}/>
                                 <div className={style.mailName} onClick={ () => onClickEventHandler(mail, mailList.sendMemberName[index].memberName) }>

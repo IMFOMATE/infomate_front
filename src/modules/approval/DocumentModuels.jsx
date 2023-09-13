@@ -26,21 +26,21 @@ const actions = createActions({
 
 const documentsReducer = handleActions(
     {
-      [GET_DOCUMENT_MAIN] : (state, { payload }) =>  {
-        return payload;
-      },
+      [GET_DOCUMENT_MAIN] : (state, { payload }) =>  ({
+        ...state,[GET_DOCUMENT_MAIN]:payload
+      }),
       [GET_DOCUMENT_LIST] : (state, { payload }) =>  {
         return payload;
       },
       [POST_DRAFT] : (state, { payload }) => {
          return {[POST_DRAFT]: payload}
       },
-      [POST_VACATION] : (state, { payload }) => {
-        return {[POST_VACATION]: payload}
-      },
-      [POST_PAYMENT] : (state, { payload }) => {
-        return {[POST_PAYMENT]: payload}
-      },
+      [POST_VACATION] : (state, { payload }) => ({
+        ...state,[POST_VACATION]: payload
+      }),
+      [POST_PAYMENT] : (state, { payload }) => ({
+        ...state, [POST_PAYMENT]: payload
+      }),
       [DELETE_DOCUMENT] : (state, { payload }) => {
         return payload;
       },

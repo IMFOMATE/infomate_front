@@ -5,10 +5,12 @@ import { useEffect, useState, useRef } from 'react';
 import PostCSS from './PostView.module.css';
 import {LoadingSpiner} from '../../components/common/other/LoadingSpiner'
 import ReactQuill from 'react-quill';
+import PostingCSS from './Posting.module.css';
 
 import{
     callPostViewAPI,
-    callPostUpdateAPI
+    callPostUpdateAPI,
+    callPostDeleteAPI
 } from '../../apis/BoardAPICalls'
 
 function PostView() {
@@ -16,7 +18,7 @@ function PostView() {
     const quillRef = useRef(null);
     const dispatch = useDispatch();
     const params = useParams();
-    const post  = useSelector(state => state.boardReducer); 
+    const post = useSelector(state => state.boardReducer); 
 
     console.log('post',post);
 
@@ -35,9 +37,9 @@ function PostView() {
           }));                     
       }
   ,[]);
-    if(post.length < 1) return <LoadingSpiner />
+    if(post?.length > 0) return <LoadingSpiner />
 
-    const onClickPostModifyHandler = () => {
+    const onClickPostModifyHandler = () => {  // 수정 모드
       setModifyMode(true);
       setForm({
         postCode: post.postCode,
@@ -47,6 +49,7 @@ function PostView() {
         boardCategory: post.boardCategory,
         boardCode: post.boardCode,
         memberCode: post.memberCode,
+        postViews: post.postViews,
       });
     }
 
@@ -58,24 +61,64 @@ function PostView() {
   };
 
       
-    const onClickPostUpdate = (postCode) => {
-      console.log(postCode);
-      navigate((0), {replace: false});
+    const onClickPostUpdate = () => {
+      console.log('postCode');
+
+      dispatch(callPostUpdateAPI({
+        postCode: post.postCode,
+        form
+      }));
+
+      alert('수정완료');
+      navigate((-1), {replace: false});
+      window.location.reload();
     }
+
+
+    const onClickPostDeleteHandler = () => {
+      if (window.confirm('게시글을 삭제하시겠습니까?')) {
+        try {
+          dispatch(callPostDeleteAPI(params.postCode));
+
+          console.log('[PostDelete] postCode : ', params.postCode);
+          alert('게시글이 삭제되었습니다.');
+          navigate('/board/newpost', { replace: false });
+        } catch (error) {
+          console.error('게시글 삭제 중 오류 발생: ', error);
+        }
+      }
+    };
+
+
 
     const titleStyle = {    // 제목 CSS
       marginLeft: '3%',
+      padding: '7px',
       paddingInline: '20px',
       marginTop: '40px',
       fontSize: '23px',
       fontWeight: '600',
     };
 
-    const contentsStyle = { // 내용 CSS
+    const titleStyles = {    // 제목 CSS
+      marginLeft: '3%',
+      padding: '10px',
+      paddingInline: '10px',
+      marginTop: '40px',
+      fontSize: '13px',
+      fontWeight: '400',
+      border: '1px solid #ddd',
+      width: '93%'
+    };
 
+    const contentsStyle = { // 내용 CSS
+      marginLeft: '20px',
+      marginBottom: '10px',
+      marginRight: '20px'
     }
 
     const toolbarOptions = [
+      
       [{ header: [1, 2, 3, false] }],
       ["bold", "italic", "underline", "strike"],
       ["blockquote"],
@@ -85,8 +128,6 @@ function PostView() {
       ['link', "image", "video"]
     ]; 
 
-    
-
     return (
 <>
         <div className={mainCSS.maintitle}>
@@ -94,37 +135,43 @@ function PostView() {
         </div>
         
         
-              <input
-                  name='postTitle'
-                  placeholder="제목을 입력해주세요."
-                  value={ (!modifyMode ? post.postTitle : form.postTitle) || ''}
-                  onChange={ onChangeHandler }
-                  readOnly={ modifyMode ? false : true }
-                  style={titleStyle}
-                  ></input>
-              <div className={ PostCSS.actfnt}>{post.memberCode} | {post.postDate} | {post.postCode} | 조회수 </div>
-            
-           
+      <input
+          name='postTitle'
+          placeholder="제목을 입력해주세요."
+          value={ (!modifyMode ? post.postTitle : form.postTitle) || ''}
+          onChange={ onChangeHandler }
+          readOnly={ modifyMode ? false : true }
+          style={ (!modifyMode ? titleStyle : titleStyles) || ''}
+          ></input>
+
+          {!modifyMode && post && post.member && post.member.memberName && (
+          <div className={ PostCSS.actfnt}>
+            {post.member.memberName} | {post.postDate} | {post.postCode} | {post.postViews} 
+          </div>
+          ) }
+      
         
         
         
         
         {modifyMode ? (
+          <div className={PostingCSS.postmargin}>
         <div className={PostCSS.quill}>
           <ReactQuill
            name='postContents'
            placeholder="내용을 입력해주세요."
            ref={quillRef}
            modules={{
-           toolbar: toolbarOptions
-            
-        }}
-           onChange={(value, delta, source,editor)=>{
+           toolbar: toolbarOptions,
+            }}
+           value={modifyMode ? form.postContents : form.postContents}
+           onChange={(value, delta, source, editor)=>{
+            const newContents = editor.getHTML();
                         setForm((prev)=> ({...prev, postContents:editor.getHTML()}))
                     }}
-          />
+          /></div>
           <button
-            className={PostCSS.boardupload}
+            className={PostCSS.boardupdate}
             onClick={onClickPostUpdate}
           >
             수정완료
@@ -132,7 +179,12 @@ function PostView() {
         </div>
       ) : (
         <div className={PostCSS.postcont}>
-          {post.postContents}
+          <ReactQuill value={post.postContents} 
+                      readOnly={true} 
+                      modules={{toolbar: false}} 
+                      theme={null}
+                      style={{ height: '200px', overflowY: 'auto' }}
+          />
         </div>
       )}
       
@@ -148,7 +200,7 @@ function PostView() {
         {!modifyMode &&
           <button 
             className={ PostCSS.boarddelete} 
-            onClick={onClickPostModifyHandler}>
+            onClick={onClickPostDeleteHandler}>
               삭제하기
           </button>
         }

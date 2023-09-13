@@ -2,7 +2,9 @@
     .fowHdGrid {
         display: table !important;
         border-collapse: collapse !important;
-        border: 1px solid var(--color-text-content) !important;
+        /* border: 1px solid var(--color-text-content) !important; */
+        margin: 20px 0 !important;
+        box-shadow: 0 0 10px rgba(200, 200, 200, 0.6);
    }
 
     .fowHdGrid > div:first-child {
@@ -10,7 +12,7 @@
         vertical-align: middle !important;
         width: 100% !important;
         height: 80px !important;
-        border: 1px solid var(--color-text-content) !important;
+        /* border: 1px solid var(--color-text-content) !important; */
         padding: 15px !important;
     }
 
@@ -22,7 +24,7 @@
         max-width: 100px !important;
         min-width: 100px !important;
         height: 80px !important;
-        border: 1px solid var(--color-text-content) !important;
+        /* border: 1px solid var(--color-text-content) !important; */
     }
 
     .fowHdGrid > div:first-child > div {
@@ -33,6 +35,11 @@
 
     .fowHd-grid > div {
         padding-bottom: 0px;
+        
+    }
+
+    .fowHdHeader{
+        display: none !important;
     }
         
 }

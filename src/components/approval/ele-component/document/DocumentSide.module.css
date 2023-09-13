@@ -58,7 +58,6 @@
 .content span, .content p{
   display: block;
   font-size: 13px;
-  /*padding: ;*/
 }
 
 .content p {
@@ -68,6 +67,7 @@
 
 .comment{
   background-color: var(--color-border);
+  /*padding: 5px;*/
 }
 
 

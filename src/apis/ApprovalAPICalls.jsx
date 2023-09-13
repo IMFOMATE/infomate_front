@@ -46,6 +46,7 @@ export const approvalAPI = ({fetchData}) => {
 
     if (result.status === 200) {
       message.success('결재 완료');
+      console.log(result)
       dispatch({type: POST_APPROVE, payload: result});
     }
   };

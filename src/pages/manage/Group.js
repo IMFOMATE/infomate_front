@@ -5,7 +5,7 @@ import DeptTreeView from './DeptTreeView';
 import { useSelector, useDispatch } from 'react-redux';
 import { treeviewAPI } from '../../apis/DepartmentAPI';
 import {GET_TREEVIEW} from "../../modules/DepartmentModule";
-// import SimpleInfo from './SimpleInfo';
+import SimpleInfo from './SimpleInfo';
 
 
 function Group () {
@@ -39,14 +39,14 @@ function Group () {
                             
                             } */}
 
-                            <button onClick={()=> {setModal(!modal)}}>클릭</button>
+                            {/* <button onClick={()=> {setModal(!modal)}}>클릭</button> */}
 
-                                <DeptTreeView data={dataTree.data}/>
+                                <DeptTreeView data={dataTree?.data}/>
                         </div>
                         {
                             modal === true ?    (
                             <div className={`simpleInfoWrap ${GroupCss.simpleInfoWrap}`}>
-                            {/*<SimpleInfo /> */}
+                            <SimpleInfo />
                             <button className={`xbnt ${GroupCss.xbnt}`} 
                             onClick={() => {setModal(!modal)} }
                             >닫기</button>
@@ -66,6 +66,3 @@ function Group () {
 
 
 export default Group; 
-
-
-

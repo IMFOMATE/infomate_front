@@ -25,9 +25,10 @@ import {decodeJwt} from "../../../../util/tokenUtils";
 import {tempAPI} from "../../../../apis/ApprovalAPICalls";
 import {POST_PAYMENT} from "../../../../modules/approval/DocumentModuels";
 import {POST_TEMP} from "../../../../modules/approval/ApprovalModuels";
+import {GET_TREEVIEW} from "../../../../modules/DepartmentModule";
 
 function Payment({documentData, temp = false} ) {
-  const treeview = useSelector(state => state.departmentReducer);
+  const treeview = useSelector(state => state.departmentReducer[GET_TREEVIEW]);
   const documentReducer = useSelector(state => state.documentsReducer[POST_PAYMENT]);
   const approval = useSelector(state => state.approvalReducer[POST_TEMP]);
   const dispatch = useDispatch();
@@ -36,7 +37,6 @@ function Payment({documentData, temp = false} ) {
   const path = location.pathname.split("/");
   const isReapply = path[path.length-1];
   const { data, setData } = usePaymentDataContext();
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(()=>{
@@ -57,14 +57,14 @@ function Payment({documentData, temp = false} ) {
       setData({...documentData, fileList:[], existList:[...documentData.fileList], approvalList:modifiedApprovalList});
     }
 
+    console.log("documentReducer:",documentReducer)
+
     if(documentReducer?.status === 200){
-      console.log(documentReducer)
       navigate('/approval');
     }
 
   },[documentReducer]);
 
-  console.log(data)
   // form 데이터
   const onChangeHandler = (e) => {
     setData({

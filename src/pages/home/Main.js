@@ -15,6 +15,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import ButtonOutline from "../../components/common/button/ButtonOutline";
 import WorkMini from "../../components/work/WorkMini";
 import {LoadingSpiner} from "../../components/common/other/LoadingSpiner";
+import MiniMail from "../../components/mail/MiniMail";
 
 function Main() {
     const dispatch = useDispatch();
@@ -50,7 +51,6 @@ function Main() {
             <div className={MainStyle.home_wrap}>
                 <div className={`${styles.maintitle} ${MainStyle.regi_title}`}>
                     <h2>메인페이지</h2>
-
                     {
                         decoded === "ROLE_ADMIN" &&
                         <ButtonOutline value="회원등록" style={{ marginRight: '30px' }} onClick={() => { navigate("regist-member", { replace: false }) }} />
@@ -87,7 +87,9 @@ function Main() {
                                 <h2>메일</h2>
                                 <Link to={'/mail'}><NavigateNextIcon /></Link>
                             </div>
-                            {/* 메일 */}
+                            <div>
+                                <MiniMail/>
+                            </div>
                         </div>
                         <div className={`${MainStyle.home_content} ${MainStyle.item5}`}>
                             <div className={MainStyle.home_title_wrap}>
@@ -101,24 +103,30 @@ function Main() {
                                             <LoadingSpiner/>
                                         :
                                             <>
-                                            <div className={MainStyle.line}>
-                                                <h3>
-                                                    결재대기문서
-                                                </h3>
-                                                <p>{documentData?.data?.creditCount || 0}</p>
-                                            </div>
-                                            <div className={MainStyle.line}>
-                                                <h3>
-                                                기안문서
-                                                </h3>
-                                            <p>{documentData?.data?.approvalCount || 0}</p>
-                                            </div>
-                                            <div>
-                                                <h3>
-                                                결재완료문서
-                                                </h3>
-                                            <p>{documentData?.data?.doneList || 0}</p>
-                                            </div>
+                                                    <div className={MainStyle.line}>
+                                                        <Link to={'/approval/credit'}>
+                                                            <h3>
+                                                                결재대기문서
+                                                            </h3>
+                                                            <p>{documentData?.data?.creditCount || 0}</p>
+                                                        </Link>
+                                                    </div>
+                                                    <div className={MainStyle.line}>
+                                                        <Link to={'/approval/approval'}>
+                                                            <h3>
+                                                            기안문서
+                                                            </h3>
+                                                            <p>{documentData?.data?.approvalCount || 0}</p>
+                                                        </Link>
+                                                    </div>
+                                                    <div>
+                                                        <Link to={'/approval/approval?status=APPROVAL'}>
+                                                            <h3>
+                                                                결재완료문서
+                                                            </h3>
+                                                            <p>{documentData?.data?.doneList || 0}</p>
+                                                        </Link>
+                                                    </div>
                                             </>
                                     }
                                 </div>
@@ -130,10 +138,12 @@ function Main() {
                         <div className={`${MainStyle.home_content} ${MainStyle.item6}`}>
                             <div className={MainStyle.home_title_wrap}>
                                 <h2>게시판</h2>
-                                <Link to={'/board'}><NavigateNextIcon /></Link>
+                                <Link to={'/board/newpost'}><NavigateNextIcon /></Link>
                             </div>
+                            <div style={{marginTop: '70px'}}>
                             <div className={MainStyle.board}>
                                 <AnonyMini />
+                            </div>
                             </div>
                         </div>
                     </div>

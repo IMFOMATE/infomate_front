@@ -33,7 +33,7 @@ function MailWrite() {
 
     const [company, setCompany] = useState([]);
     const member = useSelector(state => state.memberMailReducer)
-    const memberList = member.data;
+    const memberList = member?.data;
     console.log("memberList" , memberList);
 
     const authTokenJSON = localStorage.getItem('authToken');

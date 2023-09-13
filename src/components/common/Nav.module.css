@@ -68,6 +68,7 @@ main{
 .profileImg{
     border-radius: 100%;
     width: 100px;
+    background: #FFFFFF;
 }
 
 .profileInfo{
@@ -157,7 +158,7 @@ main{
 
 .hideSidemenu{  /* ?? */
     flex: 1 0 0;
-    display: hidden;
+    /*display: hidden;*/
 }
 
 .sideTop{

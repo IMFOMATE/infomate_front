@@ -18,11 +18,13 @@ import {decodeJwt} from "../../../../util/tokenUtils";
 import {POST_DRAFT, POST_VACATION} from "../../../../modules/approval/DocumentModuels";
 import {tempAPI} from "../../../../apis/ApprovalAPICalls";
 import {formatDate} from "@fullcalendar/core";
+import {GET_TREEVIEW} from "../../../../modules/DepartmentModule";
+import {POST_TEMP} from "../../../../modules/approval/ApprovalModuels";
 
 function Vacation({documentData, temp = false}) {
-  const treeview = useSelector(state => state.departmentReducer);
+  const treeview = useSelector(state => state.departmentReducer[GET_TREEVIEW]);
   const documentReducer = useSelector(state => state.documentsReducer[POST_VACATION]);
-  const approvalReducer = useSelector(state => state.approvalReducer);
+  const approval = useSelector(state => state.approvalReducer[POST_TEMP]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -166,11 +168,17 @@ function Vacation({documentData, temp = false}) {
   const toggleModal = () => setIsModalOpen(prev => !prev);
 
   const requestApproval = (formData) => {
-    dispatch(draftRegistAPI(formData));
+    dispatch(vacationRegistAPI(formData));
   };
 
-  const tempRequest = (formData, type, docId) => {
-    dispatch(tempAPI(formData, type, docId));
+  const tempIsSave = data.documentStatus === "TEMPORARY";
+
+  const tempApproval = (formData, type, docId, tempIsSave) => {
+    dispatch(tempAPI(formData, type, docId, tempIsSave));
+  };
+
+  const tempRequest = (formData, type, docId, tempIsSave) => {
+    dispatch(tempAPI(formData, type, docId, tempIsSave));
   };
 
 
@@ -184,7 +192,7 @@ function Vacation({documentData, temp = false}) {
         validationResult, data.approvalList.length, '결재상신', '결재하시겠습니까??',
         () => {
           const formData = createFormData();
-          requestApproval(formData);
+          tempIsSave ? tempApproval(formData, 'vacation', data?.id, true) : requestApproval(formData);
         }
     )
   };
@@ -197,7 +205,7 @@ function Vacation({documentData, temp = false}) {
         validationResult, data.approvalList.length, '임시저장', '임시저장하시겠습니까??',
         () => {
           const formData = createFormData();
-          tempRequest(formData,'vacation', data?.id);
+          tempRequest(formData,'vacation', data?.id, false);
         }
     )
   };
@@ -263,7 +271,6 @@ function Vacation({documentData, temp = false}) {
                     <td>
                       <input
                           name='title'
-                          defaultValue={name}
                           type="text"
                           value={data.title || ''}
                       />
@@ -272,7 +279,12 @@ function Vacation({documentData, temp = false}) {
                   <tr className={style.tr}>
                     <td className={style.td}>작성일자</td>
                     <td className={style.td}>
-                      <span>{data.createdDate || formatApprovalDate(new Date())}</span>
+                      <span>
+                        {data?.createdDate
+                            ? formatApprovalDate(data?.createdDate)
+                            : formatApprovalDate(new Date())
+                        }
+                      </span>
                     </td>
                     <td className={`${style.tds} ${style.td}`} >긴급여부</td>
                     <td className={style.td} >
@@ -282,7 +294,6 @@ function Vacation({documentData, temp = false}) {
                           type="checkbox"
                           checked={data.emergency === 'Y'}
                           onChange={checkboxHandler}
-                          // value={}
                       />
                     </td>
                   </tr>
@@ -309,10 +320,7 @@ function Vacation({documentData, temp = false}) {
                           name='startDate'
                           type="date"
                           onChange={onStartDateChange}
-                          value={
-                            !data?.startDate ?
-                        '' : formatDate(data?.startDate)
-                          }
+                          value={data.startDate}
                       />
                       {
                         sort === '연차' ?

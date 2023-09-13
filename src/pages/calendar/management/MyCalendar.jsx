@@ -8,6 +8,7 @@ import { DELETE_CALENDAR, GET_CALENDAR_LIST, PATCH_CALENDAR_UPDATE, POST_CALENDA
 import { getCalendarListAPI, patchCalendarUpdate, patchDefaultCalendarUpdate, postCalendarRegit } from '../../../apis/CalendarAPICalls';
 import { NotResultData } from '../../common/Error';
 import { LoadingSpiner } from '../../../components/common/other/LoadingSpiner';
+import { message } from 'antd';
 
 const MyCalendar = () => {
 
@@ -15,13 +16,12 @@ const MyCalendar = () => {
     
     const calendarList = useSelector(state => state.calendarReducer[GET_CALENDAR_LIST]);
     const calendarReducer = useSelector(state => state.calendarReducer);
-    // const member = useSelector(state => state.memberReducer);
     const member = JSON.parse(window.localStorage.getItem('authToken'));
     const dispatch = useDispatch();
 
     useEffect(()=> {
         dispatch(getCalendarListAPI());
-        setData({});
+        setData({labelColor:'#000000'});
     },[
         calendarReducer[POST_CALENDAR_REGIT],
         calendarReducer[PATCH_CALENDAR_UPDATE], 
@@ -40,6 +40,7 @@ const MyCalendar = () => {
     }
 
     const registCalendarHandler = () => {
+        if(!data?.name) return message.error('누락된 필드가 존재 합니다');
         dispatch(postCalendarRegit({data: data}));
     }
 

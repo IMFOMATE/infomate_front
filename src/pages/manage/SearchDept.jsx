@@ -48,7 +48,7 @@ function SearchDept(){
         if(e.key == 'Enter') {
             console.log('Enter key========', findSearch);
 
-            navigate(`/searchDept?value=${findSearch}`, { replace : false});
+            navigate(`?value=${findSearch}`, { replace : false});
 
             window.location.reload();
 

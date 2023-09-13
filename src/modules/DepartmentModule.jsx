@@ -20,7 +20,7 @@ const actions = createActions({
 
 const departmentReducer = handleActions({
       [GET_TREEVIEW]: (state, { payload }) => ({
-        ...state, [GET_TREEVIEW] : payload
+        ...state, [GET_TREEVIEW]:payload
       }),
       [PATCH_UPDATE_DEPT]: (state, {payload}) => {
         return payload;

@@ -7,6 +7,9 @@
     width: 100%;
 }
 
+.wrap{
+    padding: 30px;
+}
 .main > h1 {
     padding: 30px;
     border-bottom: 1px solid var(--color-border);
@@ -22,9 +25,10 @@
 }
 
 .deptList{
-    width: 40%;
+    width: 90%;
+    padding: 30px;
     height: 100vh;
-    /* background-color: aqua; */
+    display: flex;
 }
 
 .deptInfo {
@@ -37,7 +41,13 @@
 
 /* 조직도 부분 */
 .list {
+    width: 40%;
+    height: 650px;
     padding: 30px;
+    overflow-y: auto;
+    border: 1px solid #9f8afb;
+    border-radius: 6px;
+    /* background-color: #f3f3f3; */
 }
 
 .infoBox {
@@ -50,6 +60,16 @@
 }
 
 
+/* 심플 인포 부분 */
+.simpleInfoWrap{
+    width: 40%;
+    height: 540px;
+    /* padding-left: 12px; */
+    border-radius: 4px;
+    margin-left: 16px;
+    background-color: rgb(255, 247, 239);
+    text-align: center;
+}
 
 /* icon */
 
@@ -86,6 +106,16 @@
 /* .close 상태 */
 
 
+/* 버튼 */
+.xbnt{
+    width: 200px;
+    height: 40px ;
+    color: white;
+    margin-left: 40px;
+    background-color: #9f8afb;
+    border-radius: 4px;
+    font-weight: 500;
+}
 
 
 

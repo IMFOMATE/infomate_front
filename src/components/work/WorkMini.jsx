@@ -63,7 +63,7 @@ function WorkMini() {
         </div>
         <div>
           <ul>
-            <li>
+            <li className={style.li}>
               <dl className={style.dl}>
                 <dt>출근시간</dt>
                 <dd> {workTime.startTime
@@ -84,8 +84,8 @@ function WorkMini() {
           </ul>
         </div>
         <div className={style.work_btn}>
-          <ButtonOutline value='출근' style={{padding:'8px'}} onClick={handleAttend}/>
-          <ButtonOutline value='퇴근' style={{padding:'8px'}} onClick={handelFinish}/>
+          <ButtonOutline value='출근' style={{padding:'12px', fontsize: '15px', fontWeight:'bold'}} onClick={handleAttend}/>
+          <ButtonOutline value='퇴근' style={{padding:'12px', fontsize: '15px', fontWeight:'bold'}} onClick={handelFinish}/>
         </div>
       </div>
   );

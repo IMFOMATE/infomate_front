@@ -7,11 +7,10 @@ import {
 } from '../../apis/EmployeeAPI';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import {  useParams, Link } from 'react-router-dom';
+import {  useParams,  useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FadeLoader } from "react-spinners";
 import StylesLoading from '../calendar/loadingStyle.module.css';
-
 
 function MemberInfo(){
 
@@ -19,7 +18,7 @@ function MemberInfo(){
     // const navigate = useNavigate();
     const params = useParams();
     const member = useSelector(state => state.employeeReducer);
-
+    const navigate =  useNavigate();
 //     useEffect(              // 직원 정보 조회
 //     () => {
 //         if(member) return;
@@ -40,6 +39,10 @@ function MemberInfo(){
         ,[]
     );
         
+
+    // 이전화면으로가기 버튼
+    const BackHandler = () => { navigate(-1); }
+    
     console.log(member);
 
     if(member.length === 0) return <div className={StylesLoading.loading}><FadeLoader color="#9F8AFB" /></div>
@@ -51,7 +54,7 @@ function MemberInfo(){
                 <h1>인사기본정보</h1>
                 <div className={`infoWrap ${InfoCss.infoWrap}`}>
                     <div className={`empInfo ${InfoCss.empInfo}`}>
-                        <img className={`empImage ${InfoCss.empImage}`} alt='empImage' src='img/user.jpg'/>                               
+                        <img className={`empImage ${InfoCss.empImage}`} alt='empImage' src={member.memberPic}/>                               
                         {/* <input type='file' className={`imgFile ${InfoCss.imgFile}`}/> */}
                         {/* <p>* 사진은 자동으로 150x150 사이즈로 적용됩니다.</p> */}
                     </div>
@@ -68,11 +71,11 @@ function MemberInfo(){
                                 </tr>
                                 <tr>
                                     <th>부서</th>
-                                    <td>{member.deptName}</td>
+                                    <td>{member.department.deptName}</td>
                                 </tr>
                                 <tr>
                                     <th>직위</th>
-                                    <td>{member.rankName}</td>
+                                    <td>{member.rank.rankName}</td>
                                 </tr>
                                 <tr>
                                     <th>이메일</th>
@@ -102,7 +105,7 @@ function MemberInfo(){
                         </table>
                     </div>
                     <div className={`checkBnt ${InfoCss.checkBnt}`}>
-                    <button><Link to='/searchDept'>목록보기</Link></button>
+                    <button onClick={BackHandler}>뒤로가기</button>
                     {/* <button>취소</button> */}
                     </div>
                 </div>

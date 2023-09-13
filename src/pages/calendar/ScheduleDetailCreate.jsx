@@ -180,7 +180,6 @@ const ScheduleDetilaCreate = () => {
     }
 
     const changeDateHandler = (e) => {
-        console.log(e);
         // 일정 초기화
         if(e === null || e === undefined){
             return setSchedule({
@@ -442,7 +441,7 @@ const ScheduleDetilaCreate = () => {
                             isCancel={true} 
                             value={isDataLoad() && !data?.expendsProps.compare ? '뒤로가기' : '취소' } 
                             onClick={registCancle} 
-                            style={{width:80, height: 40}}
+                            style={{width:80, height: 40, fontSize:'0.8rem'}}
                         />
                     </div>
                     {   

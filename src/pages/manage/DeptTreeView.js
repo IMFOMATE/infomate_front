@@ -3,9 +3,9 @@ import {
   Tree,
 } from "@minoru/react-dnd-treeview";
 import styles from '../../components/approval/ele-component/treeview/nodes/CustomNode.module.css';
-import treeStyle from '../../components/approval/ele-component/treeview/TreeView.module.css';
 import {DeptCustomNode} from '../../components/approval/ele-component/treeview/nodes/DeptCustomNode';
 import {LoadingSpiner} from "../../components/common/other/LoadingSpiner";
+import treeStyle from './DeptTree.Model.css';
 
 export default function DeptTreeView({data}) {
   
@@ -18,7 +18,7 @@ export default function DeptTreeView({data}) {
     return(
       <div className={treeStyle.doc_wrap}>
       <Tree
-            tree={data}
+          tree={data}
           rootId={0}
           render={(node, { depth, isOpen, onToggle }) => (
               <DeptCustomNode
@@ -26,6 +26,7 @@ export default function DeptTreeView({data}) {
                   depth={depth}
                   isOpen={isOpen}
                   onToggle={onToggle}
+                  data={data}
               />
           )}
           initialOpen={false}
@@ -40,17 +41,3 @@ export default function DeptTreeView({data}) {
     )
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

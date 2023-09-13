@@ -5,6 +5,7 @@ import { GET_PART_LIST } from '../modules/ScheduleMoudule';
 import { PATCH_UPDATE_DEPT, POST_DEPT_INSERT, GET_DEPTALL } from '../modules/DepartmentModule';
 import { message } from 'antd';
 
+
 export const treeviewAPI = ()=>{
   const requestURL = `http://localhost:8989/department/treeview`;
 
@@ -45,7 +46,7 @@ export const updateDeptAPI = ({form}) =>{
 
   console.log('updateDeptAPI', form);
 
-  const requestURL = `http://localhost:8989/department/save`
+  const requestURL = `http://localhost:8989/department/save`;
 
   return async(dispatch, getState) => {
 
@@ -53,21 +54,18 @@ export const updateDeptAPI = ({form}) =>{
       headers:{
         "Accept": "*/*",
         "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-    },
-  })
-      
- 
+      }
+    })
+
     if(result.status === 200) {
       message.success(result.message);
       dispatch({type: PATCH_UPDATE_DEPT, payload: result});
-      return ;
     }
   }
+}
 
-};
 
-
-export const insertDeptAPI = ({form}) => {
+export const insertDeptAPI = (deptName) => {
     console.log("[insertDeptAPI] =========> ");
   
     const requestURL =`http://localhost:8989/department/regist`;
@@ -78,9 +76,9 @@ export const insertDeptAPI = ({form}) => {
           method: "POST",
           headers:{
             "Accept": "*/*",
-            // "Content-Type": "application/json",
+            "Content-Type": "application/json",
             "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-      },body: form
+      },body: JSON.stringify(deptName)
     })
     .then(response => response.json());
 

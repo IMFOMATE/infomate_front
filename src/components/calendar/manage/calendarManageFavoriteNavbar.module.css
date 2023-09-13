@@ -19,3 +19,11 @@
     font-weight: 500;
     border-bottom: 5px solid var(--color-middle);
 }
+
+@media (width <= 480px) {
+    .submenu{
+        display: grid;
+        /* margin: 1px 0; */
+        row-gap: 10px;
+    }
+}

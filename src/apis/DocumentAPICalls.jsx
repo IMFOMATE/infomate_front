@@ -7,11 +7,12 @@ import {
   GET_DOCUMENT_MAIN, POST_DRAFT, POST_PAYMENT, POST_VACATION,
 } from '../modules/approval/DocumentModuels';
 import { message } from 'antd';
+import {PROTOCOL, SERVER_IP, SERVER_PORT} from "./APIConfig";
 
 // 결재 메인 화면
 export const getMainAPI = () => {
   const token = localStorage.getItem("accessToken");
-  const requestURL = `http://localhost:8989/document/main`;
+  const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/document/main`;
 
 
   return async (dispatch, getState)  => {
@@ -33,7 +34,7 @@ export const getMainAPI = () => {
 
 export const getList = ({ docStatus ,filter, page, size}) => {
 
-  const requestURL = `http://localhost:8989/document/approval/${docStatus}?status=${filter}&page=${page}&size=${size}`;
+  const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/document/approval/${docStatus}?status=${filter}&page=${page}&size=${size}`;
   const token = localStorage.getItem("accessToken");
 
   return async (dispatch, getState)  => {
@@ -66,7 +67,7 @@ export const draftRegistAPI = (form, temp)=>{
   const tempParam = temp ? `?temp=${temp}` : '';
 
 
-  const requestURL = `http://localhost:8989/document/regist/draft${tempParam}`;
+  const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/document/regist/draft${tempParam}`;
 
   return async (dispatch, getState)  => {
 
@@ -89,7 +90,7 @@ export const draftRegistAPI = (form, temp)=>{
 export const vacationRegistAPI = (form, temp)=>{
   const token = localStorage.getItem("accessToken");
   const tempParam = temp ? `?temp=${temp}` : '';
-  const requestURL = `http://localhost:8989/document/regist/vacation${tempParam}`;
+  const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/document/regist/vacation${tempParam}`;
 
   return async (dispatch, getState)  => {
 
@@ -111,7 +112,7 @@ export const vacationRegistAPI = (form, temp)=>{
 export const paymentRegistAPI = (form, temp)=>{
   const token = localStorage.getItem("accessToken");
   const tempParam = temp ? `?temp=${temp}` : '';
-  const requestURL = `http://localhost:8989/document/regist/payment${tempParam}`;
+  const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/document/regist/payment${tempParam}`;
 
   return async (dispatch, getState)  => {
 
@@ -135,7 +136,7 @@ export const paymentRegistAPI = (form, temp)=>{
 //문서세부내용
 export const getDocumentDetailAPI = ({documentCode})=>{
   const token = localStorage.getItem("accessToken");
-  const requestURL = `http://localhost:8989/document/${documentCode}`;
+  const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/document/${documentCode}`;
 
   return async (dispatch, getState)  => {
 
@@ -155,7 +156,7 @@ export const getDocumentDetailAPI = ({documentCode})=>{
 };
 
 export const deleteDocumentAPI = ({documentCode})=>{
-  const requestURL = `http://localhost:8989/document/delete/${documentCode}`;
+  const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/document/delete/${documentCode}`;
 
   return async (dispatch, getState)  => {
 
@@ -174,7 +175,7 @@ export const deleteDocumentAPI = ({documentCode})=>{
 export const cancelDocumentAPI = ({documentCode})=>{
   const token = localStorage.getItem("accessToken");
 
-  const requestURL = `http://localhost:8989/document/cancel/${documentCode}`;
+  const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/document/cancel/${documentCode}`;
   const headers = {
     Authorization :  "Bearer " + token
   }

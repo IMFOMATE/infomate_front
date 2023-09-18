@@ -6,11 +6,12 @@ import {
    ,DELETE_ADDRESSBOOK
    ,GET_CONTACTLIST
 } from '../modules/ContactModule';
+import {PROTOCOL, SERVER_IP, SERVER_PORT} from "./APIConfig";
 
 export const callRegistAPI = ({form, memberCode}) => {
 
   
-    const requestURL = `http://localhost:8989/addressBook/addContact/${memberCode}`
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/addressBook/addContact/${memberCode}`
 
     return async (dispatch, getState) => {
 
@@ -73,9 +74,9 @@ export const callSelectAPI = ({memberCode, currentPage, title}) => {
    
 
     if(currentPage !== undefined || currentPage !== null){
-        requestURL = `http://localhost:8989/addressBook/contact/${memberCode}/${title}/?offset=${currentPage}`;
+        requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/addressBook/contact/${memberCode}/${title}/?offset=${currentPage}`;
     }else {
-        requestURL = `http://localhost:8989/addressBook/contact/${memberCode}/${title}`;
+        requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/addressBook/contact/${memberCode}/${title}`;
     }
     
 
@@ -97,7 +98,7 @@ export const callSelectAPI = ({memberCode, currentPage, title}) => {
 
 export const callContactUpdateAPI = ({contactCode, form}) => {
 
-    const requestURL = `http://localhost:8989/addressBook/addressBookUpdate/${ contactCode }`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/addressBook/addressBookUpdate/${ contactCode }`;
 
     return async (dispatch, getState) => {
         
@@ -124,7 +125,7 @@ export const callContactUpdateAPI = ({contactCode, form}) => {
 
 export const callUpdateAPI = ({contactCode}) => {
 
-    const requestURL = `http://localhost:8989/addressBook/contactUpdate/${ contactCode }`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/addressBook/contactUpdate/${ contactCode }`;
 
     return async (dispatch, getState) => {
         
@@ -149,7 +150,7 @@ export const callUpdateAPI = ({contactCode}) => {
 
 export const callDeleteContactAPI = ({contactCode}) => {
 
-    const requestURL = `http://localhost:8989/addressBook/deleteContact/${ contactCode }`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/addressBook/deleteContact/${ contactCode }`;
 
     return async (dispatch, getState) => {
 

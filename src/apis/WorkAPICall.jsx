@@ -1,12 +1,13 @@
 import axios from "axios";
 import {GET_WORK, PATCH_FINISH, POST_ATTEND} from "../modules/WorkModule";
 import { message } from 'antd';
+import {PROTOCOL, SERVER_IP, SERVER_PORT} from "./APIConfig";
 
 
 export const attendAPI = () => {
   const token = localStorage.getItem("accessToken");
 
-  const requestURL = `http://localhost:8989/work/attend`;
+  const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/work/attend`;
   const headers = {
     Authorization :  "Bearer " + token
   }
@@ -35,7 +36,7 @@ export const attendAPI = () => {
 export const finishAPI = () => {
   const token = localStorage.getItem("accessToken");
 
-  const requestURL = `http://localhost:8989/work/finish`;
+  const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/work/finish`;
   const headers = {
     Authorization :  "Bearer " + token
 
@@ -67,7 +68,7 @@ export const finishAPI = () => {
 export const getworkAPI = () => {
   const token = localStorage.getItem("accessToken");
 
-  const requestURL = `http://localhost:8989/work/today`;
+  const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/work/today`;
   const headers = {
     Authorization :  "Bearer " + token
   }
@@ -92,5 +93,6 @@ export const getworkAPI = () => {
     }
   };
 }
+
 
 

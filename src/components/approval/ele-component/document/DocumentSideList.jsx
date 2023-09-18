@@ -1,5 +1,6 @@
 import React from 'react';
 import style from "./DocumentSide.module.css";
+import {PROTOCOL, SERVER_IP, SERVER_PORT} from "../../../../apis/APIConfig";
 
 function DocumentSideList({key, data}) {
 
@@ -11,7 +12,7 @@ function DocumentSideList({key, data}) {
         <li key={key} className={style.item}>
             <div className={style.photo}>
                 {/*<img src={data.profile || data.data.profile} alt=""/>*/}
-                <img src={`http://localhost:8989/imgs/${data.profile}`} alt="" onError={ImageError}/>
+                <img src={`${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/imgs/${data.profile}`} alt="" onError={ImageError}/>
             </div>
             <div className={style.content}>
                 <span>{`${data.text || data.memberName} ${data.rankName || data.data.rank }`}

@@ -5,7 +5,7 @@ import {
     GET_EMPLIST,
     GET_DEPTLIST
 } from '../modules/EmployeeModule';
-import { Pageable  } from './APIConfig';
+import {Pageable, PROTOCOL, SERVER_IP, SERVER_PORT} from './APIConfig';
 // import { GET_DEPTLIST, GET_EMPLIST } from '../modules/EmployeeModule';
 import axios from 'axios';
 import { message } from 'antd';
@@ -14,7 +14,7 @@ import { message } from 'antd';
 //사용함.
 export const callEmployeeInfoAPI = ({memberCode}) =>{
     
-    const requestURL = `http://localhost:8989/emp/info/${memberCode}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/emp/info/${memberCode}`;
 
     return async (dispatch, getState) => {
 
@@ -41,9 +41,9 @@ export const callDeptListAPI = ({currentPage}) => {     // 직원 전체
     let requestURL;
 
     if(currentPage !== undefined || currentPage !== null){
-        requestURL = `http://localhost:8989/department/emp/listall?offset=${currentPage}`;
+        requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/department/emp/listall?offset=${currentPage}`;
     }else {
-        requestURL = `http://localhost:8989/department/emp/listall`;
+        requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/department/emp/listall`;
     }
     
     console.log('[EmployeeAPI] requestURL : ', requestURL);
@@ -69,7 +69,7 @@ export const callDeptListAPI = ({currentPage}) => {     // 직원 전체
 
 export const callDeptAllAPI = ({ deptCode }) => {      // 부서만 조회
     
-    const requestURL= 'http://localhost:8989/department/dept/list'
+    const requestURL= `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/department/dept/list`;
 
     return async (dispatch, getState) => {
 
@@ -124,9 +124,9 @@ export const getEmpListAPI = ({page, findSearch}) => {
 
     let requestURL = '';
     if(findSearch){
-      requestURL = `http://localhost:8989/department/openEmpList?${pageOption}&${sort}&s=${findSearch}`;
+      requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/department/openEmpList?${pageOption}&${sort}&s=${findSearch}`;
     } else {
-        requestURL = `http://localhost:8989/department/openEmpList?${pageOption}&${sort}`;
+        requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/department/openEmpList?${pageOption}&${sort}`;
     }
 
 

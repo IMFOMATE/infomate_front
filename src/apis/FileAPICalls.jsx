@@ -1,8 +1,9 @@
 import axios from 'axios';
 import {FILE_DOWNLOAD} from "../modules/FileModule";
+import {PROTOCOL, SERVER_IP, SERVER_PORT} from "./APIConfig";
 
 export const fileDownloadAPI = ({filename}) =>{
-  const requestURL = `http://localhost:8989/file/download/${filename}`;
+  const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/file/download/${filename}`;
 
   return async (dispatch, getState)  => {
 

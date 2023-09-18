@@ -7,7 +7,7 @@ import { message } from 'antd';
 
 
 export const treeviewAPI = ()=>{
-  const requestURL = `http://localhost:8989/department/treeview`;
+  const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/department/treeview`;
 
   return async (dispatch, getState)  => {
 
@@ -46,7 +46,7 @@ export const updateDeptAPI = ({form}) =>{
 
   console.log('updateDeptAPI', form);
 
-  const requestURL = `http://localhost:8989/department/save`;
+  const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/department/save`;
 
   return async(dispatch, getState) => {
 
@@ -68,7 +68,7 @@ export const updateDeptAPI = ({form}) =>{
 export const insertDeptAPI = (deptName) => {
     console.log("[insertDeptAPI] =========> ");
   
-    const requestURL =`http://localhost:8989/department/regist`;
+    const requestURL =`${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/department/regist`;
 
     return async (dispatch, getState) => {
 
@@ -96,7 +96,7 @@ export const insertDeptAPI = (deptName) => {
 
 export const callDeptAllAPI = ({ deptCode }) => {
     
-  const requestURL= 'http://localhost:8989/department/dept/list'
+  const requestURL= `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/department/dept/list`
 
   return async (dispatch, getState) => {
 

@@ -1,12 +1,13 @@
 import axios from "axios";
 import {POST_APPROVE, POST_REJECT, POST_TEMP} from "../modules/approval/ApprovalModuels";
 import {message} from "antd";
+import {PROTOCOL, SERVER_IP, SERVER_PORT} from "./APIConfig";
 
 
 export const rejectAPI = ({fetchData}) => {
   const token = localStorage.getItem("accessToken");
 
-  const requestURL = `http://localhost:8989/approval/reject`;
+  const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/approval/reject`;
   const headers = {
     'Content-Type': 'application/json',
     Authorization: "Bearer " + token
@@ -30,7 +31,7 @@ export const rejectAPI = ({fetchData}) => {
 
 export const approvalAPI = ({fetchData}) => {
   const token = localStorage.getItem("accessToken");
-  const requestURL = `http://localhost:8989/approval/approve`;
+  const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/approval/approve`;
   const headers = {
     'Content-Type': 'application/json',
     Authorization: "Bearer " + token
@@ -53,7 +54,7 @@ export const approvalAPI = ({fetchData}) => {
 }
 export const tempAPI = (formData, type, docId, tempIsSave) => {
   const token = localStorage.getItem("accessToken");
-  const requestURL = `http://localhost:8989/document/temp/${type}/${docId ?? null}`;
+  const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/document/temp/${type}/${docId ?? null}`;
 
   const headers = {
     Authorization: "Bearer " + token

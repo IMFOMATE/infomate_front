@@ -11,15 +11,16 @@ import {
     GET_TRASH,
     PUT_TRASH
 } from '../modules/MailTrashModule'
+import {PROTOCOL, SERVER_IP, SERVER_PORT} from "./APIConfig";
 
 export const callMailSelectAPI = ({memberCode, currentPage, title}) => {
 
     let requestURL;
 
     if(currentPage !== undefined || currentPage !== null){
-        requestURL = `http://localhost:8989/mail/mailList/${memberCode}/${title}/?offset=${currentPage}`;
+        requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/mail/mailList/${memberCode}/${title}/?offset=${currentPage}`;
     }else {
-        requestURL = `http://localhost:8989/mail/mailList/${memberCode}/${title}`;
+        requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/mail/mailList/${memberCode}/${title}`;
     }
 
     
@@ -47,7 +48,7 @@ export const callMiniMailSelectAPI = ({memberCode, currentPage, title}) => {
 
     let requestURL;
 
-    requestURL = `http://localhost:8989/mail/miniMail/${memberCode}/${title}/?offset=${currentPage}`;
+    requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/mail/miniMail/${memberCode}/${title}/?offset=${currentPage}`;
 
     
 
@@ -71,7 +72,7 @@ export const callMiniMailSelectAPI = ({memberCode, currentPage, title}) => {
 
 export const callMailContactSelectAPI = ({memberCode}) => {
 
-    const requestURL = `http://localhost:8989/mail/contactList/${memberCode}`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/mail/contactList/${memberCode}`;
 
     return async (dispatch, getState) => {
 
@@ -94,7 +95,7 @@ export const callMailContactSelectAPI = ({memberCode}) => {
 
 export const callPostMailAPI = ({form}) => {
 
-    const requestURL = "http://localhost:8989/mail/postMail";
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/mail/postMail`;
 
     return async (dispatch, getState) => {
         
@@ -119,7 +120,7 @@ export const callDeleteMailAPI = ({mailCode}) => {
 
     console.log("mailCode뭐들어오냐", mailCode);
 
-    const requestURL = `http://localhost:8989/mail/deleteMail/${mailCode}`
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/mail/deleteMail/${mailCode}`
 
     return async (dispatch, getState) => {
 
@@ -147,7 +148,7 @@ export const callUpdateStatusAPI = ({mailCode}) => {
 
     console.log("mailCode뭐들어오냐", mailCode);
 
-    const requestURL = `http://localhost:8989/mail/updateMail/${mailCode}`
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/mail/updateMail/${mailCode}`
 
     return async (dispatch, getState) => {
 
@@ -172,7 +173,7 @@ export const callSelectTrashAPI = ({memberCode}) => {
 
     console.log("memberCode", memberCode);
 
-    const requestURL = `http://localhost:8989/mail/selectTrash/${memberCode}`
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/mail/selectTrash/${memberCode}`
 
     return async (dispatch, getState) => {
 
@@ -199,7 +200,7 @@ export const callDeleteTrashAPI = ({memberCode}) => {
 
     console.log("{callDeleteTrashAPI } memberCode", memberCode);
 
-    const requestURL = `http://localhost:8989/mail/deleteTrash/${memberCode}`
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/mail/deleteTrash/${memberCode}`
 
     return async (dispatch, getState) => {
 
@@ -225,7 +226,7 @@ export const callUpdateTrashAPI = ({memberCode}) => {
 
     console.log(" { callUpdateTrashAPI } memberCode", memberCode);
 
-    const requestURL = `http://localhost:8989/mail/updateTrash/${memberCode}`
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/mail/updateTrash/${memberCode}`
 
     return async (dispatch, getState) => {
 
@@ -253,7 +254,7 @@ export const callFileAPI = ({mailCode}) => {
 
     console.log("mailCode", mailCode);
 
-    const requestURL = `http://localhost:8989/mail/selectFile/${mailCode}`
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/mail/selectFile/${mailCode}`
 
     return async (dispatch, getState) => {
 

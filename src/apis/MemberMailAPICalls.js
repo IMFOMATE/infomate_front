@@ -1,7 +1,8 @@
 import { GET_MEMBERMAIL } from "../modules/MemberMailModule";
+import {PROTOCOL, SERVER_IP, SERVER_PORT} from "./APIConfig";
 
 export const callGetMemberAPI = () => {
-    const requestURL = `http://localhost:8989/mail/selectMember`;
+    const requestURL = `${PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/mail/selectMember`;
 
     return async (dispatch, getState) => {
 

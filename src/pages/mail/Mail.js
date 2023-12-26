@@ -34,9 +34,8 @@ function Mail({title}) {
     const yStatusEmailsCount = yStatusEmails.length;
 
 
-    const date = dayjs(mail.mailDate )
-
-
+    const date = dayjs(mailList.mailDate)
+    
     const pageInfo = mail.data?.pageInfo || { pageEnd: 1 };
 
     const pageNumber = [];
@@ -60,7 +59,6 @@ function Mail({title}) {
     // 회원 코드를 가져옴
     const memberCode = authToken.memberCode;
 
-    
 
     useEffect(
         () => {
@@ -120,10 +118,6 @@ function Mail({title}) {
         }
     }
 
-    
-
-
-
 
     return (
         <>
@@ -162,7 +156,7 @@ function Mail({title}) {
                                 <div className={style.mailName} onClick={ () => onClickEventHandler(mail, mailList.sendMemberName[index].memberName) }>
                                     {mailList.sendMemberName && mailList.sendMemberName[index].memberName}</div>
                                 <div className={style.mailTitle}>{mail.mailTitle}</div>
-                                <div className={style.mailDate}>{date.format("YY-MM-DD")}</div>
+                                <div className={style.mailDate}>{mail.mailDate}</div>
                                 </div>
                             )
                         )}

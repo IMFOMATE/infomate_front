@@ -43,8 +43,6 @@ function AddContact({title}) {
         memo: '',
         like: 'N',
 
-        
-    
     })
 
     useEffect(() => {
@@ -74,7 +72,6 @@ function AddContact({title}) {
 
     const onClickRegisterHandler = () => {
 
-        console.log('ㅎㅇㅎㅇㅎㅇㅎㅇ');
 
         const formData = new FormData();
         console.log("form", form);
@@ -238,6 +235,7 @@ function AddContact({title}) {
                     </div>
                 </div>
                 </div>
+                
         </>  
     )
 }

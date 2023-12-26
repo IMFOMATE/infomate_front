@@ -78,10 +78,14 @@ function AddressBook({ title }) {
           }, [contactList]);
 
 
+
     const [selectName, setSelectName] = useState("");
+
+
+
     const [matchingNames, setMatchingNames] = useState([]);
     
-    // const [check, setCheck] = useState(false);
+    
     function getConstantVowel(kor) {
         const f = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ',];
         const ga = 44032;
@@ -99,7 +103,6 @@ function AddressBook({ title }) {
         }
     }
 
- 
 
     const [ starButton, setStarButton ] = useState(img2);
 
@@ -116,7 +119,6 @@ function AddressBook({ title }) {
         console.log('연락처 코드' , code);
         
         
-
         dispatch(callUpdateAPI({
             contactCode: code,
             contactLike: updatedStates[index] ? 'Y' : 'N', 
@@ -148,11 +150,9 @@ function AddressBook({ title }) {
 
     const handleSearch = (name) => {
 
-        
         setSelectName(name);
         console.log(name); 
         
-
         let serach = [];
 
         contactList.map((contact) => {
@@ -180,7 +180,7 @@ function AddressBook({ title }) {
 
     const [selectedContact, setSelectedContact] = useState(null);
 
-    console.log("asgfsagasgasg", selectedContact);
+
 
     const closeModal = () => {
         setSelectedContact(null);
